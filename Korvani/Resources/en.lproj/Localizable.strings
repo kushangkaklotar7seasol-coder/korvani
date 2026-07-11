@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "Next";
+"GOT_IT" = "Got it";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "Discover. Watch. Enjoy.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "Unlimited\nEntertainment";
+"PAGE1_INFO" = "Enjoy unlimited access to thousands of movies, TV shows and more.";
+"PAGE2_TITLE" = "Watch Trailers\nFirst";
+"PAGE2_INFO" = "Preview before you play and choose what to watch.";
+"PAGE3_TITLE" = "Your Favorites,\nYour Space";
+"PAGE3_INFO" = "Save favorites, get personalized picks and never miss a must-watch.";
+"PAGE4_TITLE" = "Discover Your Next\nFavorite Movie";
+"PAGE4_INFO" = "Explore trending movies, TV Shows, trailers, rating, reviews and where to watch - all in one place.";
+"INFO_ONLY" = "INFORMATION ONLY";
+"PAGE4_MOREINFO" = "This app does not stream or host movies. It helps you discover content, watch trailers, view ratings and find legal streaming platforms.";
