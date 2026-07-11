@@ -12,13 +12,20 @@ internal import Combine
 struct KorvaniApp: App {
     @StateObject private var localization = LocalizationManager.shared
     
+    init() {
+        UINavigationBar.appearance().isHidden = true
+    }
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                Splash()
-                    .toolbar(.hidden, for: .navigationBar)
-                    .preferredColorScheme(.light)
+                ZStack {
+                    Splash()
+                        .navigationBarHidden(true)
+                        .toolbar(.hidden, for: .navigationBar)
+                }
             }
+            
             .environment(\.locale, Locale(identifier: localization.selectedLanguage))
             .environmentObject(localization)
             .id(localization.selectedLanguage)

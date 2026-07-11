@@ -7,12 +7,48 @@
 
 import Foundation
 internal import Combine
+import Alamofire
 
 class HomeViewModel : ObservableObject {
     @Published var selectedTab = 0
-    @Published var information: [OnBordingInfo] = [OnBordingInfo(id: 0, image: "", name: Strings.page1Title, info: Strings.page1Info),
-                                                   OnBordingInfo(id: 1, image: "", name: Strings.page2Title, info: Strings.page2Info),
-                                                   OnBordingInfo(id: 2, image: "", name: Strings.page3Title, info: Strings.page3Info),
-                                                   OnBordingInfo(id: 3, image: "", name: Strings.page4Title, info: Strings.page4Info, moreInfo: Strings.page4MoreInfo)]
-   
+    @Published var topRatedMovie: [Movie] = []
+    @Published var celebrity: CelebrityResponse?
+    @Published var isLoading = false
+    @Published var navigationItem = (celebrity: false, movieDetail: false)
+    
+    init() {
+        self.topRatedMovieAPI()
+    }
+    
+    func topRatedMovieAPI() {
+        if Utility.isInternetAvailable() {
+            isLoading = true
+            HomeServices.shared.topRatedAPI { statusCode, response in
+                self.isLoading = false
+                self.topRatedMovie = response.results
+                self.topRatedMovie.removeLast(self.topRatedMovie.count-5)
+                self.celebrityAPI()
+            } failure: { error in
+                self.isLoading = false
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
+    func celebrityAPI() {
+        if Utility.isInternetAvailable() {
+            isLoading = true
+            HomeServices.shared.celecrityAPI(page: 1) { statusCode, response in
+                self.isLoading = false
+                self.celebrity = response
+            } failure: { error in
+                self.isLoading = false
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
 }

@@ -24,15 +24,13 @@ struct Splash: View {
         .background(.blackColour)
         .navigationDestination(isPresented: $viewModel.navigation.OnBoding) {
             OnBoding()
-                .toolbar(.hidden, for: .navigationBar)
         }
         .navigationDestination(isPresented: $viewModel.navigation.language) {
             LanguageScreen()
-                .toolbar(.hidden, for: .navigationBar)
         }
         .navigationDestination(isPresented: $viewModel.navigation.home) {
             HomeScreen()
-                .toolbar(.hidden, for: .navigationBar)
+                
         }
     }
 }

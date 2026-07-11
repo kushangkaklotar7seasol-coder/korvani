@@ -51,11 +51,9 @@ struct OnBoding: View {
                             }
                         }
                     } else {
-//                        withAnimation {
-                            DispatchQueue.main.async {
-                                viewModel.selectedTab += 1
-                            }
-//                        }
+                        DispatchQueue.main.async {
+                            viewModel.selectedTab += 1
+                        }
                     }
                 } label: {
                     Text(viewModel.selectedTab == viewModel.information.count-1 ? Strings.gotIt : Strings.next)
@@ -76,8 +74,7 @@ struct OnBoding: View {
                 .background(.clear)
             }
         }
-        .background(.blackColour)
-        .foregroundColor(.white)
+        .defaultPage()
         .frame(width: screenWidth, height: screenHeight, alignment: .center)
         .navigationDestination(isPresented: $viewModel.isShowHome) {
             HomeScreen()

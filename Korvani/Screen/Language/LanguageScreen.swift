@@ -65,7 +65,7 @@ struct LanguageScreen: View {
             }
             .padding(.horizontal, 16)
         }
-        .background(.blackColour)
+        .defaultPage()
         .navigationDestination(isPresented: $viewModel.isOnBording) {
             OnBoding()
                 .toolbar(.hidden, for: .navigationBar)
