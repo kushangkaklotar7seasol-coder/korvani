@@ -16,7 +16,7 @@ class HomeServices{
         APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: topRatedMovieUrl, responseType: MovieSearchResponse.self) { statusCode, response in
             success(statusCode, response)
         } failure: { error in
-            print(error)
+            failure(error)
         }
     }
     
@@ -24,7 +24,7 @@ class HomeServices{
         APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: celebrityUrl+"\(page)", responseType: CelebrityResponse.self) { statusCode, response in
             success(statusCode, response)
         } failure: { error in
-            print(error)
+            failure(error)
         }
     }
 }

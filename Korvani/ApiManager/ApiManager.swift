@@ -44,11 +44,11 @@ class APIManager {
         return headerDic
     }
     
-    func requestAPIWithParameters(
+    func requestAPIWithParameters<T: Decodable>(
         method: HTTPMethod,
         urlString: String,
         parameters: [String: Any],
-        success: @escaping (Int, Response) -> (),
+        success: @escaping (Int, T) -> (),
         failure: @escaping (String) -> ()
     ) {
         
@@ -125,7 +125,7 @@ class APIManager {
                 
             case .success(let data):
 
-                guard let statusCode = response.response?.statusCode/*, let mappedResponse = self.mapResponse(data, to: Response.self)*/ else {
+                guard let statusCode = response.response?.statusCode else {
                     failure("Invalid response")
                     return
                 }
@@ -135,9 +135,21 @@ class APIManager {
                         let decoder = JSONDecoder()
                         let apiData = try decoder.decode(T.self, from: data)
                         success(statusCode, apiData)
-                        
+                    } catch let DecodingError.keyNotFound(key, context) {
+                        failure("Missing key: \(key.stringValue)")
+                        print(context.debugDescription)
+                    } catch let DecodingError.typeMismatch(type, context) {
+                        failure("Type mismatch: \(type)")
+                        print(context.codingPath)
+                        print(context.debugDescription)
+                    } catch let DecodingError.valueNotFound(value, context) {
+                        failure("Value not found: \(value)")
+                        print(context.codingPath)
+                        print(context.debugDescription)
+                    } catch let DecodingError.dataCorrupted(context) {
+                        failure("Data corrupted: \(context.debugDescription)")
                     } catch {
-                        print("Failed to convert data: \(error.localizedDescription)")
+                        failure(error.localizedDescription)
                     }
                 }
                 else if statusCode == 403 {
@@ -147,7 +159,77 @@ class APIManager {
                         success(statusCode, apiData)
                         
                     } catch {
-                        print("Failed to convert data: \(error.localizedDescription)")
+                        failure("Failed to convert data: \(error.localizedDescription)")
+                    }
+                }
+                else {
+                    failure("error")
+                }
+                
+            case .failure(let error):
+                failure(error.localizedDescription)
+            }
+        }
+    }
+    
+    func weatherGetAPI<T: Decodable>(
+        method: HTTPMethod,
+        urlString: String,
+        responseType: T.Type,
+        success: @escaping (Int, T) -> (),
+        failure: @escaping (String) -> ()
+    ) {
+        if isAppInTestMode {
+            print(HTTPMethod.self)
+            print(urlString)
+        }
+        
+        AF.request(
+            urlString,
+            method: method,
+        )
+        .validate()
+        .responseData { response in
+            
+            switch response.result {
+                
+            case .success(let data):
+
+                guard let statusCode = response.response?.statusCode else {
+                    failure("Invalid response")
+                    return
+                }
+                
+                if (200..<300).contains(statusCode) {
+                    do {
+                        let decoder = JSONDecoder()
+                        let apiData = try decoder.decode(T.self, from: data)
+                        success(statusCode, apiData)
+                    } catch let DecodingError.keyNotFound(key, context) {
+                        failure("Missing key: \(key.stringValue)")
+                        print(context.debugDescription)
+                    } catch let DecodingError.typeMismatch(type, context) {
+                        failure("Type mismatch: \(type)")
+                        print(context.codingPath)
+                        print(context.debugDescription)
+                    } catch let DecodingError.valueNotFound(value, context) {
+                        failure("Value not found: \(value)")
+                        print(context.codingPath)
+                        print(context.debugDescription)
+                    } catch let DecodingError.dataCorrupted(context) {
+                        failure("Data corrupted: \(context.debugDescription)")
+                    } catch {
+                        failure(error.localizedDescription)
+                    }
+                }
+                else if statusCode == 403 {
+                    do {
+                        let decoder = JSONDecoder()
+                        let apiData = try decoder.decode(T.self, from: data)
+                        success(statusCode, apiData)
+                        
+                    } catch {
+                        failure("Failed to convert data: \(error.localizedDescription)")
                     }
                 }
                 else {

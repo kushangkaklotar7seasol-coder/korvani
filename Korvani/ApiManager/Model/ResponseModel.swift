@@ -74,8 +74,7 @@ struct CelebrityResponse: Codable {
     }
 }
  
-// MARK: - Person
- 
+// MARK: - Person -
 struct Celebrity: Codable, Identifiable {
     let adult: Bool
     let gender: Int
@@ -96,4 +95,262 @@ struct Celebrity: Codable, Identifiable {
         case popularity
         case profilePath = "profile_path"
     }
+}
+
+// MARK: - Person Details -
+struct PersonDetail: Codable, Identifiable {
+    let adult: Bool
+    let alsoKnownAs: [String]
+    let biography: String
+    let birthday: String?
+    let deathday: String?
+    let gender: Int
+    let homepage: String?
+    let id: Int
+    let imdbId: String?
+    let knownForDepartment: String
+    let name: String
+    let placeOfBirth: String?
+    let popularity: Double
+    let profilePath: String?
+ 
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case alsoKnownAs = "also_known_as"
+        case biography
+        case birthday
+        case deathday
+        case gender
+        case homepage
+        case id
+        case imdbId = "imdb_id"
+        case knownForDepartment = "known_for_department"
+        case name
+        case placeOfBirth = "place_of_birth"
+        case popularity
+        case profilePath = "profile_path"
+    }
+}
+
+// MARK: - Celebrity related movie -
+struct PersonMovieCredits: Codable {
+    let cast: [Movie]
+    let id: Int
+}
+
+struct PersonTVCredits: Codable {
+    let cast: [TVCastCredit]
+    let id: Int
+}
+
+struct TVCastCredit: Codable, Identifiable {
+    let adult: Bool
+    let backdropPath: String?
+    let genreIds: [Int]
+    let id: Int
+    let originCountry: [String]
+    let originalLanguage: String
+    let originalName: String
+    let overview: String
+    let popularity: Double
+    let posterPath: String?
+    let firstAirDate: String?
+    let softcore: Bool
+    let name: String
+    let voteAverage: Double
+    let voteCount: Int
+    let character: String
+    let creditId: String
+    let episodeCount: Int
+    let firstCreditAirDate: String?
+
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case backdropPath = "backdrop_path"
+        case genreIds = "genre_ids"
+        case id
+        case originCountry = "origin_country"
+        case originalLanguage = "original_language"
+        case originalName = "original_name"
+        case overview
+        case popularity
+        case posterPath = "poster_path"
+        case firstAirDate = "first_air_date"
+        case softcore
+        case name
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+        case character
+        case creditId = "credit_id"
+        case episodeCount = "episode_count"
+        case firstCreditAirDate = "first_credit_air_date"
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MARK: - Weather -
+struct WeatherForecastResponse: Codable {
+    let cod: String
+    let message: Int
+    let cnt: Int
+    let list: [ForecastItem]
+    let city: City
+}
+ 
+// MARK: - ForecastItem
+ 
+struct ForecastItem: Codable, Identifiable {
+    let dt: Int
+    let main: MainWeather
+    let weather: [WeatherCondition]
+    let clouds: Clouds
+    let wind: Wind
+    let visibility: Int
+    let pop: Double
+    let rain: Precipitation?
+    let snow: Precipitation?
+    let sys: Sys
+    let dtTxt: String
+ 
+    var id: Int { dt }
+ 
+    enum CodingKeys: String, CodingKey {
+        case dt
+        case main
+        case weather
+        case clouds
+        case wind
+        case visibility
+        case pop
+        case rain
+        case snow
+        case sys
+        case dtTxt = "dt_txt"
+    }
+}
+ 
+// MARK: - MainWeather
+ 
+struct MainWeather: Codable {
+    let temp: Double
+    let feelsLike: Double
+    let tempMin: Double
+    let tempMax: Double
+    let pressure: Int
+    let seaLevel: Int
+    let grndLevel: Int
+    let humidity: Int
+    let tempKf: Double
+    let dewPoint: Double?
+ 
+    enum CodingKeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
+        case humidity
+        case tempKf = "temp_kf"
+        case dewPoint = "dew_point"
+    }
+}
+ 
+// MARK: - WeatherCondition
+ 
+struct WeatherCondition: Codable, Identifiable {
+    let id: Int
+    let main: String
+    let description: String
+    let icon: String
+ 
+    /// Full icon image URL from OpenWeatherMap.
+    var iconURL: URL? {
+        URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png")
+    }
+}
+ 
+// MARK: - Clouds
+ 
+struct Clouds: Codable {
+    let all: Int
+}
+ 
+// MARK: - Wind
+ 
+struct Wind: Codable {
+    let speed: Double
+    let deg: Int
+    let gust: Double?
+}
+ 
+// MARK: - Precipitation (rain / snow)
+ 
+struct Precipitation: Codable {
+    let threeHour: Double?
+ 
+    enum CodingKeys: String, CodingKey {
+        case threeHour = "3h"
+    }
+}
+ 
+// MARK: - Sys
+ 
+struct Sys: Codable {
+    /// Part of day: "d" for day, "n" for night.
+    let pod: String
+}
+ 
+// MARK: - City
+ 
+struct City: Codable {
+    let id: Int
+    let name: String
+    let coord: Coordinate
+    let country: String
+    let population: Int
+    let timezone: Int
+    let sunrise: Int
+    let sunset: Int
+}
+ 
+// MARK: - Coordinate
+ 
+struct Coordinate: Codable {
+    let lat: Double
+    let lon: Double
 }

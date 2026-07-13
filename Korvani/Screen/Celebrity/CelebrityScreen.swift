@@ -22,19 +22,8 @@ struct CelebrityScreen: View {
         ZStack {
             VStack(spacing: 5) {
                 
-                HStack {
-                    Button {
-                        self.dismiss()
-                    } label: {
-                        Image("ic_back")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                    }
-                    
-                    Text("About the Celebrity")
-                        .font(.system(size: 18, weight: .medium))
-                    
-                    Spacer()
+                DefaultDesign.Header(name: "About the Celebrity") {
+                    self.dismiss()
                 }
                 
                 ScrollView(showsIndicators: false) {
@@ -57,6 +46,7 @@ struct CelebrityScreen: View {
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
+        
     }
     
     func loadMoreIfNeeded(currentItem: Int) {
@@ -92,6 +82,34 @@ class celebrity {
                 Text(celebrity.name)
                     .font(.system(size: 14,weight: .regular))
                     .lineLimit(1)
+            }
+            .frame(width: size())
+        }
+    }
+}
+
+class DefaultDesign {
+    struct Header: View {
+        var name: String? = nil
+        var icon: String = "ic_back"
+        var back: (() -> Void)?
+        
+        var body: some View {
+            HStack {
+                Button {
+                    self.back?()
+                } label: {
+                    Image(icon)
+                        .resizable()
+                        .frame(width: 40, height: 40, alignment: .center)
+                }
+                
+                if name != nil {
+                    Text(name ?? "")
+                        .font(.system(size: 18, weight: .medium))
+                }
+                
+                Spacer()
             }
         }
     }

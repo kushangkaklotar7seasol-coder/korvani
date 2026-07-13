@@ -38,7 +38,11 @@ struct HomeScreen: View {
                                 Spacer()
                             }
                             
-                            Home.Weather()
+                            Button {
+                                viewModel.navigationItem.weather = true
+                            } label: {
+                                Home.Weather()
+                            }
                             
                             Home.UnitTranslaterView()
                             
@@ -69,6 +73,10 @@ struct HomeScreen: View {
                                     HStack {
                                         ForEach(array.indices, id: \.self) { index in
                                             celebrity.profile(celebrity: array[index])
+                                                .onTapGesture {
+                                                    viewModel.navigationItem.movieDetail = true
+                                                    viewModel.celebritySelectedId = array[index].id
+                                                }
                                         }
                                     }
                                     .padding(.horizontal, 16)
@@ -86,6 +94,12 @@ struct HomeScreen: View {
         .defaultPage()
         .navigationDestination(isPresented: $viewModel.navigationItem.celebrity) {
             CelebrityScreen(viewModel: CelebrityViewModel(celebrity: viewModel.celebrity))
+        }
+        .navigationDestination(isPresented: $viewModel.navigationItem.movieDetail) {
+            CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
+        }
+        .navigationDestination(isPresented: $viewModel.navigationItem.weather) {
+            Weather()
         }
     }
 }

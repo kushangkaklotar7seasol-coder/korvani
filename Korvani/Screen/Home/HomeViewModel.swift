@@ -14,7 +14,8 @@ class HomeViewModel : ObservableObject {
     @Published var topRatedMovie: [Movie] = []
     @Published var celebrity: CelebrityResponse?
     @Published var isLoading = false
-    @Published var navigationItem = (celebrity: false, movieDetail: false)
+    @Published var navigationItem = (celebrity: false, movieDetail: false, weather: false)
+    @Published var celebritySelectedId: Int?
     
     init() {
         self.topRatedMovieAPI()
