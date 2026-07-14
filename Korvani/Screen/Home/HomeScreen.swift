@@ -120,6 +120,9 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.navigationItem.unitConverter) {
             UnitConverterScreen()
         }
+        .navigationDestination(isPresented: $viewModel.navigationItem.translater) {
+            TranslateScreen()
+        }
         .onAppear() {
             viewModel.onApper()
         }
@@ -398,31 +401,34 @@ class Home {
                     .cornerRadius(20)
                 }
                 
-                ZStack(alignment: .leading) {
-                    LinearGradient(colors: [.lightGreenColour, .greenColour], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    
-                    VStack(alignment: .leading) {
-                        Image("ic_translate")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                            .padding(.top, 16)
-                            
+                Button {
+                    viewModel.navigationItem.translater = true
+                } label: {
+                    ZStack(alignment: .leading) {
+                        LinearGradient(colors: [.lightGreenColour, .greenColour], startPoint: .topLeading, endPoint: .bottomTrailing)
                         
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text("Translate")
-                                .font(.system(size: 16, weight: .semibold))
-                                .padding(.top, 9)
+                        VStack(alignment: .leading) {
+                            Image("ic_translate")
+                                .resizable()
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .padding(.top, 16)
+                                
                             
-                            Text("Instant Translation")
-                                .font(.system(size: 13, weight: .regular))
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text("Translate")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .padding(.top, 9)
+                                
+                                Text("Instant Translation")
+                                    .font(.system(size: 13, weight: .regular))
+                            }
+                            Spacer()
                         }
-                        Spacer()
+                        .padding(.leading, 16)
                     }
-                    .padding(.leading, 16)
+                    .frame(width: (screenWidth-32)/2, height: 120, alignment: .center)
+                    .cornerRadius(20)
                 }
-                .frame(width: (screenWidth-32)/2, height: 120, alignment: .center)
-                .cornerRadius(20)
-
             }
         }
     }

@@ -9,81 +9,66 @@ import Foundation
 internal import Combine
 
 class UnitConverterViewModel: ObservableObject {
-    @Published var selectedType: UnitType = .length {
+    @Published var selectedUnit: UnitType = .length {
         didSet { updateUnits() }
     }
     
     @Published var fromValue: String = "" {
-        didSet { convert() }
+        didSet { convertUnit() }
     }
     
     @Published var toValue: String = ""
     
     @Published var fromUnit: String = "Meters" {
-        didSet { convert() }
+        didSet { convertUnit() }
     }
     
     @Published var toUnit: String = "Kilometers" {
-        didSet { convert() }
+        didSet { convertUnit() }
     }
     
     init() {
-        updateUnits()
+        self.updateUnits()
     }
     
-    
-}
-
-
-// MARK: - Methods
-extension UnitConverterViewModel {
-    
     func updateUnits() {
-        let units = selectedType.units
+        let units = selectedUnit.units
         
-        fromUnit = units.first ?? ""
-        toUnit = units.count > 1 ? units[1] : units.first ?? ""
+        self.fromUnit = units.first ?? ""
+        self.toUnit = units.count > 1 ? units[1] : units.first ?? ""
         
-        fromValue = ""
-        toValue = ""
+        self.fromValue = ""
+        self.toValue = ""
     }
     
     func swapUnits() {
         let oldFrom = fromUnit
-        fromUnit = toUnit
-        toUnit = oldFrom
+        self.fromUnit = toUnit
+        self.toUnit = oldFrom
       
     }
-}
-
-// MARK: - Convert Router
-extension UnitConverterViewModel {
     
-    private func convert() {
+    private func convertUnit() {
         let cleanedValue = fromValue
             .replacingOccurrences(of: ",", with: "")
             .replacingOccurrences(of: " ", with: "")
         
-        // ✅ Scientific notation bhi handle karo (e.g. "1E-12")
         guard let value = Double(cleanedValue) else {
-            toValue = ""
+            self.toValue = ""
             return
         }
         
-        switch selectedType {
-        case .length:   convertLength(value)
-        case .weight:   convertWeight(value)
-        case .speed:    convertSpeed(value)
-        case .storage:  convertStorage(value)
+        switch selectedUnit {
+        case .length:   convertUnitLength(value)
+        case .weight:   convertUnitWeight(value)
+        case .speed:    convertUnitSpeed(value)
+        case .storage:  convertUnitStorage(value)
         }
     }
-}
-
-// MARK: - Conversion Functions
-extension UnitConverterViewModel {
+    
     
     // Base Unit: Meters
-    private func convertLength(_ value: Double) {
+    private func convertUnitLength(_ value: Double) {
         let meters: Double
         switch fromUnit {
         case "Meters":       meters = value
@@ -110,11 +95,11 @@ extension UnitConverterViewModel {
         default:             result = meters
         }
         
-        toValue = format(result)
+        self.toValue = self.formatUnit(result)
     }
     
     // Base Unit: Kilograms
-    private func convertWeight(_ value: Double) {
+    private func convertUnitWeight(_ value: Double) {
         let kg: Double
         switch fromUnit {
         case "Kilograms":    kg = value
@@ -139,11 +124,11 @@ extension UnitConverterViewModel {
         default:             result = kg
         }
         
-        toValue = format(result)
+        self.toValue = self.formatUnit(result)
     }
     
     // Base Unit: Meters per Second
-    private func convertSpeed(_ value: Double) {
+    private func convertUnitSpeed(_ value: Double) {
         let mps: Double
         switch fromUnit {
         case "M/s":      mps = value
@@ -164,11 +149,11 @@ extension UnitConverterViewModel {
         default:         result = mps
         }
         
-        toValue = format(result)
+        self.toValue = self.formatUnit(result)
     }
     
     // Base Unit: Bytes (1 KB = 1000 Bytes - Decimal/SI Standard)
-    private func convertStorage(_ value: Double) {
+    private func convertUnitStorage(_ value: Double) {
         let bytes: Double
         switch fromUnit {
         case "Bytes":   bytes = value
@@ -191,14 +176,11 @@ extension UnitConverterViewModel {
         default:        result = bytes
         }
         
-        toValue = format(result)
+        self.toValue = self.formatUnit(result)
     }
-}
 
-// MARK: - Formatter
-extension UnitConverterViewModel {
-
-    private func format(_ value: Double) -> String {
+    // MARK: - Formatter -
+    private func formatUnit(_ value: Double) -> String {
         guard value != 0 else { return "0" }
 
         let absValue = abs(value)
@@ -219,7 +201,6 @@ extension UnitConverterViewModel {
     }
 }
 
-
 enum UnitType: String, CaseIterable {
     case length  = "Length"
     case weight  = "Weight"
@@ -229,12 +210,10 @@ enum UnitType: String, CaseIterable {
     var units: [String] {
         switch self {
         case .length:
-            return ["Meters", "Kilometers", "Centimeters", "Millimeters",
-                    "Feet", "Inches", "Miles", "Yards"]
+            return ["Meters", "Kilometers", "Centimeters", "Millimeters", "Feet", "Inches", "Miles", "Yards"]
 
         case .weight:
-            return ["Kilograms", "Grams", "Milligrams",
-                    "Pounds", "Ounces", "Tonnes", "Stone"]
+            return ["Kilograms", "Grams", "Milligrams", "Pounds", "Ounces", "Tonnes", "Stone"]
 
         case .speed:
             return ["Km/h", "Mph", "M/s", "Knots", "Ft/s"]

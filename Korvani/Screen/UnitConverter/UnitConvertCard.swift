@@ -9,24 +9,25 @@ import SwiftUI
 struct UnitConvertCard: View {
     
     let title: String
-    let subtitle: String
+//    let subtitle: String
     
     @Binding var value: String
     @Binding var selectedUnit: String
+    @FocusState var isTextFieldFocused: Bool
     
     let units: [String]
     var isEditable: Bool = true
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(alignment: .leading, spacing: 0) {
             
-            HStack {
+            VStack(alignment: .leading) {
                 
                 Text(title)
                     .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(.grayColour)
                 
-                Spacer()
                 
                 Menu {
                     ForEach(units, id: \.self) { unit in
@@ -36,41 +37,30 @@ struct UnitConvertCard: View {
                         }
                     }
                 } label: {
-                    
-                    HStack(spacing: 6) {
-                        
+                    HStack() {
                         Text(selectedUnit)
-                            .font(.system(size: 16,weight: .medium))
+                            .font(.system(size: 24,weight: .semibold))
+                        
+                        Spacer()
                         
                         Image(systemName: "chevron.down")
                     }
-                    .padding(.horizontal, 14)
-                    .frame(height: 29)
-                    .background(Color("#F7F2FF"))
-                    .cornerRadius(14.5)
                 }
+                .padding(.top, 10)
+                
+                Divider()
+                    .background(.grayColour.opacity(0.3))
             }
             
             TextField("00", text: $value)
-                .font(.system(size: 42, weight: .bold))
-                .foregroundStyle(Color("#0C203A"))
-                .padding(.horizontal, 18)
-                .frame(height: 76)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 18)
-                        .stroke(
-                            Color("#D9C9F3"),
-                            lineWidth: 1
-                        )
-                }
+                .font(.system(size: 40, weight: .medium))
+                .foregroundStyle(.whiteColour)
                 .keyboardType(.decimalPad)
                 .disabled(!isEditable)
+                .focused($isTextFieldFocused)
+                .padding(.top)
                 .onChange(of: value) { newValue in
-                    
-                    // ✅ Non-editable card (TO field) ke liye filter mat lagao
                     guard isEditable else { return }
-                    
-                    // Allow only digits and one decimal point
                     var filtered = newValue.filter {
                         $0.isNumber || $0 == "."
                     }
@@ -90,12 +80,9 @@ struct UnitConvertCard: View {
                         value = filtered
                     }
                 }
-            Text(subtitle)
-                .font(.system(size: 16))
-                .foregroundStyle(.secondary)
         }
         .padding(20)
-        .background(.white.opacity(0.75))
+        .background(.borderColour)
         .cornerRadius(24)
     }
 }
