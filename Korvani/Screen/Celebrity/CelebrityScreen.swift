@@ -113,4 +113,13 @@ class DefaultDesign {
             }
         }
     }
+    
+    struct Loader: View {
+        var body: some View {
+            ZStack {
+                ProgressView()
+                    .tint(.whiteColour)
+            }
+        }
+    }
 }

@@ -27,5 +27,8 @@ class Utility {
         return isAvailable
     }
 
+    class func getWeatherImageUrl(_ code: String) -> String {
+        return "https://openweathermap.org/img/wn/\(code)@2x.png"
+    }
 }
 

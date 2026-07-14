@@ -99,7 +99,7 @@ struct CelebrityDetailsScreen: View {
                                 .padding(.horizontal, 16)
                             }
                         } else {
-                            Text("No Media Find")
+                            Text("No Media Found")
                                 .font(.system(size: 22, weight: .bold))
                                 .padding()
                         }
@@ -287,8 +287,7 @@ class CelebrityDetails {
                     Spacer()
                     
                     if viewModel.isLoading {
-                        ProgressView()
-                            .tint(.whiteColour)
+                        DefaultDesign.Loader()
                     } else {
                         Button {
                             print("View all")

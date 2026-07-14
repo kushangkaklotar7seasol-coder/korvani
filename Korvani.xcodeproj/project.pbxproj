@@ -15,9 +15,22 @@
 		97DF83F72FFF701A00CFCEED /* Korvani.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Korvani.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		97F8BE483005EBE80086AAA2 /* Exceptions for "Korvani" folder in "Korvani" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 97DF83F62FFF701A00CFCEED /* Korvani */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		97DF83F92FFF701A00CFCEED /* Korvani */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				97F8BE483005EBE80086AAA2 /* Exceptions for "Korvani" folder in "Korvani" target */,
+			);
 			path = Korvani;
 			sourceTree = "<group>";
 		};
@@ -268,6 +281,7 @@
 				DEVELOPMENT_TEAM = 9V2WLZFDZC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Korvani/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +313,7 @@
 				DEVELOPMENT_TEAM = 9V2WLZFDZC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Korvani/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -16,6 +16,3 @@ let celebrityUrl = serverUrl + "person/popular&page="
 let celebeityDetailUrl = serverUrl + "person/"
 let celebrityMovieUrl = "movie_credits"
 let celebritySeriesUrl = "tv_credits"
-
-// MARK: - Weather -
-let weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=21.170240&lon=72.831062&appid=d74cbcfbbb9780cf5004245bc4311617&units=metric"

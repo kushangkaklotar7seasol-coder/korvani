@@ -38,13 +38,29 @@ struct HomeScreen: View {
                                 Spacer()
                             }
                             
-                            Button {
-                                viewModel.navigationItem.weather = true
-                            } label: {
-                                Home.Weather()
+                            ZStack {
+                                LinearGradient(colors: [.grayColour, .grayColour], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                
+                                if viewModel.locationStaus == 0 {
+                                    Button {
+                                        viewModel.navigationItem.weather = true
+                                    } label: {
+                                        Home.Weather(viewModel: viewModel)
+                                    }
+                                } else if viewModel.locationStaus == 1 {
+                                    Button ("Allow Permission for getting Weather") {
+                                        viewModel.openAppSettings()
+                                    }
+                                } else if viewModel.locationStaus == 2 {
+                                    Button ("Allow Permission for getting Weather") {
+                                        viewModel.openAppSettings()
+                                    }
+                                }
                             }
+                            .frame(width: screenWidth-32, height: 120, alignment: .center)
+                            .cornerRadius(20)
                             
-                            Home.UnitTranslaterView()
+                            Home.UnitTranslaterView(viewModel: viewModel)
                             
                             Home.HdWallpaperView()
                         }
@@ -53,7 +69,7 @@ struct HomeScreen: View {
                         VStack {
                             HStack {
                                 Text("About the Celebrity")
-                                    .font(.system(size: 18,weight: .semibold))
+                                    .font(.system(size: 18, weight: .semibold))
                                 
                                 Spacer()
                                 
@@ -101,6 +117,12 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.navigationItem.weather) {
             Weather()
         }
+        .navigationDestination(isPresented: $viewModel.navigationItem.unitConverter) {
+            UnitConverterScreen()
+        }
+        .onAppear() {
+            viewModel.onApper()
+        }
     }
 }
 
@@ -144,7 +166,6 @@ class Home {
 
         }
     }
-    
     struct PagerView: View {
         @StateObject var viewModel: HomeViewModel
         var cardWidth: CGFloat { screenWidth * 0.8 }
@@ -158,43 +179,42 @@ class Home {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: spacing) {
                     ForEach(viewModel.topRatedMovie.indices, id: \.self) { index in
-                            VStack(alignment: .leading) {
-                                ZStack {
-                                    KFImage.url(URL(string: imageUrl+(viewModel.topRatedMovie[index].posterPath ?? "")))
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                .frame(width: cardWidth, height: self.isSelected(index) ? 177 : 150)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
-                                
-                                Text(viewModel.topRatedMovie[index].title)
-                                    .font(.system(size: 15, weight: .medium))
-                                    .animation(.easeInOut(duration: 0.3), value: scrollPosition)
-                                
-                                HStack(spacing: 0) {
-                                    Text("\(viewModel.topRatedMovie[index].releaseDate)   |")
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(.grayColour)
-                                        .padding(.trailing, 8)
-                                    
-                                    Image("ic_star")
-                                        .frame(width: 14, height: 14, alignment: .center)
-                                    
-                                    Text("\(viewModel.topRatedMovie[index].voteAverage/2)".prefix(3))
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(.yellowColour)
-                                    
-                                }
-                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                        VStack(alignment: .leading) {
+                            ZStack {
+                                KFImage.url(URL(string: imageUrl + (viewModel.topRatedMovie[index].posterPath ?? "")))
+                                    .resizable()
+                                    .scaledToFill()
                             }
-                            .id(index)
+                            .frame(width: cardWidth, height: self.isSelected(index) ? 177 : 150)
+                            .background(.white)
+                            .cornerRadius(10)
+                            .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                            
+                            Text(viewModel.topRatedMovie[index].title)
+                                .font(.system(size: 15, weight: .medium))
+                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                            
+                            HStack(spacing: 0) {
+                                Text("\(viewModel.topRatedMovie[index].releaseDate)   |")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.grayColour)
+                                    .padding(.trailing, 8)
+                                
+                                Image("ic_star")
+                                    .frame(width: 14, height: 14, alignment: .center)
+                                
+                                Text("\(viewModel.topRatedMovie[index].voteAverage / 2)".prefix(3))
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.yellowColour)
+                            }
+                            .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                        }
+                        .id(index)
                     }
                 }
                 .scrollTargetLayout()
-                .padding(.horizontal, (screenWidth - cardWidth) / 2)
             }
+            .safeAreaPadding(.horizontal, (screenWidth - cardWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: $scrollPosition)
             .frame(height: 230)
@@ -203,15 +223,91 @@ class Home {
                     scrollPosition = 0
                 }
             }
-//            .onReceive(timer) { _ in
-//                autoScrollToNext()
-//            }
+            .onReceive(timer) { _ in
+                autoScrollToNext()
+            }
         }
         
         private func isSelected(_ index: Int) -> Bool {
             (scrollPosition ?? 0) == index
         }
         
+        private func autoScrollToNext() {
+            guard !viewModel.topRatedMovie.isEmpty else { return }
+            let current = scrollPosition ?? 0
+            let next = current < viewModel.topRatedMovie.count - 1 ? current + 1 : 0
+            withAnimation(.easeInOut(duration: 0.3)) {
+                scrollPosition = next
+            }
+        }
+    }
+//    struct PagerView: View {
+//        @StateObject var viewModel: HomeViewModel
+//        var cardWidth: CGFloat { screenWidth * 0.8 }
+//        var spacing: CGFloat = 16
+//        @State private var scrollPosition: Int?
+//        
+//        // Auto-scroll timer
+//        let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
+//        
+//        var body: some View {
+//            ScrollView(.horizontal, showsIndicators: false) {
+//                HStack(spacing: spacing) {
+//                    ForEach(viewModel.topRatedMovie.indices, id: \.self) { index in
+//                            VStack(alignment: .leading) {
+//                                ZStack {
+//                                    KFImage.url(URL(string: imageUrl+(viewModel.topRatedMovie[index].posterPath ?? "")))
+//                                        .resizable()
+//                                        .scaledToFill()
+//                                }
+//                                .frame(width: cardWidth, height: self.isSelected(index) ? 177 : 150)
+//                                .background(.white)
+//                                .cornerRadius(10)
+//                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+//                                
+//                                Text(viewModel.topRatedMovie[index].title)
+//                                    .font(.system(size: 15, weight: .medium))
+//                                    .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+//                                
+//                                HStack(spacing: 0) {
+//                                    Text("\(viewModel.topRatedMovie[index].releaseDate)   |")
+//                                        .font(.system(size: 12, weight: .medium))
+//                                        .foregroundColor(.grayColour)
+//                                        .padding(.trailing, 8)
+//                                    
+//                                    Image("ic_star")
+//                                        .frame(width: 14, height: 14, alignment: .center)
+//                                    
+//                                    Text("\(viewModel.topRatedMovie[index].voteAverage/2)".prefix(3))
+//                                        .font(.system(size: 12, weight: .medium))
+//                                        .foregroundColor(.yellowColour)
+//                                    
+//                                }
+//                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+//                            }
+//                            .id(index)
+//                    }
+//                }
+//                .scrollTargetLayout()
+//                .padding(.horizontal, (screenWidth - cardWidth) / 2)
+//            }
+//            .scrollTargetBehavior(.viewAligned)
+//            .scrollPosition(id: $scrollPosition)
+//            .frame(height: 230)
+//            .onAppear {
+//                DispatchQueue.main.async {
+//                    scrollPosition = 0
+//                }
+//            }
+//            .onReceive(timer) { _ in
+//                autoScrollToNext()
+//            }
+//        }
+//        
+//        private func isSelected(_ index: Int) -> Bool {
+//            (scrollPosition ?? 0) == index
+//        }
+//        
 //        private func autoScrollToNext() {
 //            guard !viewModel.topRatedMovie.isEmpty else { return }
 //            let current = scrollPosition ?? 0
@@ -220,39 +316,46 @@ class Home {
 //                scrollPosition = next
 //            }
 //        }
-    }
+//    }
     
     struct Weather: View {
+        @StateObject var viewModel: HomeViewModel
+        
         var body: some View {
             ZStack {
                 LinearGradient(colors: [.skyBlueColour, .liteSkyBlueColour], startPoint: .topLeading, endPoint: .bottomTrailing)
                 
                 HStack {
-                    ZStack { }
-                        .frame(width: 60, height: 60, alignment: .center)
-                        .background(.white)
+                    ZStack {
+                        KFImage.url(URL(string: Utility.getWeatherImageUrl(viewModel.todayWeather?.weather.first?.icon ?? "")))
+                            .resizable()
+                            .scaledToFill()
+                    }
+                    .frame(width: 80, height: 80, alignment: .center)
+                    .background(.clear)
                     
                     VStack(alignment: .leading) {
-                        Text("32°")
-                            .font(.system(size: 27, weight: .bold))
+                        Text("\(viewModel.todayWeather?.main.temp ?? 0.0)°".prefix(4))
+                            .font(.system(size: 30, weight: .bold))
                         
-                        Text("06 May, Wednesday")
+                        Text(Date.now, format: .dateTime.weekday(.wide).month(.wide).day())
                             .font(.system(size: 14, weight: .regular))
                         
-                        Text("New York, USA")
+                        Text(locationManager.addressString)
                             .font(.system(size: 14, weight: .semibold))
+                            .lineLimit(1)
                     }
                     
                     Spacer()
                     
-                    Text("Sunny")
+                    Text(viewModel.todayWeather?.weather.first?.main ?? "")
                         .font(.system(size: 12, weight: .medium))
                         .padding(.horizontal, 12)
                         .padding(.vertical, 5)
                         .background(.white.opacity(0.2))
                         .cornerRadius(20)
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 16)
             }
             .frame(width: screenWidth-32, height: 120, alignment: .center)
             .cornerRadius(20)
@@ -261,32 +364,39 @@ class Home {
     }
     
     struct UnitTranslaterView: View {
+        @StateObject var viewModel: HomeViewModel
+        
         var body: some View {
             HStack() {
-                ZStack(alignment: .leading) {
-                    LinearGradient(colors: [.litePurpleColour, .purpleColour], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    
-                    VStack(alignment: .leading) {
-                        Image("ic_unit_converter")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                            .padding(.top, 16)
-                            
+                
+                Button {
+                    viewModel.navigationItem.unitConverter = true
+                } label: {
+                    ZStack(alignment: .leading) {
+                        LinearGradient(colors: [.litePurpleColour, .purpleColour], startPoint: .topLeading, endPoint: .bottomTrailing)
                         
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text("Unit Converter")
-                                .font(.system(size: 16, weight: .semibold))
-                                .padding(.top, 9)
+                        VStack(alignment: .leading) {
+                            Image("ic_unit_converter")
+                                .resizable()
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .padding(.top, 16)
                             
-                            Text("Convert units instantly")
-                                .font(.system(size: 13, weight: .regular))
+                            
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text("Unit Converter")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .padding(.top, 9)
+                                
+                                Text("Convert units instantly")
+                                    .font(.system(size: 13, weight: .regular))
+                            }
+                            Spacer()
                         }
-                        Spacer()
+                        .padding(.leading, 16)
                     }
-                    .padding(.leading, 16)
+                    .frame(width: (screenWidth-32)/2, height: 120, alignment: .center)
+                    .cornerRadius(20)
                 }
-                .frame(width: (screenWidth-32)/2, height: 120, alignment: .center)
-                .cornerRadius(20)
                 
                 ZStack(alignment: .leading) {
                     LinearGradient(colors: [.lightGreenColour, .greenColour], startPoint: .topLeading, endPoint: .bottomTrailing)

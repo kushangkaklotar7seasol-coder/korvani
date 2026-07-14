@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct Weather: View {
     @Environment(\.dismiss) private var dismiss
@@ -23,14 +24,22 @@ struct Weather: View {
                 
                 VStack {
                     Text(Date.now, format: .dateTime.weekday(.wide).month(.wide).day())
-                        .font(.system(size: 14, weight: .regular))
+                        .font(.system(size: 16, weight: .regular))
                     
-                    Text("New York, USA")
+                    Text(locationManager.addressString)
                         .font(.system(size: 22, weight: .semibold))
                     
-                    ZStack { }
-                        .frame(width: 120, height: 120, alignment: .center)
-                        .background(.whiteColour)
+                    ZStack {
+                        if viewModel.selectedDay != nil {
+                            KFImage.url(URL(string: Utility.getWeatherImageUrl(viewModel.selectedDay?.weather.first?.icon ?? "")))
+                                .resizable()
+                                .scaledToFill()
+                        } else {
+                            DefaultDesign.Loader()
+                                .frame(width: 100, height: 100, alignment: .center)
+                        }
+                    }
+                    .frame(width: 160, height: 160, alignment: .center)
                 }
                 .padding(.top, 24)
                 .padding(.horizontal, 16)
@@ -38,25 +47,32 @@ struct Weather: View {
                 
                 HStack {
                     VStack(spacing: 8) {
-                        Text("26° C")
+                        let tempStr = "\(viewModel.selectedDay?.main.temp ?? 0.0)".prefix(2)
+                        Text("\(tempStr)° C")
                             .font(.system(size: 44, weight: .semibold))
                         
-                        Text("Partly Sunny")
+                        Text("\(viewModel.selectedDay?.weather.first?.description ?? "")")
                             .padding(.horizontal, 12)
                             .padding(.vertical, 7)
                             .background(.lightBlackColour)
                             .cornerRadius(10)
                         
-                        Text("H: 26°  L: 24°")
+                        let tempMaxStr = "\(viewModel.selectedDay?.main.tempMax ?? 0.0)".prefix(2)
+                        let tempMinStr = "\(viewModel.selectedDay?.main.tempMin ?? 0.0)".prefix(2)
+                        Text("H: \(tempMaxStr)°  L: \(tempMinStr)°")
                             .font(.system(size: 12, weight: .semibold))
                     }
                     
                     Spacer()
                     
                     VStack {
-                        WeatherDesign.Info()
-                        WeatherDesign.Info()
-                        WeatherDesign.Info()
+                        let tempMaxStr = "\(viewModel.selectedDay?.main.tempMax ?? 0.0)".prefix(2)
+                        let humidityStr = "\(viewModel.selectedDay?.main.humidity ?? 0)".prefix(2)
+                        let windStr = "\(viewModel.selectedDay?.wind.speed ?? 0.0)".prefix(2)
+                        
+                        WeatherDesign.Info(image: "ic_temp", name: "Maximum", value: "\(tempMaxStr)° C")
+                        WeatherDesign.Info(image: "ic_humidity", name: "Humidity", value: "\(humidityStr)%")
+                        WeatherDesign.Info(image: "ic_wind", name: "Wind", value: "\(windStr)km/h")
                     }
                 }
                 .padding(.horizontal, 50)
@@ -74,8 +90,11 @@ struct Weather: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                            ForEach(viewModel.weathers?.list ?? [], id: \.id) { item in
-                                WeatherDesign.ForeCast(isToday: false)
+                            ForEach(viewModel.weeklyForecast, id: \.id) { item in
+                                WeatherDesign.ForeCast(isToday: viewModel.selectedDay?.id == item.id, detail: item)
+                                    .onTapGesture {
+                                        viewModel.selectedDay = item
+                                    }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -111,17 +130,21 @@ class WeatherDesign {
     }
     
     struct Info: View {
+        var image: String
+        var name: String
+        var value: String
+        
         var body: some View {
             HStack {
-                Image("ic_temp")
+                Image(image)
                     .resizable()
                     .frame(width: 44, height: 44, alignment: .center)
                 
                 VStack {
-                    Text("Maximum")
+                    Text(name)
                         .font(.system(size: 12, weight: .regular))
                     
-                    Text("26° C")
+                    Text(value)//26° C
                         .font(.system(size: 16, weight: .medium))
                 }
             }
@@ -130,16 +153,21 @@ class WeatherDesign {
     
     struct ForeCast: View {
         var isToday: Bool
+        var detail: ForecastItem
         
         var body: some View {
             VStack {
-                Text("Mon")
+                Text(dayName(from: detail.dtTxt))
                 
-                ZStack { }
-                    .frame(width: 30, height: 30, alignment: .center)
-                    .background(.whiteColour)
+                ZStack {
+                    KFImage.url(URL(string: Utility.getWeatherImageUrl(detail.weather.first?.icon ?? "")))
+                        .resizable()
+                        .scaledToFill()
+                }
+                .frame(width: 60, height: 60, alignment: .center)
                 
-                Text("26°")
+                let tempStr = "\(detail.main.temp)".prefix(2)
+                Text("\(tempStr)°")
                     .font(.system(size: 22, weight: .medium))
             }
             .padding()
@@ -156,6 +184,20 @@ class WeatherDesign {
                         lineWidth: isToday ? 2 : 1
                     )
             )
+        }
+        
+        func dayName(from dateString: String) -> String {
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            guard let date = formatter.date(from: dateString)
+            else { return "" }
+            
+            let output = DateFormatter()
+            output.dateFormat = "EEE"
+            
+            return output.string(from: date)
         }
     }
 }
