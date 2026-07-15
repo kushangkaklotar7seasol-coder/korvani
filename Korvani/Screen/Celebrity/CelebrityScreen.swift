@@ -92,7 +92,11 @@ class DefaultDesign {
     struct Header: View {
         var name: String? = nil
         var icon: String = "ic_back"
+        var secondIcon: String = "ic_share_background"
+        var isShowSecondbutton = false
+        
         var back: (() -> Void)?
+        var secondButton: (() -> Void)?
         
         var body: some View {
             HStack {
@@ -110,6 +114,16 @@ class DefaultDesign {
                 }
                 
                 Spacer()
+                
+                if isShowSecondbutton {
+                    Button {
+                        self.secondButton?()
+                    } label: {
+                        Image(secondIcon)
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                    }
+                }
             }
         }
     }

@@ -29,8 +29,7 @@ struct Splash: View {
             LanguageScreen()
         }
         .navigationDestination(isPresented: $viewModel.navigation.home) {
-            HomeScreen()
-                
+            TabBarScreen()
         }
     }
 }

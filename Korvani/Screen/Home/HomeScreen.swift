@@ -62,7 +62,11 @@ struct HomeScreen: View {
                             
                             Home.UnitTranslaterView(viewModel: viewModel)
                             
-                            Home.HdWallpaperView()
+                            Button {
+                                viewModel.navigationItem.wallpaper = true
+                            } label: {
+                                Home.HdWallpaperView()
+                            }
                         }
                         .padding(.horizontal, 16)
                         
@@ -122,6 +126,9 @@ struct HomeScreen: View {
         }
         .navigationDestination(isPresented: $viewModel.navigationItem.translater) {
             TranslateScreen()
+        }
+        .navigationDestination(isPresented: $viewModel.navigationItem.wallpaper) {
+            WallpaperScreen()
         }
         .onAppear() {
             viewModel.onApper()

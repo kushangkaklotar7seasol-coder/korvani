@@ -1,0 +1,57 @@
+//
+//  WallpaperExportViewModel.swift
+//  Korvani
+//
+//  Created by Kushang kaklotar on 15/07/26.
+//
+
+import Foundation
+internal import Combine
+import Photos
+import UIKit
+
+class WallpaperExportViewModel: ObservableObject {
+    var wallpaper: Wallpaper?
+    @Published var downloadStatus = 0  // 0=Nothing, 1=Downloading, 2=SaveToPhotos
+    
+    init(wallpaper: Wallpaper? = nil) {
+        self.wallpaper = wallpaper
+    }
+    
+    func onExportImage(){
+        DispatchQueue.main.async {
+            self.downloadStatus = 1
+        }
+        WallpaperService.shared.downloadImage(url: URL(string: self.wallpaper?.src.original ?? "")!) { image in
+            print(image)
+            self.saveImageUsingPhotosFramework(image: image)
+        } failure: { error in
+            DispatchQueue.main.async {
+                self.downloadStatus = 0
+            }
+            print(error)
+        }
+    }
+    
+    func saveImageUsingPhotosFramework(image: UIImage) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }) { success, error in
+            if success {
+                print("Successfully saved to Photos library.")
+                
+                DispatchQueue.main.async {
+                    self.downloadStatus = 2
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.downloadStatus = 0
+                    }
+                }
+            } else if let error = error {
+                print("Failed to save image: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.downloadStatus = 0
+                }
+            }
+        }
+    }
+}

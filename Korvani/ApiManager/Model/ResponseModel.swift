@@ -230,7 +230,7 @@ struct WeatherForecastResponse: Codable {
     let city: City
 }
  
-// MARK: - ForecastItem
+// MARK: ForecastItem
  
 struct ForecastItem: Codable, Identifiable {
     let dt: Int
@@ -262,7 +262,7 @@ struct ForecastItem: Codable, Identifiable {
     }
 }
  
-// MARK: - MainWeather
+// MARK: MainWeather
  
 struct MainWeather: Codable {
     let temp: Double
@@ -290,7 +290,7 @@ struct MainWeather: Codable {
     }
 }
  
-// MARK: - WeatherCondition
+// MARK: WeatherCondition
  
 struct WeatherCondition: Codable, Identifiable {
     let id: Int
@@ -304,13 +304,13 @@ struct WeatherCondition: Codable, Identifiable {
     }
 }
  
-// MARK: - Clouds
+// MARK: Clouds
  
 struct Clouds: Codable {
     let all: Int
 }
  
-// MARK: - Wind
+// MARK: Wind
  
 struct Wind: Codable {
     let speed: Double
@@ -318,8 +318,7 @@ struct Wind: Codable {
     let gust: Double?
 }
  
-// MARK: - Precipitation (rain / snow)
- 
+// MARK: Precipitation (rain / snow)
 struct Precipitation: Codable {
     let threeHour: Double?
  
@@ -328,15 +327,13 @@ struct Precipitation: Codable {
     }
 }
  
-// MARK: - Sys
- 
+// MARK: Sys
 struct Sys: Codable {
     /// Part of day: "d" for day, "n" for night.
     let pod: String
 }
- 
-// MARK: - City
- 
+
+// MARK:  City
 struct City: Codable {
     let id: Int
     let name: String
@@ -348,9 +345,69 @@ struct City: Codable {
     let sunset: Int
 }
  
-// MARK: - Coordinate
- 
+// MARK:  Coordinate
 struct Coordinate: Codable {
     let lat: Double
     let lon: Double
+}
+
+// MARK: - Wallpaper -
+struct WallpaperListResponse: Codable {
+    var total: Int
+    var page: Int
+    var limit: Int
+    var totalPages: Int
+    var data: [Wallpaper]
+}
+ 
+// MARK: Photo
+struct Wallpaper: Codable, Identifiable {
+    let src: PhotoSources
+    let id: String
+    let pexelsId: Int
+    let width: Int
+    let height: Int
+    let url: String
+    let alt: String
+    let photographer: String
+    let photographerId: Int
+    let photographerUrl: String
+    let avgColor: String
+    let liked: Bool
+    let category: String
+    let createdAt: String
+    let updatedAt: String
+    let v: Int
+ 
+    enum CodingKeys: String, CodingKey {
+        case src
+        case id = "_id"
+        case pexelsId
+        case width
+        case height
+        case url
+        case alt
+        case photographer
+        case photographerId
+        case photographerUrl
+        case avgColor
+        case liked
+        case category
+        case createdAt
+        case updatedAt
+        case v = "__v"
+    }
+}
+ 
+// MARK: PhotoSources
+ 
+struct PhotoSources: Codable {
+    let original: String
+    let large2x: String
+    let large: String
+    let medium: String
+    let small: String
+    let portrait: String
+    let landscape: String
+    let tiny: String
 }

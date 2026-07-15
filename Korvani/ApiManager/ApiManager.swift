@@ -1,4 +1,5 @@
 import Alamofire
+import UIKit
 import Foundation
 //import ObjectMapper
 
@@ -241,4 +242,19 @@ class APIManager {
             }
         }
     }
+    
+    func downloadImage(url: URL,
+                       success: @escaping (UIImage) -> (),
+                       failure: @escaping (String) -> ()) {
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data = data, error == nil, let image = UIImage(data: data) else {
+                return
+            }
+            
+            success(image)
+            
+        }.resume()
+    }
+    
 }

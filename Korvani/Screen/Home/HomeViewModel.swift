@@ -15,7 +15,7 @@ class HomeViewModel : ObservableObject {
     @Published var topRatedMovie: [Movie] = []
     @Published var celebrity: CelebrityResponse?
     @Published var isLoading = false
-    @Published var navigationItem = (celebrity: false, movieDetail: false, weather: false, unitConverter: false, translater: false)
+    @Published var navigationItem = (celebrity: false, movieDetail: false, weather: false, unitConverter: false, translater: false, wallpaper: false)
     @Published var celebritySelectedId: Int?
     @Published var todayWeather: ForecastItem?
     @Published var locationStaus: Int = 5 // 0=Allow, 1=Restricted, 2=Denied, 3=authorizedAlways, 4=Location Disable, 5=Loading

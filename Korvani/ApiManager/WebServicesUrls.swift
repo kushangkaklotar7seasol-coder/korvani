@@ -19,3 +19,6 @@ let celebritySeriesUrl = "tv_credits"
 
 // MARK: - Translate -
 let translateAPI = "https://translate.googleapis.com/translate_a/single?"
+
+// MARK: - Wallpaper -
+let wallpapaerUrl = "https://api-pexels.7seasol.in/api/images/by-category?category=trending&page="
