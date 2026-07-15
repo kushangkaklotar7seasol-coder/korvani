@@ -18,11 +18,11 @@ struct WallpaperExportScreen: View {
                 DefaultDesign.Header(isShowSecondbutton: true) {
                     self.dismiss()
                 } secondButton: {
-                    print("Share")
+                    viewModel.shareImage()
                 }
 
-                ZStack {//https://images.pexels.com/photos/1276574/pexels-photo-1276574.jpeg
-                    KFImage.url(URL(string: viewModel.wallpaper?.src.original ?? "https://images.pexels.com/photos/5831268/pexels-photo-5831268.jpeg"))
+                ZStack {
+                    KFImage.url(URL(string: viewModel.wallpaper?.src.original ?? ""))
                         .resizable()
                         .scaledToFill()
                 }

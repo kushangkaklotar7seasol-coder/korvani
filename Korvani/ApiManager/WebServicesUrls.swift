@@ -16,6 +16,8 @@ let celebrityUrl = serverUrl + "person/popular&page="
 let celebeityDetailUrl = serverUrl + "person/"
 let celebrityMovieUrl = "movie_credits"
 let celebritySeriesUrl = "tv_credits"
+let searchUrl = serverUrl + "search/movie?query="
+let searchSeriesUrl = serverUrl + "search/tv?query="
 
 // MARK: - Translate -
 let translateAPI = "https://translate.googleapis.com/translate_a/single?"

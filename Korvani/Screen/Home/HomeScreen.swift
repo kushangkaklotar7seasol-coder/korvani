@@ -130,6 +130,9 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.navigationItem.wallpaper) {
             WallpaperScreen()
         }
+        .fullScreenCover(isPresented: $viewModel.navigationItem.search) {
+            SearchScreen()
+        }
         .onAppear() {
             viewModel.onApper()
         }
@@ -164,7 +167,7 @@ class Home {
                         .frame(width: 40, height: 40)
                 } else {
                     Button {
-                        print("Search")
+                        viewModel.navigationItem.search = true
                     } label: {
                         Image("ic_search")
                             .resizable()
@@ -176,6 +179,7 @@ class Home {
 
         }
     }
+    
     struct PagerView: View {
         @StateObject var viewModel: HomeViewModel
         var cardWidth: CGFloat { screenWidth * 0.8 }

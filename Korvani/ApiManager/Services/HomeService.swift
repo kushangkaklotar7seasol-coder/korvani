@@ -27,4 +27,23 @@ class HomeServices{
             failure(error)
         }
     }
+    
+    
+    func searchMovieAPI(parameters: [String: Any] = [:],text: String,page: Int, success: @escaping (Int, MediaCredits) -> (), failure: @escaping (String) -> ()) {
+        let url = searchUrl+text+"&page=\(page)"
+        APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: url, responseType: MediaCredits.self) { statusCode, response in
+            success(statusCode, response)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
+    func searchSeriesAPI(parameters: [String: Any] = [:],text: String,page: Int, success: @escaping (Int, MediaCredits) -> (), failure: @escaping (String) -> ()) {
+        let url = searchSeriesUrl+text+"&page=\(page)"
+        APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: url, responseType: MediaCredits.self) { statusCode, response in
+            success(statusCode, response)
+        } failure: { error in
+            failure(error)
+        }
+    }
 }

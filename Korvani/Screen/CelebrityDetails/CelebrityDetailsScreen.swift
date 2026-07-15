@@ -93,7 +93,7 @@ struct CelebrityDetailsScreen: View {
                                 
                                 HStack {
                                     ForEach(viewModel.movies.indices, id: \.self) { item in
-                                        MovieDetail.card(movies: viewModel.movies[item])
+                                        MovieDetail.card(movies: viewModel.movies[item], numbersOfCard: 3)
                                     }
                                 }
                                 .padding(.horizontal, 16)
@@ -311,10 +311,25 @@ class CelebrityDetails {
 class MovieDetail {
     
     struct card: View {
-        var cardWidth = {
-            return (screenWidth-28)/3
+        var movies: MediaItem
+        var numbersOfCard = 2
+        var isShowLike = true
+        
+        var cardWidth: CGFloat {
+            switch numbersOfCard {
+            case 2:
+                return (screenWidth-47) / 2
+            case 3:
+                return (screenWidth-28) / 3
+            default:
+                return screenWidth-32
+            }
         }
-        var movies: Movie
+        
+        var cardHeight: CGFloat {
+            return cardWidth*1.25
+        }
+        
         
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -323,19 +338,21 @@ class MovieDetail {
                     KFImage.url(URL(string: imageUrl+(movies.posterPath ?? "")))
                         .resizable()
                         .scaledToFill()
-                        .frame(width: cardWidth(), height: cardWidth()*1.25)
+                        .frame(width: cardWidth, height: cardHeight)
                         .clipped()
                     
                     VStack {
                         HStack {
                             Spacer()
                             
-                            Button {
-                                print("Like click")
-                            } label: {
-                                Image("ic_unlike")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
+                            if isShowLike {
+                                Button {
+                                    print("Like click")
+                                } label: {
+                                    Image("ic_unlike")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                }
                             }
                         }
                         .padding(6)
@@ -361,28 +378,31 @@ class MovieDetail {
                         .padding(6)
                     }
                 }
-                .frame(width: cardWidth(), height: cardWidth()*1.25, alignment: .center)
+                .frame(width: cardWidth, height: cardHeight, alignment: .center)
                 .background(.grayColour)
                 .cornerRadius(12)
                 
-                Text(movies.title)
+                Text((movies.title ?? movies.name) ?? "")
                     .foregroundColor(.whiteColour)
                     .padding(.top, 8)
                     .lineLimit(1)
                 
-                HStack(spacing: 3) {
-                    Text(movies.releaseDate.prefix(4))
-                    
-                    Circle()
-                        .frame(width: 4, height: 4, alignment: .center)
-                    
-                    Text("\(movies.genreIds.first ?? 0)")
+                if let releaseDate = (movies.releaseDate ?? movies.firstAirDate) {
+                    HStack(spacing: 3) {
+                        
+                        Text(releaseDate/*.prefix(4)*/)
+                        
+//                        Circle()
+//                            .frame(width: 4, height: 4, alignment: .center)
+                        
+                        //Text("\(movies.genreIds.first ?? 0)")
+                    }
+                    .padding(.top, 3)
+                    .foregroundColor(.grayColour)
                 }
-                .padding(.top, 3)
-                .foregroundColor(.grayColour)
             }
             .font(.system(size: 12, weight: .medium))
-            .frame(width: cardWidth())
+            .frame(width: cardWidth)
         }
     }
 }

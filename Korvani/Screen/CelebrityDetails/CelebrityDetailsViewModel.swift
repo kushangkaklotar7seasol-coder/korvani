@@ -14,7 +14,7 @@ class CelebrityDetailsViewModel: ObservableObject {
     @Published var seriesCredits: PersonTVCredits?
     var celebrityId: Int
     @Published var personalInformation: [LanguageModel] = []
-    @Published var movies: [Movie] = []
+    @Published var movies: [MediaItem] = []
     
     @Published var isLoading = false
     
@@ -78,8 +78,9 @@ class CelebrityDetailsViewModel: ObservableObject {
                 self.isLoading = false
                 self.seriesCredits = response
                 for i in self.seriesCredits?.cast ?? [] {
-                    self.movies.append(Movie(adult: i.adult, backdropPath: i.backdropPath, genreIds: i.genreIds, id: i.id, title: i.name, originalLanguage: i.originalLanguage, originalTitle: i.originalName, overview: i.overview, popularity: i.popularity, posterPath: i.posterPath, releaseDate: i.firstAirDate ?? "", softcore: i.softcore, video: false, voteAverage: i.voteAverage, voteCount: i.voteCount))
+                    self.movies.append(i)
                 }
+//                Movie(adult: i.adult, backdropPath: i.backdropPath, genreIds: i.genreIds, id: i.id, title: i.name, originalLanguage: i.originalLanguage, originalTitle: i.originalName, overview: i.overview, popularity: i.popularity, posterPath: i.posterPath, releaseDate: i.firstAirDate ?? "", softcore: i.softcore, video: false, voteAverage: i.voteAverage, voteCount: i.voteCount)
             } failure: { error in
                 self.isLoading = false
                 print(error)
@@ -102,8 +103,9 @@ class CelebrityDetailsViewModel: ObservableObject {
                 self.tvShowAPI()
             } else {
                 for i in self.seriesCredits?.cast ?? [] {
-                    self.movies.append(Movie(adult: i.adult, backdropPath: i.backdropPath, genreIds: i.genreIds, id: i.id, title: i.name, originalLanguage: i.originalLanguage, originalTitle: i.originalName, overview: i.overview, popularity: i.popularity, posterPath: i.posterPath, releaseDate: i.firstAirDate ?? "", softcore: i.softcore, video: false, voteAverage: i.voteAverage, voteCount: i.voteCount))
+                    self.movies.append(i)
                 }
+//                Movie(adult: i.adult, backdropPath: i.backdropPath, genreIds: i.genreIds, id: i.id, title: i.name, originalLanguage: i.originalLanguage, originalTitle: i.originalName, overview: i.overview, popularity: i.popularity, posterPath: i.posterPath, releaseDate: i.firstAirDate ?? "", softcore: i.softcore, video: false, voteAverage: i.voteAverage, voteCount: i.voteCount)
             }
         }
     }

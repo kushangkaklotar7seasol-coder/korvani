@@ -134,12 +134,12 @@ struct PersonDetail: Codable, Identifiable {
 
 // MARK: - Celebrity related movie -
 struct PersonMovieCredits: Codable {
-    let cast: [Movie]
+    let cast: [MediaItem]
     let id: Int
 }
 
 struct PersonTVCredits: Codable {
-    let cast: [TVCastCredit]
+    let cast: [MediaItem]
     let id: Int
 }
 
@@ -180,6 +180,84 @@ struct TVCastCredit: Codable, Identifiable {
         case name
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case character
+        case creditId = "credit_id"
+        case episodeCount = "episode_count"
+        case firstCreditAirDate = "first_credit_air_date"
+    }
+}
+
+struct MediaCredits: Codable {
+//    let id: Int
+    var page: Int
+    var totalPages: Int
+    var totalResults: Int
+    var results: [MediaItem]
+    
+    enum CodingKeys: String, CodingKey {
+//        case id
+        case page
+        case results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+}
+
+struct MediaItem: Codable, Identifiable {
+    // Shared fields
+    let adult: Bool
+    let backdropPath: String?
+    let genreIds: [Int]
+    let id: Int
+    let originalLanguage: String
+    let overview: String
+    let popularity: Double
+    let posterPath: String?
+    let softcore: Bool
+    let voteAverage: Double
+    let voteCount: Int
+ 
+    // Movie-only fields
+    let title: String?
+    let originalTitle: String?
+    let releaseDate: String?
+    let video: Bool?
+ 
+    // TV-only fields
+    let name: String?
+    let originalName: String?
+    let firstAirDate: String?
+    let originCountry: [String]?
+ 
+    // TV credit-only fields (present when this item comes from a person's TV credits)
+    let character: String?
+    let creditId: String?
+    let episodeCount: Int?
+    let firstCreditAirDate: String?
+ 
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case backdropPath = "backdrop_path"
+        case genreIds = "genre_ids"
+        case id
+        case originalLanguage = "original_language"
+        case overview
+        case popularity
+        case posterPath = "poster_path"
+        case softcore
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+ 
+        case title
+        case originalTitle = "original_title"
+        case releaseDate = "release_date"
+        case video
+ 
+        case name
+        case originalName = "original_name"
+        case firstAirDate = "first_air_date"
+        case originCountry = "origin_country"
+ 
         case character
         case creditId = "credit_id"
         case episodeCount = "episode_count"

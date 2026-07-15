@@ -15,9 +15,9 @@ struct UnitConverterScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: "Unit Converter") {
+                DefaultDesign.Header(name: "Unit Converter", back: {
                     self.dismiss()
-                }
+                })
                 
                 ScrollView(showsIndicators: false) {
                     HStack(spacing: 9) {

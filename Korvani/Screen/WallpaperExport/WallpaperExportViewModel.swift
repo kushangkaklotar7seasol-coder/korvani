@@ -54,4 +54,54 @@ class WallpaperExportViewModel: ObservableObject {
             }
         }
     }
+    
+    func shareImage(){
+        WallpaperService.shared.downloadImage(url: URL(string: self.wallpaper?.src.original ?? "")!) { image in
+            
+            let controller = UIActivityViewController(
+                activityItems: [image],
+                applicationActivities: nil
+            )
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.topViewController?
+                    .present(controller, animated: true)
+            }
+            
+        } failure: { error in
+            print(error)
+        }
+    }
+}
+
+extension UIApplication {
+
+    var topViewController: UIViewController? {
+        guard let windowScene = connectedScenes.first as? UIWindowScene,
+              let rootViewController = windowScene
+                .windows
+                .first(where: { $0.isKeyWindow })?
+                .rootViewController else {
+            return nil
+        }
+
+        return topViewController(from: rootViewController)
+    }
+
+    private func topViewController(from controller: UIViewController) -> UIViewController {
+
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(from: navigationController.visibleViewController ?? navigationController)
+        }
+
+        if let tabBarController = controller as? UITabBarController {
+            return topViewController(from: tabBarController.selectedViewController ?? tabBarController)
+        }
+
+        if let presented = controller.presentedViewController {
+            return topViewController(from: presented)
+        }
+
+        return controller
+    }
 }

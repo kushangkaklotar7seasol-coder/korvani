@@ -17,9 +17,9 @@ struct Weather: View {
             WeatherDesign.Background()
             
             VStack {
-                DefaultDesign.Header(name: "Weather", icon: "ic_purple_back") {
+                DefaultDesign.Header(name: "Weather", icon: "ic_purple_back", back: {
                     self.dismiss()
-                }
+                })
                 .padding(.horizontal, 16)
                 
                 VStack {
