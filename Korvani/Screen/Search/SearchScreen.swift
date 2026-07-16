@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchScreen: View {
     @StateObject var viewModel = SearchViewModel()
     @Environment(\.dismiss) private var dismiss
+    @FocusState var isTextFieldFocused: Bool
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -36,6 +37,7 @@ struct SearchScreen: View {
                         
                         TextField("Search Movies & TV Shows", text: $viewModel.searchTextField)
                             .frame(height: 40)
+                            .focused($isTextFieldFocused)
                             .overlay(
                                 HStack {
                                     Spacer()
@@ -71,6 +73,9 @@ struct SearchScreen: View {
                     LazyVGrid(columns: columns) {
                         ForEach(array.indices, id: \.self) { index in
                             MovieDetail.card(movies: array[index])
+                                .onAppear() {
+                                    self.loadMoreIfNeeded(currentItem: index)
+                                }
                         }
                     }
                     .padding(.vertical, 20)
@@ -103,6 +108,20 @@ struct SearchScreen: View {
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
+        .onTapGesture {
+            isTextFieldFocused = false
+        }
+    }
+    
+    func loadMoreIfNeeded(currentItem: Int) {
+        print(currentItem)
+        if viewModel.selectedIndex == 0 {
+            guard !viewModel.isLoading, currentItem == viewModel.movies.count - 5 else { return }
+            viewModel.moviesSearchAPI(text: viewModel.searchTextField, isFromPagination: true)
+        } else {
+            guard !viewModel.isLoading, currentItem == viewModel.series.count - 5 else { return }
+            viewModel.searchSeriesAPI(text: viewModel.searchTextField, isFromPagination: true)
+        }
     }
 }
 

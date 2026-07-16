@@ -32,31 +32,40 @@ class SearchViewModel: ObservableObject {
     
     func perform(_ text: String) {
         if self.selectedIndex == 0 {
-            self.moviesSearchAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
+            if self.searchTextField != "" {
+                self.moviesSearchAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
         } else {
-            self.searchSeriesAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
+            if self.searchTextField != "" {
+                self.searchSeriesAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
+            }
         }
     }
     
     func manageAPICalls(index: Int){
         if index == 0 {
             if movies.isEmpty {
-                self.moviesSearchAPI(text: self.searchTextField.trimmingCharacters(in: .whitespacesAndNewlines))
+                if self.searchTextField != "" {
+                    self.moviesSearchAPI(text: self.searchTextField.trimmingCharacters(in: .whitespacesAndNewlines))
+                }
             }
         } else {
             if series.isEmpty {
-                self.searchSeriesAPI(text: self.searchTextField.trimmingCharacters(in: .whitespacesAndNewlines))
+                if self.searchTextField != "" {
+                    self.searchSeriesAPI(text: self.searchTextField.trimmingCharacters(in: .whitespacesAndNewlines))
+                }
             }
         }
     }
     
     // MARK: - API Call's -
-    func moviesSearchAPI(text: String) {
+    func moviesSearchAPI(text: String, isFromPagination: Bool = false) {
         if Utility.isInternetAvailable() {
             self.isLoading = true
-            HomeServices.shared.searchMovieAPI(text: text, page: 1) { statusCode, response in
+            HomeServices.shared.searchMovieAPI(text: text, page: isFromPagination ? (self.moviesResponse?.page ?? 1)+1 : self.moviesResponse?.page ?? 1) { statusCode, response in
                 self.isLoading = false
                 self.moviesResponse = response
+                print(response.page)
                 
                 for i in response.results {
                     self.movies.append(i)
@@ -71,12 +80,13 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    func searchSeriesAPI(text: String) {
+    func searchSeriesAPI(text: String, isFromPagination: Bool = false) {
         if Utility.isInternetAvailable() {
             self.isLoading = true
-            HomeServices.shared.searchSeriesAPI(text: text, page: 1) { statusCode, response in
+            HomeServices.shared.searchSeriesAPI(text: text, page: isFromPagination ? (self.seriesResponse?.page ?? 1)+1 : self.seriesResponse?.page ?? 1) { statusCode, response in
                 self.isLoading = false
                 self.seriesResponse = response
+                print(response.page)
                 
                 for i in response.results {
                     self.series.append(i)

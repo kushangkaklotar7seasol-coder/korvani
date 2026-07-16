@@ -69,7 +69,6 @@ struct TextCard: View {
 //                    } label: {
 //                        
 //                        ZStack {
-//                            
 //                            Text("Paste")
 //                                .font(.system(size: 12, weight: .medium))
 ////                                .foregroundStyle(AppColor.textColor)

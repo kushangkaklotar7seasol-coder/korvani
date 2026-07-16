@@ -28,27 +28,25 @@ struct WallpaperScreen: View {
                 })
                 
                 ScrollView(showsIndicators: false) {
-//                   if let array = viewModel.displayWallpaper {
-                        LazyVGrid(columns: columns) {
-                            ForEach(viewModel.displayWallpaper.indices, id: \.self) { index in
-                                ZStack {
-                                    KFImage.url(URL(string: viewModel.displayWallpaper[index].src.original))
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                .frame(width: cardWidth(), height: cardWidth()*1.4)
-                                .background(.grayColour.opacity(0.5))
-                                .cornerRadius(10)
-                                .onAppear() {
-                                    loadMoreIfNeeded(currentItem: index)
-                                }
-                                .onTapGesture {
-                                    viewModel.selectedWallpaper = viewModel.displayWallpaper[index]
-                                    viewModel.isShowDownload = true
-                                }
+                    LazyVGrid(columns: columns) {
+                        ForEach(viewModel.displayWallpaper.indices, id: \.self) { index in
+                            ZStack {
+                                KFImage.url(URL(string: viewModel.displayWallpaper[index].src.original))
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                            .frame(width: cardWidth(), height: cardWidth()*1.4)
+                            .background(.grayColour.opacity(0.5))
+                            .cornerRadius(10)
+                            .onAppear() {
+                                loadMoreIfNeeded(currentItem: index)
+                            }
+                            .onTapGesture {
+                                viewModel.selectedWallpaper = viewModel.displayWallpaper[index]
+                                viewModel.isShowDownload = true
                             }
                         }
-//                    }
+                    }
                 }
             }
             .padding(.horizontal, 20)
