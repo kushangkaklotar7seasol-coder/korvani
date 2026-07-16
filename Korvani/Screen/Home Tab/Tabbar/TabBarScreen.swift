@@ -9,16 +9,16 @@ import SwiftUI
 
 enum TabItem: CaseIterable {
     case home
-    case search
-    case favorites
-    case profile
+    case movies
+    case puzzle
+    case setting
 
     var icon: String {
         switch self {
         case .home: return "ic_home"
-        case .search: return "ic_movies"
-        case .favorites: return "ic_puzzle"
-        case .profile: return "ic_setting"
+        case .movies: return "ic_movies"
+        case .puzzle: return "ic_puzzle"
+        case .setting: return "ic_setting"
         }
     }
 }
@@ -30,19 +30,23 @@ struct TabBarScreen: View {
         VStack(spacing: 0) {
             
             ZStack {
-                switch selectedTab {
-                case .home:
+//                switch selectedTab {
+//                case .home:
                     HomeScreen()
+                        .opacity(selectedTab == .home ? 1 : 0)
 
-                case .search:
-                    TranslateScreen()
+//                case .movies:
+                    DiscoverScreen()
+                    .opacity(selectedTab == .movies ? 1 : 0)
 
-                case .favorites:
+//                case .puzzle:
                     UnitConverterScreen()
+                    .opacity(selectedTab == .puzzle ? 1 : 0)
 
-                case .profile:
+//                case .setting:
                     LanguageScreen()
-                }
+                    .opacity(selectedTab == .setting ? 1 : 0)
+//                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 

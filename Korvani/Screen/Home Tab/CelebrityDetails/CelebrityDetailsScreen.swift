@@ -33,27 +33,11 @@ struct CelebrityDetailsScreen: View {
                                 Text(viewModel.celebrityDetail?.biography ?? "")
                                     .foregroundColor(.grayColour)
                                     .lineLimit(isShowMore ? nil : 3)
-//                                    .background(
-//                                        // Invisible full-height version to measure true line count
-//                                        Text(viewModel.celebrityDetail?.biography ?? "")
-//                                            .lineLimit(nil)
-//                                            .fixedSize(horizontal: false, vertical: true)
-//                                            .hidden()
-//                                            .background(GeometryReader { fullGeo in
-//                                                Color.clear
-//                                                    .onAppear {
-//                                                        checkTruncation(fullHeight: fullGeo.size.height)
-//                                                    }
-//                                            })
-//                                    )
-                                
-//                                if isTruncated {
                                     Button(isShowMore ? "Show less..." : "Show More...") {
                                         withAnimation {
                                             isShowMore.toggle()
                                         }
                                     }
-//                                }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -314,6 +298,9 @@ class MovieDetail {
         var movies: MediaItem
         var numbersOfCard = 2
         var isShowLike = true
+        var onLike: ((Bool) -> Void)?
+        
+        @State var isLiked: Bool = false
         
         var cardWidth: CGFloat {
             switch numbersOfCard {
@@ -329,7 +316,6 @@ class MovieDetail {
         var cardHeight: CGFloat {
             return cardWidth*1.25
         }
-        
         
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -347,9 +333,16 @@ class MovieDetail {
                             
                             if isShowLike {
                                 Button {
-                                    print("Like click")
+                                    if self.isLiked {
+                                        database.removeMovie(id: movies.id)
+                                    } else {
+                                        database.addMovie(movies)
+                                    }
+                                    
+                                    self.isLiked.toggle()
+                                    onLike?(self.isLiked)
                                 } label: {
-                                    Image("ic_unlike")
+                                    Image(self.isLiked ? "ic_like" : "ic_unlike")
                                         .resizable()
                                         .frame(width: 30, height: 30)
                                 }
@@ -403,6 +396,48 @@ class MovieDetail {
             }
             .font(.system(size: 12, weight: .medium))
             .frame(width: cardWidth)
+            .onAppear() {
+                self.isLiked = database.isMovieLiked(id: movies.id)
+            }
+        }
+    }
+    
+    
+    struct MediaBunchView: View {
+        var item: MediaBunch
+        var onViewAll: (() -> ())?
+        var onMovie: ((MediaItem) -> ())?
+        
+        var body: some View {
+            VStack(spacing: 10) {
+                HStack {
+                    Text(item.name)
+                        .font(.system(size: 18, weight: .semibold))
+                    
+                    Spacer()
+                    
+                    Button {
+                        self.onViewAll?()
+                    } label: {
+                        Text("View all")
+                            .foregroundColor(.mediumOrangeColour)
+                            .font(.system(size: 12,weight: .semibold))
+                    }
+                }
+                .padding(.horizontal, 16)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(item.media.results, id: \.id) { movie in
+                            card(movies: movie, numbersOfCard: 3)
+                                .onTapGesture {
+                                    self.onMovie?(movie)
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                }
+            }
         }
     }
 }

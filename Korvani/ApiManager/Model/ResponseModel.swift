@@ -188,14 +188,12 @@ struct TVCastCredit: Codable, Identifiable {
 }
 
 struct MediaCredits: Codable {
-//    let id: Int
     var page: Int
     var totalPages: Int
     var totalResults: Int
     var results: [MediaItem]
     
     enum CodingKeys: String, CodingKey {
-//        case id
         case page
         case results
         case totalPages = "total_pages"
@@ -234,6 +232,8 @@ struct MediaItem: Codable, Identifiable {
     let creditId: String?
     let episodeCount: Int?
     let firstCreditAirDate: String?
+    
+    var isMovie: Int? // 1=Movie, 0=Series
  
     enum CodingKeys: String, CodingKey {
         case adult

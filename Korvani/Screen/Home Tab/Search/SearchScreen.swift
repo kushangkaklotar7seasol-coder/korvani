@@ -11,6 +11,7 @@ struct SearchScreen: View {
     @StateObject var viewModel = SearchViewModel()
     @Environment(\.dismiss) private var dismiss
     @FocusState var isTextFieldFocused: Bool
+    
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -114,7 +115,6 @@ struct SearchScreen: View {
     }
     
     func loadMoreIfNeeded(currentItem: Int) {
-        print(currentItem)
         if viewModel.selectedIndex == 0 {
             guard !viewModel.isLoading, currentItem == viewModel.movies.count - 5 else { return }
             viewModel.moviesSearchAPI(text: viewModel.searchTextField, isFromPagination: true)

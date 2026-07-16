@@ -77,8 +77,7 @@ struct OnBoding: View {
         .defaultPage()
         .frame(width: screenWidth, height: screenHeight, alignment: .center)
         .navigationDestination(isPresented: $viewModel.isShowHome) {
-            HomeScreen()
-                .toolbar(.hidden, for: .navigationBar)
+            TabBarScreen()
         }
     }
 }

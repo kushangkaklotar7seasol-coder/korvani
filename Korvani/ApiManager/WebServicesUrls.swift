@@ -19,6 +19,14 @@ let celebritySeriesUrl = "tv_credits"
 let searchUrl = serverUrl + "search/movie?query="
 let searchSeriesUrl = serverUrl + "search/tv?query="
 
+// MARK: - Deiscover -
+let newReleaseUrl = serverUrl + "/movie/now_playing&page="
+let populerUrl = serverUrl + "movie/popular&page="
+let topRatedUrl = serverUrl + "movie/top_rated&page="
+let airingTodayUrl = serverUrl + "tv/airing_today&page="
+let topRatedSeriesUrl = serverUrl + "tv/top_rated&page="
+let populerSeriesUrl = serverUrl + "tv/popular&page="
+
 // MARK: - Translate -
 let translateAPI = "https://translate.googleapis.com/translate_a/single?"
 

@@ -22,9 +22,9 @@ struct CelebrityScreen: View {
         ZStack {
             VStack(spacing: 5) {
                 
-                DefaultDesign.Header(name: "About the Celebrity") {
+                DefaultDesign.Header(name: "About the Celebrity", back: {
                     self.dismiss()
-                }
+                })
                 
                 ScrollView(showsIndicators: false) {
                     if let array = viewModel.celebrity?.results {
@@ -94,23 +94,27 @@ class DefaultDesign {
         var icon: String = "ic_back"
         var secondIcon: String = "ic_share_background"
         var isShowSecondbutton = false
+        var isShowBackButton = true
+        var font: Font = .system(size: 18, weight: .medium)
         
         var back: (() -> Void)?
         var secondButton: (() -> Void)?
         
         var body: some View {
             HStack {
-                Button {
-                    self.back?()
-                } label: {
-                    Image(icon)
-                        .resizable()
-                        .frame(width: 40, height: 40, alignment: .center)
+                if isShowBackButton {
+                    Button {
+                        self.back?()
+                    } label: {
+                        Image(icon)
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                    }
                 }
                 
                 if name != nil {
                     Text(name ?? "")
-                        .font(.system(size: 18, weight: .medium))
+                        .font(font)
                 }
                 
                 Spacer()
