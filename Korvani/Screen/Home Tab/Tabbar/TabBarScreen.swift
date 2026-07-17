@@ -40,7 +40,7 @@ struct TabBarScreen: View {
                     .opacity(selectedTab == .movies ? 1 : 0)
 
 //                case .puzzle:
-                    UnitConverterScreen()
+                PuzzleView(viewModel: PuzzleViewModel(image: UIImage(named: "img_puzzle_poster") ?? UIImage()))
                     .opacity(selectedTab == .puzzle ? 1 : 0)
 
 //                case .setting:

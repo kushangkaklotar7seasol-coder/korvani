@@ -322,6 +322,11 @@ class MovieDetail {
                 
                 ZStack {
                     KFImage.url(URL(string: imageUrl+(movies.posterPath ?? "")))
+                        .placeholder { progress in
+                            Image("img_nomovie")
+                                .resizable()
+                                .scaledToFill()
+                        }
                         .resizable()
                         .scaledToFill()
                         .frame(width: cardWidth, height: cardHeight)

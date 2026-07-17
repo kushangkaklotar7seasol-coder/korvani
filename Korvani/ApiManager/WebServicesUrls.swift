@@ -27,6 +27,9 @@ let airingTodayUrl = serverUrl + "tv/airing_today&page="
 let topRatedSeriesUrl = serverUrl + "tv/top_rated&page="
 let populerSeriesUrl = serverUrl + "tv/popular&page="
 
+// MARK: - Movie Detail -
+let movieDetailUrl = serverUrl + "movie/"
+
 // MARK: - Translate -
 let translateAPI = "https://translate.googleapis.com/translate_a/single?"
 

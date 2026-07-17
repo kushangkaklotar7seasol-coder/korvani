@@ -72,12 +72,17 @@ class celebrity {
             VStack(alignment: .leading) {
                 ZStack {
                     KFImage.url(URL(string: imageUrl+(celebrity.profilePath ?? "")))
+                        .placeholder({ progress in
+                            Image("img_nopeople")
+                                .resizable()
+                                .scaledToFill()
+                        })
                         .resizable()
                         .scaledToFill()
                 }
                 .frame(width: size(), height: size(), alignment: .center)
                 .background(.whiteColour)
-                .cornerRadius(12)
+                .cornerRadius(14)
                 
                 Text(celebrity.name)
                     .font(.system(size: 14,weight: .regular))

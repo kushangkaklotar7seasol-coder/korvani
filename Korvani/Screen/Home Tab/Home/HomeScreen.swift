@@ -94,7 +94,7 @@ struct HomeScreen: View {
                                         ForEach(array.indices, id: \.self) { index in
                                             celebrity.profile(celebrity: array[index])
                                                 .onTapGesture {
-                                                    viewModel.navigationItem.movieDetail = true
+                                                    viewModel.navigationItem.celebrityDetail = true
                                                     viewModel.celebritySelectedId = array[index].id
                                                 }
                                         }
@@ -115,7 +115,7 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.navigationItem.celebrity) {
             CelebrityScreen(viewModel: CelebrityViewModel(celebrity: viewModel.celebrity))
         }
-        .navigationDestination(isPresented: $viewModel.navigationItem.movieDetail) {
+        .navigationDestination(isPresented: $viewModel.navigationItem.celebrityDetail) {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
         }
         .navigationDestination(isPresented: $viewModel.navigationItem.weather) {
@@ -130,8 +130,11 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.navigationItem.wallpaper) {
             WallpaperScreen()
         }
-        .fullScreenCover(isPresented: $viewModel.navigationItem.search) {
+        .navigationDestination(isPresented: $viewModel.navigationItem.search) {
             SearchScreen()
+        }
+        .navigationDestination(isPresented: $viewModel.navigationItem.movieDetail) {
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
         }
         .onAppear() {
             viewModel.onApper()
@@ -224,6 +227,10 @@ class Home {
                             .animation(.easeInOut(duration: 0.3), value: scrollPosition)
                         }
                         .id(index)
+                        .onTapGesture {
+                            viewModel.selectedMovieId = viewModel.topRatedMovie[index].id
+                            viewModel.navigationItem.movieDetail = true
+                        }
                     }
                 }
                 .scrollTargetLayout()
