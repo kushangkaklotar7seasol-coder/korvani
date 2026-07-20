@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LanguageScreen: View {
     @StateObject var viewModel = LanguageViewModel()
+    var isShowBackButton: Bool = false
+    @Environment(\.dismiss) private var dismiss
     
     let columns = [
         GridItem(.flexible(), spacing: 15),
@@ -20,6 +22,16 @@ struct LanguageScreen: View {
             VStack {
                 
                 HStack {
+                    if isShowBackButton {
+                        Button {
+                            self.dismiss()
+                        } label: {
+                            Image("ic_back")
+                                .resizable()
+                                .frame(width: 40, height: 40, alignment: .center)
+                        }
+                    }
+                    
                     Text("Choose Your\nPreferred Language")
                         .font(.system(size: 20, weight: .semibold))
                     
@@ -30,7 +42,8 @@ struct LanguageScreen: View {
                         viewModel.isOnBording = true
                     } label: {
                         Text("Done")
-                            .padding()
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
                             .background(
                                 LinearGradient( colors: [.lightYellowColour, .orangeColour],startPoint: .top, endPoint: .bottom)
                             )

@@ -36,7 +36,7 @@ struct SearchScreen: View {
                             .frame(width: 16, height: 16, alignment: .center)
                             .padding(.leading, 9)
                         
-                        TextField("Search Movies & TV Shows", text: $viewModel.searchTextField)
+                        TextField(Strings.searchPlaceHolder, text: $viewModel.searchTextField)
                             .frame(height: 40)
                             .focused($isTextFieldFocused)
                             .overlay(
@@ -64,7 +64,7 @@ struct SearchScreen: View {
                 }
                 .padding(.top, 10)
                 
-                CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: ["Movies", "Series"]) { index in
+                CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: [Strings.movies, Strings.series]) { index in
                     viewModel.manageAPICalls(index: index)
                 }
                 
@@ -74,6 +74,10 @@ struct SearchScreen: View {
                     LazyVGrid(columns: columns) {
                         ForEach(array.indices, id: \.self) { index in
                             MovieDetail.card(movies: array[index])
+                                .onTapGesture {
+                                    viewModel.selectedMovie = array[index]
+                                    viewModel.isShowmovieDetail = true
+                                }
                                 .onAppear() {
                                     self.loadMoreIfNeeded(currentItem: index)
                                 }
@@ -111,6 +115,9 @@ struct SearchScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .onTapGesture {
             isTextFieldFocused = false
+        }
+        .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
     }
     

@@ -71,27 +71,27 @@ class UnitConverterViewModel: ObservableObject {
     private func convertUnitLength(_ value: Double) {
         let meters: Double
         switch fromUnit {
-        case "Meters":       meters = value
-        case "Kilometers":   meters = value * 1_000
-        case "Centimeters":  meters = value * 0.01
-        case "Millimeters":  meters = value * 0.001
-        case "Feet":         meters = value * 0.3048
-        case "Inches":       meters = value * 0.0254
-        case "Miles":        meters = value * 1_609.344
-        case "Yards":        meters = value * 0.9144
+        case Strings.meters:       meters = value
+        case Strings.kilometers:   meters = value * 1_000
+        case Strings.centimeters:  meters = value * 0.01
+        case Strings.millimeters:  meters = value * 0.001
+        case Strings.feet:         meters = value * 0.3048
+        case Strings.inches:       meters = value * 0.0254
+        case Strings.miles:        meters = value * 1_609.344
+        case Strings.yards:        meters = value * 0.9144
         default:             meters = value
         }
         
         let result: Double
         switch toUnit {
-        case "Meters":       result = meters
-        case "Kilometers":   result = meters / 1_000
-        case "Centimeters":  result = meters / 0.01
-        case "Millimeters":  result = meters / 0.001
-        case "Feet":         result = meters / 0.3048
-        case "Inches":       result = meters / 0.0254
-        case "Miles":        result = meters / 1_609.344
-        case "Yards":        result = meters / 0.9144
+        case Strings.meters:       result = meters
+        case Strings.kilometers:   result = meters / 1_000
+        case Strings.centimeters:  result = meters / 0.01
+        case Strings.millimeters:  result = meters / 0.001
+        case Strings.feet:         result = meters / 0.3048
+        case Strings.inches:       result = meters / 0.0254
+        case Strings.miles:        result = meters / 1_609.344
+        case Strings.yards:        result = meters / 0.9144
         default:             result = meters
         }
         
@@ -102,26 +102,26 @@ class UnitConverterViewModel: ObservableObject {
     private func convertUnitWeight(_ value: Double) {
         let kg: Double
         switch fromUnit {
-        case "Kilograms":    kg = value
-        case "Grams":        kg = value / 1_000
-        case "Milligrams":   kg = value / 1_000_000
-        case "Pounds":       kg = value * 0.453592
-        case "Ounces":       kg = value * 0.0283495
-        case "Tonnes":       kg = value * 1_000
-        case "Stone":        kg = value * 6.35029
-        default:             kg = value
+        case Strings.kilograms:    kg = value
+        case Strings.grams:        kg = value / 1_000
+        case Strings.miligrams:    kg = value / 1_000_000
+        case Strings.pounds:       kg = value * 0.453592
+        case Strings.ounces:       kg = value * 0.0283495
+        case Strings.tonnes:       kg = value * 1_000
+        case Strings.stone:        kg = value * 6.35029
+        default:                   kg = value
         }
         
         let result: Double
         switch toUnit {
-        case "Kilograms":    result = kg
-        case "Grams":        result = kg * 1_000
-        case "Milligrams":   result = kg * 1_000_000
-        case "Pounds":       result = kg / 0.453592
-        case "Ounces":       result = kg / 0.0283495
-        case "Tonnes":       result = kg / 1_000
-        case "Stone":        result = kg / 6.35029
-        default:             result = kg
+        case Strings.kilograms:    result = kg
+        case Strings.grams:        result = kg * 1_000
+        case Strings.miligrams:    result = kg * 1_000_000
+        case Strings.pounds:       result = kg / 0.453592
+        case Strings.ounces:       result = kg / 0.0283495
+        case Strings.tonnes:       result = kg / 1_000
+        case Strings.stone:        result = kg / 6.35029
+        default:                   result = kg
         }
         
         self.toValue = self.formatUnit(result)
@@ -131,21 +131,21 @@ class UnitConverterViewModel: ObservableObject {
     private func convertUnitSpeed(_ value: Double) {
         let mps: Double
         switch fromUnit {
-        case "M/s":      mps = value
-        case "Km/h":     mps = value / 3.6
-        case "Mph":      mps = value * 0.44704
-        case "Knots":    mps = value * 0.514444
-        case "Ft/s":     mps = value * 0.3048
-        default:         mps = value
+        case Strings.mPerS:      mps = value
+        case Strings.kmPerH:     mps = value / 3.6
+        case Strings.mph:        mps = value * 0.44704
+        case Strings.knots:      mps = value * 0.514444
+        case Strings.ftPerS:     mps = value * 0.3048
+        default:                 mps = value
         }
         
         let result: Double
         switch toUnit {
-        case "M/s":      result = mps
-        case "Km/h":     result = mps * 3.6
-        case "Mph":      result = mps / 0.44704
-        case "Knots":    result = mps / 0.514444
-        case "Ft/s":     result = mps / 0.3048
+        case Strings.mPerS:      result = mps
+        case Strings.kmPerH:     result = mps * 3.6
+        case Strings.mph:        result = mps / 0.44704
+        case Strings.knots:      result = mps / 0.514444
+        case Strings.ftPerS:     result = mps / 0.3048
         default:         result = mps
         }
         
@@ -156,23 +156,23 @@ class UnitConverterViewModel: ObservableObject {
     private func convertUnitStorage(_ value: Double) {
         let bytes: Double
         switch fromUnit {
-        case "Bytes":   bytes = value
-        case "KB":      bytes = value * pow(1000, 1)   // 1 KB = 1,000 Bytes
-        case "MB":      bytes = value * pow(1000, 2)   // 1 MB = 1,000,000 Bytes
-        case "GB":      bytes = value * pow(1000, 3)   // 1 GB = 1,000,000,000 Bytes
-        case "TB":      bytes = value * pow(1000, 4)   // 1 TB = 1,000,000,000,000 Bytes
-        case "PB":      bytes = value * pow(1000, 5)   // 1 PB = 1,000,000,000,000,000 Bytes
+        case Strings.bytes:   bytes = value
+        case Strings.kb:      bytes = value * pow(1000, 1)   // 1 KB = 1,000 Bytes
+        case Strings.mb:      bytes = value * pow(1000, 2)   // 1 MB = 1,000,000 Bytes
+        case Strings.gb:      bytes = value * pow(1000, 3)   // 1 GB = 1,000,000,000 Bytes
+        case Strings.tb:      bytes = value * pow(1000, 4)   // 1 TB = 1,000,000,000,000 Bytes
+        case Strings.pb:      bytes = value * pow(1000, 5)   // 1 PB = 1,000,000,000,000,000 Bytes
         default:        bytes = value
         }
         
         let result: Double
         switch toUnit {
-        case "Bytes":   result = bytes
-        case "KB":      result = bytes / pow(1000, 1)
-        case "MB":      result = bytes / pow(1000, 2)
-        case "GB":      result = bytes / pow(1000, 3)
-        case "TB":      result = bytes / pow(1000, 4)
-        case "PB":      result = bytes / pow(1000, 5)
+        case Strings.bytes:  result = bytes
+        case Strings.kb:     result = bytes / pow(1000, 1)
+        case Strings.mb:     result = bytes / pow(1000, 2)
+        case Strings.gb:     result = bytes / pow(1000, 3)
+        case Strings.tb:     result = bytes / pow(1000, 4)
+        case Strings.pb:     result = bytes / pow(1000, 5)
         default:        result = bytes
         }
         
@@ -207,19 +207,32 @@ enum UnitType: String, CaseIterable {
     case speed   = "Speed"
     case storage = "Storage"
 
+    var localized: String {
+        switch self {
+        case .length:
+            return "LENGTH".localized()
+        case .weight:
+            return "WEIGHT".localized()
+        case .speed:
+            return "SPEED".localized()
+        case .storage:
+            return "STORAGE".localized()
+        }
+    }
+    
     var units: [String] {
         switch self {
         case .length:
-            return ["Meters", "Kilometers", "Centimeters", "Millimeters", "Feet", "Inches", "Miles", "Yards"]
+            return [Strings.meters, Strings.kilometers, Strings.centimeters, Strings.millimeters, Strings.feet, Strings.inches, Strings.miles, Strings.yards]
 
         case .weight:
-            return ["Kilograms", "Grams", "Milligrams", "Pounds", "Ounces", "Tonnes", "Stone"]
+            return [Strings.kilograms, Strings.grams, Strings.miligrams, Strings.pounds, Strings.ounces, Strings.tonnes, Strings.stone]
 
         case .speed:
-            return ["Km/h", "Mph", "M/s", "Knots", "Ft/s"]
+            return [Strings.kmPerH, Strings.mph, Strings.mPerS, Strings.knots, Strings.ftPerS]
 
         case .storage:
-            return ["Bytes", "KB", "MB", "GB", "TB", "PB"]
+            return [Strings.bytes, Strings.kb, Strings.mb, Strings.gb, Strings.tb, Strings.pb]
         }
     }
 }

@@ -15,6 +15,9 @@ class CategoryListViewModel: ObservableObject {
     @Published var mediaItem: [MediaItem] = []
     @Published var isLoading = false
     
+    @Published var selectedMovieId: Int = 0
+    @Published var isShowmovieDetail = false
+    
     init(media: MediaBunch? = nil) {
         self.media = media ?? MediaBunch(id: 0, name: "", type: .TopRatedMovie, media: MediaCredits(page: 0, totalPages: 0, totalResults: 0, results: []))
         

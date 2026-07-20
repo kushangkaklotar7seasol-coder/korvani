@@ -12,6 +12,8 @@ import UIKit
 class PosterViewModel : ObservableObject {
     @Published var images: [MovieImage] = []
     @Published var video: [Video] = []
+    @Published var posterIndex: Int = 0
+    @Published var isShowPosterDetail = false
     var isImage: Bool?
     
     init(images: [MovieImage] = [], video: [Video] = [], isImage: Bool = true){

@@ -11,6 +11,8 @@ internal import Combine
 class CelebrityViewModel : ObservableObject {
     @Published var celebrity: CelebrityResponse?
     @Published var isLoading = false
+    @Published var isShowCelebrityDetail = false
+    @Published var celebritySelectedId = 0
     
     init(celebrity: CelebrityResponse? = nil) {
         self.celebrity = celebrity

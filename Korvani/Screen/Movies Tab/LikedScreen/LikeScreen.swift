@@ -36,6 +36,10 @@ struct LikeScreen: View {
                                         viewModel.movies = newArr
                                     }
                                 })
+                                .onTapGesture {
+                                    viewModel.selectedMovie = viewModel.movies[index]
+                                    viewModel.isShowmovieDetail = true
+                                }
                             }
                         }
                     }
@@ -53,6 +57,10 @@ struct LikeScreen: View {
                                         }
                                     }
                                 })
+                                .onTapGesture {
+                                    viewModel.selectedMovie = viewModel.movies[index]
+                                    viewModel.isShowmovieDetail = true
+                                }
                             }
                         }
                     }
@@ -64,6 +72,9 @@ struct LikeScreen: View {
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
+        .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
+        }
     }
 }
 

@@ -13,6 +13,9 @@ class LikeViewModel: ObservableObject {
     @Published var series: [MediaItem] = []
     @Published var selectedIndex = 0
     
+    @Published var selectedMovie: MediaItem?
+    @Published var isShowmovieDetail = false
+    
     init() {
         for i in database.fetchMovies() {
             if i.isMovie == 1 {

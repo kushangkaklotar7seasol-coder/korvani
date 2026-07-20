@@ -13,6 +13,10 @@ struct CelebrityDetailsScreen: View {
     @StateObject var viewModel: CelebrityDetailsViewModel
     @State var isShowMore = false
     @State private var isTruncated = false
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         ZStack {
@@ -78,6 +82,10 @@ struct CelebrityDetailsScreen: View {
                                 HStack {
                                     ForEach(viewModel.movies.indices, id: \.self) { item in
                                         MovieDetail.card(movies: viewModel.movies[item], numbersOfCard: 3)
+                                            .onTapGesture {
+                                                viewModel.selectedMovie = viewModel.movies[item]
+                                                viewModel.isShowmovieDetail = true
+                                            }
                                     }
                                 }
                                 .padding(.horizontal, 16)
@@ -111,6 +119,51 @@ struct CelebrityDetailsScreen: View {
             }
         }
         .defaultPage()
+        .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
+        }
+        .sheet(isPresented: $viewModel.isViewAllSheet) {
+            VStack {
+                HStack {
+                    Button {
+                        viewModel.isViewAllSheet = false
+                    } label: {
+                        Image("ic_cancel")
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                    }
+                    
+                    Text("\(viewModel.celebrityDetail?.name ?? "")")
+                        .font(.system(size: 21, weight: .semibold))
+                        .lineLimit(1)
+                    
+                    Spacer()
+                }
+                .padding(.vertical, 5)
+                .padding(.horizontal, 16)
+                
+                if !viewModel.movies.isEmpty {
+                    ScrollView(showsIndicators: false) {
+                        LazyVGrid(columns: columns) {
+                            ForEach(viewModel.movies.indices, id: \.self) { item in
+                                MovieDetail.card(movies: viewModel.movies[item], numbersOfCard: 2)
+                                    .onTapGesture {
+                                        viewModel.isViewAllSheet = false
+                                        viewModel.selectedMovie = viewModel.movies[item]
+                                        viewModel.isShowmovieDetail = true
+                                    }
+                            }
+                        }
+                    }
+                } else {
+                    Spacer()
+                    Text("No Media Found")
+                        .font(.system(size: 21, weight: .semibold))
+                        .foregroundColor(.whiteColour)
+                    Spacer()
+                }
+            }
+        }
     }
     
     private func checkTruncation(fullHeight: CGFloat) {
@@ -132,6 +185,11 @@ class CelebrityDetails {
         var body: some View {
             ZStack {
                 KFImage.url(URL(string: imageUrl+self.url))
+                    .placeholder({ progress in
+                        Image("img_nopeople")
+                            .resizable()
+                            .scaledToFill()
+                    })
                     .resizable()
                     .scaledToFill()
                 
@@ -274,7 +332,7 @@ class CelebrityDetails {
                         DefaultDesign.Loader()
                     } else {
                         Button {
-                            print("View all")
+                            viewModel.isViewAllSheet = true
                         } label: {
                             Text("View all")
                                 .foregroundColor(.mediumOrangeColour)

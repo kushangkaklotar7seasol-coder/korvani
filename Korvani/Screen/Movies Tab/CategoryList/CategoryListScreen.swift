@@ -26,6 +26,10 @@ struct CategoryListScreen: View {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.mediaItem.indices, id: \.self) { index in
                             MovieDetail.card(movies: viewModel.mediaItem[index], numbersOfCard: 2)
+                                .onTapGesture {
+                                    viewModel.selectedMovieId = viewModel.mediaItem[index].id
+                                    viewModel.isShowmovieDetail = true
+                                }
                                 .onAppear() {
                                     self.loadMoreIfNeeded(currentItem: index)
                                 }
@@ -36,7 +40,9 @@ struct CategoryListScreen: View {
         }
         .padding(.horizontal, 16)
         .defaultPage()
-        
+        .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
+        }
     }
     
     func loadMoreIfNeeded(currentItem: Int) {

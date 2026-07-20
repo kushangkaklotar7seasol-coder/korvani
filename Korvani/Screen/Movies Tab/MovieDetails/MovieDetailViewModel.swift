@@ -11,7 +11,7 @@ import UIKit
 
 class MovieDetailViewModel: ObservableObject {
     @Published var isLoading = false
-    @Published var movieDetail: MovieDetailModel?
+    @Published var movieDetail: MediaDetail?
     @Published var movieCredits: MovieCredits?
     @Published var movieImage: MovieImages?
     @Published var movieVideo: MovieVideos?
@@ -30,11 +30,19 @@ class MovieDetailViewModel: ObservableObject {
     @Published var posterIndex: Int = 0
     @Published var isShowPosterDetail = false
     
-    var movieId: Int?
+    @Published var isShowAllCast = false
     
-    init(movieId: Int = 278) {
+    var movieId: Int?
+    var isMovie: Bool?
+    @Published var personalInformation: [LanguageModel] = []
+    
+    init(movieId: Int = 278, isMovie: Bool = true) {
         self.movieId = movieId
-        self.movieDetails()
+        if isMovie {
+            self.movieDetails()
+        } else {
+            self.seriesDetails()
+        }
     }
     
     // MARK: - API Call's
@@ -43,6 +51,23 @@ class MovieDetailViewModel: ObservableObject {
             MovieDetailService.shared.movieDetail(id: self.movieId ?? 0) { statusCode, response in
                 self.movieDetail = response
                 self.isLiked = database.isMovieLiked(id: self.movieId ?? 0)
+                
+                if let status = self.movieDetail?.status {
+                    self.personalInformation.append(LanguageModel(id: 0, name: "Status", language: status))
+                }
+                
+                if let language = self.movieDetail?.spokenLanguages.first?.englishName {
+                    self.personalInformation.append(LanguageModel(id: 1, name: "Language", language: language))
+                }
+                
+                if let runtime = self.movieDetail?.runtime, runtime != 0 {
+                    self.personalInformation.append(LanguageModel(id: 2, name: "Runtime", language: "\(runtime)"))
+                }
+                
+                if let revenue = self.movieDetail?.revenue, revenue != 0 {
+                    self.personalInformation.append(LanguageModel(id: 2, name: "Revenue", language: "\(revenue)"))
+                }
+                
                 self.castAndCrewAPI()
             } failure: { error in
                 print(error)
@@ -90,11 +115,85 @@ class MovieDetailViewModel: ObservableObject {
         }
     }
     
+    func seriesDetails() {
+        if Utility.isInternetAvailable() {
+            MovieDetailService.shared.seriesDetail(id: self.movieId ?? 0) { statusCode, response in
+                print(response)
+                self.movieDetail = response
+                self.isLiked = database.isMovieLiked(id: self.movieId ?? 0)
+                self.seriesCastAndCrew()
+            } failure: { error in
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
+    func seriesCastAndCrew() {
+        if Utility.isInternetAvailable() {
+            MovieDetailService.shared.seriesCastAndCrew(id: self.movieId ?? 0) { statusCode, response in
+                self.movieCredits = response
+                self.seriesImageAPI()
+            } failure: { error in
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
+    func seriesImageAPI() {
+        if Utility.isInternetAvailable() {
+            MovieDetailService.shared.seriesImage(id: self.movieId ?? 0) { statusCode, response in
+                self.movieImage = response
+                
+                if let status = self.movieDetail?.status {
+                    self.personalInformation.append(LanguageModel(id: 0, name: "Status", language: status))
+                }
+                
+                if let language = self.movieDetail?.spokenLanguages.first?.englishName {
+                    self.personalInformation.append(LanguageModel(id: 1, name: "Language", language: language))
+                }
+                
+                if let runtime = self.movieDetail?.runtime, runtime != 0 {
+                    self.personalInformation.append(LanguageModel(id: 2, name: "Runtime", language: "\(runtime)"))
+                }
+                
+                if let revenue = self.movieDetail?.revenue, revenue != 0 {
+                    self.personalInformation.append(LanguageModel(id: 2, name: "Revenue", language: "\(revenue)"))
+                }
+                
+                if let season = self.movieDetail?.seasons?.count {
+                    self.personalInformation.append(LanguageModel(id: 2, name: "Season", language: "\(season > 1 ? season-1 : season)"))
+                }
+                
+                self.seriesVideoAPI()
+            } failure: { error in
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
+    func seriesVideoAPI() {
+        if Utility.isInternetAvailable() {
+            MovieDetailService.shared.seriesVideo(id: self.movieId ?? 0) { statusCode, response in
+                self.movieVideo = response
+            } failure: { error in
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
     func manageLike() {
         if self.isLiked {
             database.removeMovie(id: movieId ?? 0)
         } else {
-            database.addMovie(MediaItem(adult: false, backdropPath: "", genreIds: [], id: movieId ?? 0, originalLanguage: "", overview: "", popularity: 0.0, posterPath: movieDetail?.posterPath, softcore: false, voteAverage: movieDetail?.voteAverage ?? 0.0, voteCount: 0, title: movieDetail?.title, originalTitle: "", releaseDate: "", video: false, name: movieDetail?.title, originalName: "", firstAirDate: movieDetail?.releaseDate, originCountry: [], character: "", creditId: "", episodeCount: 0, firstCreditAirDate: "", isMovie: 1))
+            database.addMovie(MediaItem(adult: false, backdropPath: "", genreIds: [], id: movieId ?? 0, originalLanguage: "", overview: "", popularity: 0.0, posterPath: movieDetail?.posterPath, softcore: false, voteAverage: movieDetail?.voteAverage ?? 0.0, voteCount: 0, title: movieDetail?.title, originalTitle: "", releaseDate: "", video: false, name: movieDetail?.title, originalName: "", firstAirDate: movieDetail?.releaseDate, originCountry: [], character: "", creditId: "", episodeCount: 0, firstCreditAirDate: "", isMovie: self.isMovie ?? true ? 1 : 0))
         }
         self.isLiked.toggle()
     }

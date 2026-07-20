@@ -18,6 +18,11 @@ class CelebrityDetailsViewModel: ObservableObject {
     
     @Published var isLoading = false
     
+    @Published var selectedMovie: MediaItem?
+    @Published var isShowmovieDetail = false
+    
+    @Published var isViewAllSheet = false
+    
     init(celebrityId: Int? = nil) {
         self.celebrityId = celebrityId ?? 123
         self.celebrotyDetailAPI()
@@ -32,16 +37,17 @@ class CelebrityDetailsViewModel: ObservableObject {
                     self.personalInformation.append(LanguageModel(id: 0, name: "Birthday", language: birthDay))
                 }
                 
-                if let age = self.celebrityDetail?.birthday {
-                    self.personalInformation.append(LanguageModel(id: 1, name: "Age", language: age))
+                if let bornYear = self.celebrityDetail?.birthday?.prefix(4) {
+                    let currentYear = Calendar.current.component(.year, from: Date())
+                    self.personalInformation.append(LanguageModel(id: 1, name: "Age", language: "\(currentYear - (Int(bornYear) ?? 0))"))
                 }
                 
                 if let placeBirth = self.celebrityDetail?.placeOfBirth {
                     self.personalInformation.append(LanguageModel(id: 2, name: "Birthplace", language: placeBirth))
                 }
                 
-                if let knownFor = self.celebrityDetail?.alsoKnownAs.first {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Known For", language: knownFor))
+                if let department = self.celebrityDetail?.knownForDepartment {
+                    self.personalInformation.append(LanguageModel(id: 3, name: "Department", language: department))
                 }
                 
                 self.moviesAPI()
@@ -52,6 +58,10 @@ class CelebrityDetailsViewModel: ObservableObject {
         } else {
             print("No internet connected")
         }
+    }
+    
+    func calculateAge(from birthDate: Date) -> Int {
+        Calendar.current.dateComponents([.year], from: birthDate, to: Date()).year ?? 0
     }
     
     // MARK: - API Call -

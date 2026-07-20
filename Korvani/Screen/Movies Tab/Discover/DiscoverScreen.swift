@@ -41,6 +41,8 @@ struct DiscoverScreen: View {
                                     viewModel.isShowCategoryScreen = true
                                 }, onMovie: { movie in
                                     print("\(movie.name ?? "") Tap")
+                                    viewModel.selectedMovie = movie
+                                    viewModel.isShowmovieDetail = true
                                 })
                             }
                         }
@@ -55,7 +57,8 @@ struct DiscoverScreen: View {
                                     viewModel.selectedBunch = item
                                     viewModel.isShowCategoryScreen = true
                                 }, onMovie: { movie in
-                                    print("\(movie.name ?? "") Tap")
+                                    viewModel.selectedMovie = movie
+                                    viewModel.isShowmovieDetail = true
                                 })
                             }
                         }
@@ -70,6 +73,9 @@ struct DiscoverScreen: View {
         }
         .navigationDestination(isPresented: $viewModel.isShowLikeScreen) {
             LikeScreen()
+        }
+        .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
     }
 }

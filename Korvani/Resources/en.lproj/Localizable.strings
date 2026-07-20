@@ -24,3 +24,60 @@
 "PAGE4_INFO" = "Explore trending movies, TV Shows, trailers, rating, reviews and where to watch - all in one place.";
 "INFO_ONLY" = "INFORMATION ONLY";
 "PAGE4_MOREINFO" = "This app does not stream or host movies. It helps you discover content, watch trailers, view ratings and find legal streaming platforms.";
+
+// MARK: - Home Screen -
+"WELCOME" = "Welcome to,";
+"SMART_HUB" = "Smart Hub";
+"APP_PERMISSION_NOT_GIV" = "Allow Permission for getting Weather";
+"UNIT_CONVERTER" = "Unit Converter";
+"UNIT_CONVERTER_TAGLINE" = "Convert units instantly";
+"TRANSLATE" = "Translate";
+"TRANSLATE_TAGLINE" = "Instant Translation";
+"WALLPAPERS" = "HD Wallpapers";
+"WALLPAPERS_TAGLINE" = "Browse and download wallpapers";
+"ABOUT_CELEBRITY" = "About the Celebrity";
+"VIEW_ALL" = "View all";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "Search Movies & TV Shows";
+"MOVIES" = "Movies";
+"SERIES" = "Series";
+
+// MARK: - Weather Screen -
+"WEATHER" = "Weather";
+"MAXIMUM" = "Maximum";
+"HUMIDITY" = "Humidity";
+"WIND" = "Wind";
+"FORECAST" = "7-Day Forecast";
+
+// MARK: - Unit Converter -
+"METERS" = "Meters";
+"KILOMETERS" = "Kilometers";
+"CENTIMETERS" = "Centimeters";
+"MILLIMETERS" = "Millimeters";
+"FEET" = "Feet";
+"INCHES" = "Inches";
+"MILES" = "Miles";
+"YARDS" = "Yards";
+"KILOGRAMS" = "Kilograms";
+"GRAMS" = "Grams";
+"MILIGRAMS" = "Milligrams";
+"POUNDS" = "Pounds";
+"OUNCES" = "Ounces";
+"TONNES" = "Tonnes";
+"STONE" = "Stone";
+"M/S" = "M/s";
+"KM/H" = "Km/h";
+"MPH" = "Mph";
+"KNOTS" = "Knots";
+"FT/S" = "Ft/s";
+"BYTES" = "Bytes";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "Length";
+"WEIGHT" = "Weight";
+"SPEED" = "Speed";
+"STORAGE" = "Storage";

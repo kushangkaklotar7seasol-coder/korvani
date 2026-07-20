@@ -21,6 +21,12 @@ struct LanguageModel {
     var language: String
 }
 
+struct SettingSection {
+    let id: Int
+    var name: String
+    var items: [LanguageModel]
+}
+
 struct LanguageItem: Identifiable, Codable {
     let id = UUID()
     let code: String

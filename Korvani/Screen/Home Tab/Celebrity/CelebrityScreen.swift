@@ -31,6 +31,10 @@ struct CelebrityScreen: View {
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(array.indices, id: \.self) { person in
                                 celebrity.profile(celebrity: array[person])
+                                    .onTapGesture {
+                                        viewModel.isShowCelebrityDetail = true
+                                        viewModel.celebritySelectedId = array[person].id
+                                    }
                                     .onAppear() {
                                         loadMoreIfNeeded(currentItem: person)
                                     }
@@ -46,7 +50,9 @@ struct CelebrityScreen: View {
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
-        
+        .navigationDestination(isPresented: $viewModel.isShowCelebrityDetail) {
+            CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
+        }
     }
     
     func loadMoreIfNeeded(currentItem: Int) {
@@ -81,7 +87,7 @@ class celebrity {
                         .scaledToFill()
                 }
                 .frame(width: size(), height: size(), alignment: .center)
-                .background(.whiteColour)
+//                .background(.whiteColour)
                 .cornerRadius(14)
                 
                 Text(celebrity.name)
@@ -118,7 +124,7 @@ class DefaultDesign {
                 }
                 
                 if name != nil {
-                    Text(name ?? "")
+                    Text(name?.localized() ?? "")
                         .font(font)
                 }
                 

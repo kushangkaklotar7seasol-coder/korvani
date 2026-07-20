@@ -29,6 +29,7 @@ let populerSeriesUrl = serverUrl + "tv/popular&page="
 
 // MARK: - Movie Detail -
 let movieDetailUrl = serverUrl + "movie/"
+let setiesDetailUrl = serverUrl + "tv/"
 
 // MARK: - Translate -
 let translateAPI = "https://translate.googleapis.com/translate_a/single?"

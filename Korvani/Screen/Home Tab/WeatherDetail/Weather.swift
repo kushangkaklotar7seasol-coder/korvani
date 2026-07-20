@@ -17,7 +17,7 @@ struct Weather: View {
             WeatherDesign.Background()
             
             VStack {
-                DefaultDesign.Header(name: "Weather", icon: "ic_purple_back", back: {
+                DefaultDesign.Header(name: Strings.weather, icon: "ic_purple_back", back: {
                     self.dismiss()
                 })
                 .padding(.horizontal, 16)
@@ -70,9 +70,9 @@ struct Weather: View {
                         let humidityStr = "\(viewModel.selectedDay?.main.humidity ?? 0)".prefix(2)
                         let windStr = "\(viewModel.selectedDay?.wind.speed ?? 0.0)".prefix(2)
                         
-                        WeatherDesign.Info(image: "ic_temp", name: "Maximum", value: "\(tempMaxStr)° C")
-                        WeatherDesign.Info(image: "ic_humidity", name: "Humidity", value: "\(humidityStr)%")
-                        WeatherDesign.Info(image: "ic_wind", name: "Wind", value: "\(windStr)km/h")
+                        WeatherDesign.Info(image: "ic_temp", name: Strings.maximum, value: "\(tempMaxStr)° C")
+                        WeatherDesign.Info(image: "ic_humidity", name: Strings.humidity, value: "\(humidityStr)%")
+                        WeatherDesign.Info(image: "ic_wind", name: Strings.wind, value: "\(windStr)km/h")
                     }
                 }
                 .padding(.horizontal, 50)
@@ -81,7 +81,7 @@ struct Weather: View {
                 VStack(alignment: .leading) {
                     
                     HStack {
-                        Text("7-Day Forecast")
+                        Text(Strings.forecast)
                             .font(.system(size: 18, weight: .semibold))
                         
                         Spacer()

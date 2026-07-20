@@ -12,16 +12,16 @@ internal import UniformTypeIdentifiers
 struct PuzzleView: View {
     
     @StateObject var viewModel: PuzzleViewModel
-//    @EnvironmentObject var router: Router<AppPage>
     @State private var draggedItem: PuzzlePiece?
-    @State private var showInstructionsSheet = true
+    @State private var showInstructionsSheet = false
+    @State private var showOriginalPosterSheet = false
     
     let columns = [
         GridItem(.flexible(), spacing: 0),
         GridItem(.flexible(), spacing: 0),
         GridItem(.flexible(), spacing: 0)
     ]
-    @State private var temperature = 5.0
+    
     
     var body: some View {
         
@@ -33,25 +33,25 @@ struct PuzzleView: View {
             
             VStack {
                 DefaultDesign.Header(name: "Puzzle", secondIcon: "ic_info_dark", isShowSecondbutton: true, isShowBackButton: false, secondButton: {
-                    print("Info")
+                    self.showInstructionsSheet = true
                 })
                 
                 VStack(spacing: 5) {
                     HStack {
-                        Text("0% Complete")
+                        let persentage = "\(viewModel.completedPuzzle)".prefix(2)
+                        Text("\(persentage)% Complete")
                             .font(.system(size: 14, weight: .regular))
                             .foregroundColor(.grayColour)
                         
                         Spacer()
                         
-                        Text("0/9 Pieces")
+                        Text("\(viewModel.correctCount)/9 Pieces")
                             .font(.system(size: 13, weight: .medium))
                             .foregroundColor(.lightYellowColour)
                     }
                     
-                    Slider(value: $temperature, in: 0...10, step: 1)
+                    Slider(value: $viewModel.completedPuzzle, in: 1...100)
                         .tint(.orangeColour)
-//                        .disabled(true)
                         .allowsHitTesting(false)
                 }
                 .padding(.top, 10)
@@ -94,39 +94,40 @@ struct PuzzleView: View {
                 .clipShape(
                     RoundedRectangle(cornerRadius: 10)
                 )
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 24)
-//                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
-//                )
-//                .padding(.horizontal, 10)
-//                .padding(.vertical, 10)
                 
                 // MARK: - Description
-                HStack {
-                    Image(uiImage: viewModel.originalImage)
-                        .resizable()
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .cornerRadius(10)
-                    
-                    VStack(alignment: .leading) {
-                        Text("Original Poster")
-                            .font(.system(size: 14, weight: .medium))
-                        
-                        Text("Tap to reveal the complete image")
-                            .font(.system(size: 12, weight: .regular))
-                    }
-                    
-                    Spacer()
-                    
-                    Image("ic_eye")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                }
-                .padding()
-                .background(.borderColour)
-                .cornerRadius(14)
-                .padding(.top, 24)
                 
+                Button {
+                    showOriginalPosterSheet = true
+                } label: {
+                    HStack {
+                        Image(uiImage: viewModel.originalImage)
+                            .resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .cornerRadius(10)
+                        
+                        VStack(alignment: .leading) {
+                            Text("Original Poster")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.whiteColour)
+                            
+                            Text("Tap to reveal the complete image")
+                                .font(.system(size: 12, weight: .regular))
+                                .foregroundColor(.grayColour)
+                        }
+                        
+                        Spacer()
+                        
+                        Image("ic_eye")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
+                    .padding()
+                    .background(.borderColour)
+                    .cornerRadius(14)
+                    .padding(.top, 24)
+                }
+                                
                 VStack {
                     Spacer()
                     
@@ -137,38 +138,21 @@ struct PuzzleView: View {
                     
                     Spacer()
                 }
-                
-                // MARK: - Original Image
-//                Image(uiImage: viewModel.originalImage)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(height: halfHeight)
-//                    .clipShape(
-//                        RoundedRectangle(cornerRadius: 28)
-//                    )
-//                    .padding(10)
             }
         }
         .padding(.horizontal, 16)
         .background(.blackColour)
-        .background(
-            Image("bg")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-        )
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $showInstructionsSheet) {
             PuzzleInstructionsSheet(isPresented: $showInstructionsSheet)
         }
-        .alert(
-            "Congratulations 🎉",
-            isPresented: $viewModel.showSuccess
-        ) {
-            
+        .sheet(isPresented: $showOriginalPosterSheet) {
+            OriginalPosterSheet(isPresented: $showOriginalPosterSheet, originalImage: viewModel.originalImage)
+        }
+        .alert("Congratulations 🎉", isPresented: $viewModel.showSuccess) {
             Button("OK") {
-//                router.pop()
+                viewModel.setupPuzzle()
             }
         }
         .onAppear() {
@@ -183,19 +167,7 @@ struct PuzzleInstructionsSheet: View {
     
     var body: some View {
         ZStack {
-            // Background
-//            LinearGradient(
-//                gradient: Gradient(colors: [
-//                    .orangeColour,
-//                    .blackColour
-//                ]),
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            )
-//            .ignoresSafeArea()
-            
             VStack(spacing: 0) {
-                // MARK: - Header with Close Button
                 HStack {
                     Text("Puzzle Instructions")
                         .font(.system(size: 18, weight: .medium))
@@ -208,14 +180,11 @@ struct PuzzleInstructionsSheet: View {
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.white.opacity(0.7))
                             .frame(width: 35, height: 35)
-//                            .modifier(GlassCardModifier(cornerRadius: 18))
                     }
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical, 20)
-                
-                Divider()
-                    .background(Color.white.opacity(0.1))
+                .padding(.top, 10)
                 
                 // MARK: - Instructions
                 VStack(spacing: 16) {
@@ -223,36 +192,54 @@ struct PuzzleInstructionsSheet: View {
                     CelebrityDetails.PersonalInfo(name: "Drag & drop it in the correct place", details: "", isLast: false)
                     CelebrityDetails.PersonalInfo(name: "Repeat until the poster is complete", details: "", isLast: true)
                 }
-//                .padding(.horizontal, 24)
-//                .padding(.vertical, 24)
-                
-//                Spacer()
-                
-                // MARK: - Action Button
-//                Button(action: { isPresented = false }) {
-//                    Text("AppStrings.shared.gotItText")
-//                        .font(.system(size: 16, weight: .semibold))
-//                        .foregroundColor(.white)
-//                        .frame(maxWidth: .infinity)
-//                        .frame(height: 48)
-//                        .background(
-//                            LinearGradient(
-//                                gradient: Gradient(colors: [
-//                                    .orangeColour,
-//                                    .blackColour
-//                                ]),
-//                                startPoint: .topLeading,
-//                                endPoint: .bottomTrailing
-//                            )
-//                        )
-//                        .clipShape(RoundedRectangle(cornerRadius: 12))
-//                }
-//                .padding(.horizontal, 24)
-//                .padding(.vertical, 20)
             }
         }
-        .presentationDetents([.medium])
-        .presentationDragIndicator(.automatic)
+        .presentationDetents([.height(180)])
+        .presentationDragIndicator(.hidden)
+        .presentationBackground(.sheetBackgroundColour)
+    }
+}
+
+// MARK: - Puzzle Instructions Sheet
+struct OriginalPosterSheet: View {
+    @Binding var isPresented: Bool
+    let originalImage: UIImage
+    
+    var body: some View {
+        ZStack {
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Original Poster")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Button(action: { isPresented = false }) {
+                        Image("ic_cancel_bg")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.white.opacity(0.7))
+                            .frame(width: 35, height: 35)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 20)
+                .padding(.top, 10)
+                
+                ZStack {
+                    Image(uiImage: originalImage)
+                        .resizable()
+                        .scaledToFit()
+                }
+                .frame(width: screenWidth-32, height: screenWidth-32)
+                .background(.whiteColour)
+                
+                Spacer()
+            }
+        }
+        .presentationDetents([.height((screenWidth-32)+100)])
+        .presentationDragIndicator(.hidden)
+        .presentationBackground(.sheetBackgroundColour)
     }
 }
  
@@ -264,7 +251,6 @@ struct InstructionItem: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // Number Badge
             Text(number)
                 .font(.system(size: 14, weight: .bold))
                 .foregroundColor(.white)

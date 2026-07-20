@@ -44,7 +44,7 @@ struct TabBarScreen: View {
                     .opacity(selectedTab == .puzzle ? 1 : 0)
 
 //                case .setting:
-                    LanguageScreen()
+                SettingScreen()
                     .opacity(selectedTab == .setting ? 1 : 0)
 //                }
             }

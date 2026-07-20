@@ -22,7 +22,8 @@ final class PuzzleViewModel: ObservableObject {
     
     @Published var pieces: [PuzzlePiece] = []
     @Published var showSuccess = false
-    
+    @Published var completedPuzzle:Double = 0
+    @Published var correctCount = 0
     let originalImage: UIImage
     
     init(image: UIImage) {
@@ -117,30 +118,35 @@ final class PuzzleViewModel: ObservableObject {
     func movePiece(from source: Int, to destination: Int) {
         guard source != destination else { return }
         pieces.swapAt(source, destination)  // Only index 1 and 5 swap, rest stay untouched
-        checkPuzzleSolved()
+        self.checkPuzzleSolved()
     }
-//    func movePiece(from source: Int, to destination: Int) {
-//        
-//        guard source != destination else { return }
-//        
-//        let sourceItem = pieces[source]
-//        
-//        pieces.remove(at: source)
-//        pieces.insert(sourceItem, at: destination)
-//        
-//        checkPuzzleSolved()
-//    }
     
     // MARK: - Check Puzzle
     func checkPuzzleSolved() {
         
         for (index, piece) in pieces.enumerated() {
             
+            self.completedPuzzle = Double(puzzleProgressPercent())
+            print("Puzzle solved: \(self.completedPuzzle)%")
+            
             if piece.correctIndex != index {
+                print(index)
                 return
             }
         }
-        
+        completedPuzzle = 0
+        correctCount = 0
         showSuccess = true
+    }
+    
+    func puzzleProgressPercent() -> Int {
+        guard !pieces.isEmpty else { return 0 }
+        
+        self.correctCount = pieces.enumerated().reduce(0) { count, element in
+            let (index, piece) = element
+            return piece.correctIndex == index ? count + 1 : count
+        }
+        
+        return Int((Double(correctCount) / Double(pieces.count)) * 100)
     }
 }

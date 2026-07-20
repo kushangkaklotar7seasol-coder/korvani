@@ -26,8 +26,13 @@ struct PosterScreen: View {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: columns) {
                         if viewModel.isImage ?? true  {
-                            ForEach(viewModel.images, id: \.filePath) { image in
+                            ForEach(viewModel.images.indices, id: \.self) { index in
+                                let image = viewModel.images[index]
                                 MovieDetailsDesign.PosterMedia(isImage: true, image: image.filePath)
+                                    .onTapGesture {
+                                        viewModel.posterIndex = index
+                                        viewModel.isShowPosterDetail = true
+                                    }
                             }
                         } else {
                             ForEach(viewModel.video, id: \.key) { video in
@@ -46,6 +51,9 @@ struct PosterScreen: View {
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
+        .navigationDestination(isPresented: $viewModel.isShowPosterDetail) {
+            PosterDetailScreen(viewModel: PosterDetailsViewModel(images: viewModel.images), position: viewModel.posterIndex)
+        }
     }
 }
 

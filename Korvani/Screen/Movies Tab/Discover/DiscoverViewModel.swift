@@ -17,6 +17,9 @@ class DiscoverViewModel: ObservableObject {
     @Published var isShowCategoryScreen = false
     @Published var isShowLikeScreen = false
     
+    @Published var selectedMovie: MediaItem?
+    @Published var isShowmovieDetail = false
+    
     init() {
         self.newReleaseAPI()
     }

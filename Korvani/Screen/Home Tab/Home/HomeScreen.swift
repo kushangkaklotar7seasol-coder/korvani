@@ -31,7 +31,7 @@ struct HomeScreen: View {
                         
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("Smart Hub")
+                                Text(Strings.smartHub)
                                     .font(.system(size: 20,weight: .semibold))
                                     .foregroundColor(.whiteColour)
                                 
@@ -48,11 +48,11 @@ struct HomeScreen: View {
                                         Home.Weather(viewModel: viewModel)
                                     }
                                 } else if viewModel.locationStaus == 1 {
-                                    Button ("Allow Permission for getting Weather") {
+                                    Button (Strings.appPermissionNotGive) {
                                         viewModel.openAppSettings()
                                     }
                                 } else if viewModel.locationStaus == 2 {
-                                    Button ("Allow Permission for getting Weather") {
+                                    Button (Strings.appPermissionNotGive) {
                                         viewModel.openAppSettings()
                                     }
                                 }
@@ -72,16 +72,15 @@ struct HomeScreen: View {
                         
                         VStack {
                             HStack {
-                                Text("About the Celebrity")
+                                Text(Strings.aboutCelebrity)
                                     .font(.system(size: 18, weight: .semibold))
                                 
                                 Spacer()
                                 
                                 Button {
-                                    print("View all")
                                     viewModel.navigationItem.celebrity = true
                                 } label: {
-                                    Text("View all")
+                                    Text(Strings.viewAll)
                                         .foregroundColor(.mediumOrangeColour)
                                         .font(.system(size: 12,weight: .semibold))
                                 }
@@ -154,7 +153,7 @@ class Home {
         var body: some View {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Welcome to,")
+                    Text(Strings.welcome)
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(.grayColour)
                     
@@ -404,11 +403,11 @@ class Home {
                             
                             
                             VStack(alignment: .leading, spacing: 3) {
-                                Text("Unit Converter")
+                                Text(Strings.unitConverter)
                                     .font(.system(size: 16, weight: .semibold))
                                     .padding(.top, 9)
                                 
-                                Text("Convert units instantly")
+                                Text(Strings.unitConverterTagline)
                                     .font(.system(size: 13, weight: .regular))
                             }
                             Spacer()
@@ -433,11 +432,11 @@ class Home {
                                 
                             
                             VStack(alignment: .leading, spacing: 3) {
-                                Text("Translate")
+                                Text(Strings.translate)
                                     .font(.system(size: 16, weight: .semibold))
                                     .padding(.top, 9)
                                 
-                                Text("Instant Translation")
+                                Text(Strings.translateTagline)
                                     .font(.system(size: 13, weight: .regular))
                             }
                             Spacer()
@@ -465,11 +464,11 @@ class Home {
                         
                         
                         VStack(alignment: .leading, spacing: 3) {
-                            Text("HD Wallpapers")
+                            Text(Strings.wallpapers)
                                 .font(.system(size: 16, weight: .semibold))
                                 .padding(.top, 9)
                             
-                            Text("Browse and download wallpapers")
+                            Text(Strings.wallpapersTagline)
                                 .font(.system(size: 13, weight: .regular))
                         }
                         

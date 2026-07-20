@@ -20,6 +20,9 @@ class SearchViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var selectedIndex: Int = 0
     
+    @Published var selectedMovie: MediaItem?
+    @Published var isShowmovieDetail = false
+    
     init() {
         $searchTextField
             .debounce(for: .seconds(0.8), scheduler: RunLoop.main)

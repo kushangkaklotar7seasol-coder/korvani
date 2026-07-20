@@ -15,7 +15,7 @@ struct UnitConverterScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: "Unit Converter", back: {
+                DefaultDesign.Header(name: "UNIT_CONVERTER", back: {
                     self.dismiss()
                 })
                 
@@ -28,7 +28,7 @@ struct UnitConverterScreen: View {
                                     viewModel.selectedUnit = type
                                 }
                             } label: {
-                                Text(type.rawValue)
+                                Text(type.localized)
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundStyle(.whiteColour)
                                     .frame(maxWidth: .infinity)

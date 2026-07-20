@@ -24,3 +24,60 @@
 "PAGE4_INFO" = "ट्रेंडिंग फिल्में, टीवी शो, ट्रेलर, रेटिंग, समीक्षाएं और देखने के विकल्प - सब कुछ एक ही जगह पर खोजें।";
 "INFO_ONLY" = "केवल जानकारी के लिए";
 "PAGE4_MOREINFO" = "यह ऐप फिल्में स्ट्रीम या होस्ट नहीं करता है। यह आपको सामग्री खोजने, ट्रेलर देखने, रेटिंग देखने और वैध स्ट्रीमिंग प्लेटफ़ॉर्म खोजने में मदद करता है।";
+
+// MARK: - Home Screen -
+"WELCOME" = "स्वागत है,";
+"SMART_HUB" = "स्मार्ट हब";
+"APP_PERMISSION_NOT_GIV" = "मौसम की जानकारी पाने के लिए अनुमति दें";
+"UNIT_CONVERTER" = "यूनिट कनवर्टर";
+"UNIT_CONVERTER_TAGLINE" = "यूनिट तुरंत बदलें";
+"TRANSLATE" = "अनुवाद करें";
+"TRANSLATE_TAGLINE" = "तुरंत अनुवाद";
+"WALLPAPERS" = "एचडी वॉलपेपर";
+"WALLPAPERS_TAGLINE" = "वॉलपेपर ब्राउज़ करें और डाउनलोड करें";
+"ABOUT_CELEBRITY" = "सेलिब्रिटी के बारे में";
+"VIEW_ALL" = "सभी देखें";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "मूवीज़ और टीवी शो खोजें";
+"MOVIES" = "मूवीज़";
+"SERIES" = "सीरीज़";
+
+// MARK: - Weather Screen -
+"WEATHER" = "मौसम";
+"MAXIMUM" = "अधिकतम";
+"HUMIDITY" = "नमी";
+"WIND" = "हवा";
+"FORECAST" = "7-दिन का पूर्वानुमान";
+
+// MARK: - Unit Converter -
+"METERS" = "मीटर";
+"KILOMETERS" = "किलोमीटर";
+"CENTIMETERS" = "सेंटीमीटर";
+"MILLIMETERS" = "मिलीमीटर";
+"FEET" = "फीट";
+"INCHES" = "इंच";
+"MILES" = "मील";
+"YARDS" = "गज";
+"KILOGRAMS" = "किलोग्राम";
+"GRAMS" = "ग्राम";
+"MILIGRAMS" = "मिलीग्राम";
+"POUNDS" = "पाउंड";
+"OUNCES" = "औंस";
+"TONNES" = "टन";
+"STONE" = "स्टोन";
+"M/S" = "मी/से";
+"KM/H" = "किमी/घं";
+"MPH" = "मील/घं";
+"KNOTS" = "नॉट्स";
+"FT/S" = "फीट/से";
+"BYTES" = "बाइट्स";
+"KB" = "केबी";
+"MB" = "एमबी";
+"GB" = "जीबी";
+"TB" = "टीबी";
+"PB" = "पीबी";
+"LENGTH" = "लंबाई";
+"WEIGHT" = "वज़न";
+"SPEED" = "गति";
+"STORAGE" = "स्टोरेज";

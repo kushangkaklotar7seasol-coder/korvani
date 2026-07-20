@@ -267,63 +267,224 @@ struct MediaItem: Codable, Identifiable {
 
 // MARK: - Movie Details -
 
-struct MovieDetailModel: Codable, Identifiable {
+//struct MovieDetailModel: Codable, Identifiable {
+//    let adult: Bool
+//    let backdropPath: String?
+//    let belongsToCollection: Collection?
+//    let budget: Int
+//    let genres: [Genre]
+//    let homepage: String?
+//    let id: Int
+//    let imdbId: String?
+//    let originCountry: [String]
+//    let originalLanguage: String
+//    let originalTitle: String
+//    let overview: String
+//    let popularity: Double
+//    let posterPath: String?
+//    let productionCompanies: [ProductionCompany]
+//    let productionCountries: [ProductionCountry]
+//    let releaseDate: String
+//    let revenue: Int
+//    let runtime: Int?
+//    let softcore: Bool
+//    let spokenLanguages: [SpokenLanguage]
+//    let status: String
+//    let tagline: String?
+//    let title: String
+//    let video: Bool
+//    let voteAverage: Double
+//    let voteCount: Int
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case adult
+//        case backdropPath = "backdrop_path"
+//        case belongsToCollection = "belongs_to_collection"
+//        case budget
+//        case genres
+//        case homepage
+//        case id
+//        case imdbId = "imdb_id"
+//        case originCountry = "origin_country"
+//        case originalLanguage = "original_language"
+//        case originalTitle = "original_title"
+//        case overview
+//        case popularity
+//        case posterPath = "poster_path"
+//        case productionCompanies = "production_companies"
+//        case productionCountries = "production_countries"
+//        case releaseDate = "release_date"
+//        case revenue
+//        case runtime
+//        case softcore
+//        case spokenLanguages = "spoken_languages"
+//        case status
+//        case tagline
+//        case title
+//        case video
+//        case voteAverage = "vote_average"
+//        case voteCount = "vote_count"
+//    }
+//}
+// 
+//// MARK: - Genre
+// 
+//struct Genre: Codable, Identifiable {
+//    let id: Int
+//    let name: String
+//}
+// 
+//// MARK: - Collection
+// 
+//struct Collection: Codable, Identifiable {
+//    let id: Int
+//    let name: String
+//    let posterPath: String?
+//    let backdropPath: String?
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//        case name
+//        case posterPath = "poster_path"
+//        case backdropPath = "backdrop_path"
+//    }
+//}
+// 
+//// MARK: - ProductionCompany
+// 
+//struct ProductionCompany: Codable, Identifiable {
+//    let id: Int
+//    let logoPath: String?
+//    let name: String
+//    let originCountry: String
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//        case logoPath = "logo_path"
+//        case name
+//        case originCountry = "origin_country"
+//    }
+//}
+// 
+//// MARK: - ProductionCountry
+// 
+//struct ProductionCountry: Codable {
+//    let iso31661: String
+//    let name: String
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case iso31661 = "iso_3166_1"
+//        case name
+//    }
+//}
+// 
+//// MARK: - SpokenLanguage
+// 
+//struct SpokenLanguage: Codable {
+//    let englishName: String
+//    let iso6391: String
+//    let name: String
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case englishName = "english_name"
+//        case iso6391 = "iso_639_1"
+//        case name
+//    }
+//}
+struct MediaDetail: Codable, Identifiable {
+    // Shared fields
     let adult: Bool
     let backdropPath: String?
-    let belongsToCollection: Collection?
-    let budget: Int
     let genres: [Genre]
     let homepage: String?
     let id: Int
-    let imdbId: String?
     let originCountry: [String]
     let originalLanguage: String
-    let originalTitle: String
     let overview: String
     let popularity: Double
     let posterPath: String?
     let productionCompanies: [ProductionCompany]
     let productionCountries: [ProductionCountry]
-    let releaseDate: String
-    let revenue: Int
-    let runtime: Int?
     let softcore: Bool
     let spokenLanguages: [SpokenLanguage]
     let status: String
     let tagline: String?
-    let title: String
-    let video: Bool
     let voteAverage: Double
     let voteCount: Int
+ 
+    // Movie-only fields
+    let belongsToCollection: Collection?
+    let budget: Int?
+    let imdbId: String?
+    let originalTitle: String?
+    let releaseDate: String?
+    let revenue: Int?
+    let runtime: Int?
+    let title: String?
+    let video: Bool?
+ 
+    // TV-only fields
+    let createdBy: [Creator]?
+    let episodeRunTime: [Int]?
+    let firstAirDate: String?
+    let inProduction: Bool?
+    let languages: [String]?
+    let lastAirDate: String?
+    let lastEpisodeToAir: Episode?
+    let name: String?
+    let networks: [Network]?
+    let nextEpisodeToAir: Episode?
+    let numberOfEpisodes: Int?
+    let numberOfSeasons: Int?
+    let originalName: String?
+    let seasons: [Season]?
+    let type: String?
  
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case belongsToCollection = "belongs_to_collection"
-        case budget
         case genres
         case homepage
         case id
-        case imdbId = "imdb_id"
         case originCountry = "origin_country"
         case originalLanguage = "original_language"
-        case originalTitle = "original_title"
         case overview
         case popularity
         case posterPath = "poster_path"
         case productionCompanies = "production_companies"
         case productionCountries = "production_countries"
-        case releaseDate = "release_date"
-        case revenue
-        case runtime
         case softcore
         case spokenLanguages = "spoken_languages"
         case status
         case tagline
-        case title
-        case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+ 
+        case belongsToCollection = "belongs_to_collection"
+        case budget
+        case imdbId = "imdb_id"
+        case originalTitle = "original_title"
+        case releaseDate = "release_date"
+        case revenue
+        case runtime
+        case title
+        case video
+ 
+        case createdBy = "created_by"
+        case episodeRunTime = "episode_run_time"
+        case firstAirDate = "first_air_date"
+        case inProduction = "in_production"
+        case languages
+        case lastAirDate = "last_air_date"
+        case lastEpisodeToAir = "last_episode_to_air"
+        case name
+        case networks
+        case nextEpisodeToAir = "next_episode_to_air"
+        case numberOfEpisodes = "number_of_episodes"
+        case numberOfSeasons = "number_of_seasons"
+        case originalName = "original_name"
+        case seasons
+        case type
     }
 }
  
@@ -391,10 +552,171 @@ struct SpokenLanguage: Codable {
         case name
     }
 }
+ 
+// MARK: - Creator (TV)
+ 
+struct Creator: Codable, Identifiable {
+    let id: Int
+    let creditId: String
+    let name: String
+    let originalName: String
+    let gender: Int
+    let profilePath: String?
+ 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case creditId = "credit_id"
+        case name
+        case originalName = "original_name"
+        case gender
+        case profilePath = "profile_path"
+    }
+}
+ 
+// MARK: - Network (TV)
+ 
+struct Network: Codable, Identifiable {
+    let id: Int
+    let logoPath: String?
+    let name: String
+    let originCountry: String
+ 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case logoPath = "logo_path"
+        case name
+        case originCountry = "origin_country"
+    }
+}
+ 
+// MARK: - Episode (TV: last_episode_to_air / next_episode_to_air)
+ 
+struct Episode: Codable, Identifiable {
+    let id: Int
+    let name: String
+    let overview: String
+    let voteAverage: Double
+    let voteCount: Int
+    let airDate: String?
+    let episodeNumber: Int
+    let episodeType: String
+    let productionCode: String
+    let runtime: Int?
+    let seasonNumber: Int
+    let showId: Int
+    let stillPath: String?
+ 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case overview
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+        case airDate = "air_date"
+        case episodeNumber = "episode_number"
+        case episodeType = "episode_type"
+        case productionCode = "production_code"
+        case runtime
+        case seasonNumber = "season_number"
+        case showId = "show_id"
+        case stillPath = "still_path"
+    }
+}
+ 
+// MARK: - Season (TV)
+ 
+struct Season: Codable, Identifiable {
+    let airDate: String?
+    let episodeCount: Int
+    let id: Int
+    let name: String
+    let overview: String
+    let posterPath: String?
+    let seasonNumber: Int
+    let voteAverage: Double
+ 
+    enum CodingKeys: String, CodingKey {
+        case airDate = "air_date"
+        case episodeCount = "episode_count"
+        case id
+        case name
+        case overview
+        case posterPath = "poster_path"
+        case seasonNumber = "season_number"
+        case voteAverage = "vote_average"
+    }
+}
 
 
 // MARK: - MovieCredits
  
+//struct MovieCredits: Codable {
+//    let id: Int
+//    let cast: [CastMember]
+//    let crew: [CrewMember]
+//}
+// 
+//// MARK: - CastMember
+// 
+//struct CastMember: Codable, Identifiable {
+//    let adult: Bool
+//    let gender: Int
+//    let id: Int
+//    let knownForDepartment: String
+//    let name: String
+//    let originalName: String
+//    let popularity: Double
+//    let profilePath: String?
+//    let castId: Int
+//    let character: String
+//    let creditId: String
+//    let order: Int
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case adult
+//        case gender
+//        case id
+//        case knownForDepartment = "known_for_department"
+//        case name
+//        case originalName = "original_name"
+//        case popularity
+//        case profilePath = "profile_path"
+//        case castId = "cast_id"
+//        case character
+//        case creditId = "credit_id"
+//        case order
+//    }
+//}
+// 
+//// MARK: - CrewMember
+// 
+//struct CrewMember: Codable, Identifiable {
+//    let adult: Bool
+//    let gender: Int
+//    let id: Int
+//    let knownForDepartment: String
+//    let name: String
+//    let originalName: String
+//    let popularity: Double
+//    let profilePath: String?
+//    let creditId: String
+//    let department: String
+//    let job: String
+// 
+//    enum CodingKeys: String, CodingKey {
+//        case adult
+//        case gender
+//        case id
+//        case knownForDepartment = "known_for_department"
+//        case name
+//        case originalName = "original_name"
+//        case popularity
+//        case profilePath = "profile_path"
+//        case creditId = "credit_id"
+//        case department
+//        case job
+//    }
+//}
 struct MovieCredits: Codable {
     let id: Int
     let cast: [CastMember]
@@ -412,7 +734,7 @@ struct CastMember: Codable, Identifiable {
     let originalName: String
     let popularity: Double
     let profilePath: String?
-    let castId: Int
+    let castId: Int?
     let character: String
     let creditId: String
     let order: Int
@@ -530,38 +852,6 @@ struct Video: Codable, Identifiable {
         case publishedAt = "published_at"
     }
 }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
