@@ -24,3 +24,9 @@ let imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_face"
 let locationManager = LocationManager()
 
 let database = SQLiteManager.shared
+
+final class SwipeBackManager {
+    static let shared = SwipeBackManager()
+    var isEnabled: Bool = true
+    private init() {}
+}

@@ -119,6 +119,9 @@ struct SearchScreen: View {
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
+        }
     }
     
     func loadMoreIfNeeded(currentItem: Int) {

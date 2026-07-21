@@ -36,7 +36,7 @@ struct MovieDetails: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 10) {
                                     HStack {
-                                        Text(viewModel.isMovie ?? true ? "Movie" : "Series")
+                                        Text(viewModel.isMovie ?? true ? Strings.movies : Strings.series)
                                             .padding(.vertical, 5)
                                             .padding(.horizontal, 12)
                                             .background(.whiteColour.opacity(0.4))
@@ -111,7 +111,7 @@ struct MovieDetails: View {
                     
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
-                            Text("Overview")
+                            Text(Strings.overview)
                                 .font(.system(size: 18, weight: .medium))
                             Spacer()
                         }
@@ -120,11 +120,12 @@ struct MovieDetails: View {
                             Text(viewModel.movieDetail?.overview ?? "")
                                 .foregroundColor(.grayColour)
                                 .lineLimit(isShowMore ? nil : 3)
-                                Button(isShowMore ? "Show less..." : "Show More...") {
-                                    withAnimation {
-                                        isShowMore.toggle()
-                                    }
+                            
+                            Button(isShowMore ? Strings.showLess : Strings.showMore) {
+                                withAnimation {
+                                    isShowMore.toggle()
                                 }
+                            }
                         }
                     }
                     .padding(.top, 80)
@@ -132,7 +133,7 @@ struct MovieDetails: View {
                     
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Movie info")
+                            Text(Strings.moreInfo)
                                 .font(.system(size: 18, weight: .medium))
                             Spacer()
                         }
@@ -152,7 +153,7 @@ struct MovieDetails: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 14)
                     
-                    MovieDetailsDesign.WatchItems(mediaTab: ["Top Cast", "Core Crew"], onSelect: { index in
+                    MovieDetailsDesign.WatchItems(mediaTab: [Strings.topCast, Strings.coreCrew], onSelect: { index in
                         self.viewModel.selectedCastOption = index
                     }, onViewAll: {
                         self.viewModel.isShowAllCast = true
@@ -174,7 +175,7 @@ struct MovieDetails: View {
                                 .padding(.horizontal)
                             }
                         } else {
-                            Text("No Cast Found")
+                            Text(Strings.noCast)
                                 .font(.system(size: 21, weight: .bold))
                                 .foregroundColor(.whiteColour)
                         }
@@ -193,13 +194,13 @@ struct MovieDetails: View {
                                 .padding(.horizontal)
                             }
                         } else {
-                            Text("No Crew Found")
+                            Text(Strings.noCrew)
                                 .font(.system(size: 21, weight: .bold))
                                 .foregroundColor(.whiteColour)
                         }
                     }
                     
-                    MovieDetailsDesign.WatchItems(mediaTab: ["Poster", "Videos"], onSelect: { index in
+                    MovieDetailsDesign.WatchItems(mediaTab: [Strings.poster, Strings.videos], onSelect: { index in
                         viewModel.selectedMediaOption = index
                     }, onViewAll: {
                         if viewModel.selectedMediaOption == 0 {
@@ -224,7 +225,7 @@ struct MovieDetails: View {
                                 .padding(.horizontal)
                             }
                         } else {
-                            Text("No Photos Found")
+                            Text(Strings.noPhotos)
                                 .font(.system(size: 21, weight: .bold))
                                 .foregroundColor(.whiteColour)
                         }
@@ -242,7 +243,7 @@ struct MovieDetails: View {
                                 .padding(.horizontal)
                             }
                         } else {
-                            Text("No Video Found")
+                            Text(Strings.noVideo)
                                 .font(.system(size: 21, weight: .bold))
                                 .foregroundColor(.whiteColour)
                         }
@@ -299,6 +300,9 @@ struct MovieDetails: View {
         .navigationDestination(isPresented: $viewModel.isShowPosterDetail) {
             PosterDetailScreen(viewModel: PosterDetailsViewModel(images: viewModel.movieImage?.posters ?? []), position: viewModel.posterIndex)
         }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
+        }
         .defaultPage()
         .sheet(isPresented: $viewModel.isShowAllCast) {
             VStack {
@@ -311,8 +315,7 @@ struct MovieDetails: View {
                             .frame(width: 40, height: 40, alignment: .center)
                     }
                     
-                    let header = viewModel.selectedCastOption == 0 ? "'s Cast" : "'s Crew"
-                    Text("\(viewModel.movieDetail?.title ?? viewModel.movieDetail?.name ?? "") \(header)")
+                    Text("\(viewModel.movieDetail?.title ?? viewModel.movieDetail?.name ?? "")")
                         .font(.system(size: 21, weight: .semibold))
                         .lineLimit(1)
                     
@@ -335,7 +338,7 @@ struct MovieDetails: View {
                                         }
                                 }
                             } else {
-                                Text("No Cast Found")
+                                Text(Strings.noCast)
                                     .font(.system(size: 21, weight: .bold))
                                     .foregroundColor(.whiteColour)
                             }
@@ -351,7 +354,7 @@ struct MovieDetails: View {
                                         }
                                 }
                             } else {
-                                Text("No Crew Found")
+                                Text(Strings.noCrew)
                                     .font(.system(size: 21, weight: .bold))
                                     .foregroundColor(.whiteColour)
                             }
@@ -399,7 +402,7 @@ class MovieDetailsDesign {
                         Button {
                             self.onViewAll?()
                         } label: {
-                            Text("View all")
+                            Text(Strings.viewAll)
                                 .foregroundColor(.mediumOrangeColour)
                                 .font(.system(size: 12,weight: .semibold))
                         }

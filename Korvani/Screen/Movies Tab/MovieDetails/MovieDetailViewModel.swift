@@ -33,11 +33,12 @@ class MovieDetailViewModel: ObservableObject {
     @Published var isShowAllCast = false
     
     var movieId: Int?
-    var isMovie: Bool?
+    @Published var isMovie: Bool?
     @Published var personalInformation: [LanguageModel] = []
     
     init(movieId: Int = 278, isMovie: Bool = true) {
         self.movieId = movieId
+        self.isMovie = isMovie
         if isMovie {
             self.movieDetails()
         } else {
@@ -53,19 +54,19 @@ class MovieDetailViewModel: ObservableObject {
                 self.isLiked = database.isMovieLiked(id: self.movieId ?? 0)
                 
                 if let status = self.movieDetail?.status {
-                    self.personalInformation.append(LanguageModel(id: 0, name: "Status", language: status))
+                    self.personalInformation.append(LanguageModel(id: 0, name: Strings.status, language: status))
                 }
                 
                 if let language = self.movieDetail?.spokenLanguages.first?.englishName {
-                    self.personalInformation.append(LanguageModel(id: 1, name: "Language", language: language))
+                    self.personalInformation.append(LanguageModel(id: 1, name: Strings.language, language: language))
                 }
                 
                 if let runtime = self.movieDetail?.runtime, runtime != 0 {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Runtime", language: "\(runtime)"))
+                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.runtime, language: "\(runtime)"))
                 }
                 
                 if let revenue = self.movieDetail?.revenue, revenue != 0 {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Revenue", language: "\(revenue)"))
+                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.revenue, language: "\(revenue)"))
                 }
                 
                 self.castAndCrewAPI()
@@ -149,23 +150,23 @@ class MovieDetailViewModel: ObservableObject {
                 self.movieImage = response
                 
                 if let status = self.movieDetail?.status {
-                    self.personalInformation.append(LanguageModel(id: 0, name: "Status", language: status))
+                    self.personalInformation.append(LanguageModel(id: 0, name: Strings.status, language: status))
                 }
                 
                 if let language = self.movieDetail?.spokenLanguages.first?.englishName {
-                    self.personalInformation.append(LanguageModel(id: 1, name: "Language", language: language))
+                    self.personalInformation.append(LanguageModel(id: 1, name: Strings.language, language: language))
                 }
                 
                 if let runtime = self.movieDetail?.runtime, runtime != 0 {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Runtime", language: "\(runtime)"))
+                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.runtime, language: "\(runtime)"))
                 }
                 
                 if let revenue = self.movieDetail?.revenue, revenue != 0 {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Revenue", language: "\(revenue)"))
+                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.revenue, language: "\(revenue)"))
                 }
                 
                 if let season = self.movieDetail?.seasons?.count {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Season", language: "\(season > 1 ? season-1 : season)"))
+                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.season, language: "\(season > 1 ? season-1 : season)"))
                 }
                 
                 self.seriesVideoAPI()

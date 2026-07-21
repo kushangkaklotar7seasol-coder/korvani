@@ -13,6 +13,7 @@ class UserdefaultManager {
     
     private let languageKey = "SELECTED_LANGUAGE"
     private let onBoardingKey = "ONBOARDING"
+    private let puzzleKey = "PUZZLE"
     
     // MARK: - Language -
     func saveLanguage(_ selectedLanguage: LanguageItem){
@@ -29,7 +30,6 @@ class UserdefaultManager {
                 return savedUser
             }
         }
-        
         return nil
     }
     
@@ -44,5 +44,23 @@ class UserdefaultManager {
     
     func getOnBoarding() -> Int? {
         return defaults.object(forKey: self.onBoardingKey) as? Int ?? nil
+    }
+    
+    // MARK: - Puzzle
+    func savePuzzle(_ puzzle: [Puzzle]){
+        let encoder = JSONEncoder()
+        if let encodedUser = try? encoder.encode(puzzle){
+            defaults.set(encodedUser, forKey: self.puzzleKey)
+        }
+    }
+    
+    func getPuzzle() -> [Puzzle] {
+        if let savedUser = defaults.object(forKey: self.puzzleKey) as? Data {
+            let decoder = JSONDecoder()
+            if let savedUser = try? decoder.decode([Puzzle].self, from: savedUser){
+                return savedUser
+            }
+        }
+        return []
     }
 }

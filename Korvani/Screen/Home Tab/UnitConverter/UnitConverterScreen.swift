@@ -88,6 +88,9 @@ struct UnitConverterScreen: View {
         .onTapGesture {
             isTextFieldFocused = false
         }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
+        }
     }
 }
 

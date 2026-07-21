@@ -9,16 +9,17 @@ import SwiftUI
 
 struct DiscoverScreen: View {
     @StateObject var viewModel = DiscoverViewModel()
+    @EnvironmentObject var localization: LocalizationManager
     
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: "Discover", secondIcon: "ic_like_squre", isShowSecondbutton: true, isShowBackButton: false, font: .system(size: 20, weight: .semibold), secondButton: {
+                DefaultDesign.Header(name: "DISCOVERY", secondIcon: "ic_like_squre", isShowSecondbutton: true, isShowBackButton: false, font: .system(size: 20, weight: .semibold), secondButton: {
                     viewModel.isShowLikeScreen = true
                 })
                     .padding(.horizontal, 16)
                 
-                CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: ["Movies", "Series"]) { index in
+                CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: [Strings.movies, Strings.series]) { index in
                     if index == 0 {
                         if viewModel.moviesBunch.isEmpty {
                             viewModel.newReleaseAPI()
@@ -48,6 +49,7 @@ struct DiscoverScreen: View {
                         }
                         .padding(.vertical, 24)
                     }
+                    .id(localization.selectedLanguage)
                 } else {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
@@ -64,10 +66,12 @@ struct DiscoverScreen: View {
                         }
                         .padding(.vertical, 24)
                     }
+                    .id(localization.selectedLanguage)
                 }
             }
         }
         .defaultPage()
+        .id(localization.selectedLanguage)
         .navigationDestination(isPresented: $viewModel.isShowCategoryScreen) {
             CategoryListScreen(viewModel: CategoryListViewModel(media: viewModel.selectedBunch))
         }
@@ -76,6 +80,9 @@ struct DiscoverScreen: View {
         }
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = false
         }
     }
 }

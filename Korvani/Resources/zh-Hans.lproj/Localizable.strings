@@ -1,0 +1,159 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "下一步";
+"GOT_IT" = "知道了";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "发现。观看。享受。";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "无限\n娱乐";
+"PAGE1_INFO" = "尽享数千部电影、电视剧等内容的无限访问权限。";
+"PAGE2_TITLE" = "先看\n预告片";
+"PAGE2_INFO" = "观看前先预览,选择您想看的内容。";
+"PAGE3_TITLE" = "您的收藏,\n您的空间";
+"PAGE3_INFO" = "保存收藏,获取个性化推荐,绝不错过必看内容。";
+"PAGE4_TITLE" = "发现您的下一部\n最爱电影";
+"PAGE4_INFO" = "探索热门电影、电视剧、预告片、评分、评论以及观看方式——一站式体验。";
+"INFO_ONLY" = "仅供参考";
+"PAGE4_MOREINFO" = "此应用不提供电影的流媒体播放或托管服务。它帮助您发现内容、观看预告片、查看评分并找到合法的流媒体平台。";
+
+// MARK: - Home Screen -
+"WELCOME" = "欢迎来到,";
+"SMART_HUB" = "智能中心";
+"APP_PERMISSION_NOT_GIV" = "请授权以获取天气信息";
+"UNIT_CONVERTER" = "单位转换器";
+"UNIT_CONVERTER_TAGLINE" = "即时转换单位";
+"TRANSLATE" = "翻译";
+"TRANSLATE_TAGLINE" = "即时翻译";
+"WALLPAPERS" = "高清壁纸";
+"WALLPAPERS_TAGLINE" = "浏览并下载壁纸";
+"ABOUT_CELEBRITY" = "关于该名人";
+"VIEW_ALL" = "查看全部";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "搜索电影和电视剧";
+"MOVIES" = "电影";
+"SERIES" = "电视剧";
+
+// MARK: - Weather Screen -
+"WEATHER" = "天气";
+"MAXIMUM" = "最高温度";
+"HUMIDITY" = "湿度";
+"WIND" = "风速";
+"FORECAST" = "7天天气预报";
+
+// MARK: - Unit Converter -
+"METERS" = "米";
+"KILOMETERS" = "千米";
+"CENTIMETERS" = "厘米";
+"MILLIMETERS" = "毫米";
+"FEET" = "英尺";
+"INCHES" = "英寸";
+"MILES" = "英里";
+"YARDS" = "码";
+"KILOGRAMS" = "千克";
+"GRAMS" = "克";
+"MILIGRAMS" = "毫克";
+"POUNDS" = "磅";
+"OUNCES" = "盎司";
+"TONNES" = "吨";
+"STONE" = "英石";
+"M/S" = "米/秒";
+"KM/H" = "千米/小时";
+"MPH" = "英里/小时";
+"KNOTS" = "节";
+"FT/S" = "英尺/秒";
+"BYTES" = "字节";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "长度";
+"WEIGHT" = "重量";
+"SPEED" = "速度";
+"STORAGE" = "存储";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "原文";
+"SOURCE_PLACEHOLDER" = "输入要翻译的内容…";
+"TRANSLATION_PLACEHOLDER" = "译文将显示在此处…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "发现";
+"NEW_RELEASE" = "最新上映";
+"TOP_RATED" = "高分推荐";
+"MOST_POPULAR" = "最受欢迎";
+"ARRIVING_TODAY" = "今日上映";
+
+// MARK: - Like -
+"FAVORITE" = "收藏";
+"NO_FAVORITE" = "暂无内容";
+"NO_MOVIE_TAGLINE" = "您收藏的电影将显示在此处。";
+"NO_SERIES_TAGLINE" = "您收藏的电视剧将显示在此处。";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "简介";
+"SHOW_LESS" = "收起...";
+"SHOW_MORE" = "展开...";
+"MORE_INFO" = "电影信息";
+"TOP_CAST" = "主要演员";
+"CORE_CREW" = "核心制作团队";
+"STATUS" = "状态";
+"LANGUAGE" = "语言";
+"RUNTIME" = "片长";
+"REVENUE" = "票房收入";
+"SEASON" = "季";
+"NO_CAST" = "未找到演员信息";
+"NO_CREW" = "未找到制作团队信息";
+"POSTER" = "海报";
+"VIDEOS" = "视频";
+"NO_PHOTOS" = "未找到照片";
+"NO_VIDEO" = "未找到视频";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "个人简介";
+"PERSONAL_INFO" = "个人信息";
+"NO_MEDIA" = "未找到媒体内容";
+"BIRTHDAY" = "生日";
+"AGE" = "年龄";
+"BIRTHPLACE" = "出生地";
+"DEPARTMENT" = "职业领域";
+
+// MARK: - Puzzle -
+"PUZZLE" = "拼图";
+"COMPLETED" = "已完成";
+"PIECES" = "拼图块";
+"ORIGINAL_POSTER" = "原始海报";
+"ORIGINAL_IMAGE_TAGLINE" = "点击查看完整图片";
+"PUZZLE_NOTES" = "每一块拼图都让您离完整的电影海报更近一步。继续拼图,揭晓最终图像。";
+"CONGRATULATION" = "恭喜";
+"OK" = "确定";
+"PUZZLE_INSTRACTION" = "拼图说明";
+"PUZZLE_NOTE1" = "长按拼图块以选中";
+"PUZZLE_NOTE2" = "拖放到正确位置";
+"PUZZLE_NOTE3" = "重复此操作直至海报拼完";
+
+// MARK: - Setting -
+"SETTING" = "设置";
+"PREFERENCES" = "偏好设置";
+"SUPPORT_INFO" = "支持与信息";
+"SHARE_APP" = "分享应用";
+"RATE_US" = "给我们评分";
+"PRIVECY_POLICY" = "隐私政策";
+"TEMS_USE" = "使用条款";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "导出";
+"DOWNLOADING" = "正在下载...";
+"DOWNLOAD_SUCCESS" = "下载成功!";
+"CHECK_PHOTO_APP" = "请查看照片应用";
+

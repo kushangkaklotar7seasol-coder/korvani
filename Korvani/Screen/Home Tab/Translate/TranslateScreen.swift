@@ -16,7 +16,7 @@ struct TranslateScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: "Translate", back: {
+                DefaultDesign.Header(name: Strings.translate, back: {
                     self.dismiss()
                 })
                 
@@ -108,6 +108,9 @@ struct TranslateScreen: View {
         }
         .onChange(of: viewModel.sourceText) { _ in
             viewModel.translateText()
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
         }
     }
 }

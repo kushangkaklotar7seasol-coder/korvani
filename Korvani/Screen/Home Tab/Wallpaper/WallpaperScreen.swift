@@ -23,7 +23,7 @@ struct WallpaperScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: "HD Wallpaper", back: {
+                DefaultDesign.Header(name: "WALLPAPERS", back: {
                     self.dismiss()
                 })
                 
@@ -54,6 +54,9 @@ struct WallpaperScreen: View {
         .defaultPage()
         .navigationDestination(isPresented: $viewModel.isShowDownload) {
             WallpaperExportScreen(viewModel: WallpaperExportViewModel(wallpaper: viewModel.selectedWallpaper))
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
         }
     }
     

@@ -147,6 +147,9 @@ class OnBording {
                 
             }
             .ignoresSafeArea()
+            .onAppear {
+                SwipeBackManager.shared.isEnabled = false
+            }
         }
     }
 }

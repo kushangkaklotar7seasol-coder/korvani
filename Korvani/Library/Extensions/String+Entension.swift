@@ -23,76 +23,150 @@ extension String {
 }
 
 class Strings {
-    static let next = "NEXT".localized()
-    static let gotIt = "GOT_IT".localized()
+    static var next: String { "NEXT".localized() }
+    static var gotIt: String { "GOT_IT".localized() }
     
-    static let splashSubtitle = "SPLASH_SUBTITLE".localized()
+    static var splashSubtitle: String { "SPLASH_SUBTITLE".localized() }
     
-    static let page1Title = "PAGE1_TITLE".localized()
-    static let page1Info = "PAGE1_INFO".localized()
-    static let page2Title = "PAGE2_TITLE".localized()
-    static let page2Info = "PAGE2_INFO".localized()
-    static let page3Title = "PAGE3_TITLE".localized()
-    static let page3Info = "PAGE3_INFO".localized()
-    static let page4Title = "PAGE4_TITLE".localized()
-    static let page4Info = "PAGE4_INFO".localized()
-    static let infoOnly = "INFO_ONLY".localized()
-    static let page4MoreInfo = "PAGE4_MOREINFO".localized()
+    static var page1Title: String { "PAGE1_TITLE".localized() }
+    static var page1Info: String { "PAGE1_INFO".localized() }
+    static var page2Title: String { "PAGE2_TITLE".localized() }
+    static var page2Info: String { "PAGE2_INFO".localized() }
+    static var page3Title: String { "PAGE3_TITLE".localized() }
+    static var page3Info: String { "PAGE3_INFO".localized() }
+    static var page4Title: String { "PAGE4_TITLE".localized() }
+    static var page4Info: String { "PAGE4_INFO".localized() }
+    static var infoOnly: String { "INFO_ONLY".localized() }
+    static var page4MoreInfo: String { "PAGE4_MOREINFO".localized() }
     
     // MARK: - Home -
-    static let welcome = "WELCOME".localized()
-    static let smartHub = "SMART_HUB".localized()
-    static let appPermissionNotGive = "APP_PERMISSION_NOT_GIV".localized()
-    static let unitConverter = "UNIT_CONVERTER".localized()
-    static let unitConverterTagline = "UNIT_CONVERTER_TAGLINE".localized()
-    static let translate = "TRANSLATE".localized()
-    static let translateTagline = "TRANSLATE_TAGLINE".localized()
-    static let wallpapers = "WALLPAPERS".localized()
-    static let wallpapersTagline = "WALLPAPERS_TAGLINE".localized()
-    static let aboutCelebrity = "ABOUT_CELEBRITY".localized()
-    static let viewAll = "VIEW_ALL".localized()
+    static var welcome: String { "WELCOME".localized() }
+    static var smartHub: String { "SMART_HUB".localized() }
+    static var appPermissionNotGive: String { "APP_PERMISSION_NOT_GIV".localized() }
+    static var unitConverter: String { "UNIT_CONVERTER".localized() }
+    static var unitConverterTagline: String { "UNIT_CONVERTER_TAGLINE".localized() }
+    static var translate: String { "TRANSLATE".localized() }
+    static var translateTagline: String { "TRANSLATE_TAGLINE".localized() }
+    static var wallpapers: String { "WALLPAPERS".localized() }
+    static var wallpapersTagline: String { "WALLPAPERS_TAGLINE".localized() }
+    static var aboutCelebrity: String { "ABOUT_CELEBRITY".localized() }
+    static var viewAll: String { "VIEW_ALL".localized() }
     
     // MARK: - Search -
-    static let searchPlaceHolder = "SEARCH_PLACEHOLDER".localized()
-    static let movies = "MOVIES".localized()
-    static let series = "SERIES".localized()
+    static var searchPlaceHolder: String { "SEARCH_PLACEHOLDER".localized() }
+    static var movies: String { "MOVIES".localized() }
+    static var series: String { "SERIES".localized() }
     
     // MARK: - Weather -
-    static let weather = "WEATHER".localized()
-    static let maximum = "MAXIMUM".localized()
-    static let humidity = "HUMIDITY".localized()
-    static let wind = "WIND".localized()
-    static let forecast = "FORECAST".localized()
+    static var weather: String { "WEATHER".localized() }
+    static var maximum: String { "MAXIMUM".localized() }
+    static var humidity: String { "HUMIDITY".localized() }
+    static var wind: String { "WIND".localized() }
+    static var forecast: String { "FORECAST".localized() }
     
     // MARK: - Unit Converter -
-    static let meters = "METERS".localized()
-    static let kilometers = "KILOMETERS".localized()
-    static let centimeters = "CENTIMETERS".localized()
-    static let millimeters = "MILLIMETERS".localized()
-    static let feet = "FEET".localized()
-    static let inches = "INCHES".localized()
-    static let miles = "MILES".localized()
-    static let yards = "YARDS".localized()
-    static let kilograms = "KILOGRAMS".localized()
-    static let grams = "GRAMS".localized()
-    static let miligrams = "MILIGRAMS".localized()
-    static let pounds = "POUNDS".localized()
-    static let ounces = "OUNCES".localized()
-    static let tonnes = "TONNES".localized()
-    static let stone = "STONE".localized()
-    static let mPerS = "M/S".localized()
-    static let kmPerH = "KM/H".localized()
-    static let mph = "MPH".localized()
-    static let knots = "KNOTS".localized()
-    static let ftPerS = "FT/S".localized()
-    static let bytes = "BYTES".localized()
-    static let kb = "KB".localized()
-    static let mb = "MB".localized()
-    static let gb = "GB".localized()
-    static let tb = "TB".localized()
-    static let pb = "PB".localized()
-    static let length = "LENGTH".localized()
-    static let weight = "WEIGHT".localized()
-    static let speed = "SPEED".localized()
-    static let storage = "STORAGE".localized()
+    static var meters: String { "METERS".localized() }
+    static var kilometers: String { "KILOMETERS".localized() }
+    static var centimeters: String { "CENTIMETERS".localized() }
+    static var millimeters: String { "MILLIMETERS".localized() }
+    static var feet: String { "FEET".localized() }
+    static var inches: String { "INCHES".localized() }
+    static var miles: String { "MILES".localized() }
+    static var yards: String { "YARDS".localized() }
+    static var kilograms: String { "KILOGRAMS".localized() }
+    static var grams: String { "GRAMS".localized() }
+    static var miligrams: String { "MILIGRAMS".localized() }
+    static var pounds: String { "POUNDS".localized() }
+    static var ounces: String { "OUNCES".localized() }
+    static var tonnes: String { "TONNES".localized() }
+    static var stone: String { "STONE".localized() }
+    static var mPerS: String { "M/S".localized() }
+    static var kmPerH: String { "KM/H".localized() }
+    static var mph: String { "MPH".localized() }
+    static var knots: String { "KNOTS".localized() }
+    static var ftPerS: String { "FT/S".localized() }
+    static var bytes: String { "BYTES".localized() }
+    static var kb: String { "KB".localized() }
+    static var mb: String { "MB".localized() }
+    static var gb: String { "GB".localized() }
+    static var tb: String { "TB".localized() }
+    static var pb: String { "PB".localized() }
+    static var length: String { "LENGTH".localized() }
+    static var weight: String { "WEIGHT".localized() }
+    static var speed: String { "SPEED".localized() }
+    static var storage: String { "STORAGE".localized() }
+    
+    // MARK: - Translate -
+    static var sourceText: String { "SOURCE_TEXT".localized() }
+    static var sourcePlaceholder: String { "SOURCE_PLACEHOLDER".localized() }
+    static var translationPlaceholder: String { "TRANSLATION_PLACEHOLDER".localized() }
+    
+    // MARK: - Discover -
+    static var newReleases: String { "NEW_RELEASE".localized() }
+    static var topRated: String { "TOP_RATED".localized() }
+    static var mostPopular: String { "MOST_POPULAR".localized() }
+    static var arrivingToday: String { "ARRIVING_TODAY".localized() }
+    
+    // MARK: - Favorite -
+    static var favourite: String { "FAVORITE".localized() }
+    static var noFavourite: String { "NO_FAVORITE".localized() }
+    static var noFavouriteMovie: String { "NO_MOVIE_TAGLINE".localized() }
+    static var noFavouriteSeries: String { "NO_SERIES_TAGLINE".localized() }
+    
+    // MARK: - Movie Detail -
+    static var overview: String { "OVERVIEW".localized() }
+    static var showLess: String { "SHOW_LESS".localized() }
+    static var showMore: String { "SHOW_MORE".localized() }
+    static var moreInfo: String { "MORE_INFO".localized() }
+    static var topCast: String { "TOP_CAST".localized() }
+    static var coreCrew: String { "CORE_CREW".localized() }
+    static var status: String { "STATUS".localized() }
+    static var language: String { "LANGUAGE".localized() }
+    static var runtime: String { "RUNTIME".localized() }
+    static var revenue: String { "REVENUE".localized() }
+    static var season: String { "SEASON".localized() }
+    static var noCast: String { "NO_CAST".localized() }
+    static var noCrew: String { "NO_CREW".localized() }
+    static var poster: String { "POSTER".localized() }
+    static var videos: String { "VIDEOS".localized() }
+    static var noPhotos: String { "NO_PHOTOS".localized() }
+    static var noVideo: String { "NO_VIDEO".localized() }
+    
+    // MARK: - Celebrity Screen
+    static var biography: String { "BIOGRAPHY".localized() }
+    static var personalInfo: String { "PERSONAL_INFO".localized() }
+    static var noMedia: String { "NO_MEDIA".localized() }
+    static var birthday: String { "BIRTHDAY".localized() }
+    static var age: String { "AGE".localized() }
+    static var birthplace: String { "BIRTHPLACE".localized() }
+    static var department: String { "DEPARTMENT".localized() }
+    
+    // MARK: - Puzzle -
+    static var puzzle: String { "PUZZLE".localized() }
+    static var completed: String { "COMPLETED".localized() }
+    static var pieces: String { "PIECES".localized() }
+    static var originalPoster: String { "ORIGINAL_POSTER".localized() }
+    static var originalPosterTagline: String { "ORIGINAL_IMAGE_TAGLINE".localized() }
+    static var puzzleNotes: String { "PUZZLE_NOTES".localized() }
+    static var congratulation: String { "CONGRATULATION".localized() }
+    static var ok: String { "OK".localized() }
+    static var puzzleInstraction: String { "PUZZLE_INSTRACTION".localized() }
+    static var puzzleNote1: String { "PUZZLE_NOTE1".localized() }
+    static var puzzleNote2: String { "PUZZLE_NOTE2".localized() }
+    static var puzzleNote3: String { "PUZZLE_NOTE3".localized() }
+    
+    // MARK: - Sttting -
+    static var setting: String { "SETTING".localized() }
+    static var prefrences: String { "PREFERENCES".localized() }
+    static var supportInfo: String { "SUPPORT_INFO".localized() }
+    static var shareApp: String { "SHARE_APP".localized() }
+    static var rateus: String { "RATE_US".localized() }
+    static var privecyPolicy: String { "PRIVECY_POLICY".localized() }
+    static var termsUse: String { "TEMS_USE".localized() }
+    
+    // MARK: - Wallpaper Expose Screen
+    static var export: String { "EXPORT".localized() }
+    static var downloading: String { "DOWNLOADING".localized() }
+    static var downloadSuccess: String { "DOWNLOAD_SUCCESS".localized() }
+    static var checkPhotosApp: String { "CHECK_PHOTO_APP".localized() }
 }

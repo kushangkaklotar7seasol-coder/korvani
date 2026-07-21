@@ -1,0 +1,159 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "Volgende";
+"GOT_IT" = "Begrepen";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "Ontdek. Kijk. Geniet.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "Onbeperkt\nEntertainment";
+"PAGE1_INFO" = "Geniet van onbeperkte toegang tot duizenden films, series en meer.";
+"PAGE2_TITLE" = "Bekijk Eerst\nTrailers";
+"PAGE2_INFO" = "Bekijk een voorproefje voordat je kijkt en kies wat je wilt zien.";
+"PAGE3_TITLE" = "Jouw Favorieten,\nJouw Ruimte";
+"PAGE3_INFO" = "Sla favorieten op, ontvang persoonlijke aanbevelingen en mis nooit meer iets belangrijks.";
+"PAGE4_TITLE" = "Ontdek Je Volgende\nFavoriete Film";
+"PAGE4_INFO" = "Verken trending films, series, trailers, beoordelingen, recensies en waar je ze kunt kijken - allemaal op één plek.";
+"INFO_ONLY" = "ALLEEN INFORMATIE";
+"PAGE4_MOREINFO" = "Deze app streamt of host geen films. Het helpt je content te ontdekken, trailers te bekijken, beoordelingen te zien en legale streamingplatforms te vinden.";
+
+// MARK: - Home Screen -
+"WELCOME" = "Welkom bij,";
+"SMART_HUB" = "Smart Hub";
+"APP_PERMISSION_NOT_GIV" = "Sta toegang toe om het weer op te halen";
+"UNIT_CONVERTER" = "Eenhedenomzetter";
+"UNIT_CONVERTER_TAGLINE" = "Zet eenheden direct om";
+"TRANSLATE" = "Vertalen";
+"TRANSLATE_TAGLINE" = "Directe Vertaling";
+"WALLPAPERS" = "HD Achtergronden";
+"WALLPAPERS_TAGLINE" = "Blader door en download achtergronden";
+"ABOUT_CELEBRITY" = "Over de Beroemdheid";
+"VIEW_ALL" = "Alles bekijken";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "Zoek Films & Series";
+"MOVIES" = "Films";
+"SERIES" = "Series";
+
+// MARK: - Weather Screen -
+"WEATHER" = "Weer";
+"MAXIMUM" = "Maximum";
+"HUMIDITY" = "Luchtvochtigheid";
+"WIND" = "Wind";
+"FORECAST" = "7-Daagse Voorspelling";
+
+// MARK: - Unit Converter -
+"METERS" = "Meter";
+"KILOMETERS" = "Kilometer";
+"CENTIMETERS" = "Centimeter";
+"MILLIMETERS" = "Millimeter";
+"FEET" = "Voet";
+"INCHES" = "Inch";
+"MILES" = "Mijl";
+"YARDS" = "Yard";
+"KILOGRAMS" = "Kilogram";
+"GRAMS" = "Gram";
+"MILIGRAMS" = "Milligram";
+"POUNDS" = "Pond";
+"OUNCES" = "Ounce";
+"TONNES" = "Ton";
+"STONE" = "Stone";
+"M/S" = "M/s";
+"KM/H" = "Km/u";
+"MPH" = "Mph";
+"KNOTS" = "Knopen";
+"FT/S" = "Ft/s";
+"BYTES" = "Bytes";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "Lengte";
+"WEIGHT" = "Gewicht";
+"SPEED" = "Snelheid";
+"STORAGE" = "Opslag";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "Brontekst";
+"SOURCE_PLACEHOLDER" = "Typ iets om te vertalen…";
+"TRANSLATION_PLACEHOLDER" = "Je vertaling verschijnt hier…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "Ontdekken";
+"NEW_RELEASE" = "Nieuwe Releases";
+"TOP_RATED" = "Best Beoordeeld";
+"MOST_POPULAR" = "Meest Populair";
+"ARRIVING_TODAY" = "Vandaag Te Zien";
+
+// MARK: - Like -
+"FAVORITE" = "Favoriet";
+"NO_FAVORITE" = "Hier Nog Niets";
+"NO_MOVIE_TAGLINE" = "Je favoriete films verschijnen hier.";
+"NO_SERIES_TAGLINE" = "Je favoriete series verschijnen hier.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "Overzicht";
+"SHOW_LESS" = "Minder tonen...";
+"SHOW_MORE" = "Meer tonen...";
+"MORE_INFO" = "Filminformatie";
+"TOP_CAST" = "Hoofdrolspelers";
+"CORE_CREW" = "Kernteam";
+"STATUS" = "Status";
+"LANGUAGE" = "Taal";
+"RUNTIME" = "Speelduur";
+"REVENUE" = "Opbrengst";
+"SEASON" = "Seizoen";
+"NO_CAST" = "Geen Cast Gevonden";
+"NO_CREW" = "Geen Crew Gevonden";
+"POSTER" = "Poster";
+"VIDEOS" = "Video's";
+"NO_PHOTOS" = "Geen Foto's Gevonden";
+"NO_VIDEO" = "Geen Video Gevonden";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "Biografie";
+"PERSONAL_INFO" = "Persoonlijke Informatie";
+"NO_MEDIA" = "Geen Media Gevonden";
+"BIRTHDAY" = "Verjaardag";
+"AGE" = "Leeftijd";
+"BIRTHPLACE" = "Geboorteplaats";
+"DEPARTMENT" = "Afdeling";
+
+// MARK: - Puzzle -
+"PUZZLE" = "Puzzel";
+"COMPLETED" = "Voltooid";
+"PIECES" = "Stukjes";
+"ORIGINAL_POSTER" = "Originele Poster";
+"ORIGINAL_IMAGE_TAGLINE" = "Tik om de volledige afbeelding te onthullen";
+"PUZZLE_NOTES" = "Elk stukje brengt je dichter bij de complete filmposter. Blijf puzzelen om de uiteindelijke afbeelding te onthullen.";
+"CONGRATULATION" = "Gefeliciteerd";
+"OK" = "OK";
+"PUZZLE_INSTRACTION" = "Puzzelinstructies";
+"PUZZLE_NOTE1" = "Houd een stukje lang ingedrukt om het te selecteren";
+"PUZZLE_NOTE2" = "Sleep het naar de juiste plek";
+"PUZZLE_NOTE3" = "Herhaal totdat de poster compleet is";
+
+// MARK: - Setting -
+"SETTING" = "Instellingen";
+"PREFERENCES" = "Voorkeuren";
+"SUPPORT_INFO" = "Ondersteuning & Informatie";
+"SHARE_APP" = "App Delen";
+"RATE_US" = "Beoordeel Ons";
+"PRIVECY_POLICY" = "Privacybeleid";
+"TEMS_USE" = "Gebruiksvoorwaarden";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "Exporteren";
+"DOWNLOADING" = "Downloaden...";
+"DOWNLOAD_SUCCESS" = "Succesvol Gedownload!";
+"CHECK_PHOTO_APP" = "Controleer de Foto's-app";
+

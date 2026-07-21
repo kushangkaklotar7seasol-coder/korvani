@@ -24,17 +24,54 @@ final class PuzzleViewModel: ObservableObject {
     @Published var showSuccess = false
     @Published var completedPuzzle:Double = 0
     @Published var correctCount = 0
-    let originalImage: UIImage
+    var originalImage: UIImage?
+    var puzzleItem: Puzzle?
     
-    init(image: UIImage) {
-        self.originalImage = Self.cropToSquare(image)
+    init() {
+        self.startPuzzle()
+    }
+    
+    func startPuzzle(){
+        self.puzzleItem = UserdefaultManager.shared.getPuzzle().filter({$0.isUsed == false}).first
+        
+        if self.puzzleItem == nil {
+            var puzzle = UserdefaultManager.shared.getPuzzle()
+            
+            puzzle = puzzle.map({ item in
+                return Puzzle(id: item.id, name: item.name, isUsed: true)
+            })
+            
+            UserdefaultManager.shared.savePuzzle(puzzle)
+            
+            self.puzzleItem = UserdefaultManager.shared.getPuzzle().filter({$0.isUsed == false}).first
+        }
+        
+        self.originalImage = Self.cropToSquare(UIImage(named: puzzleItem?.name ?? "puzzle_1") ?? UIImage())
         setupPuzzle()
+    }
+    
+    func setSuccessPuzzle() {
+        completedPuzzle = 0
+        correctCount = 0
+        
+        var puzzle = UserdefaultManager.shared.getPuzzle()
+        
+        puzzle = puzzle.map({ item in
+            if item.id == self.puzzleItem?.id {
+                return Puzzle(id: item.id, name: item.name, isUsed: true)
+            }
+            return item
+        })
+        
+        UserdefaultManager.shared.savePuzzle(puzzle)
+        
+        self.startPuzzle()
     }
     
     // MARK: - Create Puzzle
     func setupPuzzle() {
-        
-        let slicedImages = sliceImageIntoGrid(image: originalImage)
+        guard let image = originalImage else { return }
+        let slicedImages = sliceImageIntoGrid(image: image)
         
         pieces = slicedImages.enumerated().map {
             PuzzlePiece(image: $0.element, correctIndex: $0.offset)
@@ -134,8 +171,7 @@ final class PuzzleViewModel: ObservableObject {
                 return
             }
         }
-        completedPuzzle = 0
-        correctCount = 0
+        
         showSuccess = true
     }
     

@@ -1,0 +1,159 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "Avanti";
+"GOT_IT" = "Capito";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "Scopri. Guarda. Divertiti.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "Intrattenimento\nIllimitato";
+"PAGE1_INFO" = "Goditi l'accesso illimitato a migliaia di film, serie TV e altro ancora.";
+"PAGE2_TITLE" = "Guarda Prima\ni Trailer";
+"PAGE2_INFO" = "Guarda l'anteprima prima di riprodurre e scegli cosa vedere.";
+"PAGE3_TITLE" = "I Tuoi Preferiti,\nIl Tuo Spazio";
+"PAGE3_INFO" = "Salva i preferiti, ricevi consigli personalizzati e non perderti nulla di imperdibile.";
+"PAGE4_TITLE" = "Scopri il Tuo Prossimo\nFilm Preferito";
+"PAGE4_INFO" = "Esplora film e serie TV di tendenza, trailer, valutazioni, recensioni e dove guardare - tutto in un unico posto.";
+"INFO_ONLY" = "SOLO INFORMAZIONI";
+"PAGE4_MOREINFO" = "Questa app non trasmette né ospita film. Ti aiuta a scoprire contenuti, guardare trailer, visualizzare valutazioni e trovare piattaforme di streaming legali.";
+
+// MARK: - Home Screen -
+"WELCOME" = "Benvenuto su,";
+"SMART_HUB" = "Smart Hub";
+"APP_PERMISSION_NOT_GIV" = "Consenti l'autorizzazione per ottenere il Meteo";
+"UNIT_CONVERTER" = "Convertitore di Unità";
+"UNIT_CONVERTER_TAGLINE" = "Converti le unità istantaneamente";
+"TRANSLATE" = "Traduci";
+"TRANSLATE_TAGLINE" = "Traduzione Istantanea";
+"WALLPAPERS" = "Sfondi HD";
+"WALLPAPERS_TAGLINE" = "Sfoglia e scarica sfondi";
+"ABOUT_CELEBRITY" = "Informazioni sulla Celebrità";
+"VIEW_ALL" = "Vedi tutto";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "Cerca Film e Serie TV";
+"MOVIES" = "Film";
+"SERIES" = "Serie TV";
+
+// MARK: - Weather Screen -
+"WEATHER" = "Meteo";
+"MAXIMUM" = "Massima";
+"HUMIDITY" = "Umidità";
+"WIND" = "Vento";
+"FORECAST" = "Previsioni a 7 Giorni";
+
+// MARK: - Unit Converter -
+"METERS" = "Metri";
+"KILOMETERS" = "Chilometri";
+"CENTIMETERS" = "Centimetri";
+"MILLIMETERS" = "Millimetri";
+"FEET" = "Piedi";
+"INCHES" = "Pollici";
+"MILES" = "Miglia";
+"YARDS" = "Iarde";
+"KILOGRAMS" = "Chilogrammi";
+"GRAMS" = "Grammi";
+"MILIGRAMS" = "Milligrammi";
+"POUNDS" = "Libbre";
+"OUNCES" = "Once";
+"TONNES" = "Tonnellate";
+"STONE" = "Stone";
+"M/S" = "M/s";
+"KM/H" = "Km/h";
+"MPH" = "Mph";
+"KNOTS" = "Nodi";
+"FT/S" = "Ft/s";
+"BYTES" = "Byte";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "Lunghezza";
+"WEIGHT" = "Peso";
+"SPEED" = "Velocità";
+"STORAGE" = "Archiviazione";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "Testo di Origine";
+"SOURCE_PLACEHOLDER" = "Scrivi qualcosa da tradurre…";
+"TRANSLATION_PLACEHOLDER" = "La tua traduzione apparirà qui…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "Scopri";
+"NEW_RELEASE" = "Nuove Uscite";
+"TOP_RATED" = "I Più Votati";
+"MOST_POPULAR" = "I Più Popolari";
+"ARRIVING_TODAY" = "In Onda Oggi";
+
+// MARK: - Like -
+"FAVORITE" = "Preferiti";
+"NO_FAVORITE" = "Ancora Nulla Qui";
+"NO_MOVIE_TAGLINE" = "I tuoi film preferiti appariranno qui.";
+"NO_SERIES_TAGLINE" = "Le tue serie TV preferite appariranno qui.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "Panoramica";
+"SHOW_LESS" = "Mostra meno...";
+"SHOW_MORE" = "Mostra altro...";
+"MORE_INFO" = "Informazioni sul film";
+"TOP_CAST" = "Cast Principale";
+"CORE_CREW" = "Troupe Principale";
+"STATUS" = "Stato";
+"LANGUAGE" = "Lingua";
+"RUNTIME" = "Durata";
+"REVENUE" = "Incassi";
+"SEASON" = "Stagione";
+"NO_CAST" = "Nessun Cast Trovato";
+"NO_CREW" = "Nessuna Troupe Trovata";
+"POSTER" = "Locandina";
+"VIDEOS" = "Video";
+"NO_PHOTOS" = "Nessuna Foto Trovata";
+"NO_VIDEO" = "Nessun Video Trovato";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "Biografia";
+"PERSONAL_INFO" = "Informazioni Personali";
+"NO_MEDIA" = "Nessun Contenuto Trovato";
+"BIRTHDAY" = "Compleanno";
+"AGE" = "Età";
+"BIRTHPLACE" = "Luogo di Nascita";
+"DEPARTMENT" = "Reparto";
+
+// MARK: - Puzzle -
+"PUZZLE" = "Puzzle";
+"COMPLETED" = "Completato";
+"PIECES" = "Pezzi";
+"ORIGINAL_POSTER" = "Locandina Originale";
+"ORIGINAL_IMAGE_TAGLINE" = "Tocca per rivelare l'immagine completa";
+"PUZZLE_NOTES" = "Ogni pezzo ti avvicina alla locandina completa del film. Continua a risolvere per rivelare l'immagine finale.";
+"CONGRATULATION" = "Congratulazioni";
+"OK" = "OK";
+"PUZZLE_INSTRACTION" = "Istruzioni del Puzzle";
+"PUZZLE_NOTE1" = "Tieni premuto un pezzo per selezionarlo";
+"PUZZLE_NOTE2" = "Trascinalo e rilascialo nel posto giusto";
+"PUZZLE_NOTE3" = "Ripeti finché la locandina non è completa";
+
+// MARK: - Setting -
+"SETTING" = "Impostazioni";
+"PREFERENCES" = "Preferenze";
+"SUPPORT_INFO" = "Assistenza e Informazioni";
+"SHARE_APP" = "Condividi App";
+"RATE_US" = "Valutaci";
+"PRIVECY_POLICY" = "Informativa sulla Privacy";
+"TEMS_USE" = "Termini di Utilizzo";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "Esporta";
+"DOWNLOADING" = "Download in corso...";
+"DOWNLOAD_SUCCESS" = "Scaricato con Successo!";
+"CHECK_PHOTO_APP" = "Controlla l'app Foto";
+

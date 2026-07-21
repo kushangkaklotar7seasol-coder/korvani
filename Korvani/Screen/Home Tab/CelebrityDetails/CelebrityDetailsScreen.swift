@@ -28,7 +28,7 @@ struct CelebrityDetailsScreen: View {
                     if viewModel.celebrityDetail?.biography != "" {
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("Biography")
+                                Text(Strings.biography)
                                     .font(.system(size: 18, weight: .medium))
                                 Spacer()
                             }
@@ -37,7 +37,7 @@ struct CelebrityDetailsScreen: View {
                                 Text(viewModel.celebrityDetail?.biography ?? "")
                                     .foregroundColor(.grayColour)
                                     .lineLimit(isShowMore ? nil : 3)
-                                    Button(isShowMore ? "Show less..." : "Show More...") {
+                                Button(isShowMore ? Strings.showLess : Strings.showMore) {
                                         withAnimation {
                                             isShowMore.toggle()
                                         }
@@ -51,7 +51,7 @@ struct CelebrityDetailsScreen: View {
                     if !viewModel.personalInformation.isEmpty {
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("Personal info")
+                                Text(Strings.personalInfo)
                                     .font(.system(size: 18, weight: .medium))
                                 Spacer()
                             }
@@ -91,7 +91,7 @@ struct CelebrityDetailsScreen: View {
                                 .padding(.horizontal, 16)
                             }
                         } else {
-                            Text("No Media Found")
+                            Text(Strings.noMedia)
                                 .font(.system(size: 22, weight: .bold))
                                 .padding()
                         }
@@ -121,6 +121,9 @@ struct CelebrityDetailsScreen: View {
         .defaultPage()
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
         }
         .sheet(isPresented: $viewModel.isViewAllSheet) {
             VStack {
@@ -279,12 +282,12 @@ class CelebrityDetails {
         
         var body: some View {
                 VStack(spacing: 4) {
-                    Text(itemName)
+                    Text(itemName.localized())
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(self.isSelected ? .whiteColour : .grayColour)
                     
                     ZStack {
-                        Text("\(itemName)  ")
+                        Text("\(itemName.localized())  ")
                             .foregroundColor(.clear)
                     }
                     .frame(height: 2)
@@ -306,8 +309,8 @@ class CelebrityDetails {
         @StateObject var viewModel: CelebrityDetailsViewModel
         
         enum MediaTab: String, CaseIterable {
-            case movies = "Movies"
-            case tvShows = "TV Shows"
+            case movies = "MOVIES"
+            case tvShows = "SERIES"
         }
         
         var body: some View {
@@ -334,7 +337,7 @@ class CelebrityDetails {
                         Button {
                             viewModel.isViewAllSheet = true
                         } label: {
-                            Text("View all")
+                            Text(Strings.viewAll)
                                 .foregroundColor(.mediumOrangeColour)
                                 .font(.system(size: 12,weight: .semibold))
                         }
@@ -474,7 +477,7 @@ class MovieDetail {
         var body: some View {
             VStack(spacing: 10) {
                 HStack {
-                    Text(item.name)
+                    Text(item.name.localized())
                         .font(.system(size: 18, weight: .semibold))
                     
                     Spacer()
@@ -482,7 +485,7 @@ class MovieDetail {
                     Button {
                         self.onViewAll?()
                     } label: {
-                        Text("View all")
+                        Text(Strings.viewAll)
                             .foregroundColor(.mediumOrangeColour)
                             .font(.system(size: 12,weight: .semibold))
                     }

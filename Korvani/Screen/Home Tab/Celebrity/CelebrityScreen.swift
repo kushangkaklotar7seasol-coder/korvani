@@ -22,7 +22,7 @@ struct CelebrityScreen: View {
         ZStack {
             VStack(spacing: 5) {
                 
-                DefaultDesign.Header(name: "About the Celebrity", back: {
+                DefaultDesign.Header(name: "ABOUT_CELEBRITY", back: {
                     self.dismiss()
                 })
                 
@@ -52,6 +52,9 @@ struct CelebrityScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .navigationDestination(isPresented: $viewModel.isShowCelebrityDetail) {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
         }
     }
     

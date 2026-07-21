@@ -28,7 +28,7 @@ class DiscoverViewModel: ObservableObject {
     func newReleaseAPI() {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.newReleaseAPI { statusCode, response in
-                self.moviesBunch.append(MediaBunch(id: 0, name: "New Releases", type: .NewRelesesMovie, media: response))
+                self.moviesBunch.append(MediaBunch(id: 0, name: "NEW_RELEASE", type: .NewRelesesMovie, media: response))
                 self.topRatedAPI()
             } failure: { error in
                 print(error)
@@ -41,7 +41,7 @@ class DiscoverViewModel: ObservableObject {
     func topRatedAPI() {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.topRatedAPI { statusCode, response in
-                self.moviesBunch.append(MediaBunch(id: 1, name: "Top Rated", type: .TopRatedMovie, media: response))
+                self.moviesBunch.append(MediaBunch(id: 1, name: "TOP_RATED", type: .TopRatedMovie, media: response))
                 self.populerAPI()
             } failure: { error in
                 print(error)
@@ -54,7 +54,7 @@ class DiscoverViewModel: ObservableObject {
     func populerAPI() {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.populerAPI { statusCode, response in
-                self.moviesBunch.append(MediaBunch(id: 2, name: "Most Popular", type: .MostPopulerMovie, media: response))
+                self.moviesBunch.append(MediaBunch(id: 2, name: "MOST_POPULAR", type: .MostPopulerMovie, media: response))
             } failure: { error in
                 print(error)
             }
@@ -66,7 +66,7 @@ class DiscoverViewModel: ObservableObject {
     func airingTodayAPI() {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.airingTodayAPI { statusCode, response in
-                self.seriesBunch.append(MediaBunch(id: 0, name: "Airing Today", type: .airingTodaySeries, media: response))
+                self.seriesBunch.append(MediaBunch(id: 0, name: "ARRIVING_TODAY", type: .airingTodaySeries, media: response))
                 self.topRatedSeriesAPI()
             } failure: { error in
                 print(error)
@@ -79,7 +79,7 @@ class DiscoverViewModel: ObservableObject {
     func topRatedSeriesAPI() {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.topRatedSeriesAPI { statusCode, response in
-                self.seriesBunch.append(MediaBunch(id: 1, name: "Top Rated", type: .topRatedSeries, media: response))
+                self.seriesBunch.append(MediaBunch(id: 1, name: "TOP_RATED", type: .topRatedSeries, media: response))
                 self.populerSeriesAPI()
             } failure: { error in
                 print(error)
@@ -92,7 +92,7 @@ class DiscoverViewModel: ObservableObject {
     func populerSeriesAPI() {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.populerSeriesAPI { statusCode, response in
-                self.seriesBunch.append(MediaBunch(id: 2, name: "Most Popular", type: .mostPopulerSeries, media: response))
+                self.seriesBunch.append(MediaBunch(id: 2, name: "MOST_POPULAR", type: .mostPopulerSeries, media: response))
             } failure: { error in
                 print(error)
             }

@@ -34,20 +34,20 @@ class CelebrityDetailsViewModel: ObservableObject {
                 self.celebrityDetail = response
                 
                 if let birthDay = self.celebrityDetail?.birthday {
-                    self.personalInformation.append(LanguageModel(id: 0, name: "Birthday", language: birthDay))
+                    self.personalInformation.append(LanguageModel(id: 0, name: Strings.birthday, language: birthDay))
                 }
                 
                 if let bornYear = self.celebrityDetail?.birthday?.prefix(4) {
                     let currentYear = Calendar.current.component(.year, from: Date())
-                    self.personalInformation.append(LanguageModel(id: 1, name: "Age", language: "\(currentYear - (Int(bornYear) ?? 0))"))
+                    self.personalInformation.append(LanguageModel(id: 1, name: Strings.age, language: "\(currentYear - (Int(bornYear) ?? 0))"))
                 }
                 
                 if let placeBirth = self.celebrityDetail?.placeOfBirth {
-                    self.personalInformation.append(LanguageModel(id: 2, name: "Birthplace", language: placeBirth))
+                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.birthplace, language: placeBirth))
                 }
                 
                 if let department = self.celebrityDetail?.knownForDepartment {
-                    self.personalInformation.append(LanguageModel(id: 3, name: "Department", language: department))
+                    self.personalInformation.append(LanguageModel(id: 3, name: Strings.department, language: department))
                 }
                 
                 self.moviesAPI()

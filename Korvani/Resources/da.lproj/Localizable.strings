@@ -1,0 +1,159 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "Næste";
+"GOT_IT" = "Forstået";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "Opdag. Se. Nyd.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "Ubegrænset\nUnderholdning";
+"PAGE1_INFO" = "Nyd ubegrænset adgang til tusindvis af film, serier og meget mere.";
+"PAGE2_TITLE" = "Se Trailere\nFørst";
+"PAGE2_INFO" = "Få et forhåndskig, før du ser, og vælg hvad du vil se.";
+"PAGE3_TITLE" = "Dine Favoritter,\nDit Rum";
+"PAGE3_INFO" = "Gem favoritter, få personlige anbefalinger og gå ikke glip af noget vigtigt.";
+"PAGE4_TITLE" = "Find Din Næste\nYndlingsfilm";
+"PAGE4_INFO" = "Udforsk populære film, serier, trailere, anmeldelser og hvor du kan se dem - alt sammen ét sted.";
+"INFO_ONLY" = "KUN INFORMATION";
+"PAGE4_MOREINFO" = "Denne app streamer eller hoster ikke film. Den hjælper dig med at opdage indhold, se trailere, se anmeldelser og finde lovlige streamingtjenester.";
+
+// MARK: - Home Screen -
+"WELCOME" = "Velkommen til,";
+"SMART_HUB" = "Smart Hub";
+"APP_PERMISSION_NOT_GIV" = "Tillad adgang for at hente vejret";
+"UNIT_CONVERTER" = "Enhedskonverter";
+"UNIT_CONVERTER_TAGLINE" = "Konverter enheder øjeblikkeligt";
+"TRANSLATE" = "Oversæt";
+"TRANSLATE_TAGLINE" = "Øjeblikkelig Oversættelse";
+"WALLPAPERS" = "HD Baggrunde";
+"WALLPAPERS_TAGLINE" = "Gennemse og download baggrunde";
+"ABOUT_CELEBRITY" = "Om Kendisen";
+"VIEW_ALL" = "Se alle";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "Søg efter Film og Serier";
+"MOVIES" = "Film";
+"SERIES" = "Serier";
+
+// MARK: - Weather Screen -
+"WEATHER" = "Vejr";
+"MAXIMUM" = "Maksimum";
+"HUMIDITY" = "Luftfugtighed";
+"WIND" = "Vind";
+"FORECAST" = "7-dages Vejrudsigt";
+
+// MARK: - Unit Converter -
+"METERS" = "Meter";
+"KILOMETERS" = "Kilometer";
+"CENTIMETERS" = "Centimeter";
+"MILLIMETERS" = "Millimeter";
+"FEET" = "Fod";
+"INCHES" = "Tommer";
+"MILES" = "Miles";
+"YARDS" = "Yards";
+"KILOGRAMS" = "Kilogram";
+"GRAMS" = "Gram";
+"MILIGRAMS" = "Milligram";
+"POUNDS" = "Pund";
+"OUNCES" = "Ounce";
+"TONNES" = "Ton";
+"STONE" = "Stone";
+"M/S" = "M/s";
+"KM/H" = "Km/t";
+"MPH" = "Mph";
+"KNOTS" = "Knob";
+"FT/S" = "Ft/s";
+"BYTES" = "Bytes";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "Længde";
+"WEIGHT" = "Vægt";
+"SPEED" = "Hastighed";
+"STORAGE" = "Lagerplads";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "Kildetekst";
+"SOURCE_PLACEHOLDER" = "Skriv noget, der skal oversættes…";
+"TRANSLATION_PLACEHOLDER" = "Din oversættelse vises her…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "Opdag";
+"NEW_RELEASE" = "Nye Udgivelser";
+"TOP_RATED" = "Højest Vurderede";
+"MOST_POPULAR" = "Mest Populære";
+"ARRIVING_TODAY" = "Vises i Dag";
+
+// MARK: - Like -
+"FAVORITE" = "Favorit";
+"NO_FAVORITE" = "Intet Her Endnu";
+"NO_MOVIE_TAGLINE" = "Dine yndlingsfilm vil blive vist her.";
+"NO_SERIES_TAGLINE" = "Dine yndlingsserier vil blive vist her.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "Oversigt";
+"SHOW_LESS" = "Vis mindre...";
+"SHOW_MORE" = "Vis mere...";
+"MORE_INFO" = "Filminfo";
+"TOP_CAST" = "Hovedrolleindehavere";
+"CORE_CREW" = "Kernehold";
+"STATUS" = "Status";
+"LANGUAGE" = "Sprog";
+"RUNTIME" = "Spilletid";
+"REVENUE" = "Indtjening";
+"SEASON" = "Sæson";
+"NO_CAST" = "Ingen Skuespillere Fundet";
+"NO_CREW" = "Ingen Hold Fundet";
+"POSTER" = "Plakat";
+"VIDEOS" = "Videoer";
+"NO_PHOTOS" = "Ingen Billeder Fundet";
+"NO_VIDEO" = "Ingen Video Fundet";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "Biografi";
+"PERSONAL_INFO" = "Personlige Oplysninger";
+"NO_MEDIA" = "Intet Indhold Fundet";
+"BIRTHDAY" = "Fødselsdag";
+"AGE" = "Alder";
+"BIRTHPLACE" = "Fødested";
+"DEPARTMENT" = "Afdeling";
+
+// MARK: - Puzzle -
+"PUZZLE" = "Puslespil";
+"COMPLETED" = "Fuldført";
+"PIECES" = "Brikker";
+"ORIGINAL_POSTER" = "Original Plakat";
+"ORIGINAL_IMAGE_TAGLINE" = "Tryk for at afsløre det fulde billede";
+"PUZZLE_NOTES" = "Hver brik bringer dig tættere på den komplette filmplakat. Bliv ved med at løse for at afsløre det endelige billede.";
+"CONGRATULATION" = "Tillykke";
+"OK" = "OK";
+"PUZZLE_INSTRACTION" = "Puslespilsinstruktioner";
+"PUZZLE_NOTE1" = "Hold en brik nede for at vælge den";
+"PUZZLE_NOTE2" = "Træk og slip den på det rigtige sted";
+"PUZZLE_NOTE3" = "Gentag, indtil plakaten er fuldført";
+
+// MARK: - Setting -
+"SETTING" = "Indstillinger";
+"PREFERENCES" = "Præferencer";
+"SUPPORT_INFO" = "Support og Information";
+"SHARE_APP" = "Del App";
+"RATE_US" = "Bedøm Os";
+"PRIVECY_POLICY" = "Privatlivspolitik";
+"TEMS_USE" = "Brugsvilkår";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "Eksporter";
+"DOWNLOADING" = "Downloader...";
+"DOWNLOAD_SUCCESS" = "Downloadet med Succes!";
+"CHECK_PHOTO_APP" = "Tjek Fotos-appen";
+

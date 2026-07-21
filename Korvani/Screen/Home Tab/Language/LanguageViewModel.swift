@@ -18,7 +18,6 @@ class LanguageViewModel: ObservableObject {
                                                 LanguageItem(code: "da"),
                                                 LanguageItem(code: "tr"),
                                                 LanguageItem(code: "fr"),
-                                                LanguageItem(code: "it"),
                                                 LanguageItem(code: "ja"),
                                                 LanguageItem(code: "nl"),
                                                 LanguageItem(code: "ko"),

@@ -81,3 +81,78 @@
 "WEIGHT" = "Weight";
 "SPEED" = "Speed";
 "STORAGE" = "Storage";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "Source Text";
+"SOURCE_PLACEHOLDER" = "Type something to translate…";
+"TRANSLATION_PLACEHOLDER" = "Your translation will appear here…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "Discover";
+"NEW_RELEASE" = "New Releases";
+"TOP_RATED" = "Top Rated";
+"MOST_POPULAR" = "Most Popular";
+"ARRIVING_TODAY" = "Airing Today";
+
+// MARK: - Like -
+"FAVORITE" = "Favorite";
+"NO_FAVORITE" = "Nothing Here Yet";
+"NO_MOVIE_TAGLINE" = "Your favorite movies will appear here.";
+"NO_SERIES_TAGLINE" = "Your favorite TV shows will appear here.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "Overview";
+"SHOW_LESS" = "Show less...";
+"SHOW_MORE" = "Show More...";
+"MORE_INFO" = "Movie info";
+"TOP_CAST" = "Top Cast";
+"CORE_CREW" = "Core Crew";
+"STATUS" = "Status";
+"LANGUAGE" = "Language";
+"RUNTIME" = "Runtime";
+"REVENUE" = "Revenue";
+"SEASON" = "Season";
+"NO_CAST" = "No Cast Found";
+"NO_CREW" = "No Crew Found";
+"POSTER" = "Poster";
+"VIDEOS" = "Videos";
+"NO_PHOTOS" = "No Photos Found";
+"NO_VIDEO" = "No Video Found";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "Biography";
+"PERSONAL_INFO" = "Personal info";
+"NO_MEDIA" = "No Media Found";
+"BIRTHDAY" = "Birthday";
+"AGE" = "Age";
+"BIRTHPLACE" = "Birthplace";
+"DEPARTMENT" = "Department";
+
+// MARK: - Puzzle -
+"PUZZLE" = "Puzzle";
+"COMPLETED" = "Complete";
+"PIECES" = "Pieces";
+"ORIGINAL_POSTER" = "Original Poster";
+"ORIGINAL_IMAGE_TAGLINE" = "Tap to reveal the complete image";
+"PUZZLE_NOTES" = "Every piece brings you closer to the complete movie poster. Keep solving to reveal the final image.";
+"CONGRATULATION" = "Congratulations";
+"OK" = "OK";
+"PUZZLE_INSTRACTION" = "Puzzle Instructions";
+"PUZZLE_NOTE1" = "Long press a piece to select it";
+"PUZZLE_NOTE2" = "Drag & drop it in the correct place";
+"PUZZLE_NOTE3" = "Repeat until the poster is complete";
+
+// MARK: - Setting -
+"SETTING" = "Setting";
+"PREFERENCES" = "Preferences";
+"SUPPORT_INFO" = "Support & Information";
+"SHARE_APP" = "Share App";
+"RATE_US" = "Rate Us";
+"PRIVECY_POLICY" = "Privacy Policy";
+"TEMS_USE" = "Terms of Use";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "Export";
+"DOWNLOADING" = "Downloading...";
+"DOWNLOAD_SUCCESS" = "Downloaded Successfully!";
+"CHECK_PHOTO_APP" = "Check photos app";

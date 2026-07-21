@@ -35,7 +35,7 @@ struct WallpaperExportScreen: View {
                 Button {
                     viewModel.onExportImage()
                 } label: {
-                    Text("Export")
+                    Text(Strings.export)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .font(.system(size: 18, weight: .semibold))
@@ -50,7 +50,7 @@ struct WallpaperExportScreen: View {
             
             VStack {
                 if viewModel.downloadStatus == 1 {
-                    Text("Downloading...")
+                    Text(Strings.downloading)
                         .padding()
                         .font(.system(size: 18, weight: .bold))
                         .background(.blackColour.opacity(0.5))
@@ -63,10 +63,10 @@ struct WallpaperExportScreen: View {
                 
                 if viewModel.downloadStatus == 2 {
                     VStack(spacing: 0) {
-                        Text("Downloaded Successfully!")
+                        Text(Strings.downloadSuccess)
                             .font(.system(size: 18, weight: .bold))
                         
-                        Text("Check photos app")
+                        Text(Strings.checkPhotosApp)
                     }
                     .padding()
                     .background(.greenColour.opacity(0.7))
@@ -81,6 +81,9 @@ struct WallpaperExportScreen: View {
         }
         .padding(.horizontal, 20)
         .defaultPage()
+        .onAppear() {
+            SwipeBackManager.shared.isEnabled = false
+        }
     }
 }
 

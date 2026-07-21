@@ -108,6 +108,9 @@ struct Weather: View {
             
         }
         .defaultPage()
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
+        }
     }
 }
 

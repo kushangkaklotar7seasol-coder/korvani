@@ -19,7 +19,7 @@ struct PosterScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: viewModel.isImage ?? true ? "Poster" : "Videos", back: {
+                DefaultDesign.Header(name: viewModel.isImage ?? true ? Strings.poster : Strings.videos, back: {
                     self.dismiss()
                 })
                 
@@ -53,6 +53,9 @@ struct PosterScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .navigationDestination(isPresented: $viewModel.isShowPosterDetail) {
             PosterDetailScreen(viewModel: PosterDetailsViewModel(images: viewModel.images), position: viewModel.posterIndex)
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
         }
     }
 }

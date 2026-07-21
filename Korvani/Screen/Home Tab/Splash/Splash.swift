@@ -31,6 +31,9 @@ struct Splash: View {
         .navigationDestination(isPresented: $viewModel.navigation.home) {
             TabBarScreen()
         }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = false
+        }
     }
 }
 

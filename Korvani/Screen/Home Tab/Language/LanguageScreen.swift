@@ -11,6 +11,7 @@ struct LanguageScreen: View {
     @StateObject var viewModel = LanguageViewModel()
     var isShowBackButton: Bool = false
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var localization: LocalizationManager
     
     let columns = [
         GridItem(.flexible(), spacing: 15),
@@ -39,7 +40,12 @@ struct LanguageScreen: View {
                     
                     Button {
                         viewModel.onDoneButtonClick()
-                        viewModel.isOnBording = true
+                        localization.changeLanguage(languageCode: viewModel.selectedLanguage?.code ?? "en")
+                        if self.isShowBackButton {
+                            self.dismiss()
+                        } else {
+                            viewModel.isOnBording = true
+                        }
                     } label: {
                         Text("Done")
                             .padding(.vertical, 8)
@@ -82,6 +88,9 @@ struct LanguageScreen: View {
         .navigationDestination(isPresented: $viewModel.isOnBording) {
             OnBoding()
                 .toolbar(.hidden, for: .navigationBar)
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = self.isShowBackButton
         }
     }
 }

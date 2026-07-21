@@ -81,3 +81,78 @@
 "WEIGHT" = "वज़न";
 "SPEED" = "गति";
 "STORAGE" = "स्टोरेज";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "स्रोत टेक्स्ट";
+"SOURCE_PLACEHOLDER" = "अनुवाद करने के लिए कुछ लिखें…";
+"TRANSLATION_PLACEHOLDER" = "आपका अनुवाद यहां दिखाई देगा…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "खोजें";
+"NEW_RELEASE" = "नई रिलीज़";
+"TOP_RATED" = "टॉप रेटेड";
+"MOST_POPULAR" = "सबसे लोकप्रिय";
+"ARRIVING_TODAY" = "आज प्रसारित हो रहा है";
+
+// MARK: - Favorite -
+"FAVORITE" = "पसंदीदा";
+"NO_FAVORITE" = "अभी तक कुछ नहीं है";
+"NO_MOVIE_TAGLINE" = "आपकी पसंदीदा मूवीज़ यहां दिखाई देंगी।";
+"NO_SERIES_TAGLINE" = "आपके पसंदीदा टीवी शो यहां दिखाई देंगे।";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "अवलोकन";
+"SHOW_LESS" = "कम दिखाएं...";
+"SHOW_MORE" = "और दिखाएं...";
+"MORE_INFO" = "मूवी जानकारी";
+"TOP_CAST" = "मुख्य कलाकार";
+"CORE_CREW" = "मुख्य क्रू";
+"STATUS" = "स्थिति";
+"LANGUAGE" = "भाषा";
+"RUNTIME" = "अवधि";
+"REVENUE" = "राजस्व";
+"SEASON" = "सीज़न";
+"NO_CAST" = "कोई कलाकार नहीं मिला";
+"NO_CREW" = "कोई क्रू नहीं मिला";
+"POSTER" = "पोस्टर";
+"VIDEOS" = "वीडियो";
+"NO_PHOTOS" = "कोई फोटो नहीं मिली";
+"NO_VIDEO" = "कोई वीडियो नहीं मिला";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "जीवनी";
+"PERSONAL_INFO" = "व्यक्तिगत जानकारी";
+"NO_MEDIA" = "कोई मीडिया नहीं मिला";
+"BIRTHDAY" = "जन्मदिन";
+"AGE" = "उम्र";
+"BIRTHPLACE" = "जन्मस्थान";
+"DEPARTMENT" = "विभाग";
+
+// MARK: - Puzzle -
+"PUZZLE" = "पज़ल";
+"COMPLETED" = "पूर्ण";
+"PIECES" = "टुकड़े";
+"ORIGINAL_POSTER" = "मूल पोस्टर";
+"ORIGINAL_IMAGE_TAGLINE" = "पूरी इमेज देखने के लिए टैप करें";
+"PUZZLE_NOTES" = "हर टुकड़ा आपको पूरे मूवी पोस्टर के करीब ले जाता है। अंतिम इमेज देखने के लिए हल करते रहें।";
+"CONGRATULATION" = "बधाई हो";
+"OK" = "ठीक है";
+"PUZZLE_INSTRACTION" = "पज़ल निर्देश";
+"PUZZLE_NOTE1" = "टुकड़ा चुनने के लिए लंबे समय तक दबाएं";
+"PUZZLE_NOTE2" = "इसे सही जगह पर खींचकर छोड़ें";
+"PUZZLE_NOTE3" = "पोस्टर पूरा होने तक दोहराते रहें";
+
+// MARK: - Setting -
+"SETTING" = "सेटिंग";
+"PREFERENCES" = "प्राथमिकताएं";
+"SUPPORT_INFO" = "सहायता और जानकारी";
+"SHARE_APP" = "ऐप शेयर करें";
+"RATE_US" = "हमें रेट करें";
+"PRIVECY_POLICY" = "गोपनीयता नीति";
+"TEMS_USE" = "उपयोग की शर्तें";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "एक्सपोर्ट";
+"DOWNLOADING" = "डाउनलोड हो रहा है...";
+"DOWNLOAD_SUCCESS" = "सफलतापूर्वक डाउनलोड हो गया!";
+"CHECK_PHOTO_APP" = "फोटो ऐप देखें";

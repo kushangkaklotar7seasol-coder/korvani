@@ -11,6 +11,7 @@ import Kingfisher
 
 struct HomeScreen: View {
     @StateObject var viewModel = HomeViewModel()
+    @EnvironmentObject var localization: LocalizationManager
     
     var body: some View {
         ZStack {
@@ -111,6 +112,7 @@ struct HomeScreen: View {
             
         }
         .defaultPage()
+        .id(localization.selectedLanguage)
         .navigationDestination(isPresented: $viewModel.navigationItem.celebrity) {
             CelebrityScreen(viewModel: CelebrityViewModel(celebrity: viewModel.celebrity))
         }
@@ -137,6 +139,7 @@ struct HomeScreen: View {
         }
         .onAppear() {
             viewModel.onApper()
+            SwipeBackManager.shared.isEnabled = false
         }
     }
 }

@@ -15,6 +15,7 @@ struct PuzzleView: View {
     @State private var draggedItem: PuzzlePiece?
     @State private var showInstructionsSheet = false
     @State private var showOriginalPosterSheet = false
+    @EnvironmentObject var localization: LocalizationManager
     
     let columns = [
         GridItem(.flexible(), spacing: 0),
@@ -32,20 +33,20 @@ struct PuzzleView: View {
         ZStack{
             
             VStack {
-                DefaultDesign.Header(name: "Puzzle", secondIcon: "ic_info_dark", isShowSecondbutton: true, isShowBackButton: false, secondButton: {
+                DefaultDesign.Header(name: Strings.puzzle, secondIcon: "ic_info_dark", isShowSecondbutton: true, isShowBackButton: false, secondButton: {
                     self.showInstructionsSheet = true
                 })
                 
                 VStack(spacing: 5) {
                     HStack {
                         let persentage = "\(viewModel.completedPuzzle)".prefix(2)
-                        Text("\(persentage)% Complete")
+                        Text("\(persentage)% \(Strings.completed)")
                             .font(.system(size: 14, weight: .regular))
                             .foregroundColor(.grayColour)
                         
                         Spacer()
                         
-                        Text("\(viewModel.correctCount)/9 Pieces")
+                        Text("\(viewModel.correctCount)/9 \(Strings.pieces)")
                             .font(.system(size: 13, weight: .medium))
                             .foregroundColor(.lightYellowColour)
                     }
@@ -100,38 +101,40 @@ struct PuzzleView: View {
                 Button {
                     showOriginalPosterSheet = true
                 } label: {
-                    HStack {
-                        Image(uiImage: viewModel.originalImage)
-                            .resizable()
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .cornerRadius(10)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Original Poster")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(.whiteColour)
+                    if let image = viewModel.originalImage {
+                        HStack {
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: 50, height: 50, alignment: .center)
+                                .cornerRadius(10)
                             
-                            Text("Tap to reveal the complete image")
-                                .font(.system(size: 12, weight: .regular))
-                                .foregroundColor(.grayColour)
+                            VStack(alignment: .leading) {
+                                Text(Strings.originalPoster)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.whiteColour)
+                                
+                                Text(Strings.originalPosterTagline)
+                                    .font(.system(size: 12, weight: .regular))
+                                    .foregroundColor(.grayColour)
+                            }
+                            
+                            Spacer()
+                            
+                            Image("ic_eye")
+                                .resizable()
+                                .frame(width: 30, height: 30)
                         }
-                        
-                        Spacer()
-                        
-                        Image("ic_eye")
-                            .resizable()
-                            .frame(width: 30, height: 30)
+                        .padding()
+                        .background(.borderColour)
+                        .cornerRadius(14)
+                        .padding(.top, 24)
                     }
-                    .padding()
-                    .background(.borderColour)
-                    .cornerRadius(14)
-                    .padding(.top, 24)
                 }
                                 
                 VStack {
                     Spacer()
                     
-                    Text("Every piece brings you closer to the complete movie poster. Keep solving to reveal the final image.")
+                    Text(Strings.puzzleNotes)
                         .font(.system(size: 12, weight: .regular))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.grayColour)
@@ -144,16 +147,20 @@ struct PuzzleView: View {
         .background(.blackColour)
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
+        .id(localization.selectedLanguage)
         .sheet(isPresented: $showInstructionsSheet) {
             PuzzleInstructionsSheet(isPresented: $showInstructionsSheet)
         }
         .sheet(isPresented: $showOriginalPosterSheet) {
-            OriginalPosterSheet(isPresented: $showOriginalPosterSheet, originalImage: viewModel.originalImage)
+            OriginalPosterSheet(isPresented: $showOriginalPosterSheet, originalImage: viewModel.originalImage ?? UIImage())
         }
-        .alert("Congratulations 🎉", isPresented: $viewModel.showSuccess) {
-            Button("OK") {
-                viewModel.setupPuzzle()
+        .alert("\(Strings.congratulation) 🎉", isPresented: $viewModel.showSuccess) {
+            Button(Strings.ok) {
+                viewModel.setSuccessPuzzle()
             }
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = false
         }
         .onAppear() {
             UISlider.appearance().setThumbImage(UIImage(), for: .normal)
@@ -169,7 +176,7 @@ struct PuzzleInstructionsSheet: View {
         ZStack {
             VStack(spacing: 0) {
                 HStack {
-                    Text("Puzzle Instructions")
+                    Text(Strings.puzzleInstraction)
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.white)
                     
@@ -188,9 +195,9 @@ struct PuzzleInstructionsSheet: View {
                 
                 // MARK: - Instructions
                 VStack(spacing: 16) {
-                    CelebrityDetails.PersonalInfo(name: "Long press a piece to select it", details: "", isLast: false)
-                    CelebrityDetails.PersonalInfo(name: "Drag & drop it in the correct place", details: "", isLast: false)
-                    CelebrityDetails.PersonalInfo(name: "Repeat until the poster is complete", details: "", isLast: true)
+                    CelebrityDetails.PersonalInfo(name: Strings.puzzleNote1, details: "", isLast: false)
+                    CelebrityDetails.PersonalInfo(name: Strings.puzzleNote2, details: "", isLast: false)
+                    CelebrityDetails.PersonalInfo(name: Strings.puzzleNote3, details: "", isLast: true)
                 }
             }
         }
@@ -209,7 +216,7 @@ struct OriginalPosterSheet: View {
         ZStack {
             VStack(spacing: 0) {
                 HStack {
-                    Text("Original Poster")
+                    Text(Strings.originalPoster)
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.white)
                     
@@ -323,9 +330,5 @@ struct PuzzleDropDelegate: DropDelegate {
 
 
 #Preview {
-    PuzzleView(
-        viewModel: PuzzleViewModel(
-            image: UIImage(named: "img_puzzle_poster")!
-        )
-    )
+    PuzzleView(viewModel: PuzzleViewModel())
 }

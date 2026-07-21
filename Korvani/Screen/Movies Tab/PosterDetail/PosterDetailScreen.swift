@@ -21,7 +21,7 @@ struct PosterDetailScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(name: "Poster", back: {
+                DefaultDesign.Header(name: Strings.poster, back: {
                     self.dismiss()
                 })
                 .padding(.horizontal, 16)
@@ -59,6 +59,7 @@ struct PosterDetailScreen: View {
         .onAppear {
             DispatchQueue.main.async {
                 scrollPosition = position
+                SwipeBackManager.shared.isEnabled = true
             }
         }
     }

@@ -43,6 +43,9 @@ struct CategoryListScreen: View {
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
         }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
+        }
     }
     
     func loadMoreIfNeeded(currentItem: Int) {

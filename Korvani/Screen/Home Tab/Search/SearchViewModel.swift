@@ -34,29 +34,35 @@ class SearchViewModel: ObservableObject {
     }
     
     func perform(_ text: String) {
+        self.moviesResponse = nil
+        self.movies = []
+        self.seriesResponse = nil
+        self.series = []
+        
         if self.selectedIndex == 0 {
-            if self.searchTextField != "" {
-                self.moviesSearchAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
-            }
+            //            if self.searchTextField != "" {
+            self.moviesSearchAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
+            //            }
         } else {
-            if self.searchTextField != "" {
-                self.searchSeriesAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
-            }
+            //            if self.searchTextField != "" {
+            self.searchSeriesAPI(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
+            //            }
         }
     }
     
     func manageAPICalls(index: Int){
+        
         if index == 0 {
             if movies.isEmpty {
-                if self.searchTextField != "" {
+//                if self.searchTextField != "" {
                     self.moviesSearchAPI(text: self.searchTextField.trimmingCharacters(in: .whitespacesAndNewlines))
-                }
+//                }
             }
         } else {
             if series.isEmpty {
-                if self.searchTextField != "" {
+//                if self.searchTextField != "" {
                     self.searchSeriesAPI(text: self.searchTextField.trimmingCharacters(in: .whitespacesAndNewlines))
-                }
+//                }
             }
         }
     }

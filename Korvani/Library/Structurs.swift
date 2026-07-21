@@ -27,6 +27,12 @@ struct SettingSection {
     var items: [LanguageModel]
 }
 
+struct Puzzle: Codable {
+    var id: Int
+    var name: String
+    var isUsed: Bool
+}
+
 struct LanguageItem: Identifiable, Codable {
     let id = UUID()
     let code: String

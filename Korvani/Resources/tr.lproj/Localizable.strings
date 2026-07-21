@@ -1,0 +1,159 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "İleri";
+"GOT_IT" = "Anladım";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "Keşfet. İzle. Eğlen.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "Sınırsız\nEğlence";
+"PAGE1_INFO" = "Binlerce film, dizi ve daha fazlasına sınırsız erişimin keyfini çıkar.";
+"PAGE2_TITLE" = "Önce Fragmanları\nİzle";
+"PAGE2_INFO" = "İzlemeden önce ön izleme yap ve ne izleyeceğine karar ver.";
+"PAGE3_TITLE" = "Favorilerin,\nSenin Alanın";
+"PAGE3_INFO" = "Favorilerini kaydet, sana özel öneriler al ve kaçırmaman gerekenleri asla kaçırma.";
+"PAGE4_TITLE" = "Bir Sonraki\nFavori Filmini Keşfet";
+"PAGE4_INFO" = "Trend olan filmleri, dizileri, fragmanları, puanları, yorumları ve nerede izlenebileceğini keşfet - hepsi tek bir yerde.";
+"INFO_ONLY" = "SADECE BİLGİ AMAÇLI";
+"PAGE4_MOREINFO" = "Bu uygulama film yayınlamaz veya barındırmaz. İçerik keşfetmene, fragman izlemene, puanları görmene ve yasal yayın platformlarını bulmana yardımcı olur.";
+
+// MARK: - Home Screen -
+"WELCOME" = "Hoş geldin,";
+"SMART_HUB" = "Smart Hub";
+"APP_PERMISSION_NOT_GIV" = "Hava durumu bilgisi için izin ver";
+"UNIT_CONVERTER" = "Birim Dönüştürücü";
+"UNIT_CONVERTER_TAGLINE" = "Birimleri anında dönüştür";
+"TRANSLATE" = "Çevir";
+"TRANSLATE_TAGLINE" = "Anında Çeviri";
+"WALLPAPERS" = "HD Duvar Kağıtları";
+"WALLPAPERS_TAGLINE" = "Duvar kağıtlarına göz at ve indir";
+"ABOUT_CELEBRITY" = "Ünlü Hakkında";
+"VIEW_ALL" = "Tümünü gör";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "Film ve Dizi Ara";
+"MOVIES" = "Filmler";
+"SERIES" = "Diziler";
+
+// MARK: - Weather Screen -
+"WEATHER" = "Hava Durumu";
+"MAXIMUM" = "En Yüksek";
+"HUMIDITY" = "Nem";
+"WIND" = "Rüzgar";
+"FORECAST" = "7 Günlük Tahmin";
+
+// MARK: - Unit Converter -
+"METERS" = "Metre";
+"KILOMETERS" = "Kilometre";
+"CENTIMETERS" = "Santimetre";
+"MILLIMETERS" = "Milimetre";
+"FEET" = "Feet";
+"INCHES" = "İnç";
+"MILES" = "Mil";
+"YARDS" = "Yarda";
+"KILOGRAMS" = "Kilogram";
+"GRAMS" = "Gram";
+"MILIGRAMS" = "Miligram";
+"POUNDS" = "Pound";
+"OUNCES" = "Ons";
+"TONNES" = "Ton";
+"STONE" = "Stone";
+"M/S" = "M/sn";
+"KM/H" = "Km/sa";
+"MPH" = "Mph";
+"KNOTS" = "Deniz Mili";
+"FT/S" = "Ft/sn";
+"BYTES" = "Bayt";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "Uzunluk";
+"WEIGHT" = "Ağırlık";
+"SPEED" = "Hız";
+"STORAGE" = "Depolama";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "Kaynak Metin";
+"SOURCE_PLACEHOLDER" = "Çevirmek için bir şeyler yaz…";
+"TRANSLATION_PLACEHOLDER" = "Çevirin burada görünecek…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "Keşfet";
+"NEW_RELEASE" = "Yeni Çıkanlar";
+"TOP_RATED" = "En Çok Puan Alanlar";
+"MOST_POPULAR" = "En Popüler";
+"ARRIVING_TODAY" = "Bugün Yayınlanıyor";
+
+// MARK: - Like -
+"FAVORITE" = "Favori";
+"NO_FAVORITE" = "Henüz Bir Şey Yok";
+"NO_MOVIE_TAGLINE" = "Favori filmlerin burada görünecek.";
+"NO_SERIES_TAGLINE" = "Favori dizilerin burada görünecek.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "Genel Bakış";
+"SHOW_LESS" = "Daha az göster...";
+"SHOW_MORE" = "Daha fazla göster...";
+"MORE_INFO" = "Film bilgisi";
+"TOP_CAST" = "Başrol Oyuncuları";
+"CORE_CREW" = "Ana Ekip";
+"STATUS" = "Durum";
+"LANGUAGE" = "Dil";
+"RUNTIME" = "Süre";
+"REVENUE" = "Hasılat";
+"SEASON" = "Sezon";
+"NO_CAST" = "Oyuncu Bulunamadı";
+"NO_CREW" = "Ekip Bulunamadı";
+"POSTER" = "Afiş";
+"VIDEOS" = "Videolar";
+"NO_PHOTOS" = "Fotoğraf Bulunamadı";
+"NO_VIDEO" = "Video Bulunamadı";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "Biyografi";
+"PERSONAL_INFO" = "Kişisel Bilgiler";
+"NO_MEDIA" = "İçerik Bulunamadı";
+"BIRTHDAY" = "Doğum Günü";
+"AGE" = "Yaş";
+"BIRTHPLACE" = "Doğum Yeri";
+"DEPARTMENT" = "Departman";
+
+// MARK: - Puzzle -
+"PUZZLE" = "Yapboz";
+"COMPLETED" = "Tamamlandı";
+"PIECES" = "Parçalar";
+"ORIGINAL_POSTER" = "Orijinal Afiş";
+"ORIGINAL_IMAGE_TAGLINE" = "Tam görseli görmek için dokun";
+"PUZZLE_NOTES" = "Her parça seni film afişinin tamamına bir adım daha yaklaştırır. Son görseli ortaya çıkarmak için çözmeye devam et.";
+"CONGRATULATION" = "Tebrikler";
+"OK" = "Tamam";
+"PUZZLE_INSTRACTION" = "Yapboz Talimatları";
+"PUZZLE_NOTE1" = "Seçmek için bir parçaya uzun bas";
+"PUZZLE_NOTE2" = "Sürükle ve doğru yere bırak";
+"PUZZLE_NOTE3" = "Afiş tamamlanana kadar tekrarla";
+
+// MARK: - Setting -
+"SETTING" = "Ayarlar";
+"PREFERENCES" = "Tercihler";
+"SUPPORT_INFO" = "Destek ve Bilgi";
+"SHARE_APP" = "Uygulamayı Paylaş";
+"RATE_US" = "Bizi Değerlendirin";
+"PRIVECY_POLICY" = "Gizlilik Politikası";
+"TEMS_USE" = "Kullanım Şartları";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "Dışa Aktar";
+"DOWNLOADING" = "İndiriliyor...";
+"DOWNLOAD_SUCCESS" = "Başarıyla İndirildi!";
+"CHECK_PHOTO_APP" = "Fotoğraflar uygulamasını kontrol edin";
+

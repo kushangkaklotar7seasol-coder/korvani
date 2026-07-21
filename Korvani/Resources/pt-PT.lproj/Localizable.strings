@@ -1,0 +1,158 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "Seguinte";
+"GOT_IT" = "Percebi";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "Descobre. Assiste. Desfruta.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "Entretenimento\nIlimitado";
+"PAGE1_INFO" = "Desfruta de acesso ilimitado a milhares de filmes, séries e muito mais.";
+"PAGE2_TITLE" = "Vê os Trailers\nPrimeiro";
+"PAGE2_INFO" = "Pré-visualiza antes de reproduzir e escolhe o que ver.";
+"PAGE3_TITLE" = "Os Teus Favoritos,\nO Teu Espaço";
+"PAGE3_INFO" = "Guarda favoritos, recebe sugestões personalizadas e nunca percas nada essencial.";
+"PAGE4_TITLE" = "Descobre o Teu Próximo\nFilme Favorito";
+"PAGE4_INFO" = "Explora filmes e séries em alta, trailers, classificações, críticas e onde assistir - tudo num só lugar.";
+"INFO_ONLY" = "APENAS INFORMATIVO";
+"PAGE4_MOREINFO" = "Esta aplicação não transmite nem aloja filmes. Ajuda-te a descobrir conteúdos, ver trailers, consultar classificações e encontrar plataformas de streaming legais.";
+
+// MARK: - Home Screen -
+"WELCOME" = "Bem-vindo a,";
+"SMART_HUB" = "Smart Hub";
+"APP_PERMISSION_NOT_GIV" = "Permite o acesso para obter o Estado do Tempo";
+"UNIT_CONVERTER" = "Conversor de Unidades";
+"UNIT_CONVERTER_TAGLINE" = "Converte unidades instantaneamente";
+"TRANSLATE" = "Traduzir";
+"TRANSLATE_TAGLINE" = "Tradução Instantânea";
+"WALLPAPERS" = "Papéis de Parede HD";
+"WALLPAPERS_TAGLINE" = "Explora e descarrega papéis de parede";
+"ABOUT_CELEBRITY" = "Sobre a Celebridade";
+"VIEW_ALL" = "Ver tudo";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "Pesquisar Filmes e Séries";
+"MOVIES" = "Filmes";
+"SERIES" = "Séries";
+
+// MARK: - Weather Screen -
+"WEATHER" = "Estado do Tempo";
+"MAXIMUM" = "Máxima";
+"HUMIDITY" = "Humidade";
+"WIND" = "Vento";
+"FORECAST" = "Previsão de 7 Dias";
+
+// MARK: - Unit Converter -
+"METERS" = "Metros";
+"KILOMETERS" = "Quilómetros";
+"CENTIMETERS" = "Centímetros";
+"MILLIMETERS" = "Milímetros";
+"FEET" = "Pés";
+"INCHES" = "Polegadas";
+"MILES" = "Milhas";
+"YARDS" = "Jardas";
+"KILOGRAMS" = "Quilogramas";
+"GRAMS" = "Gramas";
+"MILIGRAMS" = "Miligramas";
+"POUNDS" = "Libras";
+"OUNCES" = "Onças";
+"TONNES" = "Toneladas";
+"STONE" = "Stone";
+"M/S" = "M/s";
+"KM/H" = "Km/h";
+"MPH" = "Mph";
+"KNOTS" = "Nós";
+"FT/S" = "Ft/s";
+"BYTES" = "Bytes";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "Comprimento";
+"WEIGHT" = "Peso";
+"SPEED" = "Velocidade";
+"STORAGE" = "Armazenamento";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "Texto de Origem";
+"SOURCE_PLACEHOLDER" = "Escreve algo para traduzir…";
+"TRANSLATION_PLACEHOLDER" = "A tua tradução aparecerá aqui…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "Descobrir";
+"NEW_RELEASE" = "Novos Lançamentos";
+"TOP_RATED" = "Melhor Avaliados";
+"MOST_POPULAR" = "Mais Populares";
+"ARRIVING_TODAY" = "A Estrear Hoje";
+
+// MARK: - Like -
+"FAVORITE" = "Favorito";
+"NO_FAVORITE" = "Ainda Não Há Nada Aqui";
+"NO_MOVIE_TAGLINE" = "Os teus filmes favoritos aparecerão aqui.";
+"NO_SERIES_TAGLINE" = "As tuas séries favoritas aparecerão aqui.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "Resumo";
+"SHOW_LESS" = "Mostrar menos...";
+"SHOW_MORE" = "Mostrar mais...";
+"MORE_INFO" = "Informações do filme";
+"TOP_CAST" = "Elenco Principal";
+"CORE_CREW" = "Equipa Principal";
+"STATUS" = "Estado";
+"LANGUAGE" = "Idioma";
+"RUNTIME" = "Duração";
+"REVENUE" = "Receita";
+"SEASON" = "Temporada";
+"NO_CAST" = "Nenhum Elenco Encontrado";
+"NO_CREW" = "Nenhuma Equipa Encontrada";
+"POSTER" = "Cartaz";
+"VIDEOS" = "Vídeos";
+"NO_PHOTOS" = "Nenhuma Fotografia Encontrada";
+"NO_VIDEO" = "Nenhum Vídeo Encontrado";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "Biografia";
+"PERSONAL_INFO" = "Informações Pessoais";
+"NO_MEDIA" = "Nenhum Conteúdo Encontrado";
+"BIRTHDAY" = "Aniversário";
+"AGE" = "Idade";
+"BIRTHPLACE" = "Local de Nascimento";
+"DEPARTMENT" = "Departamento";
+
+// MARK: - Puzzle -
+"PUZZLE" = "Puzzle";
+"COMPLETED" = "Concluído";
+"PIECES" = "Peças";
+"ORIGINAL_POSTER" = "Cartaz Original";
+"ORIGINAL_IMAGE_TAGLINE" = "Toca para revelar a imagem completa";
+"PUZZLE_NOTES" = "Cada peça aproxima-te do cartaz completo do filme. Continua a resolver para revelar a imagem final.";
+"CONGRATULATION" = "Parabéns";
+"OK" = "OK";
+"PUZZLE_INSTRACTION" = "Instruções do Puzzle";
+"PUZZLE_NOTE1" = "Mantém premida uma peça para a selecionar";
+"PUZZLE_NOTE2" = "Arrasta e larga-a no lugar correto";
+"PUZZLE_NOTE3" = "Repete até o cartaz estar completo";
+
+// MARK: - Setting -
+"SETTING" = "Definições";
+"PREFERENCES" = "Preferências";
+"SUPPORT_INFO" = "Suporte e Informações";
+"SHARE_APP" = "Partilhar Aplicação";
+"RATE_US" = "Avalia-nos";
+"PRIVECY_POLICY" = "Política de Privacidade";
+"TEMS_USE" = "Termos de Utilização";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "Exportar";
+"DOWNLOADING" = "A descarregar...";
+"DOWNLOAD_SUCCESS" = "Transferido com Sucesso!";
+"CHECK_PHOTO_APP" = "Verifica a aplicação Fotos";

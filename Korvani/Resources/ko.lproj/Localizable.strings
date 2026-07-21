@@ -1,0 +1,160 @@
+/* 
+  Localizable.strings
+  Korvani
+
+  Created by Kushang kaklotar on 10/07/26.
+  
+*/
+
+// MARK: - Basic Info -
+"NEXT" = "다음";
+"GOT_IT" = "확인";
+
+// MARK: - Splash -
+"SPLASH_SUBTITLE" = "발견하다. 시청하다. 즐기다.";
+
+// MARK: - On Boarding -
+"PAGE1_TITLE" = "무제한\n엔터테인먼트";
+"PAGE1_INFO" = "수천 편의 영화, TV 프로그램 등을 무제한으로 즐겨보세요.";
+"PAGE2_TITLE" = "예고편을\n먼저 보기";
+"PAGE2_INFO" = "시청하기 전에 미리보기를 통해 무엇을 볼지 선택하세요.";
+"PAGE3_TITLE" = "나만의 즐겨찾기,\n나만의 공간";
+"PAGE3_INFO" = "즐겨찾기를 저장하고, 맞춤 추천을 받고, 놓치면 안 될 콘텐츠를 절대 놓치지 마세요.";
+"PAGE4_TITLE" = "다음으로 좋아할\n영화를 찾아보세요";
+"PAGE4_INFO" = "인기 영화, TV 프로그램, 예고편, 평점, 리뷰 및 시청 방법을 한 곳에서 탐색하세요.";
+"INFO_ONLY" = "정보 제공 전용";
+"PAGE4_MOREINFO" = "이 앱은 영화를 스트리밍하거나 호스팅하지 않습니다. 콘텐츠 발견, 예고편 시청, 평점 확인, 합법적인 스트리밍 플랫폼 찾기를 도와줍니다.";
+
+// MARK: - Home Screen -
+"WELCOME" = "환영합니다,";
+"SMART_HUB" = "스마트 허브";
+"APP_PERMISSION_NOT_GIV" = "날씨 정보를 가져오려면 권한을 허용하세요";
+"UNIT_CONVERTER" = "단위 변환기";
+"UNIT_CONVERTER_TAGLINE" = "단위를 즉시 변환하세요";
+"TRANSLATE" = "번역";
+"TRANSLATE_TAGLINE" = "즉시 번역";
+"WALLPAPERS" = "HD 배경화면";
+"WALLPAPERS_TAGLINE" = "배경화면을 둘러보고 다운로드하세요";
+"ABOUT_CELEBRITY" = "유명인 정보";
+"VIEW_ALL" = "모두 보기";
+
+// MARK: - Search Screen -
+"SEARCH_PLACEHOLDER" = "영화 및 TV 프로그램 검색";
+"MOVIES" = "영화";
+"SERIES" = "시리즈";
+
+// MARK: - Weather Screen -
+"WEATHER" = "날씨";
+"MAXIMUM" = "최고";
+"HUMIDITY" = "습도";
+"WIND" = "바람";
+"FORECAST" = "7일 예보";
+
+// MARK: - Unit Converter -
+"METERS" = "미터";
+"KILOMETERS" = "킬로미터";
+"CENTIMETERS" = "센티미터";
+"MILLIMETERS" = "밀리미터";
+"FEET" = "피트";
+"INCHES" = "인치";
+"MILES" = "마일";
+"YARDS" = "야드";
+"KILOGRAMS" = "킬로그램";
+"GRAMS" = "그램";
+"MILIGRAMS" = "밀리그램";
+"POUNDS" = "파운드";
+"OUNCES" = "온스";
+"TONNES" = "톤";
+"STONE" = "스톤";
+"M/S" = "m/s";
+"KM/H" = "km/h";
+"MPH" = "mph";
+"KNOTS" = "노트";
+"FT/S" = "ft/s";
+"BYTES" = "바이트";
+"KB" = "KB";
+"MB" = "MB";
+"GB" = "GB";
+"TB" = "TB";
+"PB" = "PB";
+"LENGTH" = "길이";
+"WEIGHT" = "무게";
+"SPEED" = "속도";
+"STORAGE" = "저장 공간";
+
+// MARK: - Translater -
+"SOURCE_TEXT" = "원본 텍스트";
+"SOURCE_PLACEHOLDER" = "번역할 내용을 입력하세요…";
+"TRANSLATION_PLACEHOLDER" = "번역 결과가 여기에 표시됩니다…";
+
+// MARK: - Discovery -
+"DISCOVERY" = "탐색";
+"NEW_RELEASE" = "신작";
+"TOP_RATED" = "최고 평점";
+"MOST_POPULAR" = "가장 인기 있는";
+"ARRIVING_TODAY" = "오늘 방영";
+
+// MARK: - Like -
+"FAVORITE" = "즐겨찾기";
+"NO_FAVORITE" = "아직 아무것도 없습니다";
+"NO_MOVIE_TAGLINE" = "즐겨찾는 영화가 여기에 표시됩니다.";
+"NO_SERIES_TAGLINE" = "즐겨찾는 TV 프로그램이 여기에 표시됩니다.";
+
+// MARK: - Movie Details -
+"OVERVIEW" = "개요";
+"SHOW_LESS" = "간단히 보기...";
+"SHOW_MORE" = "더 보기...";
+"MORE_INFO" = "영화 정보";
+"TOP_CAST" = "주요 출연진";
+"CORE_CREW" = "핵심 제작진";
+"STATUS" = "상태";
+"LANGUAGE" = "언어";
+"RUNTIME" = "상영 시간";
+"REVENUE" = "수익";
+"SEASON" = "시즌";
+"NO_CAST" = "출연진 정보 없음";
+"NO_CREW" = "제작진 정보 없음";
+"POSTER" = "포스터";
+"VIDEOS" = "동영상";
+"NO_PHOTOS" = "사진 없음";
+"NO_VIDEO" = "동영상 없음";
+
+// MARK: - Celebrity Detail -
+"BIOGRAPHY" = "약력";
+"PERSONAL_INFO" = "개인 정보";
+"NO_MEDIA" = "미디어 없음";
+"BIRTHDAY" = "생일";
+"AGE" = "나이";
+"BIRTHPLACE" = "출생지";
+"DEPARTMENT" = "분야";
+
+// MARK: - Puzzle -
+"PUZZLE" = "퍼즐";
+"COMPLETED" = "완료";
+"PIECES" = "조각";
+"ORIGINAL_POSTER" = "원본 포스터";
+"ORIGINAL_IMAGE_TAGLINE" = "탭하여 전체 이미지 보기";
+"PUZZLE_NOTES" = "조각 하나하나가 완성된 영화 포스터에 가까워지게 합니다. 최종 이미지를 보려면 계속 풀어보세요.";
+"CONGRATULATION" = "축하합니다";
+"OK" = "확인";
+"PUZZLE_INSTRACTION" = "퍼즐 사용 방법";
+"PUZZLE_NOTE1" = "조각을 길게 눌러 선택하세요";
+"PUZZLE_NOTE2" = "올바른 위치로 드래그 앤 드롭하세요";
+"PUZZLE_NOTE3" = "포스터가 완성될 때까지 반복하세요";
+
+// MARK: - Setting -
+"SETTING" = "설정";
+"PREFERENCES" = "환경설정";
+"SUPPORT_INFO" = "지원 및 정보";
+"SHARE_APP" = "앱 공유";
+"RATE_US" = "평가하기";
+"PRIVECY_POLICY" = "개인정보 처리방침";
+"TEMS_USE" = "이용 약관";
+
+// MARK: - Wallpaper Export -
+"EXPORT" = "내보내기";
+"DOWNLOADING" = "다운로드 중...";
+"DOWNLOAD_SUCCESS" = "다운로드 완료!";
+"CHECK_PHOTO_APP" = "사진 앱을 확인하세요";
+
+

@@ -56,7 +56,7 @@ struct TextCard: View {
             VStack() {
                 HStack {
                     ZStack {
-                        Text("Source Text")
+                        Text(Strings.sourceText)
                             .font(.system(size: 14, weight: .regular))
                             .foregroundStyle(.grayColour)
                     }
@@ -93,7 +93,7 @@ struct TextCard: View {
                 
                 ZStack(alignment: .topLeading) {
                     if text.isEmpty {
-                        Text("Type something to translate…")
+                        Text(Strings.sourcePlaceholder)
                             .font(.system(size:16, weight: .regular))
                             .foregroundStyle(.grayColour)
                             .padding(.top, 5)
@@ -152,7 +152,7 @@ struct resultCard: View {
         ZStack {
             VStack() {
                 HStack {
-                    Text("Translation")
+                    Text(Strings.translate)
                         .font(.system(size: 14, weight: .regular))
                         .foregroundStyle(.grayColour)
                     
@@ -162,7 +162,7 @@ struct resultCard: View {
                 ZStack(alignment: .topLeading) {
                     
                     if translatedText.isEmpty {
-                        Text("Your translation will appear here")
+                        Text(Strings.translationPlaceholder)
                             .font(.system(size:16, weight: .regular))
                             .foregroundStyle(.grayColour)
                     }
