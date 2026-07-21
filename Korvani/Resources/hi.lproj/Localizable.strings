@@ -156,3 +156,7 @@
 "DOWNLOADING" = "डाउनलोड हो रहा है...";
 "DOWNLOAD_SUCCESS" = "सफलतापूर्वक डाउनलोड हो गया!";
 "CHECK_PHOTO_APP" = "फोटो ऐप देखें";
+
+//MARK: - Language Screen -
+"CHUSE_LANGUAGE" = "भाषा चुनें";
+"DONE" = "पूर्ण";

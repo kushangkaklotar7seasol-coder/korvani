@@ -48,13 +48,14 @@ struct HomeScreen: View {
                                     } label: {
                                         Home.Weather(viewModel: viewModel)
                                     }
-                                } else if viewModel.locationStaus == 1 {
-                                    Button (Strings.appPermissionNotGive) {
+                                } else if viewModel.locationStaus == 1 || viewModel.locationStaus == 2 {
+                                    Button {
                                         viewModel.openAppSettings()
-                                    }
-                                } else if viewModel.locationStaus == 2 {
-                                    Button (Strings.appPermissionNotGive) {
-                                        viewModel.openAppSettings()
+                                    } label: {
+                                        VStack {
+                                           Text(Strings.appPermissionNotGive)
+                                            Text("Open Setting")
+                                        }
                                     }
                                 }
                             }
@@ -189,10 +190,10 @@ class Home {
         @StateObject var viewModel: HomeViewModel
         var cardWidth: CGFloat { screenWidth * 0.8 }
         var spacing: CGFloat = 16
-        @State private var scrollPosition: Int?
+        @State var scrollPosition: Int?
         
         // Auto-scroll timer
-        let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
+        let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
         
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -207,11 +208,11 @@ class Home {
                             .frame(width: cardWidth, height: self.isSelected(index) ? 177 : 150)
                             .background(.white)
                             .cornerRadius(10)
-                            .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                            .animation(.easeInOut(duration: 0.5), value: scrollPosition)
                             
                             Text(viewModel.topRatedMovie[index].title)
                                 .font(.system(size: 15, weight: .medium))
-                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                                .animation(.easeInOut(duration: 0.5), value: scrollPosition)
                             
                             HStack(spacing: 0) {
                                 Text("\(viewModel.topRatedMovie[index].releaseDate)   |")
@@ -226,7 +227,7 @@ class Home {
                                     .font(.system(size: 12, weight: .medium))
                                     .foregroundColor(.yellowColour)
                             }
-                            .animation(.easeInOut(duration: 0.3), value: scrollPosition)
+                            .animation(.easeInOut(duration: 0.5), value: scrollPosition)
                         }
                         .id(index)
                         .onTapGesture {
@@ -243,7 +244,7 @@ class Home {
             .frame(height: 230)
             .onAppear {
                 DispatchQueue.main.async {
-                    scrollPosition = 0
+                    scrollPosition = 250
                 }
             }
             .onReceive(timer) { _ in

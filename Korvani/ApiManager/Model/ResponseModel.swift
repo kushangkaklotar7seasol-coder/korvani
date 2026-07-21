@@ -1045,3 +1045,111 @@ struct PhotoSources: Codable {
     let landscape: String
     let tiny: String
 }
+
+
+
+struct AppConfig: Codable, Identifiable {
+    let id: String
+    let name: String
+    let packageName: String
+    let appLink: String
+    let consoleName: String
+    let videoUrl: String
+    let developerAccount: String
+    let developedBy: String
+    let status: String
+    let version: String
+    let logo: String
+    let fbBannerId: String
+    let fbNativeId: String
+    let fbNativeBannerId: String
+    let fbInterstialId: String
+    let fbAdmobAlter: String
+    let bannerId: String
+    let nativeId: String
+    let interstialId: String
+    let appopenId: String
+    let rewardId: String
+    let secBannerId: String
+    let secNativeId: String
+    let secInterstialId: String
+    let secAppopenId: String
+    let addButtonColor: String
+    let afterClick: String
+    let afterClickNative: String
+    let customNative: String
+    let customBanner: String
+    let customInterstial: String
+    let customAppOpen: String
+    let exitNative: String
+    let removePakageName: String
+    let jsonUrl: String
+    let appType: String
+    let isFavorite: Bool
+    let isDeleted: Bool
+    let createdBy: UserRef
+    let createdAt: String
+    let updatedAt: String
+    let v: Int
+    let extraFields: [String: String]
+    let updatedBy: UserRef
+ 
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case name
+        case packageName
+        case appLink
+        case consoleName
+        case videoUrl
+        case developerAccount
+        case developedBy
+        case status
+        case version
+        case logo
+        case fbBannerId
+        case fbNativeId
+        case fbNativeBannerId
+        case fbInterstialId
+        case fbAdmobAlter
+        case bannerId
+        case nativeId
+        case interstialId
+        case appopenId
+        case rewardId
+        case secBannerId
+        case secNativeId
+        case secInterstialId
+        case secAppopenId
+        case addButtonColor
+        case afterClick
+        case afterClickNative
+        case customNative
+        case customBanner
+        case customInterstial
+        case customAppOpen
+        case exitNative
+        case removePakageName
+        case jsonUrl
+        case appType
+        case isFavorite
+        case isDeleted
+        case createdBy
+        case createdAt
+        case updatedAt
+        case v = "__v"
+        case extraFields
+        case updatedBy
+    }
+}
+ 
+// MARK: - UserRef
+ 
+struct UserRef: Codable {
+    let id: String
+    let name: String
+ 
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case name
+    }
+}

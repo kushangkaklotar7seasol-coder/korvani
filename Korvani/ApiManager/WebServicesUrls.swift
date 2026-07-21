@@ -36,3 +36,6 @@ let translateAPI = "https://translate.googleapis.com/translate_a/single?"
 
 // MARK: - Wallpaper -
 let wallpapaerUrl = "https://api-pexels.7seasol.in/api/images/by-category?category=trending&page="
+
+// MARK: - General info -
+let generalInfoUrl = "https://7seasol-application.s3.amazonaws.com/admin_prod/pbz-grfgvat-arj.json"

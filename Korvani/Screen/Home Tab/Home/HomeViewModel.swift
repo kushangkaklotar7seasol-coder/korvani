@@ -55,8 +55,9 @@ class HomeViewModel : ObservableObject {
             isLoading = true
             HomeServices.shared.topRatedAPI { statusCode, response in
                 self.isLoading = false
-                self.topRatedMovie = response.results
-                self.topRatedMovie.removeLast(self.topRatedMovie.count-5)
+
+                let movieData = response.results.prefix(5)
+                self.topRatedMovie = Array(repeating: movieData, count: 100).flatMap { $0 }
                 self.celebrityAPI()
             } failure: { error in
                 self.isLoading = false

@@ -46,4 +46,12 @@ class HomeServices{
             failure(error)
         }
     }
+    
+    func generalInfoAPI(parameters: [String: Any] = [:], success: @escaping (Int, AppConfig) -> (), failure: @escaping (String) -> ()) {
+        APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: generalInfoUrl, responseType: AppConfig.self) { statusCode, response in
+            success(statusCode, response)
+        } failure: { error in
+            failure(error)
+        }
+    }
 }

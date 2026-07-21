@@ -33,7 +33,7 @@ struct LanguageScreen: View {
                         }
                     }
                     
-                    Text("Choose Your\nPreferred Language")
+                    Text(Strings.changeLanguage)
                         .font(.system(size: 20, weight: .semibold))
                     
                     Spacer()
@@ -47,7 +47,7 @@ struct LanguageScreen: View {
                             viewModel.isOnBording = true
                         }
                     } label: {
-                        Text("Done")
+                        Text(Strings.done)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
                             .background(

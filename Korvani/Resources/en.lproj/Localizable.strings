@@ -156,3 +156,7 @@
 "DOWNLOADING" = "Downloading...";
 "DOWNLOAD_SUCCESS" = "Downloaded Successfully!";
 "CHECK_PHOTO_APP" = "Check photos app";
+
+// MARK: - Language Change -
+"CHUSE_LANGUAGE" = "Choose Your\nPreferred Language";
+"DONE" = "Done";

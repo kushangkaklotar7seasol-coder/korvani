@@ -13,12 +13,11 @@ class SplashViewModel: ObservableObject {
     @Published var navigation = (OnBoding: false, home: false, language: false)
     
     init() {
-        self.navigationManager()
         self.savePuzzle()
     }
     
     func navigationManager(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
              let language = UserdefaultManager.shared.getLanguage()
              let onBoarding = UserdefaultManager.shared.getOnBoarding()
             

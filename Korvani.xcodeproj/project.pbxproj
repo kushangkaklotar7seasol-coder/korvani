@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3ABCD58C37D8CAFC47337C5E /* Pods_Korvani.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D22F96FA2E36FE547DB7310 /* Pods_Korvani.framework */; };
+		97986DFC300F8FDA0038A2F1 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 97986DFB300F8FDA0038A2F1 /* GoogleMobileAds */; };
 		97B48BCD30020DE1004B4EE9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 97B48BCC30020DE1004B4EE9 /* Alamofire */; };
 		97B48DAC30022699004B4EE9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 97B48DAB30022699004B4EE9 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EC4072D16ADAD28835F518F /* Pods-Korvani.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Korvani.release.xcconfig"; path = "Target Support Files/Pods-Korvani/Pods-Korvani.release.xcconfig"; sourceTree = "<group>"; };
+		4B7B3AD6A624211B60977D28 /* Pods-Korvani.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Korvani.debug.xcconfig"; path = "Target Support Files/Pods-Korvani/Pods-Korvani.debug.xcconfig"; sourceTree = "<group>"; };
+		5D22F96FA2E36FE547DB7310 /* Pods_Korvani.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Korvani.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97DF83F72FFF701A00CFCEED /* Korvani.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Korvani.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -41,19 +46,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97986DFC300F8FDA0038A2F1 /* GoogleMobileAds in Frameworks */,
 				97B48DAC30022699004B4EE9 /* Kingfisher in Frameworks */,
 				97B48BCD30020DE1004B4EE9 /* Alamofire in Frameworks */,
+				3ABCD58C37D8CAFC47337C5E /* Pods_Korvani.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6210A68A4CBF5E843DF80FF6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4B7B3AD6A624211B60977D28 /* Pods-Korvani.debug.xcconfig */,
+				0EC4072D16ADAD28835F518F /* Pods-Korvani.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		97DF83EE2FFF701A00CFCEED = {
 			isa = PBXGroup;
 			children = (
 				97DF83F92FFF701A00CFCEED /* Korvani */,
 				97DF83F82FFF701A00CFCEED /* Products */,
+				6210A68A4CBF5E843DF80FF6 /* Pods */,
+				C5E0061F33C6A366A55AC820 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +83,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C5E0061F33C6A366A55AC820 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5D22F96FA2E36FE547DB7310 /* Pods_Korvani.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -72,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97DF84022FFF701B00CFCEED /* Build configuration list for PBXNativeTarget "Korvani" */;
 			buildPhases = (
+				73CCD12D3BED2AFFF2776271 /* [CP] Check Pods Manifest.lock */,
 				97DF83F32FFF701A00CFCEED /* Sources */,
 				97DF83F42FFF701A00CFCEED /* Frameworks */,
 				97DF83F52FFF701A00CFCEED /* Resources */,
+				C61BDF29B6E65D7C486F05B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -87,6 +115,7 @@
 			packageProductDependencies = (
 				97B48BCC30020DE1004B4EE9 /* Alamofire */,
 				97B48DAB30022699004B4EE9 /* Kingfisher */,
+				97986DFB300F8FDA0038A2F1 /* GoogleMobileAds */,
 			);
 			productName = Korvani;
 			productReference = 97DF83F72FFF701A00CFCEED /* Korvani.app */;
@@ -131,6 +160,7 @@
 			packageReferences = (
 				97B48BCB30020DE1004B4EE9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				97B48DAA30022699004B4EE9 /* XCRemoteSwiftPackageReference "kingfisher" */,
+				97986DFA300F8FDA0038A2F1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 97DF83F82FFF701A00CFCEED /* Products */;
@@ -151,6 +181,52 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		73CCD12D3BED2AFFF2776271 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Korvani-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C61BDF29B6E65D7C486F05B7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Korvani/Pods-Korvani-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Korvani/Pods-Korvani-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Korvani/Pods-Korvani-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		97DF83F32FFF701A00CFCEED /* Sources */ = {
@@ -284,6 +360,7 @@
 		};
 		97DF84032FFF701B00CFCEED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B7B3AD6A624211B60977D28 /* Pods-Korvani.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -291,8 +368,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9V2WLZFDZC;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Korvani/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs access to your location to provide location-based services.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs permission to save images directly to your Photos library.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +397,7 @@
 		};
 		97DF84042FFF701B00CFCEED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EC4072D16ADAD28835F518F /* Pods-Korvani.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -323,8 +405,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9V2WLZFDZC;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Korvani/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs access to your location to provide location-based services.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs permission to save images directly to your Photos library.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -370,6 +456,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		97986DFA300F8FDA0038A2F1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.6.0;
+			};
+		};
 		97B48BCB30020DE1004B4EE9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -389,6 +483,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		97986DFB300F8FDA0038A2F1 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97986DFA300F8FDA0038A2F1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
 		97B48BCC30020DE1004B4EE9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 97B48BCB30020DE1004B4EE9 /* XCRemoteSwiftPackageReference "Alamofire" */;

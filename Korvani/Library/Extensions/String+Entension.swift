@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
     func localized() -> String {
-        let loc = UserdefaultManager.shared.getLanguage()?.code
+        let loc = UserdefaultManager.shared.getLanguage()?.code ?? "en"
         let path = Bundle.main.path(forResource: loc, ofType: "lproj")
         let bundle = Bundle(path: path!)
         return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
@@ -164,9 +164,13 @@ class Strings {
     static var privecyPolicy: String { "PRIVECY_POLICY".localized() }
     static var termsUse: String { "TEMS_USE".localized() }
     
-    // MARK: - Wallpaper Expose Screen
+    // MARK: - Wallpaper Expose Screen -
     static var export: String { "EXPORT".localized() }
     static var downloading: String { "DOWNLOADING".localized() }
     static var downloadSuccess: String { "DOWNLOAD_SUCCESS".localized() }
     static var checkPhotosApp: String { "CHECK_PHOTO_APP".localized() }
+    
+    // MARK: - Language Screen -
+    static var changeLanguage: String { "CHUSE_LANGUAGE".localized() }
+    static var done: String { "DONE".localized() }
 }

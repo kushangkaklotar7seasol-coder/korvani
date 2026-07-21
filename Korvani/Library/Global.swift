@@ -19,6 +19,8 @@ let screenHeight = screenSize.height
 let isAppInTestMode = true
 
 let imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_face"
+public let ACCESS = "AKIA2FCATE7MLGSZBHML"
+public let SECRET = "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"
 
 // MARK: - Supporting class
 let locationManager = LocationManager()
