@@ -80,14 +80,17 @@ struct TextCard: View {
 //                    }
 //                    .buttonStyle(.plain)
                     
-                    Button {
-                        self.text = ""
-                    } label: {
-                        Image("ic_cancel")
-                            .resizable()
-                            .frame(width: 30, height: 30, alignment: .center)
+                    if text != "" {
+                        Button {
+                            self.text = ""
+                        } label: {
+                            Image("ic_cancel")
+                                .resizable()
+                                .frame(width: 30, height: 30, alignment: .center)
+                        }
                     }
                 }
+                .frame(height: 30)
                 
                 // MARK: - TextEditor
                 
@@ -107,27 +110,31 @@ struct TextCard: View {
                         .frame(height: screenHeight/6)
                 }
                 
+                
                 HStack(spacing: 14) {
-                    Spacer()
-                    
-                    Button {
-                        volumeAction()
-                    } label: {
-                        Image("ic_volume")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                    if text != "" {
+                        Spacer()
+                        
+                        Button {
+                            volumeAction()
+                        } label: {
+                            Image("ic_volume")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            copyAction()
+                        } label: {
+                            Image("ic_copy")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
-                    
-                    Button {
-                        copyAction()
-                    } label: {
-                        Image("ic_copy")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    .buttonStyle(.plain)
                 }
+                .frame(height: 26)
             }
         }
         .padding()
@@ -176,35 +183,38 @@ struct resultCard: View {
                 }
                 
                 HStack(spacing: 14) {
-                    Spacer()
-                    
-                    Button {
-                        volumeAction()
-                    } label: {
-                        Image("ic_volume")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                    if translatedText != "" {
+                        Spacer()
+                        
+                        Button {
+                            volumeAction()
+                        } label: {
+                            Image("ic_volume")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            copyAction()
+                        } label: {
+                            Image("ic_copy")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            shareAction()
+                        } label: {
+                            Image("ic_share")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
-                    
-                    Button {
-                        copyAction()
-                    } label: {
-                        Image("ic_copy")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    .buttonStyle(.plain)
-                    
-                    Button {
-                        shareAction()
-                    } label: {
-                        Image("ic_share")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    .buttonStyle(.plain)
                 }
+                .frame(height: 26)
             }
         }
         .padding()

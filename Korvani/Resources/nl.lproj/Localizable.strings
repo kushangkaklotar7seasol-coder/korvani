@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "Zoek Films & Series";
 "MOVIES" = "Films";
 "SERIES" = "Series";
+"SEARCH_MEDIA" = "Films of Series Zoeken";
+"NEWEARCH_PLACEHOLDER" = "Vind je favoriete films door te zoeken op titel, acteur of genre.";
+"NO_SEARCH_DATA" = "Geen gegevens gevonden";
+"NO_SEARCH_DATA_FOUND" = "Geen gegevens gevonden voor";
 
 // MARK: - Weather Screen -
 "WEATHER" = "Weer";

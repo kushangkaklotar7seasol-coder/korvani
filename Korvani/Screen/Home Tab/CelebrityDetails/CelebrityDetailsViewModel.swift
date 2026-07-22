@@ -56,7 +56,7 @@ class CelebrityDetailsViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -77,7 +77,7 @@ class CelebrityDetailsViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -96,7 +96,7 @@ class CelebrityDetailsViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     

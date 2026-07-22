@@ -190,7 +190,7 @@ class Home {
         @StateObject var viewModel: HomeViewModel
         var cardWidth: CGFloat { screenWidth * 0.8 }
         var spacing: CGFloat = 16
-        @State var scrollPosition: Int?
+        @State var scrollPosition: Int? = 0
         
         // Auto-scroll timer
         let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
@@ -244,7 +244,9 @@ class Home {
             .frame(height: 230)
             .onAppear {
                 DispatchQueue.main.async {
-                    scrollPosition = 250
+                    if scrollPosition == 0 {
+                        scrollPosition = 250
+                    }
                 }
             }
             .onReceive(timer) { _ in
@@ -260,7 +262,7 @@ class Home {
             guard !viewModel.topRatedMovie.isEmpty else { return }
             let current = scrollPosition ?? 0
             let next = current < viewModel.topRatedMovie.count - 1 ? current + 1 : 0
-            withAnimation(.easeInOut(duration: 0.3)) {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.75, blendDuration: 0.3)) {
                 scrollPosition = next
             }
         }

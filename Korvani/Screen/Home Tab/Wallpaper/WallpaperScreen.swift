@@ -31,7 +31,7 @@ struct WallpaperScreen: View {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.displayWallpaper.indices, id: \.self) { index in
                             ZStack {
-                                KFImage.url(URL(string: viewModel.displayWallpaper[index].src.original))
+                                KFImage.url(URL(string: viewModel.displayWallpaper[index].src.medium))
                                     .resizable()
                                     .scaledToFill()
                             }
@@ -39,7 +39,7 @@ struct WallpaperScreen: View {
                             .background(.grayColour.opacity(0.5))
                             .cornerRadius(10)
                             .onAppear() {
-                                loadMoreIfNeeded(currentItem: index)
+                                self.loadMoreIfNeeded(currentItem: index)
                             }
                             .onTapGesture {
                                 viewModel.selectedWallpaper = viewModel.displayWallpaper[index]
@@ -61,9 +61,19 @@ struct WallpaperScreen: View {
     }
     
     func loadMoreIfNeeded(currentItem: Int) {
-        print(currentItem)
-        guard !viewModel.isLoading, currentItem == viewModel.displayWallpaper.count - 4 else { return }
-        viewModel.wallpaperAPI()
+        guard !viewModel.isLoading, currentItem >= viewModel.displayWallpaper.count - 4 else { return }
+        
+        if !viewModel.isLoading {
+            guard viewModel.totalPage >= viewModel.pageCount else {
+                print("Limit completed")
+                print("\(viewModel.totalPage) Total page")
+                print("\(viewModel.pageCount) My page count")
+                return
+            }
+            
+            print("LOAD MORE")
+            viewModel.wallpaperAPI()
+        }
     }
 }
 

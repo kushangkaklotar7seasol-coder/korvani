@@ -234,7 +234,8 @@ struct MediaItem: Codable, Identifiable {
     let firstCreditAirDate: String?
     
     var isMovie: Int? // 1=Movie, 0=Series
- 
+    var isMovieLiked: Bool?
+    
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -990,7 +991,7 @@ struct WallpaperListResponse: Codable {
     var total: Int
     var page: Int
     var limit: Int
-    var totalPages: Int
+    var totalPages: Int//totalPages
     var data: [Wallpaper]
 }
  

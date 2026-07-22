@@ -54,7 +54,7 @@ class CategoryListViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -69,7 +69,7 @@ class CategoryListViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -84,7 +84,7 @@ class CategoryListViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -99,7 +99,7 @@ class CategoryListViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -114,7 +114,7 @@ class CategoryListViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -129,7 +129,7 @@ class CategoryListViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
 }

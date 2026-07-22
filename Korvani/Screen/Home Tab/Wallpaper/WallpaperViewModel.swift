@@ -10,6 +10,7 @@ internal import Combine
 
 class WallpaperViewModel: ObservableObject {
     @Published var pageCount = 0
+    @Published var totalPage = 0
     @Published var wallpapger: WallpaperListResponse?
     @Published var isLoading = false
     @Published var displayWallpaper: [Wallpaper] = []
@@ -28,20 +29,19 @@ class WallpaperViewModel: ObservableObject {
                 self.isLoading = false
                 self.wallpapger?.limit = response.limit
                 self.wallpapger?.page = response.page
-                self.wallpapger?.totalPages = response.totalPages
+                self.totalPage = response.totalPages
                 self.wallpapger?.total = response.total
                 
                 for i in response.data {
                     self.displayWallpaper.append(i)
                 }
                 
-                print(self.displayWallpaper)
             } failure: { error in
                 self.isLoading = false
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     

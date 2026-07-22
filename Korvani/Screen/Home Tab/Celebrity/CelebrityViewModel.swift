@@ -33,7 +33,7 @@ class CelebrityViewModel : ObservableObject {
                 self.isLoading = false
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
 }

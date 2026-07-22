@@ -129,6 +129,7 @@ class DefaultDesign {
                 if name != nil {
                     Text(name?.localized() ?? "")
                         .font(font)
+                        .foregroundColor(.whiteColour)
                 }
                 
                 Spacer()

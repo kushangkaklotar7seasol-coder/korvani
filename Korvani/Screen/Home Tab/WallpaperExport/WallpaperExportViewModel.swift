@@ -29,7 +29,7 @@ class WallpaperExportViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.downloadStatus = 0
             }
-            print(error)
+            Toast.shared.show(message: error, type: .error)
         }
     }
     
@@ -70,6 +70,7 @@ class WallpaperExportViewModel: ObservableObject {
             
         } failure: { error in
             print(error)
+            Toast.shared.show(message: error, type: .error)
         }
     }
 }

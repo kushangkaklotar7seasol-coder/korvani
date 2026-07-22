@@ -32,11 +32,17 @@ class MovieDetailViewModel: ObservableObject {
     
     @Published var isShowAllCast = false
     
+    @Published var isYoutubeVideo = false
+    @Published var youtubeUrl = ""
+    
     var movieId: Int?
     @Published var isMovie: Bool?
     @Published var personalInformation: [LanguageModel] = []
     
-    init(movieId: Int = 278, isMovie: Bool = true) {
+    @Published var mediaItems: [String] = []
+    @Published var castItems: [String] = []
+    
+    init(movieId: Int = 237020, isMovie: Bool = true) {
         self.movieId = movieId
         self.isMovie = isMovie
         if isMovie {
@@ -82,6 +88,12 @@ class MovieDetailViewModel: ObservableObject {
         if Utility.isInternetAvailable() {
             MovieDetailService.shared.castAndCrew(id: self.movieId ?? 0) { statusCode, response in
                 self.movieCredits = response
+                if !response.cast.isEmpty {
+                    self.castItems.append(Strings.topCast)
+                }
+                if !response.crew.isEmpty {
+                    self.castItems.append(Strings.coreCrew)
+                }
                 self.movieImageAPI()
             } failure: { error in
                 print(error)
@@ -95,6 +107,9 @@ class MovieDetailViewModel: ObservableObject {
         if Utility.isInternetAvailable() {
             MovieDetailService.shared.movieImage(id: self.movieId ?? 0) { statusCode, response in
                 self.movieImage = response
+                if !response.posters.isEmpty {
+                    self.mediaItems.append(Strings.poster)
+                }
                 self.movieVideoAPI()
             } failure: { error in
                 print(error)
@@ -108,6 +123,9 @@ class MovieDetailViewModel: ObservableObject {
         if Utility.isInternetAvailable() {
             MovieDetailService.shared.movieVideo(id: self.movieId ?? 0) { statusCode, response in
                 self.movieVideo = response
+                if !response.results.isEmpty {
+                    self.mediaItems.append(Strings.videos)
+                }
             } failure: { error in
                 print(error)
             }
@@ -122,33 +140,6 @@ class MovieDetailViewModel: ObservableObject {
                 print(response)
                 self.movieDetail = response
                 self.isLiked = database.isMovieLiked(id: self.movieId ?? 0)
-                self.seriesCastAndCrew()
-            } failure: { error in
-                print(error)
-            }
-        } else {
-            print("No internet connected")
-        }
-    }
-    
-    func seriesCastAndCrew() {
-        if Utility.isInternetAvailable() {
-            MovieDetailService.shared.seriesCastAndCrew(id: self.movieId ?? 0) { statusCode, response in
-                self.movieCredits = response
-                self.seriesImageAPI()
-            } failure: { error in
-                print(error)
-            }
-        } else {
-            print("No internet connected")
-        }
-    }
-    
-    func seriesImageAPI() {
-        if Utility.isInternetAvailable() {
-            MovieDetailService.shared.seriesImage(id: self.movieId ?? 0) { statusCode, response in
-                self.movieImage = response
-                
                 if let status = self.movieDetail?.status {
                     self.personalInformation.append(LanguageModel(id: 0, name: Strings.status, language: status))
                 }
@@ -168,7 +159,41 @@ class MovieDetailViewModel: ObservableObject {
                 if let season = self.movieDetail?.seasons?.count {
                     self.personalInformation.append(LanguageModel(id: 2, name: Strings.season, language: "\(season > 1 ? season-1 : season)"))
                 }
-                
+                self.seriesCastAndCrew()
+            } failure: { error in
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
+    func seriesCastAndCrew() {
+        if Utility.isInternetAvailable() {
+            MovieDetailService.shared.seriesCastAndCrew(id: self.movieId ?? 0) { statusCode, response in
+                self.movieCredits = response
+                if !response.cast.isEmpty {
+                    self.castItems.append(Strings.topCast)
+                }
+                if !response.crew.isEmpty {
+                    self.castItems.append(Strings.coreCrew)
+                }
+                self.seriesImageAPI()
+            } failure: { error in
+                print(error)
+            }
+        } else {
+            print("No internet connected")
+        }
+    }
+    
+    func seriesImageAPI() {
+        if Utility.isInternetAvailable() {
+            MovieDetailService.shared.seriesImage(id: self.movieId ?? 0) { statusCode, response in
+                self.movieImage = response
+                if !response.posters.isEmpty {
+                    self.mediaItems.append(Strings.poster)
+                }
                 self.seriesVideoAPI()
             } failure: { error in
                 print(error)
@@ -182,6 +207,9 @@ class MovieDetailViewModel: ObservableObject {
         if Utility.isInternetAvailable() {
             MovieDetailService.shared.seriesVideo(id: self.movieId ?? 0) { statusCode, response in
                 self.movieVideo = response
+                if !response.results.isEmpty {
+                    self.mediaItems.append(Strings.videos)
+                }
             } failure: { error in
                 print(error)
             }
@@ -199,15 +227,15 @@ class MovieDetailViewModel: ObservableObject {
         self.isLiked.toggle()
     }
     
-    func openInYouTubeApp(videoID: String) {
-        if let url = URL(string: "youtube://www.youtube.com/watch?v=\(videoID)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                if let url = URL(string: "https://www.youtube.com/watch?v=\(videoID)") {
-                    UIApplication.shared.open(url)
-                }
-            }
-        }
-    }
+//    func openInYouTubeApp(videoID: String) {
+//        if let url = URL(string: ) {
+//            if UIApplication.shared.canOpenURL(url) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            } else {
+//                if let url = URL(string: "https://www.youtube.com/watch?v=\(videoID)") {
+//                    UIApplication.shared.open(url)
+//                }
+//            }
+//        }
+//    }
 }

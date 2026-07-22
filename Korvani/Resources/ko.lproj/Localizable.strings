@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "영화 및 TV 프로그램 검색";
 "MOVIES" = "영화";
 "SERIES" = "시리즈";
+"SEARCH_MEDIA" = "영화 또는 시리즈 검색";
+"NEWEARCH_PLACEHOLDER" = "제목, 배우 또는 장르로 검색하여 좋아하는 영화를 찾아보세요.";
+"NO_SEARCH_DATA" = "데이터를 찾을 수 없습니다";
+"NO_SEARCH_DATA_FOUND" = "에 대한 데이터를 찾을 수 없습니다";
 
 // MARK: - Weather Screen -
 "WEATHER" = "날씨";

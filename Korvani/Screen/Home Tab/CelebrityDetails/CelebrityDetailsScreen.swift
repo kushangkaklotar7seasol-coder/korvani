@@ -359,7 +359,7 @@ class MovieDetail {
         var movies: MediaItem
         var numbersOfCard = 2
         var isShowLike = true
-        var onLike: ((Bool) -> Void)?
+        var onLike: ((MediaItem) -> Void)?
         
         @State var isLiked: Bool = false
         
@@ -406,7 +406,8 @@ class MovieDetail {
                                     }
                                     
                                     self.isLiked.toggle()
-                                    onLike?(self.isLiked)
+                                    
+                                    onLike?(self.movies)
                                 } label: {
                                     Image(self.isLiked ? "ic_like" : "ic_unlike")
                                         .resizable()

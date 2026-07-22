@@ -7,7 +7,7 @@
 
 import Foundation
 internal import Combine
-import AVFAudio
+internal import AVFAudio
 import UIKit
 
 struct TranslateLanguageModel {
@@ -34,7 +34,7 @@ var arrLanguage: [TranslateLanguageModel] = [
 ]
 
 
-class TranslateViewModel: ObservableObject {
+class TranslateViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     
     
     @Published var sourceLanguage: TranslateLanguageModel = arrLanguage[0]
@@ -42,8 +42,13 @@ class TranslateViewModel: ObservableObject {
     
     @Published var sourceText: String = ""
     @Published var translatedText: String = ""
-    @Published private var speaker = AVSpeechSynthesizer()
+    @Published var speaker = AVSpeechSynthesizer()
+    @Published var isPlaying = false
     
+    override init() {
+        super.init()
+        speaker.delegate = self
+    }
     
     func swapLanguages() {
 
@@ -158,6 +163,9 @@ class TranslateViewModel: ObservableObject {
         
         speaker.stopSpeaking(at: .immediate)
         speaker.speak(utterance)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.isPlaying = true
+        }
     }
     
     func shareText(_ text: String) {
@@ -173,5 +181,11 @@ class TranslateViewModel: ObservableObject {
         )
         
         rootViewController.present(activityVC, animated: true)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        DispatchQueue.main.async {
+            self.isPlaying = false
+        }
     }
 }

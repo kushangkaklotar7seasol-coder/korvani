@@ -56,6 +56,10 @@ class Strings {
     static var searchPlaceHolder: String { "SEARCH_PLACEHOLDER".localized() }
     static var movies: String { "MOVIES".localized() }
     static var series: String { "SERIES".localized() }
+    static var searchMoviePlaceholder: String { "SEARCH_MEDIA".localized() }
+    static var newSearchPlaceholder: String { "NEWEARCH_PLACEHOLDER".localized() }
+    static var noSearchData: String { "NO_SEARCH_DATA".localized() }
+    static var noSearchDataFor: String { "NO_SEARCH_DATA_FOUND".localized() }
     
     // MARK: - Weather -
     static var weather: String { "WEATHER".localized() }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-let proxiUrl = "https://api-livevideocall.7seasol.in/proxy?url="
+var proxiUrl = ""
 let serverUrl = proxiUrl + "https://api.themoviedb.org/3/"
 
 //  MARK: - Home -

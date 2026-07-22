@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "मूवीज़ और टीवी शो खोजें";
 "MOVIES" = "मूवीज़";
 "SERIES" = "सीरीज़";
+"SEARCH_MEDIA" = "मूवीज़ या सीरीज़ खोजें";
+"NEWEARCH_PLACEHOLDER" = "टाइटल, एक्टर या जॉनर खोजकर अपनी पसंदीदा मूवीज़ खोजें।";
+"NO_SEARCH_DATA" = "कोई डेटा नहीं मिला";
+"NO_SEARCH_DATA_FOUND" = "इसके लिए कोई डेटा नहीं मिला";
 
 // MARK: - Weather Screen -
 "WEATHER" = "मौसम";

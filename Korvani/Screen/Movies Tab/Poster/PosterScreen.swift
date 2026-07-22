@@ -38,7 +38,10 @@ struct PosterScreen: View {
                             ForEach(viewModel.video, id: \.key) { video in
                                 MovieDetailsDesign.PosterMedia(isImage: false, image: video.key)
                                     .onTapGesture {
-                                        viewModel.openInYouTubeApp(videoID: video.key)
+                                        if isYoutubeEnabled {
+                                            viewModel.youtubeUrl = "https://www.youtube.com/watch?v=\(video.key)"
+                                            viewModel.isYoutubeVideo = true
+                                        }
                                     }
                             }
                         }
@@ -56,6 +59,20 @@ struct PosterScreen: View {
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
+        }
+        .sheet(isPresented: $viewModel.isYoutubeVideo) {
+            NavigationStack {
+                WebView(url: URL(string: viewModel.youtubeUrl)!)
+//                    .navigationTitle("Browser")
+//                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Done") {
+                                viewModel.isYoutubeVideo = false
+                            }
+                        }
+                    }
+            }
         }
     }
 }

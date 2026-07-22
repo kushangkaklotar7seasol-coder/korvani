@@ -27,8 +27,14 @@ let locationManager = LocationManager()
 
 let database = SQLiteManager.shared
 
+var isYoutubeEnabled = false
+
 final class SwipeBackManager {
     static let shared = SwipeBackManager()
     var isEnabled: Bool = true
     private init() {}
 }
+
+// MARK: - Default message -
+
+let noInternet = "Please check you're internet connection!"

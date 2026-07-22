@@ -22,7 +22,7 @@ struct WallpaperExportScreen: View {
                 }
 
                 ZStack {
-                    KFImage.url(URL(string: viewModel.wallpaper?.src.original ?? ""))
+                    KFImage.url(URL(string: viewModel.wallpaper?.src.medium ?? ""))
                         .resizable()
                         .scaledToFill()
                 }
@@ -30,7 +30,6 @@ struct WallpaperExportScreen: View {
                 .background(.grayColour.opacity(0.5))
                 .cornerRadius(16)
                 .padding(.top, 24)
-                
                 
                 Button {
                     viewModel.onExportImage()
@@ -82,7 +81,7 @@ struct WallpaperExportScreen: View {
         .padding(.horizontal, 20)
         .defaultPage()
         .onAppear() {
-            SwipeBackManager.shared.isEnabled = false
+            SwipeBackManager.shared.isEnabled = true
         }
     }
 }

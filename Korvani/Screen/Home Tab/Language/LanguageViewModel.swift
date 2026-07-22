@@ -27,7 +27,8 @@ class LanguageViewModel: ObservableObject {
     @Published var isOnBording = false
     
     init() {
-        self.selectedLanguage = self.languages[0]
+//        self.selectedLanguage = self.languages[0]
+        
     }
     // MARK: - Button Click Action -
     func onDoneButtonClick(){

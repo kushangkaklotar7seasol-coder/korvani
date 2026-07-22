@@ -7,48 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2D1669DD-F94E-44DA-B540-50DEE207602E"
+            uuid = "5825CD37-2F1B-44D0-B79B-BE02C7B1A963"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Korvani/Screen/Home Tab/Splash/Splash.swift"
+            filePath = "Korvani/Screen/Home Tab/Translate/TranslateViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "webservice_getJSON_api(completion:)"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "speechSynthesizer(_:didFinish:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EC8C5CFA-4DBC-45B9-880C-302268BC59D7"
+            uuid = "35BDC000-7518-4FFB-8C4E-71076DB302E8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Korvani/Screen/Home Tab/Splash/Splash.swift"
+            filePath = "Korvani/Screen/Home Tab/Translate/TranslateViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "webservice_getJSON_api(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CC4BC8FE-9A6B-4A49-826F-62A60C533DF6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Korvani/Screen/Home Tab/Splash/Splash.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "webservice_getJSON_api(completion:)"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "speakText(text:languageCode:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "Search Movies & TV Shows";
 "MOVIES" = "Movies";
 "SERIES" = "Series";
+"SEARCH_MEDIA" = "Search Movies or Series";
+"NEWEARCH_PLACEHOLDER" = "Find your favorite movies by searching for a title, actor, or genre.";
+"NO_SEARCH_DATA" = "No data found";
+"NO_SEARCH_DATA_FOUND" = "No data found for";
 
 // MARK: - Weather Screen -
 "WEATHER" = "Weather";

@@ -18,33 +18,39 @@ struct UnitConverterScreen: View {
                 DefaultDesign.Header(name: "UNIT_CONVERTER", back: {
                     self.dismiss()
                 })
+                .padding(.horizontal, 16)
                 
                 ScrollView(showsIndicators: false) {
-                    HStack(spacing: 9) {
-                        ForEach(UnitType.allCases, id: \.self) { type in
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 9) {
                             
-                            Button {
-                                withAnimation(.easeInOut(duration: 0.25)) {
-                                    viewModel.selectedUnit = type
-                                }
-                            } label: {
-                                Text(type.localized)
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundStyle(.whiteColour)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 40)
-                                    .background {
-                                        LinearGradient(
-                                            colors: [viewModel.selectedUnit == type ? .lightYellowColour : .borderColour, viewModel.selectedUnit == type ? .orangeColour: .borderColour],
-                                            startPoint: .top,
-                                            endPoint: .bottom)
+                            ForEach(UnitType.allCases, id: \.self) { type in
+                                Button {
+                                    withAnimation(.easeInOut(duration: 0.25)) {
+                                        viewModel.selectedUnit = type
                                     }
-                                    .cornerRadius(8)
+                                } label: {
+                                    Text(type.localized)
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .foregroundStyle(.whiteColour)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 40)
+                                        .padding(.horizontal, 12)
+                                        .background {
+                                            LinearGradient(
+                                                colors: [viewModel.selectedUnit == type ? .lightYellowColour : .borderColour, viewModel.selectedUnit == type ? .orangeColour: .borderColour],
+                                                startPoint: .top,
+                                                endPoint: .bottom)
+                                        }
+                                        .cornerRadius(8)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
+                        .padding(.top, 24)
+                        .padding(.horizontal, 16)
                     }
-                    .padding(.top, 24)
                     
                     ZStack {
                         VStack(spacing:20) {
@@ -77,12 +83,12 @@ struct UnitConverterScreen: View {
                         .buttonStyle(.plain)
                     }
                     .padding(.top, 30)
+                    .padding(.horizontal, 16)
                     
                     Spacer()
                 }
             }
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .contentShape(Rectangle())
         .onTapGesture {

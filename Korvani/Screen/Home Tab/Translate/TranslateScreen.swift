@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+internal import AVFAudio
 
 struct TranslateScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = TranslateViewModel()
     @State private var showShareSheet = false
     @FocusState private var isTextFieldFocused: Bool
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         ZStack {
@@ -71,6 +73,7 @@ struct TranslateScreen: View {
                         },
                         copyAction: {
                             UIPasteboard.general.string = viewModel.sourceText
+                            Toast.shared.show(message: "text copied", type: .success)
                         },
                         totalWord: "",
                         isTextFieldFocused: _isTextFieldFocused,
@@ -90,6 +93,7 @@ struct TranslateScreen: View {
                         },
                         copyAction: {
                             UIPasteboard.general.string = viewModel.translatedText
+                            Toast.shared.show(message: "text copied", type: .success)
 //                            showToastAtCenter(message: str.TextCopied)
                         },
                         isTextFieldFocused: _isTextFieldFocused,
@@ -111,6 +115,16 @@ struct TranslateScreen: View {
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            switch newPhase {
+            case .background:
+                if viewModel.isPlaying {
+                    viewModel.speaker.pauseSpeaking(at: .immediate)
+                }
+            @unknown default:
+                break
+            }
         }
     }
 }

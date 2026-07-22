@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "Cerca Film e Serie TV";
 "MOVIES" = "Film";
 "SERIES" = "Serie TV";
+"SEARCH_MEDIA" = "Cerca Film o Serie TV";
+"NEWEARCH_PLACEHOLDER" = "Trova i tuoi film preferiti cercando un titolo, un attore o un genere.";
+"NO_SEARCH_DATA" = "Nessun dato trovato";
+"NO_SEARCH_DATA_FOUND" = "Nessun dato trovato per";
 
 // MARK: - Weather Screen -
 "WEATHER" = "Meteo";

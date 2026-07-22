@@ -29,14 +29,13 @@ struct LikeScreen: View {
                         ScrollView(showsIndicators: false) {
                             LazyVGrid(columns: columns) {
                                 ForEach(viewModel.movies.indices, id: \.self) { index in
-                                    MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: 2, onLike: { value in
-                                        viewModel.movies.remove(at: index)
-                                        let newArr = viewModel.movies
-                                        viewModel.movies = []
-                                        DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                            viewModel.movies = newArr
+                                    MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: 2, onLike: { movie in
+                                        viewModel.movies.removeAll(where: {$0.id == movie.id})
+                                        DispatchQueue.main.async {
+                                            viewModel.fetchMovie()
                                         }
                                     })
+                                    .id(viewModel.movies[index].id)
                                     .onTapGesture {
                                         viewModel.selectedMovie = viewModel.movies[index]
                                         viewModel.isShowmovieDetail = true
@@ -66,18 +65,15 @@ struct LikeScreen: View {
                         ScrollView(showsIndicators: false) {
                             LazyVGrid(columns: columns) {
                                 ForEach(viewModel.series.indices, id: \.self) { index in
-                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: 2, onLike: { value in
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            viewModel.series.remove(at: index)
-                                            let newArr = viewModel.series
-                                            viewModel.series = []
-                                            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                                viewModel.series = newArr
-                                            }
+                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: 2, onLike: { movie in
+                                        viewModel.series.removeAll(where: {$0.id == movie.id})
+                                        DispatchQueue.main.async {
+                                            viewModel.fetchSeries()
                                         }
                                     })
+                                    .id(viewModel.series[index].id)
                                     .onTapGesture {
-                                        viewModel.selectedMovie = viewModel.movies[index]
+                                        viewModel.selectedMovie = viewModel.series[index]
                                         viewModel.isShowmovieDetail = true
                                     }
                                 }

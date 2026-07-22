@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "搜索电影和电视剧";
 "MOVIES" = "电影";
 "SERIES" = "电视剧";
+"SEARCH_MEDIA" = "搜索电影或电视剧";
+"NEWEARCH_PLACEHOLDER" = "通过搜索标题、演员或类型来查找您喜爱的电影。";.
+"NO_SEARCH_DATA" = "未找到数据";
+"NO_SEARCH_DATA_FOUND" = "未找到相关数据:";
 
 // MARK: - Weather Screen -
 "WEATHER" = "天气";

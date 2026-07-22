@@ -7,6 +7,7 @@
 
 import Foundation
 internal import Combine
+import UIKit
 
 class SearchViewModel: ObservableObject {
     @Published var searchTextField: String = ""
@@ -23,12 +24,34 @@ class SearchViewModel: ObservableObject {
     @Published var selectedMovie: MediaItem?
     @Published var isShowmovieDetail = false
     
+    @Published var keyboardHeight: CGFloat = 0
+    @Published var isKeyboardVisible: Bool = false
+    
+//    private var cancellables = Set<AnyCancellable>()
+    
     init() {
         $searchTextField
             .debounce(for: .seconds(0.8), scheduler: RunLoop.main)
             .removeDuplicates()
             .sink { [weak self] finalValue in
                 self?.perform(finalValue)
+            }
+            .store(in: &cancellables)
+        
+        let showPublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .compactMap { notification in
+                notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+            }
+            .map { rect in rect.height }
+        
+        let hidePublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .map { _ in CGFloat(0) }
+        
+        Publishers.Merge(showPublisher, hidePublisher)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] height in
+                self?.keyboardHeight = height
+                self?.isKeyboardVisible = height > 0
             }
             .store(in: &cancellables)
     }
@@ -85,7 +108,7 @@ class SearchViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -105,7 +128,7 @@ class SearchViewModel: ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
 }

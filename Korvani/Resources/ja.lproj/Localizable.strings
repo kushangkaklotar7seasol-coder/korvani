@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "映画・テレビ番組を検索";
 "MOVIES" = "映画";
 "SERIES" = "シリーズ";
+"SEARCH_MEDIA" = "映画・シリーズを検索";
+"NEWEARCH_PLACEHOLDER" = "タイトル、俳優、ジャンルで検索してお気に入りの映画を見つけましょう。";
+"NO_SEARCH_DATA" = "データが見つかりません";
+"NO_SEARCH_DATA_FOUND" = "次のデータが見つかりません:";
 
 // MARK: - Weather Screen -
 "WEATHER" = "天気";

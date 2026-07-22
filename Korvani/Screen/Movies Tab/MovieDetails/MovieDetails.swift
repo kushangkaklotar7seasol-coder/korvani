@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import WebKit
 
 struct MovieDetails: View {
     @State var isShowMore = false
@@ -25,8 +26,16 @@ struct MovieDetails: View {
                     // Topbar
                     ZStack {
                         KFImage.url(URL(string: imageUrl+"\(viewModel.movieDetail?.posterPath ?? "")"))
+                            .placeholder { progress in
+                                Image("img_nomovie")
+                                    .resizable()
+                                    .scaledToFill()
+                            }
                             .resizable()
                             .scaledToFill()
+                            .frame(width: screenWidth, height: (screenHeight/2)+100, alignment: .center)
+                            .clipped()
+//                            .edgesIgnoringSafeArea(.top)
                         
                         LinearGradient(colors: [.clear,.clear, .blackColour], startPoint: .top, endPoint: .bottom)
                         
@@ -49,15 +58,19 @@ struct MovieDetails: View {
                                         
                                         Spacer()
                                         
-                                        if !(viewModel.movieVideo?.results.isEmpty ?? true) {
-                                            Button {
-                                                viewModel.openInYouTubeApp(videoID: viewModel.movieVideo?.results.first?.key ?? "")
-                                            } label: {
-                                                Image("ic_play")
-                                                    .resizable()
-                                                    .frame(width: 44, height: 44, alignment: .center)
+                                        if isYoutubeEnabled {
+                                            if !(viewModel.movieVideo?.results.isEmpty ?? true) {
+                                                Button {
+//                                                    viewModel.openInYouTubeApp(videoID: viewModel.movieVideo?.results.first?.key ?? "")
+                                                    viewModel.youtubeUrl = "www.youtube.com/watch?v=\(viewModel.movieVideo?.results.first?.key ?? "")"
+                                                    viewModel.isYoutubeVideo = true
+                                                } label: {
+                                                    Image("ic_play")
+                                                        .resizable()
+                                                        .frame(width: 44, height: 44, alignment: .center)
+                                                }
+                                                .padding(.trailing, 16)
                                             }
-                                            .padding(.trailing, 16)
                                         }
                                     }
                                     .frame(height: 44)
@@ -105,153 +118,165 @@ struct MovieDetails: View {
                             }
                         }
                     }
-                    .frame(width: screenWidth, height: screenHeight/2, alignment: .center)
+                    .frame(width: screenWidth, height: (screenHeight/2)+100, alignment: .center)
                     .background(.whiteColour)
                     
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack {
-                            Text(Strings.overview)
-                                .font(.system(size: 18, weight: .medium))
-                            Spacer()
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text(viewModel.movieDetail?.overview ?? "")
-                                .foregroundColor(.grayColour)
-                                .lineLimit(isShowMore ? nil : 3)
+                    if let overView = viewModel.movieDetail?.overview, overView != "" {
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack {
+                                Text(Strings.overview)
+                                    .font(.system(size: 18, weight: .medium))
+                                Spacer()
+                            }
                             
-                            Button(isShowMore ? Strings.showLess : Strings.showMore) {
-                                withAnimation {
-                                    isShowMore.toggle()
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 80)
-                    .padding(.horizontal, 16)
-                    
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(Strings.moreInfo)
-                                .font(.system(size: 18, weight: .medium))
-                            Spacer()
-                        }
-                        
-                        VStack {
-                            VStack(spacing: 16) {
-                                ForEach(viewModel.personalInformation.indices, id: \.self) { information in
-                                    let info = viewModel.personalInformation[information]
-                                    CelebrityDetails.PersonalInfo(name: info.name, details: info.language, isLast: information+1 == viewModel.personalInformation.count)
-                                }
-                            }
-                            .padding(.vertical, 16)
-                        }
-                        .background(.lightBlackColour)
-                        .cornerRadius(10)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 14)
-                    
-                    MovieDetailsDesign.WatchItems(mediaTab: [Strings.topCast, Strings.coreCrew], onSelect: { index in
-                        self.viewModel.selectedCastOption = index
-                    }, onViewAll: {
-                        self.viewModel.isShowAllCast = true
-                    })
-                    
-                    if viewModel.selectedCastOption == 0 {
-                        
-                        if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(cast, id: \.id) { cast in
-                                        MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
-                                            .onTapGesture {
-                                                viewModel.selectedCelebrityId = cast.id
-                                                viewModel.isShowCastDetails = true
-                                            }
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text(overView)
+                                    .foregroundColor(.grayColour)
+                                    .lineLimit(isShowMore ? nil : 3)
+                                
+                                Button(isShowMore ? Strings.showLess : Strings.showMore) {
+                                    withAnimation {
+                                        isShowMore.toggle()
                                     }
                                 }
-                                .padding(.horizontal)
                             }
-                        } else {
-                            Text(Strings.noCast)
-                                .font(.system(size: 21, weight: .bold))
-                                .foregroundColor(.whiteColour)
                         }
-                    } else {
-                        if let crew = viewModel.movieCredits?.crew, !crew.isEmpty{
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(crew, id: \.id) { crew in
-                                        MovieDetailsDesign.CastDetail(image: crew.profilePath ?? "", firstName: crew.name, lastName: crew.department)
-                                            .onTapGesture {
-                                                viewModel.selectedCelebrityId = crew.id
-                                                viewModel.isShowCastDetails = true
-                                            }
+//                        .padding(.top, 80)
+                        .padding(.horizontal, 16)
+                    }
+                    
+                    if !viewModel.personalInformation.isEmpty {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(Strings.moreInfo)
+                                    .font(.system(size: 18, weight: .medium))
+                                Spacer()
+                            }
+                            
+                            VStack {
+                                VStack(spacing: 16) {
+                                    ForEach(viewModel.personalInformation.indices, id: \.self) { information in
+                                        let info = viewModel.personalInformation[information]
+                                        CelebrityDetails.PersonalInfo(name: info.name, details: info.language, isLast: information+1 == viewModel.personalInformation.count)
                                     }
                                 }
-                                .padding(.horizontal)
+                                .padding(.vertical, 16)
+                            }
+                            .background(.lightBlackColour)
+                            .cornerRadius(10)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 14)
+                    }
+                    
+                    
+                    if !viewModel.castItems.isEmpty {
+                        MovieDetailsDesign.WatchItems(mediaTab: viewModel.castItems, onSelect: { index in
+                            viewModel.selectedCastOption = viewModel.castItems[index] == Strings.topCast ? 0 : 1
+                        }, onViewAll: {
+                            self.viewModel.isShowAllCast = true
+                        })
+                        
+                        if viewModel.selectedCastOption == 0 {
+                            
+                            if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(cast, id: \.id) { cast in
+                                            MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
+                                                .onTapGesture {
+                                                    viewModel.selectedCelebrityId = cast.id
+                                                    viewModel.isShowCastDetails = true
+                                                }
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                }
+                            } else {
+                                Text(Strings.noCast)
+                                    .font(.system(size: 21, weight: .bold))
+                                    .foregroundColor(.whiteColour)
                             }
                         } else {
-                            Text(Strings.noCrew)
-                                .font(.system(size: 21, weight: .bold))
-                                .foregroundColor(.whiteColour)
+                            if let crew = viewModel.movieCredits?.crew, !crew.isEmpty{
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(crew, id: \.id) { crew in
+                                            MovieDetailsDesign.CastDetail(image: crew.profilePath ?? "", firstName: crew.name, lastName: crew.department)
+                                                .onTapGesture {
+                                                    viewModel.selectedCelebrityId = crew.id
+                                                    viewModel.isShowCastDetails = true
+                                                }
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                }
+                            } else {
+                                Text(Strings.noCrew)
+                                    .font(.system(size: 21, weight: .bold))
+                                    .foregroundColor(.whiteColour)
+                            }
                         }
                     }
                     
-                    MovieDetailsDesign.WatchItems(mediaTab: [Strings.poster, Strings.videos], onSelect: { index in
-                        viewModel.selectedMediaOption = index
-                    }, onViewAll: {
+                    if !viewModel.mediaItems.isEmpty {
+                        MovieDetailsDesign.WatchItems(mediaTab: viewModel.mediaItems, onSelect: { index in
+                            viewModel.selectedMediaOption = viewModel.mediaItems[index] == Strings.poster ? 0 : 1
+                        }, onViewAll: {
+                            if viewModel.mediaItems[viewModel.selectedMediaOption] == Strings.poster {
+                                viewModel.isShowPoster = true
+                            } else {
+                                viewModel.isShowVideo = true
+                            }
+                        })
+                        
                         if viewModel.selectedMediaOption == 0 {
-                            viewModel.isShowPoster = true
-                        } else {
-                            viewModel.isShowVideo = true
-                        }
-                    })
-                    
-                    if viewModel.selectedMediaOption == 0 {
-                        if let array = viewModel.movieImage?.posters, !array.isEmpty {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(array.indices, id: \.self) { index in
-                                        MovieDetailsDesign.PosterMedia(isImage: true, image: array[index].filePath)
-                                            .onTapGesture {
-                                                viewModel.posterIndex = index
-                                                viewModel.isShowPosterDetail = true
-                                            }
+                            if let array = viewModel.movieImage?.posters, !array.isEmpty {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(array.indices, id: \.self) { index in
+                                            MovieDetailsDesign.PosterMedia(isImage: true, image: array[index].filePath)
+                                                .onTapGesture {
+                                                    viewModel.posterIndex = index
+                                                    viewModel.isShowPosterDetail = true
+                                                }
+                                        }
                                     }
+                                    .padding(.horizontal)
                                 }
-                                .padding(.horizontal)
+                            } else {
+                                Text(Strings.noPhotos)
+                                    .font(.system(size: 21, weight: .bold))
+                                    .foregroundColor(.whiteColour)
                             }
                         } else {
-                            Text(Strings.noPhotos)
-                                .font(.system(size: 21, weight: .bold))
-                                .foregroundColor(.whiteColour)
-                        }
-                    } else {
-                        if let video = viewModel.movieVideo?.results, !video.isEmpty {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(video, id: \.key) { video in
-                                        MovieDetailsDesign.PosterMedia(isImage: false, image: video.key)
-                                            .onTapGesture {
-                                                viewModel.openInYouTubeApp(videoID: video.key)
-                                            }
+                            if let video = viewModel.movieVideo?.results, !video.isEmpty {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(video, id: \.key) { video in
+                                            MovieDetailsDesign.PosterMedia(isImage: false, image: video.key)
+                                                .onTapGesture {
+                                                    if isYoutubeEnabled {
+                                                        viewModel.youtubeUrl = "https://www.youtube.com/watch?v=\(viewModel.movieVideo?.results.first?.key ?? "")"
+                                                        viewModel.isYoutubeVideo = true
+                                                    }
+                                                }
+                                        }
                                     }
+                                    .padding(.horizontal)
                                 }
-                                .padding(.horizontal)
+                            } else {
+                                Text(Strings.noVideo)
+                                    .font(.system(size: 21, weight: .bold))
+                                    .foregroundColor(.whiteColour)
                             }
-                        } else {
-                            Text(Strings.noVideo)
-                                .font(.system(size: 21, weight: .bold))
-                                .foregroundColor(.whiteColour)
                         }
                     }
                     
                     Spacer()
                 }
             }
+            .edgesIgnoringSafeArea(.all)
             
             
             VStack {
@@ -364,7 +389,20 @@ struct MovieDetails: View {
                 }
             }
         }
-        
+        .sheet(isPresented: $viewModel.isYoutubeVideo) {
+            NavigationStack {
+                WebView(url: URL(string: viewModel.youtubeUrl)!)
+//                    .navigationTitle("Browser")
+//                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Done") {
+                                viewModel.isYoutubeVideo = false
+                            }
+                        }
+                    }
+            }
+        }
     }
 }
 
@@ -479,15 +517,32 @@ class MovieDetailsDesign {
                     .resizable()
                     .scaledToFill()
                     
-                if !isImage {
-                    Image("ic_play")
-                        .resizable()
-                        .frame(width: 30, height: 30)
+                if isYoutubeEnabled {
+                    if !isImage {
+                        Image("ic_play")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
                 }
             }
             .frame(width: width, height: height, alignment: .center)
             .background(.grayColour)
             .cornerRadius(10)
         }
+    }
+}
+
+struct WebView: UIViewRepresentable {
+
+    let url: URL
+
+    func makeUIView(context: Context) -> WKWebView {
+        let webView = WKWebView()
+        let request = URLRequest(url: url)
+        webView.load(request)
+        return webView
+    }
+
+    func updateUIView(_ uiView: WKWebView, context: Context) {
     }
 }

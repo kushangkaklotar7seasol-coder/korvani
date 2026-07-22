@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Utility {
     static let shared = Utility()
@@ -29,6 +30,10 @@ class Utility {
 
     class func getWeatherImageUrl(_ code: String) -> String {
         return "https://openweathermap.org/img/wn/\(code)@2x.png"
+    }
+    
+    class func closeKeyboard(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

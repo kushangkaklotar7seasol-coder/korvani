@@ -110,7 +110,7 @@ struct Splash: View {
             }
 
             guard let data = data else {
-                print("No Data Found")
+                Toast.shared.show(message: "No Data Found", type: .error)
                 return
             }
             
@@ -120,12 +120,17 @@ struct Splash: View {
                     
                     if let result = json["extraFields"] as? [String: Any] {
                         print(result)
+                        let result  = result
+                        
+                        proxiUrl = result["appjson"] as? String ?? ""
+                        isYoutubeEnabled = result["isYoutubeEnabled"] as? String == "false" ? false : true
                     }
                 }
                 DispatchQueue.main.async { completion?() }
                 
             } catch {
                 print("❌ JSON Parse Error:", error.localizedDescription)
+                Toast.shared.show(message: "Json passing error", type: .error)
                 DispatchQueue.main.async { completion?() }
             }
         }

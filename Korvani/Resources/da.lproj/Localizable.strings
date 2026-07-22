@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "Søg efter Film og Serier";
 "MOVIES" = "Film";
 "SERIES" = "Serier";
+"SEARCH_MEDIA" = "Søg Film eller Serier";
+"NEWEARCH_PLACEHOLDER" = "Find dine yndlingsfilm ved at søge efter en titel, skuespiller eller genre.";
+"NO_SEARCH_DATA" = "Ingen data fundet";
+"NO_SEARCH_DATA_FOUND" = "Ingen data fundet for";
 
 // MARK: - Weather Screen -
 "WEATHER" = "Vejr";

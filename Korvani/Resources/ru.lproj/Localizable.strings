@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "Поиск Фильмов и Сериалов";
 "MOVIES" = "Фильмы";
 "SERIES" = "Сериалы";
+"SEARCH_MEDIA" = "Поиск Фильмов или Сериалов";
+"NEWEARCH_PLACEHOLDER" = "Найдите любимые фильмы, выполнив поиск по названию, актёру или жанру.";
+"NO_SEARCH_DATA" = "Данные не найдены";
+"NO_SEARCH_DATA_FOUND" = "Данные не найдены для";
 
 // MARK: - Weather Screen -
 "WEATHER" = "Погода";

@@ -42,6 +42,10 @@
 "SEARCH_PLACEHOLDER" = "Film ve Dizi Ara";
 "MOVIES" = "Filmler";
 "SERIES" = "Diziler";
+"SEARCH_MEDIA" = "Film veya Dizi Ara";
+"NEWEARCH_PLACEHOLDER" = "Başlık, oyuncu veya tür arayarak favori filmlerini bul.";
+"NO_SEARCH_DATA" = "Veri bulunamadı";
+"NO_SEARCH_DATA_FOUND" = "Şunun için veri bulunamadı";
 
 // MARK: - Weather Screen -
 "WEATHER" = "Hava Durumu";

@@ -14,6 +14,10 @@ class PosterViewModel : ObservableObject {
     @Published var video: [Video] = []
     @Published var posterIndex: Int = 0
     @Published var isShowPosterDetail = false
+    
+    @Published var isYoutubeVideo = false
+    @Published var youtubeUrl = ""
+    
     var isImage: Bool?
     
     init(images: [MovieImage] = [], video: [Video] = [], isImage: Bool = true){

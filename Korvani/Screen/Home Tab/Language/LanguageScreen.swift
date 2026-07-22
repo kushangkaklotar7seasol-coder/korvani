@@ -67,12 +67,12 @@ struct LanguageScreen: View {
                                     .foregroundColor(.whiteColour)
                                 
                                 Text("(\(language.title))")
-                                    .foregroundColor(viewModel.selectedLanguage?.id == language.id ? .whiteColour : .grayColour)
+                                    .foregroundColor(viewModel.selectedLanguage?.code == language.code ? .whiteColour : .grayColour)
                                     .font(.system(size: 12))
                             }
                             .frame(maxWidth: .infinity, minHeight: 62)
                             .background (
-                                LinearGradient( colors: [viewModel.selectedLanguage?.id == language.id ? .lightYellowColour : .lightBlackColour, viewModel.selectedLanguage?.id == language.id ? .orangeColour : .lightBlackColour],startPoint: .top, endPoint: .bottom)
+                                LinearGradient( colors: [viewModel.selectedLanguage?.code == language.code ? .lightYellowColour : .lightBlackColour, viewModel.selectedLanguage?.code == language.code ? .orangeColour : .lightBlackColour],startPoint: .top, endPoint: .bottom)
                             )
                             .cornerRadius(10)
                             .onTapGesture {
@@ -91,6 +91,7 @@ struct LanguageScreen: View {
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = self.isShowBackButton
+            viewModel.selectedLanguage = UserdefaultManager.shared.getLanguage() ?? LanguageItem(code: "en")
         }
     }
 }

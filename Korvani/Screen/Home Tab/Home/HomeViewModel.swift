@@ -64,7 +64,7 @@ class HomeViewModel : ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -79,7 +79,7 @@ class HomeViewModel : ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
     
@@ -92,7 +92,7 @@ class HomeViewModel : ObservableObject {
                 print(error)
             }
         } else {
-            print("No internet connected")
+            Toast.shared.show(message: noInternet, type: .error)
         }
     }
 }

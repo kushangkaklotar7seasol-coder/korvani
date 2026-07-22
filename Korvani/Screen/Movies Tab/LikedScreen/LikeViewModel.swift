@@ -25,4 +25,20 @@ class LikeViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchMovie(){
+        for i in database.fetchMovies() {
+            if i.isMovie == 1 {
+                self.movies.append(i)
+            }
+        }
+    }
+    
+    func fetchSeries(){
+        for i in database.fetchMovies() {
+            if i.isMovie != 1 {
+                self.series.append(i)
+            }
+        }
+    }
 }
