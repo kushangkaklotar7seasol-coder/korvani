@@ -75,7 +75,7 @@ class MovieDetailViewModel: ObservableObject {
                     self.personalInformation.append(LanguageModel(id: 2, name: Strings.revenue, language: "\(revenue)"))
                 }
                 
-                self.castAndCrewAPI()
+                self.movieVideoAPI()
             } failure: { error in
                 print(error)
             }
@@ -110,7 +110,6 @@ class MovieDetailViewModel: ObservableObject {
                 if !response.posters.isEmpty {
                     self.mediaItems.append(Strings.poster)
                 }
-                self.movieVideoAPI()
             } failure: { error in
                 print(error)
             }
@@ -126,6 +125,24 @@ class MovieDetailViewModel: ObservableObject {
                 if !response.results.isEmpty {
                     self.mediaItems.append(Strings.videos)
                 }
+                
+                var videoKey: [Video] = []
+                videoKey = response.results.filter({$0.type == "Trailer"})
+                if videoKey.isEmpty {
+                    videoKey = response.results.filter({$0.type == "Teaser"})
+                }
+                if videoKey.isEmpty {
+                    if let myRes = response.results.first {
+                        videoKey.append(myRes)
+                    }
+                }
+                if let key = videoKey.first?.key {
+                    self.youtubeUrl = "https://www.youtube.com/watch?v=\(key)"
+                } else {
+                    self.youtubeUrl = "https://www.youtube.com/results?search_query=\(self.movieDetail?.name ?? self.movieDetail?.title ?? "") Trailer"
+                }
+                
+                self.castAndCrewAPI()
             } failure: { error in
                 print(error)
             }
@@ -159,7 +176,8 @@ class MovieDetailViewModel: ObservableObject {
                 if let season = self.movieDetail?.seasons?.count {
                     self.personalInformation.append(LanguageModel(id: 2, name: Strings.season, language: "\(season > 1 ? season-1 : season)"))
                 }
-                self.seriesCastAndCrew()
+                
+                self.seriesVideoAPI()
             } failure: { error in
                 print(error)
             }
@@ -194,7 +212,6 @@ class MovieDetailViewModel: ObservableObject {
                 if !response.posters.isEmpty {
                     self.mediaItems.append(Strings.poster)
                 }
-                self.seriesVideoAPI()
             } failure: { error in
                 print(error)
             }
@@ -210,6 +227,24 @@ class MovieDetailViewModel: ObservableObject {
                 if !response.results.isEmpty {
                     self.mediaItems.append(Strings.videos)
                 }
+                
+                var videoKey: [Video] = []
+                videoKey = response.results.filter({$0.type == "Trailer"})
+                if videoKey.isEmpty {
+                    videoKey = response.results.filter({$0.type == "Teaser"})
+                }
+                if videoKey.isEmpty {
+                    if let myRes = response.results.first {
+                        videoKey.append(myRes)
+                    }
+                }
+                if let key = videoKey.first?.key {
+                    self.youtubeUrl = "https://www.youtube.com/watch?v=\(key)"
+                } else {
+                    self.youtubeUrl = "https://www.youtube.com/results?search_query=\(self.movieDetail?.name ?? self.movieDetail?.title ?? "") Trailer"
+                }
+                
+                self.seriesCastAndCrew()
             } failure: { error in
                 print(error)
             }
@@ -225,6 +260,13 @@ class MovieDetailViewModel: ObservableObject {
             database.addMovie(MediaItem(adult: false, backdropPath: "", genreIds: [], id: movieId ?? 0, originalLanguage: "", overview: "", popularity: 0.0, posterPath: movieDetail?.posterPath, softcore: false, voteAverage: movieDetail?.voteAverage ?? 0.0, voteCount: 0, title: movieDetail?.title, originalTitle: "", releaseDate: "", video: false, name: movieDetail?.title, originalName: "", firstAirDate: movieDetail?.releaseDate, originCountry: [], character: "", creditId: "", episodeCount: 0, firstCreditAirDate: "", isMovie: self.isMovie ?? true ? 1 : 0))
         }
         self.isLiked.toggle()
+    }
+    
+    func translatedText() -> String {
+        return """
+        \(Strings.shareText1) \(self.movieDetail?.name ?? self.movieDetail?.title ?? "")
+        \(Strings.shareText2)
+        """
     }
     
 //    func openInYouTubeApp(videoID: String) {

@@ -135,6 +135,8 @@ class Strings {
     static var videos: String { "VIDEOS".localized() }
     static var noPhotos: String { "NO_PHOTOS".localized() }
     static var noVideo: String { "NO_VIDEO".localized() }
+    static var shareText1: String { "SHARE_TEXT1".localized() }
+    static var shareText2: String { "SHARE_TEXT2".localized() }
     
     // MARK: - Celebrity Screen
     static var biography: String { "BIOGRAPHY".localized() }

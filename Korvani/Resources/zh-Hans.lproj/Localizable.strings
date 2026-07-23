@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "无限\n娱乐";
-"PAGE1_INFO" = "尽享数千部电影、电视剧等内容的无限访问权限。";
-"PAGE2_TITLE" = "先看\n预告片";
-"PAGE2_INFO" = "观看前先预览,选择您想看的内容。";
+"PAGE1_INFO" = "浏览数千部电影,查看详细信息、评分、类型和演员阵容。";
+"PAGE2_TITLE" = "一览天气";
+"PAGE2_INFO" = "随时随地掌握精准预报和实时天气更新。";
 "PAGE3_TITLE" = "您的收藏,\n您的空间";
-"PAGE3_INFO" = "保存收藏,获取个性化推荐,绝不错过必看内容。";
+"PAGE3_INFO" = "将您喜爱的内容集中存放,并发现更多您会喜欢的内容。";
 "PAGE4_TITLE" = "发现您的下一部\n最爱电影";
 "PAGE4_INFO" = "探索热门电影、电视剧、预告片、评分、评论以及观看方式——一站式体验。";
 "INFO_ONLY" = "仅供参考";
@@ -43,7 +43,7 @@
 "MOVIES" = "电影";
 "SERIES" = "电视剧";
 "SEARCH_MEDIA" = "搜索电影或电视剧";
-"NEWEARCH_PLACEHOLDER" = "通过搜索标题、演员或类型来查找您喜爱的电影。";.
+"NEWEARCH_PLACEHOLDER" = "通过搜索标题、演员或类型来查找您喜爱的电影。";
 "NO_SEARCH_DATA" = "未找到数据";
 "NO_SEARCH_DATA_FOUND" = "未找到相关数据:";
 
@@ -122,6 +122,8 @@
 "VIDEOS" = "视频";
 "NO_PHOTOS" = "未找到照片";
 "NO_VIDEO" = "未找到视频";
+"SHARE_TEXT1" = "嘿!快看看";
+"SHARE_TEXT2" = "觉得你会喜欢这部 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "个人简介";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "导出";
-"DOWNLOADING" = "正在下载...";
-"DOWNLOAD_SUCCESS" = "下载成功!";
+"DOWNLOADING" = "正在导出...";
+"DOWNLOAD_SUCCESS" = "导出成功!";
 "CHECK_PHOTO_APP" = "请查看照片应用";
 
 "CHUSE_LANGUAGE" = "选择语言";

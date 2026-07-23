@@ -119,11 +119,11 @@ struct Splash: View {
                     print(json)
                     
                     if let result = json["extraFields"] as? [String: Any] {
-                        print(result)
                         let result  = result
                         
                         proxiUrl = result["appjson"] as? String ?? ""
                         isYoutubeEnabled = result["isYoutubeEnabled"] as? String == "false" ? false : true
+                        weatherAPIKey = result["weatherAPIKey"] as? String ?? "d74cbcfbbb9780cf5004245bc4311617"
                     }
                 }
                 DispatchQueue.main.async { completion?() }

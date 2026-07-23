@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Intrattenimento\nIllimitato";
-"PAGE1_INFO" = "Goditi l'accesso illimitato a migliaia di film, serie TV e altro ancora.";
-"PAGE2_TITLE" = "Guarda Prima\ni Trailer";
-"PAGE2_INFO" = "Guarda l'anteprima prima di riprodurre e scegli cosa vedere.";
+"PAGE1_INFO" = "Esplora migliaia di film con dettagli completi, valutazioni, generi e informazioni sul cast.";
+"PAGE2_TITLE" = "Il Meteo a Colpo d'Occhio";
+"PAGE2_INFO" = "Rimani informato con previsioni accurate e aggiornamenti meteo in tempo reale, in qualsiasi momento e luogo.";
 "PAGE3_TITLE" = "I Tuoi Preferiti,\nIl Tuo Spazio";
-"PAGE3_INFO" = "Salva i preferiti, ricevi consigli personalizzati e non perderti nulla di imperdibile.";
+"PAGE3_INFO" = "Tieni i tuoi preferiti in un unico posto e scopri altri contenuti che ti piaceranno.";
 "PAGE4_TITLE" = "Scopri il Tuo Prossimo\nFilm Preferito";
 "PAGE4_INFO" = "Esplora film e serie TV di tendenza, trailer, valutazioni, recensioni e dove guardare - tutto in un unico posto.";
 "INFO_ONLY" = "SOLO INFORMAZIONI";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Video";
 "NO_PHOTOS" = "Nessuna Foto Trovata";
 "NO_VIDEO" = "Nessun Video Trovato";
+"SHARE_TEXT1" = "Ehi! Dai un'occhiata a";
+"SHARE_TEXT2" = "ho pensato che ti sarebbe piaciuto 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biografia";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Esporta";
-"DOWNLOADING" = "Download in corso...";
-"DOWNLOAD_SUCCESS" = "Scaricato con Successo!";
+"DOWNLOADING" = "Esportazione in corso...";
+"DOWNLOAD_SUCCESS" = "Esportato con Successo!";
 "CHECK_PHOTO_APP" = "Controlla l'app Foto";
 
 "CHUSE_LANGUAGE" = "Scegli Lingua";

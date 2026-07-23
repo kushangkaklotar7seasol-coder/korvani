@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Divertissement\nIllimité";
-"PAGE1_INFO" = "Profitez d'un accès illimité à des milliers de films, séries et bien plus encore.";
-"PAGE2_TITLE" = "Regardez d'abord\nles bandes-annonces";
-"PAGE2_INFO" = "Faites un aperçu avant de lancer et choisissez quoi regarder.";
+"PAGE1_INFO" = "Parcourez des milliers de films avec des détails complets, des notes, des genres et des informations sur le casting.";
+"PAGE2_TITLE" = "La Météo en un Coup d'Œil";
+"PAGE2_INFO" = "Restez informé grâce à des prévisions précises et des mises à jour météo en temps réel, à tout moment et en tout lieu.";
 "PAGE3_TITLE" = "Vos Favoris,\nVotre Espace";
-"PAGE3_INFO" = "Enregistrez vos favoris, obtenez des recommandations personnalisées et ne manquez plus rien d'incontournable.";
+"PAGE3_INFO" = "Gardez vos favoris au même endroit et découvrez encore plus de contenus à apprécier.";
 "PAGE4_TITLE" = "Découvrez Votre Prochain\nFilm Préféré";
 "PAGE4_INFO" = "Explorez les films et séries tendance, les bandes-annonces, les notes, les avis et où les regarder - le tout au même endroit.";
 "INFO_ONLY" = "INFORMATION UNIQUEMENT";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Vidéos";
 "NO_PHOTOS" = "Aucune Photo Trouvée";
 "NO_VIDEO" = "Aucune Vidéo Trouvée";
+"SHARE_TEXT1" = "Hé ! Regarde";
+"SHARE_TEXT2" = "j'ai pensé que ça te plairait 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biographie";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Exporter";
-"DOWNLOADING" = "Téléchargement en cours...";
-"DOWNLOAD_SUCCESS" = "Téléchargé avec Succès !";
+"DOWNLOADING" = "Exportation en cours...";
+"DOWNLOAD_SUCCESS" = "Exporté avec Succès !";
 "CHECK_PHOTO_APP" = "Vérifiez l'application Photos";
 
 "CHUSE_LANGUAGE" = "Choisir la Langue";

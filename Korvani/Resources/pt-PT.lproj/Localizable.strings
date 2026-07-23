@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Entretenimento\nIlimitado";
-"PAGE1_INFO" = "Desfruta de acesso ilimitado a milhares de filmes, séries e muito mais.";
-"PAGE2_TITLE" = "Vê os Trailers\nPrimeiro";
-"PAGE2_INFO" = "Pré-visualiza antes de reproduzir e escolhe o que ver.";
+"PAGE1_INFO" = "Explora milhares de filmes com detalhes completos, classificações, géneros e informações do elenco.";
+"PAGE2_TITLE" = "O Tempo num Relance";
+"PAGE2_INFO" = "Mantém-te informado com previsões precisas e atualizações meteorológicas em tempo real, a qualquer hora e em qualquer lugar.";
 "PAGE3_TITLE" = "Os Teus Favoritos,\nO Teu Espaço";
-"PAGE3_INFO" = "Guarda favoritos, recebe sugestões personalizadas e nunca percas nada essencial.";
+"PAGE3_INFO" = "Mantém os teus favoritos num só lugar e descobre mais conteúdos que vais adorar.";
 "PAGE4_TITLE" = "Descobre o Teu Próximo\nFilme Favorito";
 "PAGE4_INFO" = "Explora filmes e séries em alta, trailers, classificações, críticas e onde assistir - tudo num só lugar.";
 "INFO_ONLY" = "APENAS INFORMATIVO";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Vídeos";
 "NO_PHOTOS" = "Nenhuma Fotografia Encontrada";
 "NO_VIDEO" = "Nenhum Vídeo Encontrado";
+"SHARE_TEXT1" = "Ei! Dá uma vista de olhos a";
+"SHARE_TEXT2" = "achei que ias gostar deste 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biografia";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Exportar";
-"DOWNLOADING" = "A descarregar...";
-"DOWNLOAD_SUCCESS" = "Transferido com Sucesso!";
+"DOWNLOADING" = "A exportar...";
+"DOWNLOAD_SUCCESS" = "Exportado com Sucesso!";
 "CHECK_PHOTO_APP" = "Verifica a aplicação Fotos";
 
 "CHUSE_LANGUAGE" = "Escolher Idioma";

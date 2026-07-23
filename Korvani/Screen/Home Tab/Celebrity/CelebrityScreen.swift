@@ -59,7 +59,6 @@ struct CelebrityScreen: View {
     }
     
     func loadMoreIfNeeded(currentItem: Int) {
-        print(currentItem)
         guard !viewModel.isLoading, currentItem == (viewModel.celebrity?.results.count ?? 0) - 5 else { return }
         viewModel.celebrityAPI()
     }

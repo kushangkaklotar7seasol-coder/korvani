@@ -35,7 +35,6 @@ struct MovieDetails: View {
                             .scaledToFill()
                             .frame(width: screenWidth, height: (screenHeight/2)+100, alignment: .center)
                             .clipped()
-//                            .edgesIgnoringSafeArea(.top)
                         
                         LinearGradient(colors: [.clear,.clear, .blackColour], startPoint: .top, endPoint: .bottom)
                         
@@ -59,11 +58,11 @@ struct MovieDetails: View {
                                         Spacer()
                                         
                                         if isYoutubeEnabled {
-                                            if !(viewModel.movieVideo?.results.isEmpty ?? true) {
+                                            if viewModel.youtubeUrl != "" {
                                                 Button {
-//                                                    viewModel.openInYouTubeApp(videoID: viewModel.movieVideo?.results.first?.key ?? "")
-                                                    viewModel.youtubeUrl = "www.youtube.com/watch?v=\(viewModel.movieVideo?.results.first?.key ?? "")"
+                                                    print("Video Url = \(viewModel.youtubeUrl)")
                                                     viewModel.isYoutubeVideo = true
+                                                    
                                                 } label: {
                                                     Image("ic_play")
                                                         .resizable()
@@ -122,27 +121,37 @@ struct MovieDetails: View {
                     .background(.whiteColour)
                     
                     if let overView = viewModel.movieDetail?.overview, overView != "" {
-                        VStack(alignment: .leading, spacing: 10) {
+                        VStack {
                             HStack {
                                 Text(Strings.overview)
                                     .font(.system(size: 18, weight: .medium))
+                                
                                 Spacer()
                             }
                             
-                            VStack(alignment: .leading, spacing: 0) {
-                                Text(overView)
-                                    .foregroundColor(.grayColour)
-                                    .lineLimit(isShowMore ? nil : 3)
-                                
-                                Button(isShowMore ? Strings.showLess : Strings.showMore) {
-                                    withAnimation {
-                                        isShowMore.toggle()
-                                    }
-                                }
-                            }
+                            MovieDetailsDesign.ExpandableText(text: overView)
                         }
-//                        .padding(.top, 80)
                         .padding(.horizontal, 16)
+//                        VStack(alignment: .leading, spacing: 10) {
+//                            HStack {
+//                                Text(Strings.overview)
+//                                    .font(.system(size: 18, weight: .medium))
+//                                Spacer()
+//                            }
+//                            
+//                            VStack(alignment: .leading, spacing: 0) {
+//                                Text(overView)
+//                                    .foregroundColor(.grayColour)
+//                                    .lineLimit(isShowMore ? nil : 3)
+//                                
+//                                Button(isShowMore ? Strings.showLess : Strings.showMore) {
+//                                    withAnimation {
+//                                        isShowMore.toggle()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.horizontal, 16)
                     }
                     
                     if !viewModel.personalInformation.isEmpty {
@@ -172,12 +181,13 @@ struct MovieDetails: View {
                     
                     if !viewModel.castItems.isEmpty {
                         MovieDetailsDesign.WatchItems(mediaTab: viewModel.castItems, onSelect: { index in
-                            viewModel.selectedCastOption = viewModel.castItems[index] == Strings.topCast ? 0 : 1
+//                            viewModel.selectedCastOption = viewModel.castItems[index] == Strings.topCast ? 0 : 1
+                            viewModel.selectedCastOption = index
                         }, onViewAll: {
                             self.viewModel.isShowAllCast = true
                         })
                         
-                        if viewModel.selectedCastOption == 0 {
+                        if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast{
                             
                             if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
                                 ScrollView(.horizontal, showsIndicators: false) {
@@ -221,7 +231,8 @@ struct MovieDetails: View {
                     
                     if !viewModel.mediaItems.isEmpty {
                         MovieDetailsDesign.WatchItems(mediaTab: viewModel.mediaItems, onSelect: { index in
-                            viewModel.selectedMediaOption = viewModel.mediaItems[index] == Strings.poster ? 0 : 1
+//                            viewModel.selectedMediaOption = viewModel.mediaItems[index] == Strings.poster ? 0 : 1
+                            viewModel.selectedMediaOption = index
                         }, onViewAll: {
                             if viewModel.mediaItems[viewModel.selectedMediaOption] == Strings.poster {
                                 viewModel.isShowPoster = true
@@ -230,7 +241,7 @@ struct MovieDetails: View {
                             }
                         })
                         
-                        if viewModel.selectedMediaOption == 0 {
+                        if viewModel.mediaItems[viewModel.selectedMediaOption] == Strings.poster {
                             if let array = viewModel.movieImage?.posters, !array.isEmpty {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack {
@@ -284,7 +295,7 @@ struct MovieDetails: View {
                     Button {
                         self.dismiss()
                     } label: {
-                        Image("ic_back_light")
+                        Image("ic_back_semilight")
                             .resizable()
                             .frame(width: 40, height: 40, alignment: .center)
                     }
@@ -294,15 +305,15 @@ struct MovieDetails: View {
                     Button {
                         viewModel.manageLike()
                     } label: {
-                        Image(viewModel.isLiked ? "ic_like_light" : "ic_uklike_light")
+                        Image(viewModel.isLiked ? "ic_like_semilight" : "ic_unlike_dark")
                             .resizable()
                             .frame(width: 40, height: 40, alignment: .center)
                     }
                     
                     Button {
-                        print("Share")
+                        Utility.shareText(viewModel.translatedText())
                     } label: {
-                        Image("ic_share_light")
+                        Image("ic_share_semilight")
                             .resizable()
                             .frame(width: 40, height: 40, alignment: .center)
                     }
@@ -351,7 +362,7 @@ struct MovieDetails: View {
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: columns) {
-                        if viewModel.selectedCastOption == 0 {
+                        if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast {
                             if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
                                 ForEach(cast.indices, id: \.self) { index in
                                     let cast = cast[index]
@@ -530,6 +541,49 @@ class MovieDetailsDesign {
             .cornerRadius(10)
         }
     }
+    
+    struct ExpandableText: View {
+        let text: String
+
+        @State private var isExpanded = false
+        @State private var isTruncated = false
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 0) {
+
+                Text(text)
+                    .foregroundColor(.grayColour)
+                    .lineLimit(isExpanded ? nil : 3)
+                    .background(
+                        Text(text)
+                            .lineLimit(nil)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .hidden()
+                            .background(
+                                GeometryReader { fullGeometry in
+                                    Color.clear.onAppear {
+                                        let fullHeight = fullGeometry.size.height
+
+                                        DispatchQueue.main.async {
+                                            let lineHeight = UIFont.systemFont(ofSize: 17).lineHeight
+                                            isTruncated = fullHeight > lineHeight * 3.2
+                                        }
+                                    }
+                                }
+                            )
+                    )
+
+                if isTruncated {
+                    Button(isExpanded ? Strings.showLess : Strings.showMore) {
+                        withAnimation {
+                            isExpanded.toggle()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 struct WebView: UIViewRepresentable {

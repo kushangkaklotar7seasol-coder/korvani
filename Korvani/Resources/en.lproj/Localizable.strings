@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Unlimited\nEntertainment";
-"PAGE1_INFO" = "Enjoy unlimited access to thousands of movies, TV shows and more.";
-"PAGE2_TITLE" = "Watch Trailers\nFirst";
-"PAGE2_INFO" = "Preview before you play and choose what to watch.";
+"PAGE1_INFO" = "Browse thousands of movies with rich details, ratings, genres, and cast information.";
+"PAGE2_TITLE" = "Weather at a Glance";
+"PAGE2_INFO" = "Stay informed with accurate forecasts and real-time weather updates anytime, anywhere.";
 "PAGE3_TITLE" = "Your Favorites,\nYour Space";
-"PAGE3_INFO" = "Save favorites, get personalized picks and never miss a must-watch.";
+"PAGE3_INFO" = "Keep your favorite in one place and discover more you'll enjoy.";
 "PAGE4_TITLE" = "Discover Your Next\nFavorite Movie";
 "PAGE4_INFO" = "Explore trending movies, TV Shows, trailers, rating, reviews and where to watch - all in one place.";
 "INFO_ONLY" = "INFORMATION ONLY";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Videos";
 "NO_PHOTOS" = "No Photos Found";
 "NO_VIDEO" = "No Video Found";
+"SHARE_TEXT1" = "Hey! Check out";
+"SHARE_TEXT2" = "thought you'd like this one 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biography";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Export";
-"DOWNLOADING" = "Downloading...";
-"DOWNLOAD_SUCCESS" = "Downloaded Successfully!";
+"DOWNLOADING" = "Exporting...";
+"DOWNLOAD_SUCCESS" = "Export Successfully!";
 "CHECK_PHOTO_APP" = "Check photos app";
 
 // MARK: - Language Change -

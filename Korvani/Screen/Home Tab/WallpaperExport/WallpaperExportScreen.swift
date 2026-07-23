@@ -48,17 +48,17 @@ struct WallpaperExportScreen: View {
             
             
             VStack {
-                if viewModel.downloadStatus == 1 {
-                    Text(Strings.downloading)
-                        .padding()
-                        .font(.system(size: 18, weight: .bold))
-                        .background(.blackColour.opacity(0.5))
-                        .cornerRadius(10)
-                        .transition(.asymmetric(
-                                        insertion: .scale(scale: 0.7).combined(with: .opacity),
-                                        removal: .opacity
-                                    ))
-                }
+//                if viewModel.downloadStatus == 1 {
+//                    Text(Strings.downloading)
+//                        .padding()
+//                        .font(.system(size: 18, weight: .bold))
+//                        .background(.blackColour.opacity(0.5))
+//                        .cornerRadius(10)
+//                        .transition(.asymmetric(
+//                                        insertion: .scale(scale: 0.7).combined(with: .opacity),
+//                                        removal: .opacity
+//                                    ))
+//                }
                 
                 if viewModel.downloadStatus == 2 {
                     VStack(spacing: 0) {

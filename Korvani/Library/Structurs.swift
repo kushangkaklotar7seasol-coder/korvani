@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct AppInfo {
+    static var appName             = "Korvani"
+    static let privacyPolicy       = "https://evanrozario.blogspot.com/2026/07/privacy-policy.html"
+    static let termsOfUse          = "https://evanrozario.blogspot.com/2026/07/terms-conditions.html"
+    static let shareApp            = "https://apps.apple.com/app/id\(appID)"
+    static let appLink             = "https://itunes.apple.com/app/id\(appID)"
+    static let rateApp             = "https://apps.apple.com/app/id\(appID)?action=write-review"
+    static var appID               = "6793888974"
+}
+
 struct OnBordingInfo {
     let id: Int
     var image: String

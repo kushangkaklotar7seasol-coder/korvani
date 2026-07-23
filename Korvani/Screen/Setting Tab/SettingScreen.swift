@@ -40,7 +40,7 @@ struct SettingScreen: View {
                                     .background(.lightBlackColour)
                                     .cornerRadius(10)
                                     .onTapGesture {
-                                        viewModel.onSelect(item.id)
+                                        viewModel.onSelect(field.id)
                                     }
                                 }
                             }

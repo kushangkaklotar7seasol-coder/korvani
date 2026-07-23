@@ -82,6 +82,41 @@ class TranslateViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegat
         }
     }
     
+    func translateOnSelect(isSourceText: Bool, onlLanguageCode: String, newLanguageCode: String) {
+       
+        if isSourceText {
+            guard !sourceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                return
+            }
+            
+            
+            callTranslateAPI(
+                strValue: sourceText,
+                sourceLanguageCode: onlLanguageCode,
+                targetLanguageCode: newLanguageCode
+            ) { error, success, translatedValue in
+                
+                if success {
+                    self.sourceText = translatedValue ?? ""
+                }
+            }
+        } else {
+            guard !translatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                return
+            }
+            
+            callTranslateAPI(strValue: translatedText,
+                             sourceLanguageCode: onlLanguageCode,
+                             targetLanguageCode: newLanguageCode
+            ) { error, success, translatedValue in
+                
+                if success {
+                    self.translatedText = translatedValue ?? ""
+                }
+            }
+        }
+    }
+    
     func callTranslateAPI(
         strValue: String,
         sourceLanguageCode: String,

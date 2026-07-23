@@ -28,8 +28,13 @@ struct TranslateScreen: View {
                         title: viewModel.sourceLanguage.name,
                         languages: arrLanguage
                     ) { selectedLanguage in
+                        let oldLanguage = viewModel.sourceLanguage
                         viewModel.sourceLanguage = selectedLanguage
-                        viewModel.translateText()
+                        if viewModel.sourceText == "" {
+                            viewModel.translateText()
+                        } else {
+                            viewModel.translateOnSelect(isSourceText: true, onlLanguageCode: oldLanguage.code, newLanguageCode: viewModel.sourceLanguage.code)
+                        }
                     }
                     Spacer()
                     Button {
@@ -46,8 +51,14 @@ struct TranslateScreen: View {
                         title: viewModel.targetLanguage.name,
                         languages: arrLanguage
                     ) { selectedLanguage in
+                        let oldLanguage = viewModel.targetLanguage
                         viewModel.targetLanguage = selectedLanguage
-                        viewModel.translateText()
+//                        viewModel.translateText()
+                        if viewModel.sourceText == "" {
+                            viewModel.translateText()
+                        } else {
+                            viewModel.translateOnSelect(isSourceText: false, onlLanguageCode: oldLanguage.code, newLanguageCode: viewModel.targetLanguage.code)
+                        }
                     }
                     Spacer()
                 }
@@ -94,7 +105,6 @@ struct TranslateScreen: View {
                         copyAction: {
                             UIPasteboard.general.string = viewModel.translatedText
                             Toast.shared.show(message: "text copied", type: .success)
-//                            showToastAtCenter(message: str.TextCopied)
                         },
                         isTextFieldFocused: _isTextFieldFocused,
                     )

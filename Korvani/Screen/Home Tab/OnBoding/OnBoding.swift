@@ -75,9 +75,13 @@ struct OnBoding: View {
             }
         }
         .defaultPage()
-        .frame(width: screenWidth, height: screenHeight, alignment: .center)
+        .ignoresSafeArea()
+        .frame(width: screenWidth, height: screenHeight, alignment: .top)
         .navigationDestination(isPresented: $viewModel.isShowHome) {
             TabBarScreen()
+        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = false
         }
     }
 }

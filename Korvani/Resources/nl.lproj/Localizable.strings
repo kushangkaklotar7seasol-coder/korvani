@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Onbeperkt\nEntertainment";
-"PAGE1_INFO" = "Geniet van onbeperkte toegang tot duizenden films, series en meer.";
-"PAGE2_TITLE" = "Bekijk Eerst\nTrailers";
-"PAGE2_INFO" = "Bekijk een voorproefje voordat je kijkt en kies wat je wilt zien.";
+"PAGE1_INFO" = "Blader door duizenden films met uitgebreide details, beoordelingen, genres en castinformatie.";
+"PAGE2_TITLE" = "Het Weer in Één Oogopslag";
+"PAGE2_INFO" = "Blijf op de hoogte met nauwkeurige voorspellingen en realtime weersupdates, altijd en overal.";
 "PAGE3_TITLE" = "Jouw Favorieten,\nJouw Ruimte";
-"PAGE3_INFO" = "Sla favorieten op, ontvang persoonlijke aanbevelingen en mis nooit meer iets belangrijks.";
+"PAGE3_INFO" = "Bewaar je favorieten op één plek en ontdek meer content die je zult waarderen.";
 "PAGE4_TITLE" = "Ontdek Je Volgende\nFavoriete Film";
 "PAGE4_INFO" = "Verken trending films, series, trailers, beoordelingen, recensies en waar je ze kunt kijken - allemaal op één plek.";
 "INFO_ONLY" = "ALLEEN INFORMATIE";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Video's";
 "NO_PHOTOS" = "Geen Foto's Gevonden";
 "NO_VIDEO" = "Geen Video Gevonden";
+"SHARE_TEXT1" = "Hé! Bekijk";
+"SHARE_TEXT2" = "dacht dat je deze wel zou willen zien 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biografie";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Exporteren";
-"DOWNLOADING" = "Downloaden...";
-"DOWNLOAD_SUCCESS" = "Succesvol Gedownload!";
+"DOWNLOADING" = "Exporteren...";
+"DOWNLOAD_SUCCESS" = "Succesvol Geëxporteerd!";
 "CHECK_PHOTO_APP" = "Controleer de Foto's-app";
 
 "CHUSE_LANGUAGE" = "Vælg Sprog";

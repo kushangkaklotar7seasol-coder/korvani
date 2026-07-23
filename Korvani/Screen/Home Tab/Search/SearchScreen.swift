@@ -27,7 +27,7 @@ struct SearchScreen: View {
                         Utility.closeKeyboard()
                         self.dismiss()
                     } label: {
-                        Image("ic_cancel_bg")
+                        Image("ic_back")
                             .resizable()
                             .frame(width: 40, height: 40, alignment: .center)
                     }

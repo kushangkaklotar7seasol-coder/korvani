@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Ubegrænset\nUnderholdning";
-"PAGE1_INFO" = "Nyd ubegrænset adgang til tusindvis af film, serier og meget mere.";
-"PAGE2_TITLE" = "Se Trailere\nFørst";
-"PAGE2_INFO" = "Få et forhåndskig, før du ser, og vælg hvad du vil se.";
+"PAGE1_INFO" = "Gennemse tusindvis af film med detaljerede oplysninger, bedømmelser, genrer og oplysninger om skuespillere.";
+"PAGE2_TITLE" = "Vejret på et Øjeblik";
+"PAGE2_INFO" = "Hold dig opdateret med præcise vejrudsigter og opdateringer i realtid, når som helst og hvor som helst.";
 "PAGE3_TITLE" = "Dine Favoritter,\nDit Rum";
-"PAGE3_INFO" = "Gem favoritter, få personlige anbefalinger og gå ikke glip af noget vigtigt.";
+"PAGE3_INFO" = "Hold dine favoritter samlet ét sted, og opdag mere, du vil nyde.";
 "PAGE4_TITLE" = "Find Din Næste\nYndlingsfilm";
 "PAGE4_INFO" = "Udforsk populære film, serier, trailere, anmeldelser og hvor du kan se dem - alt sammen ét sted.";
 "INFO_ONLY" = "KUN INFORMATION";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Videoer";
 "NO_PHOTOS" = "Ingen Billeder Fundet";
 "NO_VIDEO" = "Ingen Video Fundet";
+"SHARE_TEXT1" = "Hej! Tjek";
+"SHARE_TEXT2" = "tænkte du ville kunne lide denne 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biografi";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Eksporter";
-"DOWNLOADING" = "Downloader...";
-"DOWNLOAD_SUCCESS" = "Downloadet med Succes!";
+"DOWNLOADING" = "Eksporterer...";
+"DOWNLOAD_SUCCESS" = "Eksporteret med Succes!";
 "CHECK_PHOTO_APP" = "Tjek Fotos-appen";
 
 "CHUSE_LANGUAGE" = "Vælg Sprog";

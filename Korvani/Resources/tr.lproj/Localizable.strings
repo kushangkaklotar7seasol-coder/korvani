@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Sınırsız\nEğlence";
-"PAGE1_INFO" = "Binlerce film, dizi ve daha fazlasına sınırsız erişimin keyfini çıkar.";
-"PAGE2_TITLE" = "Önce Fragmanları\nİzle";
-"PAGE2_INFO" = "İzlemeden önce ön izleme yap ve ne izleyeceğine karar ver.";
+"PAGE1_INFO" = "Zengin detaylar, puanlar, türler ve oyuncu bilgileriyle binlerce filme göz atın.";
+"PAGE2_TITLE" = "Bir Bakışta Hava Durumu";
+"PAGE2_INFO" = "Doğru tahminler ve gerçek zamanlı hava durumu güncellemeleriyle her zaman, her yerde bilgi sahibi olun.";
 "PAGE3_TITLE" = "Favorilerin,\nSenin Alanın";
-"PAGE3_INFO" = "Favorilerini kaydet, sana özel öneriler al ve kaçırmaman gerekenleri asla kaçırma.";
+"PAGE3_INFO" = "Favorilerini tek bir yerde tut ve keyif alacağın daha fazlasını keşfet.";
 "PAGE4_TITLE" = "Bir Sonraki\nFavori Filmini Keşfet";
 "PAGE4_INFO" = "Trend olan filmleri, dizileri, fragmanları, puanları, yorumları ve nerede izlenebileceğini keşfet - hepsi tek bir yerde.";
 "INFO_ONLY" = "SADECE BİLGİ AMAÇLI";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Videolar";
 "NO_PHOTOS" = "Fotoğraf Bulunamadı";
 "NO_VIDEO" = "Video Bulunamadı";
+"SHARE_TEXT1" = "Hey! Şuna bir bak";
+"SHARE_TEXT2" = "bunu beğenebileceğini düşündüm 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biyografi";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Dışa Aktar";
-"DOWNLOADING" = "İndiriliyor...";
-"DOWNLOAD_SUCCESS" = "Başarıyla İndirildi!";
+"DOWNLOADING" = "Dışa Aktarılıyor...";
+"DOWNLOAD_SUCCESS" = "Başarıyla Dışa Aktarıldı!";
 "CHECK_PHOTO_APP" = "Fotoğraflar uygulamasını kontrol edin";
 
 "CHUSE_LANGUAGE" = "Dil Seç";

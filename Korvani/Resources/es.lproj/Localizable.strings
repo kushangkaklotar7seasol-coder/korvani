@@ -15,11 +15,11 @@
 
 // MARK: - On Boarding -
 "PAGE1_TITLE" = "Entretenimiento\nIlimitado";
-"PAGE1_INFO" = "Disfruta de acceso ilimitado a miles de películas, series y mucho más.";
-"PAGE2_TITLE" = "Mira los Trailers\nPrimero";
-"PAGE2_INFO" = "Obtén una vista previa antes de reproducir y elige qué ver.";
+"PAGE1_INFO" = "Explora miles de películas con detalles completos, calificaciones, géneros e información del reparto.";
+"PAGE2_TITLE" = "El Clima de un Vistazo";
+"PAGE2_INFO" = "Mantente informado con pronósticos precisos y actualizaciones del clima en tiempo real en cualquier momento y lugar.";
 "PAGE3_TITLE" = "Tus Favoritos,\nTu Espacio";
-"PAGE3_INFO" = "Guarda tus favoritos, recibe recomendaciones personalizadas y no te pierdas nada imprescindible.";
+"PAGE3_INFO" = "Guarda tus favoritos en un solo lugar y descubre más contenido que te encantará.";
 "PAGE4_TITLE" = "Descubre tu Próxima\nPelícula Favorita";
 "PAGE4_INFO" = "Explora películas y series en tendencia, trailers, calificaciones, reseñas y dónde ver - todo en un solo lugar.";
 "INFO_ONLY" = "SOLO INFORMACIÓN";
@@ -122,6 +122,8 @@
 "VIDEOS" = "Videos";
 "NO_PHOTOS" = "No se Encontraron Fotos";
 "NO_VIDEO" = "No se Encontró Video";
+"SHARE_TEXT1" = "¡Oye! Mira";
+"SHARE_TEXT2" = "pensé que te gustaría este 🎬";
 
 // MARK: - Celebrity Detail -
 "BIOGRAPHY" = "Biografía";
@@ -157,8 +159,8 @@
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Exportar";
-"DOWNLOADING" = "Descargando...";
-"DOWNLOAD_SUCCESS" = "¡Descargado con Éxito!";
+"DOWNLOADING" = "Exportando...";
+"DOWNLOAD_SUCCESS" = "¡Exportado con Éxito!";
 "CHECK_PHOTO_APP" = "Revisa la app de Fotos";
 
 "CHUSE_LANGUAGE" = "Elegir Idioma";
