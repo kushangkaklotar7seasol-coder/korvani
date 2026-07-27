@@ -47,7 +47,7 @@ struct WallpaperExportScreen: View {
             }
             
             
-            VStack {
+//            VStack {
 //                if viewModel.downloadStatus == 1 {
 //                    Text(Strings.downloading)
 //                        .padding()
@@ -60,29 +60,34 @@ struct WallpaperExportScreen: View {
 //                                    ))
 //                }
                 
-                if viewModel.downloadStatus == 2 {
-                    VStack(spacing: 0) {
-                        Text(Strings.downloadSuccess)
-                            .font(.system(size: 18, weight: .bold))
-                        
-                        Text(Strings.checkPhotosApp)
-                    }
-                    .padding()
-                    .background(.greenColour.opacity(0.7))
-                    .cornerRadius(10)
-                    .transition(.asymmetric(
-                                insertion: .scale(scale: 0.7).combined(with: .opacity),
-                                removal: .move(edge: .top).combined(with: .opacity)
-                            ))
-                }
-            }
-            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.downloadStatus)
+//                if viewModel.downloadStatus == 2 {
+//                    VStack(spacing: 0) {
+//                        Text(Strings.downloadSuccess)
+//                            .font(.system(size: 18, weight: .bold))
+//                        
+//                        Text(Strings.checkPhotosApp)
+//                    }
+//                    .padding()
+//                    .background(.greenColour.opacity(0.7))
+//                    .cornerRadius(10)
+//                    .transition(.asymmetric(
+//                                insertion: .scale(scale: 0.7).combined(with: .opacity),
+//                                removal: .move(edge: .top).combined(with: .opacity)
+//                            ))
+//                }
+//            }
+//            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.downloadStatus)
         }
         .padding(.horizontal, 20)
         .defaultPage()
         .onAppear() {
             SwipeBackManager.shared.isEnabled = true
         }
+        .alert(Strings.downloadSuccess, isPresented: $viewModel.showAlert) {
+            Button(Strings.ok) { }
+                } message: {
+                    Text(Strings.checkPhotosApp)
+                }
     }
 }
 

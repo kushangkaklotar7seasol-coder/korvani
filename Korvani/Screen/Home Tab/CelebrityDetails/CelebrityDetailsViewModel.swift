@@ -90,7 +90,6 @@ class CelebrityDetailsViewModel: ObservableObject {
                 for i in self.seriesCredits?.cast ?? [] {
                     self.movies.append(i)
                 }
-//                Movie(adult: i.adult, backdropPath: i.backdropPath, genreIds: i.genreIds, id: i.id, title: i.name, originalLanguage: i.originalLanguage, originalTitle: i.originalName, overview: i.overview, popularity: i.popularity, posterPath: i.posterPath, releaseDate: i.firstAirDate ?? "", softcore: i.softcore, video: false, voteAverage: i.voteAverage, voteCount: i.voteCount)
             } failure: { error in
                 self.isLoading = false
                 print(error)

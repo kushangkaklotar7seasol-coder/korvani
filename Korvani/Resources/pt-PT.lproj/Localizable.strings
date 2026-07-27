@@ -161,7 +161,7 @@
 "EXPORT" = "Exportar";
 "DOWNLOADING" = "A exportar...";
 "DOWNLOAD_SUCCESS" = "Exportado com Sucesso!";
-"CHECK_PHOTO_APP" = "Verifica a aplicação Fotos";
+"CHECK_PHOTO_APP" = "A foto foi guardada com sucesso na aplicação Fotos!";
 
 "CHUSE_LANGUAGE" = "Escolher Idioma";
 "DONE" = "Concluído";

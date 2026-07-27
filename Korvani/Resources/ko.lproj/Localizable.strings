@@ -161,7 +161,7 @@
 "EXPORT" = "내보내기";
 "DOWNLOADING" = "내보내는 중...";
 "DOWNLOAD_SUCCESS" = "내보내기 완료!";
-"CHECK_PHOTO_APP" = "사진 앱을 확인하세요";
+"CHECK_PHOTO_APP" = "사진이 사진 앱에 성공적으로 저장되었습니다!";
 
 "CHUSE_LANGUAGE" = "언어 선택";
 "DONE" = "완료";

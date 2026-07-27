@@ -161,7 +161,7 @@
 "EXPORT" = "Exporter";
 "DOWNLOADING" = "Exportation en cours...";
 "DOWNLOAD_SUCCESS" = "Exporté avec Succès !";
-"CHECK_PHOTO_APP" = "Vérifiez l'application Photos";
+"CHECK_PHOTO_APP" = "Photo enregistrée avec succès dans l'application Photos !";
 
 "CHUSE_LANGUAGE" = "Choisir la Langue";
 "DONE" = "Terminé";

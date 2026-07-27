@@ -30,23 +30,17 @@ struct TabBarScreen: View {
         VStack(spacing: 0) {
             
             ZStack {
-//                switch selectedTab {
-//                case .home:
-                    HomeScreen()
-                        .opacity(selectedTab == .home ? 1 : 0)
-
-//                case .movies:
-                    DiscoverScreen()
+                HomeScreen()
+                    .opacity(selectedTab == .home ? 1 : 0)
+                
+                DiscoverScreen()
                     .opacity(selectedTab == .movies ? 1 : 0)
-
-//                case .puzzle:
+                
                 PuzzleView(viewModel: PuzzleViewModel())
                     .opacity(selectedTab == .puzzle ? 1 : 0)
-
-//                case .setting:
+                
                 SettingScreen()
                     .opacity(selectedTab == .setting ? 1 : 0)
-//                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 

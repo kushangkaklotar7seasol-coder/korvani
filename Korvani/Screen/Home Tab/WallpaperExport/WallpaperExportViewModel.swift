@@ -13,6 +13,7 @@ import UIKit
 class WallpaperExportViewModel: ObservableObject {
     var wallpaper: Wallpaper?
     @Published var downloadStatus = 0  // 0=Nothing, 1=Downloading, 2=SaveToPhotos
+    @Published var showAlert = false
     
     init(wallpaper: Wallpaper? = nil) {
         self.wallpaper = wallpaper
@@ -42,6 +43,7 @@ class WallpaperExportViewModel: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self.downloadStatus = 2
+                    self.showAlert = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         self.downloadStatus = 0
                     }
