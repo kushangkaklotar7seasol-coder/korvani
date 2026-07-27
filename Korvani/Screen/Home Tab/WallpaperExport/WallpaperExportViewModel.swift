@@ -14,6 +14,7 @@ class WallpaperExportViewModel: ObservableObject {
     var wallpaper: Wallpaper?
     @Published var downloadStatus = 0  // 0=Nothing, 1=Downloading, 2=SaveToPhotos
     @Published var showAlert = false
+    @Published var showSettingsAlert = false
     
     init(wallpaper: Wallpaper? = nil) {
         self.wallpaper = wallpaper
@@ -35,27 +36,66 @@ class WallpaperExportViewModel: ObservableObject {
     }
     
     func saveImageUsingPhotosFramework(image: UIImage) {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAsset(from: image)
-        }) { success, error in
-            if success {
-                print("Successfully saved to Photos library.")
-                
-                DispatchQueue.main.async {
-                    self.downloadStatus = 2
-                    self.showAlert = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.downloadStatus = 0
+
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { newStatus in
+            DispatchQueue.main.async {
+                switch newStatus {
+                case .authorized, .limited:
+                    
+                    PHPhotoLibrary.shared().performChanges({
+                        PHAssetChangeRequest.creationRequestForAsset(from: image)
+                    }) { success, error in
+                        if success {
+                            print("Successfully saved to Photos library.")
+                            
+                            DispatchQueue.main.async {
+                                self.downloadStatus = 2
+                                self.showAlert = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    self.downloadStatus = 0
+                                }
+                            }
+                        } else if let error = error {
+                            print("Failed to save image: \(error.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.downloadStatus = 0
+                            }
+                        }
                     }
-                }
-            } else if let error = error {
-                print("Failed to save image: \(error.localizedDescription)")
-                DispatchQueue.main.async {
+                    
+                case .denied, .restricted:
+                    // 👇 User e deny karyu che, Settings navigate karva mate alert batavo
+                    print("Permission denied")
                     self.downloadStatus = 0
+                    self.showSettingsAlert = true   // 👈 alert trigger karo
+                    
+                case .notDetermined:
+                    // Aa case actually requestAuthorization callback ma nai aave normally,
+                    // pan safety mate rakhi lo
+                    print("Permission not determined yet")
+                    self.downloadStatus = 0
+                    self.showSettingsAlert = true   // 👈 alert trigger karo
+                    
+                @unknown default:
+                    self.downloadStatus = 0
+                    self.showSettingsAlert = true 
                 }
             }
         }
     }
+    
+    
+    // 👇 Settings app open karva mate helper function
+    func openAppSettings() {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+        }
+    }
+    
     
     func shareImage(){
         WallpaperService.shared.downloadImage(url: URL(string: self.wallpaper?.src.original ?? "")!) { image in

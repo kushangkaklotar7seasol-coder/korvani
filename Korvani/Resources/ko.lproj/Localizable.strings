@@ -162,6 +162,11 @@
 "DOWNLOADING" = "내보내는 중...";
 "DOWNLOAD_SUCCESS" = "내보내기 완료!";
 "CHECK_PHOTO_APP" = "사진이 사진 앱에 성공적으로 저장되었습니다!";
+"PERMISSION_ACCESS" = "권한 접근";
+"CANCEL" = "취소";
+"OPEN_SETTING" = "설정 열기";
+"ALLOW_PHOTO_DOWNLOAD" = "사진을 내보내려면 설정에서 사진 보관함 접근을 허용해 주세요.";
 
+// MARK: - Language Change -
 "CHUSE_LANGUAGE" = "언어 선택";
 "DONE" = "완료";

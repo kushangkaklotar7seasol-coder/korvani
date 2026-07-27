@@ -162,6 +162,11 @@
 "DOWNLOADING" = "エクスポート中...";
 "DOWNLOAD_SUCCESS" = "エクスポートが完了しました!";
 "CHECK_PHOTO_APP" = "写真は写真アプリに正常に保存されました!";
+"PERMISSION_ACCESS" = "権限のアクセス";
+"CANCEL" = "キャンセル";
+"OPEN_SETTING" = "設定を開く";
+"ALLOW_PHOTO_DOWNLOAD" = "写真をエクスポートするには、設定で写真ライブラリへのアクセスを許可してください。";
 
+// MARK: - Language Change -
 "CHUSE_LANGUAGE" = "言語を選択";
 "DONE" = "完了";

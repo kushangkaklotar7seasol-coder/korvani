@@ -175,6 +175,10 @@ class Strings {
     static var downloading: String { "DOWNLOADING".localized() }
     static var downloadSuccess: String { "DOWNLOAD_SUCCESS".localized() }
     static var checkPhotosApp: String { "CHECK_PHOTO_APP".localized() }
+    static var permissionAccess: String { "PERMISSION_ACCESS".localized() }
+    static var cancel: String { "CANCEL".localized() }
+    static var openSetting: String { "OPEN_SETTING".localized() }
+    static var photoDownloadAllow: String { "ALLOW_PHOTO_DOWNLOAD".localized() }
     
     // MARK: - Language Screen -
     static var changeLanguage: String { "CHUSE_LANGUAGE".localized() }

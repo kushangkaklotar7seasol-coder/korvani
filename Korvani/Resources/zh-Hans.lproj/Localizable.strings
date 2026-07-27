@@ -162,6 +162,11 @@
 "DOWNLOADING" = "正在导出...";
 "DOWNLOAD_SUCCESS" = "导出成功!";
 "CHECK_PHOTO_APP" = "照片已成功保存到照片应用!";
+"PERMISSION_ACCESS" = "权限访问";
+"CANCEL" = "取消";
+"OPEN_SETTING" = "打开设置";
+"ALLOW_PHOTO_DOWNLOAD" = "请在设置中允许访问照片库以导出照片。";
 
+// MARK: - Language Change -
 "CHUSE_LANGUAGE" = "选择语言";
 "DONE" = "完成";

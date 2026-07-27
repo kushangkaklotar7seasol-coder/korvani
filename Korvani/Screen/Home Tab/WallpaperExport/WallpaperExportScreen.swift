@@ -85,9 +85,17 @@ struct WallpaperExportScreen: View {
         }
         .alert(Strings.downloadSuccess, isPresented: $viewModel.showAlert) {
             Button(Strings.ok) { }
-                } message: {
-                    Text(Strings.checkPhotosApp)
-                }
+        } message: {
+            Text(Strings.checkPhotosApp)
+        }
+        .alert(Strings.permissionAccess, isPresented: $viewModel.showSettingsAlert) {
+            Button(Strings.cancel, role: .cancel) { }
+            Button(Strings.openSetting) {
+                viewModel.openAppSettings()
+            }
+        } message: {
+            Text(Strings.photoDownloadAllow)
+        }
     }
 }
 

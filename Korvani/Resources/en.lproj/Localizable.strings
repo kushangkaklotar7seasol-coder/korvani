@@ -162,6 +162,10 @@
 "DOWNLOADING" = "Exporting...";
 "DOWNLOAD_SUCCESS" = "Export Successfully!";
 "CHECK_PHOTO_APP" = "Photo is save to photos app successfully!";
+"PERMISSION_ACCESS" = "Permission Access";
+"CANCEL" = "Cancel";
+"OPEN_SETTING" = "Open Settings";
+"ALLOW_PHOTO_DOWNLOAD" = "Please allow photo library access in Settings to export photos.";
 
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Choose Your\nPreferred Language";

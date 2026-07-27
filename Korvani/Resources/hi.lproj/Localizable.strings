@@ -162,6 +162,10 @@
 "DOWNLOADING" = "एक्सपोर्ट हो रहा है...";
 "DOWNLOAD_SUCCESS" = "सफलतापूर्वक एक्सपोर्ट हो गया!";
 "CHECK_PHOTO_APP" = "फोटो सफलतापूर्वक फोटो ऐप में सेव हो गई!";
+"PERMISSION_ACCESS" = "अनुमति पहुंच";
+"CANCEL" = "रद्द करें";
+"OPEN_SETTING" = "सेटिंग्स खोलें";
+"ALLOW_PHOTO_DOWNLOAD" = "फोटो एक्सपोर्ट करने के लिए कृपया सेटिंग्स में फोटो लाइब्रेरी की अनुमति दें।";
 
 //MARK: - Language Screen -
 "CHUSE_LANGUAGE" = "भाषा चुनें";

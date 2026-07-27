@@ -162,6 +162,11 @@
 "DOWNLOADING" = "Exportation en cours...";
 "DOWNLOAD_SUCCESS" = "Exporté avec Succès !";
 "CHECK_PHOTO_APP" = "Photo enregistrée avec succès dans l'application Photos !";
+"PERMISSION_ACCESS" = "Accès aux Autorisations";
+"CANCEL" = "Annuler";
+"OPEN_SETTING" = "Ouvrir les Réglages";
+"ALLOW_PHOTO_DOWNLOAD" = "Veuillez autoriser l'accès à la photothèque dans les Réglages pour exporter des photos.";
 
+// MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Choisir la Langue";
 "DONE" = "Terminé";

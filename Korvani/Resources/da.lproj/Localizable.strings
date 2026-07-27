@@ -162,6 +162,11 @@
 "DOWNLOADING" = "Eksporterer...";
 "DOWNLOAD_SUCCESS" = "Eksporteret med Succes!";
 "CHECK_PHOTO_APP" = "Foto blev gemt i Fotos-appen!";
+"PERMISSION_ACCESS" = "Adgangstilladelse";
+"CANCEL" = "Annuller";
+"OPEN_SETTING" = "Åbn Indstillinger";
+"ALLOW_PHOTO_DOWNLOAD" = "Tillad venligst adgang til fotobiblioteket i Indstillinger for at eksportere fotos.";
 
+// MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Vælg Sprog";
 "DONE" = "Udført";
