@@ -72,7 +72,7 @@ class MovieDetailViewModel: ObservableObject {
                 }
                 
                 if let revenue = self.movieDetail?.revenue, revenue != 0 {
-                    self.personalInformation.append(LanguageModel(id: 2, name: Strings.revenue, language: "\(revenue)"))
+                    self.personalInformation.append(LanguageModel(id: 3, name: Strings.revenue, language: "\(revenue)"))
                 }
                 
                 self.movieVideoAPI()

@@ -73,7 +73,6 @@ struct SearchScreen: View {
                 let array = viewModel.selectedIndex == 0 ? viewModel.movies : viewModel.series
                 
                 if !array.isEmpty {
-                    
                     VStack {
                         if viewModel.selectedIndex == 0 {
                             ScrollView(showsIndicators: false) {
@@ -120,21 +119,6 @@ struct SearchScreen: View {
                     }
                     
                 } else {
-//                    VStack {
-//                        Spacer()
-//                        
-//                        if viewModel.searchTextField.isEmpty {
-//                            Text("Try To Search Movies or Series")
-//                                .font(.system(size: 21, weight: .semibold))
-//                                .foregroundColor(.whiteColour)
-//                        } else {
-//                            Text("No data found for \(viewModel.searchTextField)")
-//                                .font(.system(size: 21, weight: .semibold))
-//                                .foregroundColor(.whiteColour)
-//                        }
-//                        
-//                        Spacer()
-//                    }
                     VStack {
                         VStack(spacing: 16) {
                             if viewModel.searchTextField.isEmpty {

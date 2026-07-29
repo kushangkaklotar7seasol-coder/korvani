@@ -39,28 +39,28 @@ struct HomeScreen: View {
                                 Spacer()
                             }
                             
-                            ZStack {
-                                LinearGradient(colors: [.grayColour, .grayColour], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                
-                                if viewModel.locationStaus == 0 {
-                                    Button {
-                                        viewModel.navigationItem.weather = true
-                                    } label: {
-                                        Home.Weather(viewModel: viewModel)
-                                    }
-                                } else if viewModel.locationStaus == 1 || viewModel.locationStaus == 2 {
-                                    Button {
-                                        viewModel.openAppSettings()
-                                    } label: {
-                                        VStack {
-                                           Text(Strings.appPermissionNotGive)
-                                            Text("Open Setting")
-                                        }
-                                    }
-                                }
-                            }
-                            .frame(width: screenWidth-32, height: 120, alignment: .center)
-                            .cornerRadius(20)
+//                            ZStack {
+//                                LinearGradient(colors: [.grayColour, .grayColour], startPoint: .topLeading, endPoint: .bottomTrailing)
+//                                
+//                                if viewModel.locationStaus == 0 {
+//                                    Button {
+//                                        viewModel.navigationItem.weather = true
+//                                    } label: {
+//                                        Home.Weather(viewModel: viewModel)
+//                                    }
+//                                } else if viewModel.locationStaus == 1 || viewModel.locationStaus == 2 {
+//                                    Button {
+//                                        viewModel.openAppSettings()
+//                                    } label: {
+//                                        VStack {
+//                                           Text(Strings.appPermissionNotGive)
+//                                            Text("Open Setting")
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            .frame(width: screenWidth-32, height: 120, alignment: .center)
+//                            .cornerRadius(20)
                             
                             Home.UnitTranslaterView(viewModel: viewModel)
                             
@@ -139,7 +139,7 @@ struct HomeScreen: View {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
         }
         .onAppear() {
-            viewModel.onApper()
+//            viewModel.onApper()
             SwipeBackManager.shared.isEnabled = false
         }
     }

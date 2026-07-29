@@ -132,6 +132,7 @@ struct MovieDetails: View {
                             MovieDetailsDesign.ExpandableText(text: overView)
                         }
                         .padding(.horizontal, 16)
+                        
 //                        VStack(alignment: .leading, spacing: 10) {
 //                            HStack {
 //                                Text(Strings.overview)

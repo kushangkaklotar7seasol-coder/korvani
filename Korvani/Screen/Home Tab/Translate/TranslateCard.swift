@@ -110,7 +110,6 @@ struct TextCard: View {
                         .frame(height: screenHeight/6)
                 }
                 
-                
                 HStack(spacing: 14) {
                     if text != "" {
                         Spacer()
