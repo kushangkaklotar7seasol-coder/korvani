@@ -31,6 +31,7 @@ class MovieDetailViewModel: ObservableObject {
     @Published var isShowPosterDetail = false
     
     @Published var isShowAllCast = false
+    @Published var isCastSelected = false
     
     @Published var isYoutubeVideo = false
     @Published var youtubeUrl = ""

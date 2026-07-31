@@ -13,10 +13,10 @@ struct LanguageScreen: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var localization: LocalizationManager
     
-    let columns = [
-        GridItem(.flexible(), spacing: 15),
-        GridItem(.flexible(), spacing: 15)
-    ]
+    let columns = Array(
+        repeating: GridItem(.flexible(), spacing: 15),
+        count: isiPad ? 3 : 2
+    )
     
     var body: some View {
         ZStack {
@@ -33,7 +33,7 @@ struct LanguageScreen: View {
                         }
                     }
                     
-                    Text(Strings.changeLanguage)
+                    Text(isiPad ? Strings.changeLanguageIpad : Strings.changeLanguage)
                         .font(.system(size: 20, weight: .semibold))
                     
                     Spacer()
@@ -70,7 +70,7 @@ struct LanguageScreen: View {
                                     .foregroundColor(viewModel.selectedLanguage?.code == language.code ? .whiteColour : .grayColour)
                                     .font(.system(size: 12))
                             }
-                            .frame(maxWidth: .infinity, minHeight: 62)
+                            .frame(maxWidth: .infinity, minHeight: isiPad ?  92 : 62)
                             .background (
                                 LinearGradient( colors: [viewModel.selectedLanguage?.code == language.code ? .lightYellowColour : .lightBlackColour, viewModel.selectedLanguage?.code == language.code ? .orangeColour : .lightBlackColour],startPoint: .top, endPoint: .bottom)
                             )

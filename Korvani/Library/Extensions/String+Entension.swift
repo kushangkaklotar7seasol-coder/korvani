@@ -183,4 +183,8 @@ class Strings {
     // MARK: - Language Screen -
     static var changeLanguage: String { "CHUSE_LANGUAGE".localized() }
     static var done: String { "DONE".localized() }
+    
+    
+    // MARK: - IPAD -
+    static var changeLanguageIpad: String { "CHUSE_LANGUAGE_IPAD".localized() }
 }

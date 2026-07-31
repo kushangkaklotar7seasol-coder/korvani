@@ -10,11 +10,17 @@ import SwiftUI
 struct PosterScreen: View {
     @Environment(\.dismiss) public var dismiss
     @StateObject var viewModel: PosterViewModel
-    
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    @State var refreshID = UUID()
+//    private let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
+//    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+    var columns: [GridItem] {
+            let count = isiPad ? (Device.isiPadLandscape ? 4 : 3) : 2
+            return Array(repeating: GridItem(.flexible(), spacing: 15), count: count)
+        }
     
     var body: some View {
         ZStack {
@@ -50,6 +56,7 @@ struct PosterScreen: View {
                 
                 Spacer()
             }
+            .id(refreshID)
         }
         .padding(.horizontal, 16)
         .defaultPage()
@@ -59,6 +66,9 @@ struct PosterScreen: View {
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            refreshID = UUID()
         }
         .sheet(isPresented: $viewModel.isYoutubeVideo) {
             NavigationStack {

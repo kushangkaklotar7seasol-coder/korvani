@@ -20,6 +20,22 @@ class HomeServices{
         }
     }
     
+    func upCommingdAPI(parameters: [String: Any] = [:], page: Int = 1, success: @escaping (Int, MediaCredits) -> (), failure: @escaping (String) -> ()) {
+        APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: upcommingMovieUrl+String(page), responseType: MediaCredits.self) { statusCode, response in
+            success(statusCode, response)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
+    func onTheAirAPI(parameters: [String: Any] = [:], page: Int = 1, success: @escaping (Int, MediaCredits) -> (), failure: @escaping (String) -> ()) {
+        APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: onTheAirUrl+String(page), responseType: MediaCredits.self) { statusCode, response in
+            success(statusCode, response)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
     func celecrityAPI(parameters: [String: Any] = [:],page: Int, success: @escaping (Int, CelebrityResponse) -> (), failure: @escaping (String) -> ()) {
         APIManager.shared.requestAPIWithGetMethod(method: .get, urlString: celebrityUrl+"\(page)", responseType: CelebrityResponse.self) { statusCode, response in
             success(statusCode, response)

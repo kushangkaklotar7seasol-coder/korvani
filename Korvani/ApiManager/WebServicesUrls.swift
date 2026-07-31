@@ -13,6 +13,8 @@ var weatherAPIKey = ""
 
 //  MARK: - Home -
 let topRatedMovieUrl = serverUrl + "movie/top_rated"
+let upcommingMovieUrl = serverUrl + "movie/upcoming&page="
+let onTheAirUrl = serverUrl + "tv/on_the_air&page="
 let celebrityUrl = serverUrl + "person/popular&page="
 let celebeityDetailUrl = serverUrl + "person/"
 let celebrityMovieUrl = "movie_credits"

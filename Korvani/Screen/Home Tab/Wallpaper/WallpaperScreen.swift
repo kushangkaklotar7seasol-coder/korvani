@@ -11,14 +11,31 @@ import Kingfisher
 struct WallpaperScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel = WallpaperViewModel()
-    var cardWidth = {
-        return (screenWidth-47)/2
+    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+    
+    var cardWidth : CGFloat {
+        if isiPad {
+            if Device.isiPadLandscape {
+                return (screenHeight-47)/5
+            } else {
+                return (screenWidth-47)/4
+            }
+        } else {
+            return (screenWidth-47)/2
+        }
     }
     
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//    private let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
+    
+    var columns: [GridItem] {
+        let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
+        return Array(repeating: GridItem(.flexible(), spacing: 15), count: count)
+        }
+    
     
     var body: some View {
         ZStack {
@@ -35,7 +52,7 @@ struct WallpaperScreen: View {
                                     .resizable()
                                     .scaledToFill()
                             }
-                            .frame(width: cardWidth(), height: cardWidth()*1.4)
+                            .frame(width: cardWidth , height: cardWidth*1.4)
                             .background(.grayColour.opacity(0.5))
                             .cornerRadius(10)
                             .onAppear() {
@@ -52,11 +69,19 @@ struct WallpaperScreen: View {
             .padding(.horizontal, 20)
         }
         .defaultPage()
+        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowDownload) {
             WallpaperExportScreen(viewModel: WallpaperExportViewModel(wallpaper: viewModel.selectedWallpaper))
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: UIDevice.orientationDidChangeNotification
+            )
+        ) { _ in
+            refreshID = UUID()
         }
     }
     

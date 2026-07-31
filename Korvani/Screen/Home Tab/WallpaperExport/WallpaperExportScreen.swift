@@ -11,6 +11,24 @@ import Kingfisher
 struct WallpaperExportScreen: View {
     @StateObject var viewModel: WallpaperExportViewModel
     @Environment(\.dismiss) private var dismiss
+    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+    
+    var imagewidth: CGFloat {
+        return screenWidth-48
+    }
+    
+    var imageHeight: CGFloat {
+        if isiPad {
+            if Device.isiPadLandscape {
+                return screenWidth-200
+            } else {
+                return screenHeight-200
+            }
+        } else {
+            return .infinity
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -22,11 +40,12 @@ struct WallpaperExportScreen: View {
                 }
 
                 ZStack {
-                    KFImage.url(URL(string: viewModel.wallpaper?.src.medium ?? ""))
+                    KFImage.url(URL(string: isiPad ? viewModel.wallpaper?.src.large2x ?? "" : viewModel.wallpaper?.src.medium ?? ""))
                         .resizable()
                         .scaledToFill()
+                        .clipped()
                 }
-                .frame(maxWidth: screenWidth-48, maxHeight: .infinity)
+                .frame(maxWidth: imagewidth, maxHeight: imageHeight)
                 .background(.grayColour.opacity(0.5))
                 .cornerRadius(16)
                 .padding(.top, 24)
@@ -36,7 +55,7 @@ struct WallpaperExportScreen: View {
                 } label: {
                     Text(Strings.export)
                         .padding()
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: Device.isiPadLandscape ?  imagewidth : .infinity)
                         .font(.system(size: 18, weight: .semibold))
                         .background(
                             LinearGradient(colors: [.lightYellowColour,.orangeColour], startPoint: .top, endPoint: .bottom))
@@ -45,7 +64,6 @@ struct WallpaperExportScreen: View {
                 .padding(.top, 24)
                 .padding(.bottom, 2)
             }
-            
             
 //            VStack {
 //                if viewModel.downloadStatus == 1 {
@@ -80,6 +98,7 @@ struct WallpaperExportScreen: View {
         }
         .padding(.horizontal, 20)
         .defaultPage()
+        .id(refreshID)
         .onAppear() {
             SwipeBackManager.shared.isEnabled = true
         }
@@ -95,6 +114,13 @@ struct WallpaperExportScreen: View {
             }
         } message: {
             Text(Strings.photoDownloadAllow)
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: UIDevice.orientationDidChangeNotification
+            )
+        ) { _ in
+            refreshID = UUID()
         }
     }
 }

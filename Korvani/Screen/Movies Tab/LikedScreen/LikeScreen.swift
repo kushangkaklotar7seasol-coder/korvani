@@ -10,10 +10,16 @@ import SwiftUI
 struct LikeScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel = LikeViewModel()
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//    private let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
+    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+    var columns: [GridItem] {
+            let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
+            return Array(repeating: GridItem(.flexible()), count: count)
+        }
     
     var body: some View {
         ZStack {
@@ -29,7 +35,7 @@ struct LikeScreen: View {
                         ScrollView(showsIndicators: false) {
                             LazyVGrid(columns: columns) {
                                 ForEach(viewModel.movies.indices, id: \.self) { index in
-                                    MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: 2, onLike: { movie in
+                                    MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
                                         viewModel.movies.removeAll(where: {$0.id == movie.id})
                                         DispatchQueue.main.async {
                                             viewModel.fetchMovie()
@@ -65,7 +71,7 @@ struct LikeScreen: View {
                         ScrollView(showsIndicators: false) {
                             LazyVGrid(columns: columns) {
                                 ForEach(viewModel.series.indices, id: \.self) { index in
-                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: 2, onLike: { movie in
+                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
                                         viewModel.series.removeAll(where: {$0.id == movie.id})
                                         DispatchQueue.main.async {
                                             viewModel.fetchSeries()
@@ -103,6 +109,7 @@ struct LikeScreen: View {
         }
         .padding(.horizontal, 16)
         .defaultPage()
+        .id(refreshID)
         .edgesIgnoringSafeArea(.bottom)
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
@@ -110,6 +117,13 @@ struct LikeScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: UIDevice.orientationDidChangeNotification
+            )
+        ) { _ in
+            refreshID = UUID()
+        } 
     }
 }
 

@@ -18,16 +18,14 @@ struct KorvaniApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                NavigationStack {
-                    Splash()
-                        .navigationBarHidden(true)
-                        .toolbar(.hidden, for: .navigationBar)
-                        .preferredColorScheme(.dark)
-                }
-                .environment(\.locale, Locale(identifier: localization.selectedLanguage))
-                .environmentObject(localization)
+            NavigationStack {
+                Splash()
+                    .navigationBarHidden(true)
+                    .toolbar(.hidden, for: .navigationBar)
+                    .preferredColorScheme(.dark)
             }
+            .environment(\.locale, Locale(identifier: localization.selectedLanguage))
+            .environmentObject(localization)
             .toastManager()
         }
     }

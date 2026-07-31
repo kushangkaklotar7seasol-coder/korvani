@@ -13,11 +13,28 @@ struct MovieDetails: View {
     @State var isShowMore = false
     @StateObject var viewModel: MovieDetailViewModel
     @Environment(\.dismiss) private var dismiss
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+    @State var refreshID = UUID()
+    
+    var columns: [GridItem] {
+        let count = isiPad ? (Device.isiPadLandscape ? 6 : 5) : 3
+        return Array(repeating: GridItem(.flexible()), count: count)
+    }
+    
+    var imageWidth: CGFloat {
+        if Device.isiPadLandscape {
+            return .infinity
+        } else {
+            return screenWidth
+        }
+    }
+    
+//    private let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
     
     var body: some View {
         ZStack {
@@ -33,7 +50,12 @@ struct MovieDetails: View {
                             }
                             .resizable()
                             .scaledToFill()
-                            .frame(width: screenWidth, height: (screenHeight/2)+100, alignment: .center)
+//                            .frame(width: imageWidth, height: (screenHeight/2)+100, alignment: .center)
+                            .frame(
+                                maxWidth: Device.isiPadLandscape ? .infinity : screenWidth,
+                                maxHeight: (screenHeight / 2) + 100,
+                                alignment: .center
+                            )
                             .clipped()
                         
                         LinearGradient(colors: [.clear,.clear, .blackColour], startPoint: .top, endPoint: .bottom)
@@ -117,8 +139,14 @@ struct MovieDetails: View {
                             }
                         }
                     }
-                    .frame(width: screenWidth, height: (screenHeight/2)+100, alignment: .center)
+//                    .frame(width: orientation.isLandscape ? .infinity : screenWidth, height: (screenHeight/2)+100, alignment: .center)
+                    .frame(
+                        maxWidth: Device.isiPadLandscape ? .infinity : screenWidth,
+                        maxHeight: (screenHeight / 2) + 100,
+                        alignment: .center
+                    )
                     .background(.whiteColour)
+                    .id(refreshID)
                     
                     if let overView = viewModel.movieDetail?.overview, overView != "" {
                         VStack {
@@ -177,6 +205,7 @@ struct MovieDetails: View {
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 14)
+                        .id(refreshID)
                     }
                     
                     
@@ -185,6 +214,7 @@ struct MovieDetails: View {
 //                            viewModel.selectedCastOption = viewModel.castItems[index] == Strings.topCast ? 0 : 1
                             viewModel.selectedCastOption = index
                         }, onViewAll: {
+                            viewModel.isCastSelected = viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast
                             self.viewModel.isShowAllCast = true
                         })
                         
@@ -324,7 +354,7 @@ struct MovieDetails: View {
                 Spacer()
             }
         }
-        .frame(width: screenWidth)
+//        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowCastDetails) {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.selectedCelebrityId))
         }
@@ -341,66 +371,75 @@ struct MovieDetails: View {
             SwipeBackManager.shared.isEnabled = true
         }
         .defaultPage()
-        .sheet(isPresented: $viewModel.isShowAllCast) {
-            VStack {
-                HStack {
-                    Button {
-                        viewModel.isShowAllCast = false
-                    } label: {
-                        Image("ic_cancel")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                    }
-                    
-                    Text("\(viewModel.movieDetail?.title ?? viewModel.movieDetail?.name ?? "")")
-                        .font(.system(size: 21, weight: .semibold))
-                        .lineLimit(1)
-                    
-                    Spacer()
-                }
-                .padding(.vertical, 5)
-                .padding(.horizontal, 16)
-                
-                ScrollView(showsIndicators: false) {
-                    LazyVGrid(columns: columns) {
-                        if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast {
-                            if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
-                                ForEach(cast.indices, id: \.self) { index in
-                                    let cast = cast[index]
-                                    MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
-                                        .onTapGesture {
-                                            viewModel.isShowAllCast = false
-                                            viewModel.selectedCelebrityId = cast.id
-                                            viewModel.isShowCastDetails = true
-                                        }
-                                }
-                            } else {
-                                Text(Strings.noCast)
-                                    .font(.system(size: 21, weight: .bold))
-                                    .foregroundColor(.whiteColour)
-                            }
-                        } else {
-                            if let crew = viewModel.movieCredits?.crew, !crew.isEmpty{
-                                ForEach(crew.indices, id: \.self) { index in
-                                    let crew = crew[index]
-                                    MovieDetailsDesign.CastDetail(image: crew.profilePath ?? "", firstName: crew.name, lastName: crew.department)
-                                        .onTapGesture {
-                                            viewModel.isShowAllCast = false
-                                            viewModel.selectedCelebrityId = crew.id
-                                            viewModel.isShowCastDetails = true
-                                        }
-                                }
-                            } else {
-                                Text(Strings.noCrew)
-                                    .font(.system(size: 21, weight: .bold))
-                                    .foregroundColor(.whiteColour)
-                            }
-                            
-                        }
-                    }
-                }
-            }
+        .navigationDestination(isPresented: $viewModel.isShowAllCast, destination: {
+            CastCrewScreen(cast: viewModel.movieCredits?.cast ?? [],
+                           crew: viewModel.movieCredits?.crew ?? [],
+                           header: "\(viewModel.movieDetail?.title ?? viewModel.movieDetail?.name ?? "")",
+                           isCast: viewModel.isCastSelected)
+        })
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            refreshID = UUID()
         }
+//        .sheet(isPresented: $viewModel.isShowAllCast) {
+//            VStack {
+//                HStack {
+//                    Button {
+//                        viewModel.isShowAllCast = false
+//                    } label: {
+//                        Image("ic_cancel")
+//                            .resizable()
+//                            .frame(width: 40, height: 40, alignment: .center)
+//                    }
+//                    
+//                    Text("\(viewModel.movieDetail?.title ?? viewModel.movieDetail?.name ?? "")")
+//                        .font(.system(size: 21, weight: .semibold))
+//                        .lineLimit(1)
+//                    
+//                    Spacer()
+//                }
+//                .padding(.vertical, 5)
+//                .padding(.horizontal, 16)
+//                
+//                ScrollView(showsIndicators: false) {
+//                    LazyVGrid(columns: columns) {
+//                        if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast {
+//                            if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
+//                                ForEach(cast.indices, id: \.self) { index in
+//                                    let cast = cast[index]
+//                                    MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
+//                                        .onTapGesture {
+//                                            viewModel.isShowAllCast = false
+//                                            viewModel.selectedCelebrityId = cast.id
+//                                            viewModel.isShowCastDetails = true
+//                                        }
+//                                }
+//                            } else {
+//                                Text(Strings.noCast)
+//                                    .font(.system(size: 21, weight: .bold))
+//                                    .foregroundColor(.whiteColour)
+//                            }
+//                        } else {
+//                            if let crew = viewModel.movieCredits?.crew, !crew.isEmpty{
+//                                ForEach(crew.indices, id: \.self) { index in
+//                                    let crew = crew[index]
+//                                    MovieDetailsDesign.CastDetail(image: crew.profilePath ?? "", firstName: crew.name, lastName: crew.department)
+//                                        .onTapGesture {
+//                                            viewModel.isShowAllCast = false
+//                                            viewModel.selectedCelebrityId = crew.id
+//                                            viewModel.isShowCastDetails = true
+//                                        }
+//                                }
+//                            } else {
+//                                Text(Strings.noCrew)
+//                                    .font(.system(size: 21, weight: .bold))
+//                                    .foregroundColor(.whiteColour)
+//                            }
+//                            
+//                        }
+//                    }
+//                }
+//            }
+//        }
         .sheet(isPresented: $viewModel.isYoutubeVideo) {
             NavigationStack {
                 WebView(url: URL(string: viewModel.youtubeUrl)!)
@@ -415,6 +454,13 @@ struct MovieDetails: View {
                     }
             }
         }
+//        .onReceive(
+//            NotificationCenter.default.publisher(
+//                for: UIDevice.orientationDidChangeNotification
+//            )
+//        ) { _ in
+//            refreshID = UUID()
+//        }
     }
 }
 
@@ -473,7 +519,11 @@ class MovieDetailsDesign {
         let lastName: String
         
         var size: CGFloat {
-            return (screenWidth-60)/3
+            if isiPad {
+                return (screenWidth-60)/5
+            } else {
+                return (screenWidth-60)/3
+            }
         }
         var body: some View {
             VStack(alignment: .leading) {
@@ -508,9 +558,18 @@ class MovieDetailsDesign {
     struct PosterMedia: View {
         var isImage = true
         var image: String
+//        @EnvironmentObject var orientation: OrientationObserver
         
         var width: CGFloat {
-            return (screenWidth-35)/2
+            if isiPad {
+                if Device.isiPadLandscape {
+                    return (screenHeight-70)/4
+                } else {
+                    return (screenWidth-70)/3
+                }
+            } else {
+                return (screenWidth-35)/2
+            }
         }
         var height: CGFloat {
             return width*0.8

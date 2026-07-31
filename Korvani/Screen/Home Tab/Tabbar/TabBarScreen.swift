@@ -23,67 +23,108 @@ enum TabItem: CaseIterable {
     }
 }
 
+import SwiftUI
+
+//struct TabBarScreen: View {
+//    @State private var selectedTab: TabItem = .home
+//    
+//    var body: some View {
+//        VStack(spacing: 0) {
+//            // Main Active View Container
+//            Group {
+//                switch selectedTab {
+//                case .home:
+//                    HomeScreen()
+//                case .movies:
+//                    DiscoverScreen()
+//                case .puzzle:
+//                    PuzzleView(viewModel: PuzzleViewModel())
+//                case .setting:
+//                    SettingScreen()
+//                }
+//            }
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            
+//            Divider()
+//                .background(Color.tabbarBorderColour)
+//            
+//            // Custom TabBar
+//            CustomTabBar(selectedTab: $selectedTab)
+//                .background(Color.tabbarBackgroundColour)
+//        }
+//        .background(Color.blackColour)
+//        .ignoresSafeArea(.keyboard)
+//        // Ensure status bar & navigation doesn't push down
+//        .navigationBarHidden(true)
+//        .toolbar(.hidden, for: .navigationBar)
+//    }
+//}
+
 struct TabBarScreen: View {
     @State private var selectedTab: TabItem = .home
     
+    // ViewModel ને એક જ વાર ઇનિશિયલાઇઝ કરવા માટે સ્ટેટ પ્રોપર્ટી વાપરો
+    @StateObject private var puzzleViewModel = PuzzleViewModel()
+    
     var body: some View {
         VStack(spacing: 0) {
-            
+            // Main Active View Container using ZStack
             ZStack {
+//                FScreen1()
                 HomeScreen()
                     .opacity(selectedTab == .home ? 1 : 0)
+                    .allowsHitTesting(selectedTab == .home)
                 
                 DiscoverScreen()
                     .opacity(selectedTab == .movies ? 1 : 0)
+                    .allowsHitTesting(selectedTab == .movies)
                 
-                PuzzleView(viewModel: PuzzleViewModel())
+                PuzzleView(viewModel: puzzleViewModel)
+//                FScreen3()
                     .opacity(selectedTab == .puzzle ? 1 : 0)
+                    .allowsHitTesting(selectedTab == .puzzle)
                 
                 SettingScreen()
+//                FScreen4()
                     .opacity(selectedTab == .setting ? 1 : 0)
+                    .allowsHitTesting(selectedTab == .setting)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            Divider()
-                .background(.tabbarBorderColour)
             
+            Divider()
+                .background(Color.tabbarBorderColour)
+            
+            // Custom TabBar
             CustomTabBar(selectedTab: $selectedTab)
+                .background(Color.tabbarBackgroundColour)
         }
+        .background(Color.blackColour)
         .ignoresSafeArea(.keyboard)
-        .background(.tabbarBackgroundColour)
+        
+        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
-#Preview {
-    TabBarScreen()
-}
-
 struct CustomTabBar: View {
-
     @Binding var selectedTab: TabItem
 
     var body: some View {
-
         HStack {
-
             ForEach(TabItem.allCases, id: \.self) { tab in
-
                 Button {
-
-                    withAnimation(.spring()) {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         selectedTab = tab
                     }
-
                 } label: {
-                    
-                    ZStack() {
+                    ZStack {
                         Image(tab.icon)
                             .resizable()
                             .renderingMode(.template)
                             .tint(selectedTab == tab ? .whiteColour : .grayColour)
-                            .frame(width: 24, height: 24, alignment: .center)
+                            .frame(width: 24, height: 24)
                     }
-                    .padding(16)
+                    .padding(12) // Slightly reduced padding for landscape safety
                     .background(
                         LinearGradient(
                             colors: [selectedTab == tab ? .lightYellowColour : .clear, selectedTab == tab ? .orangeColour: .clear],
@@ -94,11 +135,89 @@ struct CustomTabBar: View {
                     .cornerRadius(32)
                     .frame(maxWidth: .infinity)
                 }
-                .padding(.top, 5)
             }
         }
-//        .background(.blackColour)
         .padding(.horizontal, 10)
-//        .padding(.bottom, 5)
+        .padding(.vertical, 6)
     }
 }
+
+//struct TabBarScreen: View {
+//    @State private var selectedTab: TabItem = .home
+//    
+//    var body: some View {
+//        VStack(spacing: 0) {
+//            
+//            ZStack {
+//                HomeScreen()
+//                    .opacity(selectedTab == .home ? 1 : 0)
+//                
+//                DiscoverScreen()
+//                    .opacity(selectedTab == .movies ? 1 : 0)
+//                
+//                PuzzleView(viewModel: PuzzleViewModel())
+//                    .opacity(selectedTab == .puzzle ? 1 : 0)
+//                
+//                SettingScreen()
+//                    .opacity(selectedTab == .setting ? 1 : 0)
+//            }
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//
+//            Divider()
+//                .background(.tabbarBorderColour)
+//            
+//            CustomTabBar(selectedTab: $selectedTab)
+//        }
+//        .ignoresSafeArea(.keyboard)
+//        .background(.tabbarBackgroundColour)
+//    }
+//}
+
+#Preview {
+    TabBarScreen()
+}
+
+//struct CustomTabBar: View {
+//
+//    @Binding var selectedTab: TabItem
+//
+//    var body: some View {
+//
+//        HStack {
+//
+//            ForEach(TabItem.allCases, id: \.self) { tab in
+//
+//                Button {
+//
+//                    withAnimation(.spring()) {
+//                        selectedTab = tab
+//                    }
+//
+//                } label: {
+//                    
+//                    ZStack() {
+//                        Image(tab.icon)
+//                            .resizable()
+//                            .renderingMode(.template)
+//                            .tint(selectedTab == tab ? .whiteColour : .grayColour)
+//                            .frame(width: 24, height: 24, alignment: .center)
+//                    }
+//                    .padding(16)
+//                    .background(
+//                        LinearGradient(
+//                            colors: [selectedTab == tab ? .lightYellowColour : .clear, selectedTab == tab ? .orangeColour: .clear],
+//                            startPoint: .topLeading,
+//                            endPoint: .bottomTrailing
+//                        )
+//                    )
+//                    .cornerRadius(32)
+//                    .frame(maxWidth: .infinity)
+//                }
+//                .padding(.top, 5)
+//            }
+//        }
+////        .background(.blackColour)
+//        .padding(.horizontal, 10)
+////        .padding(.bottom, 5)
+//    }
+//}

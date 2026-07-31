@@ -11,12 +11,18 @@ import Kingfisher
 struct CelebrityScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: CelebrityViewModel
+    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+//    private let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
     
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    var columns: [GridItem] {
+            let count = isiPad ? (Device.isiPadLandscape ? 6 : 5) : 3
+            return Array(repeating: GridItem(.flexible(), spacing: 15), count: count)
+        }
     
     var body: some View {
         ZStack {
@@ -50,11 +56,19 @@ struct CelebrityScreen: View {
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
+        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowCelebrityDetail) {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: UIDevice.orientationDidChangeNotification
+            )
+        ) { _ in
+            refreshID = UUID()
         }
     }
     
@@ -73,7 +87,17 @@ class celebrity {
     struct profile: View {
         var celebrity: Celebrity
         var size = {
-            return (screenWidth-60)/3
+            if isiPad {
+                
+                if Device.isiPadLandscape {
+//                    return (screenHeight-60)/5
+                    return (screenHeight-28)/6
+                } else {
+                    return (screenWidth-60)/5
+                }
+            } else {
+                return (screenWidth-60)/3
+            }
         }
         
         var body: some View {

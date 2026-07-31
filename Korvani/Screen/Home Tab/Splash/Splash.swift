@@ -21,8 +21,6 @@ struct Splash: View {
                     .foregroundColor(.grayColour)
             }
         }
-        .frame(minWidth: screenWidth, minHeight: screenHeight)
-        .background(.blackColour)
         .navigationDestination(isPresented: $viewModel.navigation.OnBoding) {
             OnBoding()
         }
@@ -57,19 +55,6 @@ struct Splash: View {
         }
     }
 
-//    func generalInfoAPI(){
-//        if Utility.isInternetAvailable() {
-//            HomeServices.shared.generalInfoAPI { statusCode, response in
-//                print(response)
-//            } failure: { error in
-//                print(error)
-//            }
-//        } else {
-//            print("No internet connected")
-//        }
-//    }
-    
-    
     func webservice_getJSON_api(completion: (() -> Void)? = nil) {
 
         guard let url = URL(string: generalInfoUrl) else {

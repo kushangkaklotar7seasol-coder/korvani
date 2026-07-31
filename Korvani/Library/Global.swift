@@ -11,7 +11,7 @@ import UIKit
 let appName = "Korvani"
 
 let screenSize: CGRect = UIScreen.main.bounds
-
+let isiPad = UIDevice.current.userInterfaceIdiom == .pad
 // Extract width and height
 let screenWidth = screenSize.width
 let screenHeight = screenSize.height

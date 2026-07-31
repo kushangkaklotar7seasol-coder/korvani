@@ -10,10 +10,16 @@ import SwiftUI
 struct CategoryListScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: CategoryListViewModel
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+//    private let columns = [
+//        GridItem(.flexible()),
+//        GridItem(.flexible())
+//    ]
+    @State private var refreshID = UUID()
+//    @EnvironmentObject var orientation: OrientationObserver
+    var columns: [GridItem] {
+            let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
+            return Array(repeating: GridItem(.flexible()), count: count)
+        }
     
     var body: some View {
         ZStack {
@@ -25,7 +31,7 @@ struct CategoryListScreen: View {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.mediaItem.indices, id: \.self) { index in
-                            MovieDetail.card(movies: viewModel.mediaItem[index], numbersOfCard: 2)
+                            MovieDetail.card(movies: viewModel.mediaItem[index], numbersOfCard: isiPad ? 4 : 2)
                                 .onTapGesture {
                                     viewModel.selectedMovieId = viewModel.mediaItem[index].id
                                     viewModel.isShowmovieDetail = true
@@ -40,16 +46,20 @@ struct CategoryListScreen: View {
         }
         .padding(.horizontal, 16)
         .defaultPage()
+        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            refreshID = UUID()
+        }
     }
     
     func loadMoreIfNeeded(currentItem: Int) {
-        guard !viewModel.isLoading, currentItem == viewModel.mediaItem.count - 5 else { return }
+        guard !viewModel.isLoading, currentItem == viewModel.mediaItem.count - (isiPad ? 8 : 5) else { return }
         viewModel.manageAPIs()
     }
 }

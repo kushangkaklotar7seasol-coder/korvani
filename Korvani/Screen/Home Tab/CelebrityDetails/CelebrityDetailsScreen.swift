@@ -184,6 +184,16 @@ class CelebrityDetails {
         var url: String
         var name: String
         var profesion: String
+        @State private var refreshID = UUID()
+//        @EnvironmentObject var orientation: OrientationObserver
+        
+        var size: CGFloat {
+            if Device.isiPadLandscape {
+                return screenWidth
+            } else {
+                return screenWidth-32
+            }
+        }
         
         var body: some View {
             ZStack {
@@ -220,12 +230,19 @@ class CelebrityDetails {
                         Spacer()
                     }
                 }
-                .frame(width: screenWidth-32, height: screenWidth-32, alignment: .center)
+                .frame(width: Device.isiPadLandscape ? screenHeight-32 :size, height: Device.isiPadLandscape ? screenWidth-170 : size, alignment: .center)
             }
-            .frame(width: screenWidth-32, height: screenWidth-32, alignment: .center)
+            .frame(width: Device.isiPadLandscape ? screenHeight-32 :size, height: Device.isiPadLandscape ? screenWidth-170 : size, alignment: .center)
             .cornerRadius(16)
             .padding(.top, 24)
-
+            .id(refreshID)
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: UIDevice.orientationDidChangeNotification
+                )
+            ) { _ in
+                refreshID = UUID()
+            }
         }
     }
     
@@ -362,13 +379,32 @@ class MovieDetail {
         var onLike: ((MediaItem) -> Void)?
         
         @State var isLiked: Bool = false
+//        @EnvironmentObject var orientation: OrientationObserver
         
         var cardWidth: CGFloat {
             switch numbersOfCard {
             case 2:
-                return (screenWidth-47) / 2
+                if Device.isIpad {
+                    return (screenWidth-47) / 3
+                } else {
+                    return (screenWidth-47) / 2
+                }
             case 3:
-                return (screenWidth-28) / 3
+                if Device.isIpad {
+                    if Device.isiPadLandscape {
+                        return (screenHeight-80) / 5
+                    } else {
+                        return (screenWidth-28) / 4
+                    }
+                } else {
+                    return (screenWidth-28) / 3
+                }
+            case 4:
+                if Device.isiPadLandscape {
+                    return (screenHeight-80) / 5
+                } else {
+                    return (screenWidth-70) / 4
+                }
             default:
                 return screenWidth-32
             }
@@ -505,6 +541,90 @@ class MovieDetail {
                     .padding(.horizontal, 16)
                 }
             }
+        }
+    }
+}
+
+struct Device {
+    static var topSafeArea: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .safeAreaInsets.top ?? 0
+    }
+    
+    static var bottomSafeArea: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .safeAreaInsets.bottom ?? 0
+    }
+    
+    private static var nativeScale: CGFloat {
+        UIScreen.main.nativeScale
+    }
+    
+    static var portraitWidth: CGFloat {
+        let screen = UIScreen.main
+        return screen.nativeBounds.width / nativeScale
+    }
+    
+    static var portraitHeight: CGFloat {
+        let screen = UIScreen.main
+        return screen.nativeBounds.height / nativeScale
+    }
+    
+    static var width: CGFloat {
+        currentSize.width
+    }
+    
+    static var height: CGFloat {
+        currentSize.height
+    }
+    
+    static var isIpad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
+    static var isPortrait: Bool {
+        let orientation = UIDevice.current.orientation
+        return orientation == .portrait || orientation == .portraitUpsideDown
+    }
+    
+    static var isLandscape: Bool {
+        let orientation = UIDevice.current.orientation
+        return orientation == .landscapeLeft || orientation == .landscapeRight
+    }
+    
+    static var isiPadLandscape: Bool {
+        currentSize.width > currentSize.height
+    }
+ 
+    static var isiPadPortrait: Bool {
+        currentSize.height > currentSize.width
+    }
+    
+    static var currentSize: CGSize {
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else {
+            return UIScreen.main.bounds.size
+        }
+        
+        let size = window.bounds.size
+        
+        if isIpad {
+            // On iPad use actual current orientation size
+            return size
+        } else {
+            // Keep portrait logic for iPhone if needed
+            return CGSize(
+                width: min(size.width, size.height),
+                height: max(size.width, size.height)
+            )
         }
     }
 }

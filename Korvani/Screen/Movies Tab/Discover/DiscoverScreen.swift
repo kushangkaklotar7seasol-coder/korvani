@@ -10,6 +10,7 @@ import SwiftUI
 struct DiscoverScreen: View {
     @StateObject var viewModel = DiscoverViewModel()
     @EnvironmentObject var localization: LocalizationManager
+//    @State var refreshID = UUID()
     
     var body: some View {
         ZStack {
@@ -50,6 +51,7 @@ struct DiscoverScreen: View {
                         .padding(.vertical, 24)
                     }
                     .id(localization.selectedLanguage)
+//                    .id(refreshID)
                 } else {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
@@ -67,6 +69,7 @@ struct DiscoverScreen: View {
                         .padding(.vertical, 24)
                     }
                     .id(localization.selectedLanguage)
+//                    .id(refreshID)
                 }
             }
         }
@@ -84,6 +87,9 @@ struct DiscoverScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = false
         }
+//        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+//            refreshID = UUID()
+//        }
     }
 }
 

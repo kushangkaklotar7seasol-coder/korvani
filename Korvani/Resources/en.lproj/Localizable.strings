@@ -170,3 +170,7 @@
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Choose Your\nPreferred Language";
 "DONE" = "Done";
+
+
+// MARK: - IPAD -
+"CHUSE_LANGUAGE_IPAD" = "Choose Your Preferred Language";

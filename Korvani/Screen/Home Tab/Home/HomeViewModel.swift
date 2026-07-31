@@ -19,7 +19,13 @@ class HomeViewModel : ObservableObject {
     @Published var celebritySelectedId: Int?
     @Published var todayWeather: ForecastItem?
     @Published var locationStaus: Int = 5 // 0=Allow, 1=Restricted, 2=Denied, 3=authorizedAlways, 4=Location Disable, 5=Loading
+    
     @Published var selectedMovieId: Int = 0
+    @Published var moviesBunch: [MediaBunch] = []
+    @Published var isSelectedMovie: Bool = false
+    
+    @Published var selectedBunch: MediaBunch?
+    @Published var isShowCategoryScreen = false
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDataNotification(_:)), name: .didReceiveData, object: nil)
@@ -58,6 +64,38 @@ class HomeViewModel : ObservableObject {
 
                 let movieData = response.results.prefix(5)
                 self.topRatedMovie = Array(repeating: movieData, count: 100).flatMap { $0 }
+                self.upcomingMovieAPI()
+            } failure: { error in
+                self.isLoading = false
+                print(error)
+            }
+        } else {
+            Toast.shared.show(message: noInternet, type: .error)
+        }
+    }
+    
+    func upcomingMovieAPI() {
+        if Utility.isInternetAvailable() {
+            isLoading = true
+            HomeServices.shared.upCommingdAPI { statusCode, response in
+                print(response.results)
+                self.moviesBunch.append(MediaBunch(id: 0, name: "Upcoming movies", type: .upcommingMovie, media: response))
+                self.onTheAirSeriesAPI()
+            } failure: { error in
+                self.isLoading = false
+                print(error)
+            }
+        } else {
+            Toast.shared.show(message: noInternet, type: .error)
+        }
+    }
+    
+    func onTheAirSeriesAPI() {
+        if Utility.isInternetAvailable() {
+            isLoading = true
+            HomeServices.shared.onTheAirAPI { statusCode, response in
+                print(response.results)
+                self.moviesBunch.append(MediaBunch(id: 1, name: "On The Air Series", type: .onTheAirSeries, media: response))
                 self.celebrityAPI()
             } failure: { error in
                 self.isLoading = false

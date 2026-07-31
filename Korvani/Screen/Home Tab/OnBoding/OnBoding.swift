@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct OnBoding: View {
-    
     @StateObject var viewModel = OnBordingViewModel()
     let columns = [GridItem(.flexible())]
+    @State private var refreshID = UUID()
     
     var body: some View {
         ZStack {
@@ -76,9 +76,17 @@ struct OnBoding: View {
         }
         .defaultPage()
         .ignoresSafeArea()
-        .frame(width: screenWidth, height: screenHeight, alignment: .top)
+        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowHome) {
             TabBarScreen()
+        }
+        
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: UIDevice.orientationDidChangeNotification
+            )
+        ) { _ in
+            refreshID = UUID()
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = false
@@ -93,66 +101,128 @@ struct OnBoding: View {
 class OnBording {
     struct TopView: View {
         var info: OnBordingInfo
-        
+//        @EnvironmentObject var orientation: OrientationObserver
+        @State private var refreshID = UUID()
         var body: some View {
             ZStack {
-                VStack {
-                    Image(info.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                    
-                    Spacer()
-                }
-                
-                LinearGradient(colors: [.clear, .blackColour], startPoint: .center, endPoint: .bottom)
-                
-                VStack {
-                    Spacer()
-                    
-                    Text(info.name)
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(.white)
-                    
-                    Text(info.info)
-                        .foregroundColor(.white.opacity(0.8))
-                        .padding(.top, 6)
-                        .padding(.horizontal)
-                    
-                    Spacer().frame(height: 30)
-                    
-                    if info.moreInfo != nil {
-                        HStack(spacing: 15) {
-                            Image("ic_info")
-                                .frame(width: 40, height: 40)
+                if Device.isiPadLandscape {
+                    HStack {
+                        Image(info.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        
+                        Spacer()
+                        
+                        VStack {
+
+                            Text(info.name)
+                                .font(.system(size: 50, weight: .bold))
+                                .foregroundColor(.white)
                             
-                            VStack(alignment: .leading, spacing: 7) {
-                                Text(Strings.infoOnly)
-                                    .font(.system(size: 12, weight: .medium))
-                                
-                                Text(info.moreInfo ?? "")
-                                    .multilineTextAlignment(.leading)
-                                    .font(.system(size: 12, weight: .regular))
-                                    .foregroundColor(.grayColour)
+                            Text(info.info)
+                                .foregroundColor(.white.opacity(0.8))
+                                .padding(.top, 6)
+                                .padding(.horizontal)
+                            
+                            Spacer().frame(height: 30)
+                            
+                            if info.moreInfo != nil {
+                                HStack(spacing: 15) {
+                                    Image("ic_info")
+                                        .frame(width: 40, height: 40)
+                                    
+                                    VStack(alignment: .leading, spacing: 7) {
+                                        Text(Strings.infoOnly)
+                                            .font(.system(size: 12, weight: .medium))
+                                        
+                                        Text(info.moreInfo ?? "")
+                                            .multilineTextAlignment(.leading)
+                                            .font(.system(size: 12, weight: .regular))
+                                            .foregroundColor(.grayColour)
+                                    }
+                                }
+                                .padding(16)
+                                .background(.lightBlackColour)
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(.lightborderColour, lineWidth: 1)
+                                )
+                                .padding(.bottom, 24)
+                                .padding(16)
                             }
                         }
-                        .padding(16)
-                        .background(.lightBlackColour)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(.lightborderColour, lineWidth: 1)
-                        )
-                        .padding(.bottom, 24)
-                        .padding(16)
+                        .multilineTextAlignment(.center)
+                        
+                        Spacer()
                     }
+                } else {
+                    VStack {
+                        Image(info.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        
+                        Spacer()
+                    }
+                    
+                    LinearGradient(colors: [.clear, .blackColour], startPoint: .center, endPoint: .bottom)
+                    
+                    VStack {
+                        Spacer()
+                        
+                        Text(info.name)
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(.white)
+                        
+                        Text(info.info)
+                            .foregroundColor(.white.opacity(0.8))
+                            .padding(.top, 6)
+                            .padding(.horizontal)
+                        
+                        Spacer().frame(height: 30)
+                        
+                        if info.moreInfo != nil {
+                            HStack(spacing: 15) {
+                                Image("ic_info")
+                                    .frame(width: 40, height: 40)
+                                
+                                VStack(alignment: .leading, spacing: 7) {
+                                    Text(Strings.infoOnly)
+                                        .font(.system(size: 12, weight: .medium))
+                                    
+                                    Text(info.moreInfo ?? "")
+                                        .multilineTextAlignment(.leading)
+                                        .font(.system(size: 12, weight: .regular))
+                                        .foregroundColor(.grayColour)
+                                }
+                            }
+                            .padding(16)
+                            .background(.lightBlackColour)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.lightborderColour, lineWidth: 1)
+                            )
+                            .padding(.bottom, 24)
+                            .padding(16)
+                        }
+                    }
+    //                .lineLimit(2)
+                    .multilineTextAlignment(.center)
                 }
-//                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                
             }
             .ignoresSafeArea()
+            
             .onAppear {
                 SwipeBackManager.shared.isEnabled = false
+            }
+            .id(refreshID)
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: UIDevice.orientationDidChangeNotification
+                )
+            ) { _ in
+                refreshID = UUID()
             }
         }
     }

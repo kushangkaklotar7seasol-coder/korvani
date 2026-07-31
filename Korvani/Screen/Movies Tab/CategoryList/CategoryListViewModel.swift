@@ -39,6 +39,10 @@ class CategoryListViewModel: ObservableObject {
             self.topRatedSeriesAPI()
         case .mostPopulerSeries:
             self.populerSeriesAPI()
+        case .upcommingMovie:
+            self.upcomingMovieAPI()
+        case .onTheAirSeries:
+            self.onTheAirSeriesAPI()
         }
     }
     
@@ -122,10 +126,48 @@ class CategoryListViewModel: ObservableObject {
         if Utility.isInternetAvailable() {
             DiscoverService.shared.populerSeriesAPI(page: (self.mediaCredits?.page ?? 0)+1) { statusCode, response in
                 self.mediaCredits = response
+                self.isLoading = false
                 for i in response.results {
                     self.mediaItem.append(i)
                 }
             } failure: { error in
+                self.isLoading = false
+                print(error)
+            }
+        } else {
+            Toast.shared.show(message: noInternet, type: .error)
+        }
+    }
+    
+    func upcomingMovieAPI() {
+        if Utility.isInternetAvailable() {
+            isLoading = true
+            HomeServices.shared.upCommingdAPI(page: (self.mediaCredits?.page ?? 0)+1) { statusCode, response in
+                self.mediaCredits = response
+                self.isLoading = false
+                for i in response.results {
+                    self.mediaItem.append(i)
+                }
+            } failure: { error in
+                self.isLoading = false
+                print(error)
+            }
+        } else {
+            Toast.shared.show(message: noInternet, type: .error)
+        }
+    }
+    
+    func onTheAirSeriesAPI() {
+        if Utility.isInternetAvailable() {
+            isLoading = true
+            HomeServices.shared.onTheAirAPI(page: (self.mediaCredits?.page ?? 0)+1) { statusCode, response in
+                self.mediaCredits = response
+                self.isLoading = false
+                for i in response.results {
+                    self.mediaItem.append(i)
+                }
+            } failure: { error in
+                self.isLoading = false
                 print(error)
             }
         } else {
