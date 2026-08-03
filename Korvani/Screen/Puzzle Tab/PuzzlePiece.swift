@@ -13,142 +13,68 @@ internal import Combine
 struct PuzzleView: View {
     
     @StateObject var viewModel: PuzzleViewModel
-    @State private var draggedItem: PuzzlePiece?
     @State private var showInstructionsSheet = false
     @State private var showOriginalPosterSheet = false
     @EnvironmentObject var localization: LocalizationManager
     @State private var refreshID = UUID()
     
-    let columns = [
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0)
-    ]
-    
     var body: some View {
-        let puzzleSize: CGFloat = Device.isIpad ? (Device.isiPadLandscape ? (screenWidth-100)/2 : screenWidth-32) : screenWidth-32
+//        let puzzleSize: CGFloat = Device.isIpad ? (Device.isiPadLandscape ? (screenWidth-100)/2 : screenWidth-32) : screenWidth-32
 
-            ZStack {
-                VStack(spacing: 8) {
-                    // Header
-                    DefaultDesign.Header(
-                        name: Strings.puzzle,
-                        secondIcon: "ic_info_dark",
-                        isShowSecondbutton: true,
-                        isShowBackButton: false,
-                        secondButton: {
-                            self.showInstructionsSheet = true
-                        }
-                    )
-                    
-                    // Progress Bar
-                    VStack(spacing: 5) {
-                        HStack {
-                            let persentage = "\(viewModel.completedPuzzle)".prefix(2)
-                            Text("\(persentage)% \(Strings.completed)")
-                                .font(.system(size: 14, weight: .regular))
-                                .foregroundColor(.grayColour)
-                            
-                            Spacer()
-                            
-                            Text("\(viewModel.correctCount)/9 \(Strings.pieces)")
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(.lightYellowColour)
-                        }
-                        
-                        Slider(value: $viewModel.completedPuzzle, in: 1...100)
-                            .tint(.orangeColour)
-                            .allowsHitTesting(false)
+        ZStack {
+            VStack(spacing: 8) {
+                // Header
+                DefaultDesign.Header(
+                    name: Strings.puzzle,
+                    secondIcon: "ic_info_dark",
+                    isShowSecondbutton: true,
+                    isShowBackButton: false,
+                    secondButton: {
+                        self.showInstructionsSheet = true
                     }
-                    .padding(.top, 5)
+                )
+                
+                if Device.isiPadLandscape {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            PuzzleDesign.PuzzlecollevtionView(viewModel: viewModel)
+                            
+                            VStack {
+                                PuzzleDesign.PuzzleProgressBar(viewModel: viewModel)
+                                
+                                ZStack {
+                                    Image(uiImage: viewModel.originalImage ?? UIImage())
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                                .background(.whiteColour)
+                                .cornerRadius(10)
+                                
+//                                PuzzleDesign.FullPosterButton(viewModel: viewModel, showOriginalPosterSheet: $showOriginalPosterSheet)
+                                
+                                PuzzleDesign.PuzzleSheetNote()
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                } else {
+                    PuzzleDesign.PuzzleProgressBar(viewModel: viewModel)
                     
-                    // Main Scroll Content - Ensures TabBar is never pushed off-screen in landscape
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 16) {
+                            PuzzleDesign.PuzzlecollevtionView(viewModel: viewModel)
                             
-                            // MARK: - Puzzle Grid
-                            LazyVGrid(columns: columns, spacing: 0) {
-                                ForEach(viewModel.pieces) { piece in
-                                    GeometryReader { geo in
-                                        Image(uiImage: piece.image)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(
-                                                width: geo.size.width,
-                                                height: geo.size.width
-                                            )
-                                            .clipped()
-                                            .onDrag {
-                                                self.draggedItem = piece
-                                                return NSItemProvider()
-                                            }
-                                            .onDrop(
-                                                of: [.text],
-                                                delegate: PuzzleDropDelegate(
-                                                    item: piece,
-                                                    pieces: $viewModel.pieces,
-                                                    draggedItem: $draggedItem,
-                                                    onMove: { from, to in
-                                                        viewModel.movePiece(from: from, to: to)
-                                                    }
-                                                )
-                                            )
-                                    }
-                                    .aspectRatio(1, contentMode: .fit)
-                                }
-                            }
-                            .frame(width: puzzleSize, height: puzzleSize)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            PuzzleDesign.FullPosterButton(viewModel: viewModel, showOriginalPosterSheet: $showOriginalPosterSheet)
                             
-                            // MARK: - Description / Original Poster Action
-                            Button {
-                                showOriginalPosterSheet = true
-                            } label: {
-                                if let image = viewModel.originalImage {
-                                    HStack {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .frame(width: 50, height: 50, alignment: .center)
-                                            .cornerRadius(10)
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(Strings.originalPoster)
-                                                .font(.system(size: 14, weight: .medium))
-                                                .foregroundColor(.whiteColour)
-                                            
-                                            Text(Strings.originalPosterTagline)
-                                                .font(.system(size: 12, weight: .regular))
-                                                .foregroundColor(.grayColour)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        Image("ic_eye")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                    }
-                                    .padding()
-                                    .background(.borderColour)
-                                    .cornerRadius(14)
-                                }
-                            }
-                            .frame(maxWidth: puzzleSize)
-                            
-                            // Footer Note
-                            Text(Strings.puzzleNotes)
-                                .font(.system(size: 12, weight: .regular))
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.grayColour)
-                                .padding(.top, 8)
-                                .padding(.bottom, 20)
+                            PuzzleDesign.PuzzleSheetNote()
                         }
                         .frame(maxWidth: .infinity)
                     }
                 }
-                .id(refreshID)
             }
-            .padding(.horizontal, 16)
-//        }
+            .id(refreshID)
+        }
+        .padding(.horizontal, 16)
         .background(.blackColour)
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
@@ -173,6 +99,148 @@ struct PuzzleView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
+        }
+    }
+}
+
+
+
+class PuzzleDesign {
+    struct PuzzleProgressBar: View {
+        @StateObject var viewModel: PuzzleViewModel
+        
+        var body: some View {
+            VStack(spacing: 5) {
+                HStack {
+                    let persentage = "\(viewModel.completedPuzzle)".prefix(2)
+                    Text("\(persentage)% \(Strings.completed)")
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(.grayColour)
+                    
+                    Spacer()
+                    
+                    Text("\(viewModel.correctCount)/9 \(Strings.pieces)")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundColor(.lightYellowColour)
+                }
+                
+                Slider(value: $viewModel.completedPuzzle, in: 1...100)
+                    .tint(.orangeColour)
+                    .allowsHitTesting(false)
+            }
+            .padding(.top, 5)
+
+        }
+    }
+    
+    struct PuzzlecollevtionView: View {
+        let columns = [
+            GridItem(.flexible(), spacing: 0),
+            GridItem(.flexible(), spacing: 0),
+            GridItem(.flexible(), spacing: 0)
+        ]
+        @StateObject var viewModel: PuzzleViewModel
+        @State private var draggedItem: PuzzlePiece?
+//        let puzzleSize: CGFloat = Device.isIpad ? (Device.isiPadLandscape ? screenHeight-32 : screenWidth-32) : screenWidth-32
+        
+        var puzzleSize: CGFloat {
+            if Device.isiPadLandscape {
+                return screenHeight-200
+            } else {
+                return screenWidth-32
+            }
+        }
+        
+        var body: some View {
+            // MARK: - Puzzle Grid
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(viewModel.pieces) { piece in
+                    GeometryReader { geo in
+                        Image(uiImage: piece.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(
+                                width: geo.size.width,
+                                height: geo.size.width
+                            )
+                            .clipped()
+                            .onDrag {
+                                self.draggedItem = piece
+                                return NSItemProvider()
+                            }
+                            .onDrop(
+                                of: [.text],
+                                delegate: PuzzleDropDelegate(
+                                    item: piece,
+                                    pieces: $viewModel.pieces,
+                                    draggedItem: $draggedItem,
+                                    onMove: { from, to in
+                                        viewModel.movePiece(from: from, to: to)
+                                    }
+                                )
+                            )
+                    }
+                    .aspectRatio(1, contentMode: .fit)
+                }
+            }
+            .frame(width: puzzleSize, height: puzzleSize)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+        }
+    }
+    
+    struct FullPosterButton: View {
+        @StateObject var viewModel: PuzzleViewModel
+        @State private var draggedItem: PuzzlePiece?
+        let puzzleSize: CGFloat = Device.isIpad ? (Device.isiPadLandscape ? (screenWidth-100)/2 : screenWidth-32) : screenWidth-32
+        @Binding var showOriginalPosterSheet: Bool
+        
+        var body: some View {
+            Button {
+                showOriginalPosterSheet = true
+            } label: {
+                if let image = viewModel.originalImage {
+                    HStack {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .cornerRadius(10)
+                        
+                        VStack(alignment: .leading) {
+                            Text(Strings.originalPoster)
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.whiteColour)
+                            
+                            Text(Strings.originalPosterTagline)
+                                .font(.system(size: 12, weight: .regular))
+                                .foregroundColor(.grayColour)
+                        }
+                        
+                        Spacer()
+                        
+                        Image("ic_eye")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
+                    .padding()
+                    .background(.borderColour)
+                    .cornerRadius(14)
+                }
+            }
+            .frame(maxWidth: puzzleSize)
+
+        }
+    }
+    
+    struct PuzzleSheetNote: View {
+        var body: some View {
+            // Footer Note
+            Text(Strings.puzzleNotes)
+                .font(.system(size: Device.isIpad ? 18 : 12, weight: .regular))
+                .multilineTextAlignment(.center)
+                .foregroundColor(.grayColour)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
         }
     }
 }

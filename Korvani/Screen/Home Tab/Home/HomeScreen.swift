@@ -21,25 +21,7 @@ struct HomeScreen: View {
                
                 ScrollView(showsIndicators: false) {
                     VStack {
-//                        if !viewModel.topRatedMovie.isEmpty {
-//                            Home.PagerView(viewModel: viewModel)
-//                                .id(refreshID)
-//                        }
-//                        else {
-//                            ZStack { }
-//                                .frame(width: screenWidth * 0.8, height: isiPad ? 320 : 177)
-//                                .background(.grayColour)
-//                                .cornerRadius(10)
-//                                .padding(.bottom, 53)
-//                        }
-                        
-//                        TabView {
-//                            ForEach(1...20, id: \.self) { item in
-//                                MyView()
-//                            }
-//                        }
-//                        .tabViewStyle(PageTabViewStyle())
-//                        .frame(width: screenWidth, height: Device.isIpad ? 320 : 177)
+                        PagerViewIOS17(viewModel: viewModel)
                         
                         VStack(spacing: 24) {
                             ForEach(viewModel.moviesBunch, id: \.id) { item in
@@ -622,10 +604,6 @@ class Home {
                     .cornerRadius(20)
                 }
             }
-//            .id(refreshID)
-//            .onReceive(NotificationCenter.default.publisher( for: UIDevice.orientationDidChangeNotification)) { _ in
-//                refreshID = UUID()
-//            }
         }
     }
     
@@ -674,5 +652,161 @@ struct MyView: View {
         }
         .frame(width: screenWidth * 0.8, height: Device.isIpad ? 320 : 177)
         .background(.white)
+    }
+}
+
+struct PagerViewIOS17: View {
+    let pages: [Color] = [.red, .blue, .green, .orange, .purple]
+    @StateObject var viewModel: HomeViewModel
+    
+    @StateObject var pagerState = PagerState()
+    @State private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    
+    var cardWidth: CGFloat {
+        if Device.isiPadPortrait {
+            return screenWidth * 0.70
+        } else if Device.isiPadLandscape {
+            return screenWidth * 0.60
+        } else {
+            return screenWidth * 0.70
+        }
+    }
+    
+    var cardHeight: CGFloat {
+        if Device.isIpad {
+            return screenHeight * 0.35
+        } else if Device.isiPadLandscape {
+            return screenHeight * 0.50
+        } else {
+            return screenHeight * 0.18
+        }
+    }
+
+    private var sidePadding: CGFloat {
+        (screenWidth - cardWidth) / 2
+    }
+
+    var body: some View {
+        Group {
+            if !viewModel.topRatedMovie.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 12) {
+                        ForEach(0..<1000, id: \.self) { index in
+                            let pageIndex = index % viewModel.topRatedMovie.count
+                            let movie = viewModel.topRatedMovie[pageIndex]
+                            let isCurrent = (pagerState.currentScrolledID ?? 500) == index
+                            
+                            VStack(alignment: .leading, spacing: 6) {
+                                ZStack {
+                                    KFImage.url(URL(string: imageUrl + (movie.posterPath ?? "")))
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: cardWidth, height: cardHeight)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .clipped()
+                                
+                                if isCurrent {
+                                    Text(movie.title)
+                                        .font(.system(size: Device.isIpad ? 18 : 15, weight: .medium))
+                                        .lineLimit(1)
+                                    
+                                    HStack(spacing: 4) {
+                                        Text("\(movie.releaseDate)  |")
+                                            .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
+                                            .foregroundColor(.grayColour)
+                                        
+                                        Image("ic_star")
+                                            .resizable()
+                                            .frame(width: 14, height: 14)
+                                        
+                                        Text("\(movie.voteAverage / 2)".prefix(3))
+                                            .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
+                                            .foregroundColor(.yellowColour)
+                                    }
+                                } else {
+                                    Color.clear
+                                        .frame(height: Device.isIpad ? 45 : 35)
+                                }
+                            }
+                            .scrollTransition { content, phase in
+                                content
+                                    .scaleEffect(phase.isIdentity ? 1.0 : 0.85)
+                                    .opacity(phase.isIdentity ? 1.0 : 0.6)
+                            }
+                            .id(index)
+                            .onTapGesture {
+                                viewModel.selectedMovieId = movie.id
+                                viewModel.navigationItem.movieDetail = true
+                                viewModel.isSelectedMovie = true
+                            }
+                        }
+                    }
+                    .scrollTargetLayout()
+                }
+                .contentMargins(.horizontal, sidePadding, for: .scrollContent)
+                .scrollTargetBehavior(.viewAligned)
+                .scrollPosition(id: $pagerState.currentScrolledID)
+                .onReceive(timer) { _ in
+                    withAnimation(.easeInOut(duration: 0.6)) {
+                        let current = pagerState.currentScrolledID ?? 500
+                        pagerState.currentScrolledID = current + 1
+                    }
+                }
+                .onChange(of: screenWidth) { _, _ in
+                    let savedID = pagerState.currentScrolledID
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                        pagerState.currentScrolledID = savedID
+                    }
+                }
+            } else {
+                ZStack { }
+                .frame(width: cardWidth, height: cardHeight, alignment: .center)
+                .background(Color.gray.opacity(0.4))
+                .cornerRadius(10)
+                .shimmer()
+            }
+        }
+    }
+}
+
+class PagerState: ObservableObject {
+    @Published var currentScrolledID: Int? = 500
+}
+
+struct ShimmerModifier: ViewModifier {
+    @State private var phase: CGFloat = -0.7
+
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                GeometryReader { geometry in
+                    let width = geometry.size.width
+                    Rectangle()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.white.opacity(0),
+                                    Color.white.opacity(0.4),
+                                    Color.white.opacity(0)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: width * 1.5)
+                        .offset(x: phase * width)
+                        .onAppear {
+                            withAnimation(
+                                Animation.linear(duration: 1.5)
+                                    .repeatForever(autoreverses: false)
+                            ) {
+                                phase = 1.3
+                            }
+                        }
+                }
+            )
+            .mask(content)
     }
 }

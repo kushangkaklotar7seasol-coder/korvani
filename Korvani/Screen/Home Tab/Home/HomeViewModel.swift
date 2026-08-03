@@ -30,7 +30,7 @@ class HomeViewModel : ObservableObject {
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDataNotification(_:)), name: .didReceiveData, object: nil)
         
-//        self.topRatedMovieAPI()
+        self.topRatedMovieAPI()
     }
     
     func onApper(){
@@ -61,9 +61,8 @@ class HomeViewModel : ObservableObject {
             isLoading = true
             HomeServices.shared.topRatedAPI { statusCode, response in
                 self.isLoading = false
-
                 let movieData = response.results.prefix(5)
-                self.topRatedMovie = Array(repeating: movieData, count: 100).flatMap { $0 }
+                self.topRatedMovie = Array(movieData)
                 self.upcomingMovieAPI()
             } failure: { error in
                 self.isLoading = false
