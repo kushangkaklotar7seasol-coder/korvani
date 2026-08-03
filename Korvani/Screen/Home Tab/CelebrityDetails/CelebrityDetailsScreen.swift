@@ -17,6 +17,7 @@ struct CelebrityDetailsScreen: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
@@ -24,6 +25,10 @@ struct CelebrityDetailsScreen: View {
                 VStack() {
                     CelebrityDetails.ImageView(url: viewModel.celebrityDetail?.profilePath ?? "", name: viewModel.celebrityDetail?.name ?? "", profesion: viewModel.celebrityDetail?.knownForDepartment ?? "")
                         .padding(.top, 40)
+                    
+                    if isShowAdd() {
+                        NativeAd6()
+                    }
                     
                     if viewModel.celebrityDetail?.biography != "" {
                         VStack(alignment: .leading) {
@@ -125,48 +130,52 @@ struct CelebrityDetailsScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
-        .sheet(isPresented: $viewModel.isViewAllSheet) {
-            VStack {
-                HStack {
-                    Button {
-                        viewModel.isViewAllSheet = false
-                    } label: {
-                        Image("ic_cancel")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                    }
-                    
-                    Text("\(viewModel.celebrityDetail?.name ?? "")")
-                        .font(.system(size: 21, weight: .semibold))
-                        .lineLimit(1)
-                    
-                    Spacer()
-                }
-                .padding(.vertical, 5)
-                .padding(.horizontal, 16)
-                
-                if !viewModel.movies.isEmpty {
-                    ScrollView(showsIndicators: false) {
-                        LazyVGrid(columns: columns) {
-                            ForEach(viewModel.movies.indices, id: \.self) { item in
-                                MovieDetail.card(movies: viewModel.movies[item], numbersOfCard: 2)
-                                    .onTapGesture {
-                                        viewModel.isViewAllSheet = false
-                                        viewModel.selectedMovie = viewModel.movies[item]
-                                        viewModel.isShowmovieDetail = true
-                                    }
-                            }
-                        }
-                    }
-                } else {
-                    Spacer()
-                    Text("No Media Found")
-                        .font(.system(size: 21, weight: .semibold))
-                        .foregroundColor(.whiteColour)
-                    Spacer()
-                }
-            }
+        .navigationDestination(isPresented: $viewModel.isViewAllSheet){
+            AllMoviesScreen(header: viewModel.celebrityDetail?.name ?? "", mediaItem: viewModel.movies)
         }
+        
+//        .sheet(isPresented: $viewModel.isViewAllSheet) {
+//            VStack {
+//                HStack {
+//                    Button {
+//                        viewModel.isViewAllSheet = false
+//                    } label: {
+//                        Image("ic_cancel")
+//                            .resizable()
+//                            .frame(width: 40, height: 40, alignment: .center)
+//                    }
+//                    
+//                    Text("\(viewModel.celebrityDetail?.name ?? "")")
+//                        .font(.system(size: 21, weight: .semibold))
+//                        .lineLimit(1)
+//                    
+//                    Spacer()
+//                }
+//                .padding(.vertical, 5)
+//                .padding(.horizontal, 16)
+//                
+//                if !viewModel.movies.isEmpty {
+//                    ScrollView(showsIndicators: false) {
+//                        LazyVGrid(columns: columns) {
+//                            ForEach(viewModel.movies.indices, id: \.self) { item in
+//                                MovieDetail.card(movies: viewModel.movies[item], numbersOfCard: 2)
+//                                    .onTapGesture {
+//                                        viewModel.isViewAllSheet = false
+//                                        viewModel.selectedMovie = viewModel.movies[item]
+//                                        viewModel.isShowmovieDetail = true
+//                                    }
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    Spacer()
+//                    Text("No Media Found")
+//                        .font(.system(size: 21, weight: .semibold))
+//                        .foregroundColor(.whiteColour)
+//                    Spacer()
+//                }
+//            }
+//        }
     }
     
     private func checkTruncation(fullHeight: CGFloat) {
@@ -324,6 +333,7 @@ class CelebrityDetails {
     struct WatchItems: View {
         @State private var selectedTab: MediaTab = .movies
         @StateObject var viewModel: CelebrityDetailsViewModel
+        @EnvironmentObject var adVm: AdCountViewModel
         
         enum MediaTab: String, CaseIterable {
             case movies = "MOVIES"
@@ -352,6 +362,7 @@ class CelebrityDetails {
                         DefaultDesign.Loader()
                     } else {
                         Button {
+                            adVm.registerTap()
                             viewModel.isViewAllSheet = true
                         } label: {
                             Text(Strings.viewAll)
@@ -379,7 +390,6 @@ class MovieDetail {
         var onLike: ((MediaItem) -> Void)?
         
         @State var isLiked: Bool = false
-//        @EnvironmentObject var orientation: OrientationObserver
         
         var cardWidth: CGFloat {
             switch numbersOfCard {
@@ -439,8 +449,10 @@ class MovieDetail {
                                 Button {
                                     if self.isLiked {
                                         database.removeMovie(id: movies.id)
+                                        Toast.shared.show(message: "Movie Removed", type: .success)
                                     } else {
                                         database.addMovie(movies)
+                                        Toast.shared.show(message: "Movie Favourite", type: .success)
                                     }
                                     
                                     self.isLiked.toggle()

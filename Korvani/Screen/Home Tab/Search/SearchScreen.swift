@@ -66,108 +66,177 @@ struct SearchScreen: View {
                     .cornerRadius(10)
                 }
                 .padding(.top, 10)
+                .padding(.horizontal, 16)
                 
                 CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: [Strings.movies, Strings.series]) { index in
                     viewModel.manageAPICalls(index: index)
                 }
+                .padding(.horizontal, 16)
                 
                 let array = viewModel.selectedIndex == 0 ? viewModel.movies : viewModel.series
                 
-                if !array.isEmpty {
+//                if !array.isEmpty {
                     VStack {
-                        if viewModel.selectedIndex == 0 {
+//                        if viewModel.selectedIndex == 0 {
                             ScrollView(showsIndicators: false) {
                                 
-                                LazyVGrid(columns: columns) {
-                                    ForEach(array.indices, id: \.self) { index in
-                                        MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
-                                            .onTapGesture {
-                                                Utility.closeKeyboard()
-                                                viewModel.selectedMovie = array[index]
-                                                viewModel.isShowmovieDetail = true
-                                            }
-                                            .onAppear() {
-                                                self.loadMoreIfNeeded(currentItem: index)
-                                            }
-                                    }
+                                if isShowAdd() {
+                                    NativeAd6()
                                 }
-                                .padding(.vertical, 20)
                                 
+                                if !array.isEmpty {
+                                    
+                                    if viewModel.selectedIndex == 0 {
+                                        LazyVGrid(columns: columns) {
+                                            ForEach(array.indices, id: \.self) { index in
+                                                MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
+                                                    .onTapGesture {
+                                                        Utility.closeKeyboard()
+                                                        viewModel.selectedMovie = array[index]
+                                                        viewModel.isShowmovieDetail = true
+                                                    }
+                                                    .onAppear() {
+                                                        self.loadMoreIfNeeded(currentItem: index)
+                                                    }
+                                            }
+                                        }
+                                        .padding(.vertical, 20)
+                                        .padding(.horizontal, 16)
+                                    } else {
+                                        LazyVGrid(columns: columns) {
+                                            ForEach(array.indices, id: \.self) { index in
+                                                MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
+                                                    .onTapGesture {
+                                                        Utility.closeKeyboard()
+                                                        viewModel.selectedMovie = array[index]
+                                                        viewModel.isShowmovieDetail = true
+                                                    }
+                                                    .onAppear() {
+                                                        self.loadMoreIfNeeded(currentItem: index)
+                                                    }
+                                            }
+                                        }
+                                        .padding(.vertical, 20)
+                                        .padding(.horizontal, 16)
+                                    }
+                                } else {
+                                    VStack {
+                                        VStack(spacing: 16) {
+                                            if viewModel.searchTextField.isEmpty {
+                                                
+                                                Image("ic_search_empty_background")
+                                                    .resizable()
+                                                    .frame(width: 120, height: 120, alignment: .center)
+                                                
+                                                Text(Strings.searchMoviePlaceholder)
+                                                    .font(.system(size: 18, weight: .semibold))
+                                                    .foregroundColor(.whiteColour)
+                                                    .multilineTextAlignment(.center)
+                                                
+                                                Text(Strings.newSearchPlaceholder)
+                                                    .font(.system(size: 14, weight: .medium))
+                                                    .foregroundColor(.grayColour)
+                                                    .multilineTextAlignment(.center)
+                                                
+                                            } else {
+                                                Image("ic_search_empty_background")
+                                                    .resizable()
+                                                    .frame(width: 120, height: 120, alignment: .center)
+                                                
+                                                Text(Strings.noSearchData)
+                                                    .font(.system(size: 18, weight: .semibold))
+                                                    .foregroundColor(.whiteColour)
+                                                    .multilineTextAlignment(.center)
+                                                
+                                                Text("\(Strings.noSearchDataFor) \(viewModel.searchTextField)")
+                                                    .font(.system(size: 14, weight: .medium))
+                                                    .foregroundColor(.grayColour)
+                                                    .multilineTextAlignment(.center)
+                                            }
+                                            
+                                        }
+                                        .opacity(0.4)
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                                        .offset(y: -viewModel.keyboardHeight / 3 - 64)
+                                    }
+                                    .padding(.top, 82)
+                                    .padding(.horizontal, 16)
+                                    .frame(maxWidth: .infinity)
+                                }
                             }
                             .scrollDismissesKeyboard(.immediately)
                             .id(refreshID)
-                        } else {
-                            ScrollView(showsIndicators: false) {
-                                
-                                LazyVGrid(columns: columns) {
-                                    ForEach(array.indices, id: \.self) { index in
-                                        MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
-                                            .onTapGesture {
-                                                Utility.closeKeyboard()
-                                                viewModel.selectedMovie = array[index]
-                                                viewModel.isShowmovieDetail = true
-                                            }
-                                            .onAppear() {
-                                                self.loadMoreIfNeeded(currentItem: index)
-                                            }
-                                    }
-                                }
-                                .padding(.vertical, 20)
-                                
-                            }
-                            .scrollDismissesKeyboard(.immediately)
-                            .id(refreshID)
-                        }
+//                        } else {
+//                            ScrollView(showsIndicators: false) {
+//                                
+//                                LazyVGrid(columns: columns) {
+//                                    ForEach(array.indices, id: \.self) { index in
+//                                        MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
+//                                            .onTapGesture {
+//                                                Utility.closeKeyboard()
+//                                                viewModel.selectedMovie = array[index]
+//                                                viewModel.isShowmovieDetail = true
+//                                            }
+//                                            .onAppear() {
+//                                                self.loadMoreIfNeeded(currentItem: index)
+//                                            }
+//                                    }
+//                                }
+//                                .padding(.vertical, 20)
+//                                
+//                            }
+//                            .scrollDismissesKeyboard(.immediately)
+//                            .id(refreshID)
+//                        }
                     }
                     
-                } else {
-                    VStack {
-                        VStack(spacing: 16) {
-                            if viewModel.searchTextField.isEmpty {
-                                
-                                Image("ic_search_empty_background")
-                                    .resizable()
-                                    .frame(width: 120, height: 120, alignment: .center)
-                                
-                                Text(Strings.searchMoviePlaceholder)
-                                    .font(.system(size: 18, weight: .semibold))
-                                    .foregroundColor(.whiteColour)
-                                    .multilineTextAlignment(.center)
-                                
-                                Text(Strings.newSearchPlaceholder)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.grayColour)
-                                    .multilineTextAlignment(.center)
-                                
-                            } else {
-                                Image("ic_search_empty_background")
-                                    .resizable()
-                                    .frame(width: 120, height: 120, alignment: .center)
-                                
-                                Text(Strings.noSearchData)
-                                    .font(.system(size: 18, weight: .semibold))
-                                    .foregroundColor(.whiteColour)
-                                    .multilineTextAlignment(.center)
-                                
-                                Text("\(Strings.noSearchDataFor) \(viewModel.searchTextField)")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.grayColour)
-                                    .multilineTextAlignment(.center)
-                            }
-                            
-                        }
-                        .opacity(0.4)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .offset(y: -viewModel.keyboardHeight / 3 - 64)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
+//                } else {
+//                    VStack {
+//                        VStack(spacing: 16) {
+//                            if viewModel.searchTextField.isEmpty {
+//                                
+//                                Image("ic_search_empty_background")
+//                                    .resizable()
+//                                    .frame(width: 120, height: 120, alignment: .center)
+//                                
+//                                Text(Strings.searchMoviePlaceholder)
+//                                    .font(.system(size: 18, weight: .semibold))
+//                                    .foregroundColor(.whiteColour)
+//                                    .multilineTextAlignment(.center)
+//                                
+//                                Text(Strings.newSearchPlaceholder)
+//                                    .font(.system(size: 14, weight: .medium))
+//                                    .foregroundColor(.grayColour)
+//                                    .multilineTextAlignment(.center)
+//                                
+//                            } else {
+//                                Image("ic_search_empty_background")
+//                                    .resizable()
+//                                    .frame(width: 120, height: 120, alignment: .center)
+//                                
+//                                Text(Strings.noSearchData)
+//                                    .font(.system(size: 18, weight: .semibold))
+//                                    .foregroundColor(.whiteColour)
+//                                    .multilineTextAlignment(.center)
+//                                
+//                                Text("\(Strings.noSearchDataFor) \(viewModel.searchTextField)")
+//                                    .font(.system(size: 14, weight: .medium))
+//                                    .foregroundColor(.grayColour)
+//                                    .multilineTextAlignment(.center)
+//                            }
+//                            
+//                        }
+//                        .opacity(0.4)
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                        .offset(y: -viewModel.keyboardHeight / 3 - 64)
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                }
                 
                 Spacer()
             }
             .edgesIgnoringSafeArea(.bottom)
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
         .ignoresSafeArea(.keyboard, edges: .bottom)
@@ -180,18 +249,18 @@ struct SearchScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
-            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                withAnimation(.easeOut(duration: 0.25)) {
-                    viewModel.keyboardHeight = keyboardFrame.height
-                }
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            withAnimation(.easeOut(duration: 0.25)) {
-                viewModel.keyboardHeight = 0
-            }
-        }
+//        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
+//            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+//                withAnimation(.easeOut(duration: 0.25)) {
+//                    viewModel.keyboardHeight = keyboardFrame.height
+//                }
+//            }
+//        }
+//        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+//            withAnimation(.easeOut(duration: 0.25)) {
+//                viewModel.keyboardHeight = 0
+//            }
+//        }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
         }

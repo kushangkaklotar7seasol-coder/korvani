@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 
 class CategoryListViewModel: ObservableObject {
     @Published var media: MediaBunch

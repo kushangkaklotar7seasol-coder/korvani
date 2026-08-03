@@ -12,7 +12,6 @@ struct WallpaperExportScreen: View {
     @StateObject var viewModel: WallpaperExportViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var refreshID = UUID()
-//    @EnvironmentObject var orientation: OrientationObserver
     
     var imagewidth: CGFloat {
         return screenWidth-48
@@ -21,9 +20,17 @@ struct WallpaperExportScreen: View {
     var imageHeight: CGFloat {
         if isiPad {
             if Device.isiPadLandscape {
-                return screenHeight-200
+                if isShowAdd() {
+                    return screenHeight-350
+                } else {
+                    return screenHeight-200
+                }
             } else {
-                return screenHeight-200
+                if Device.isIpad {
+                    return screenHeight-350
+                } else {
+                    return screenHeight-200
+                }
             }
         } else {
             return .infinity
@@ -38,6 +45,7 @@ struct WallpaperExportScreen: View {
                 }, secondButton: {
                     viewModel.shareImage()
                 })
+                .padding(.horizontal, 20)
                 
                 ZStack {
                     KFImage.url(URL(string: isiPad ? viewModel.wallpaper?.src.large2x ?? "" : viewModel.wallpaper?.src.medium ?? ""))
@@ -49,6 +57,11 @@ struct WallpaperExportScreen: View {
                 .background(.grayColour.opacity(0.5))
                 .cornerRadius(16)
                 .padding(.top, 24)
+                .padding(.horizontal, 20)
+                
+                if isShowAdd() {
+                    NativeAd6()
+                }
                 
                 Button {
                     viewModel.onExportImage()
@@ -61,8 +74,9 @@ struct WallpaperExportScreen: View {
                             LinearGradient(colors: [.lightYellowColour,.orangeColour], startPoint: .top, endPoint: .bottom))
                         .cornerRadius(10)
                 }
-                .padding(.top, 24)
+                .padding(.top, 5)
                 .padding(.bottom, 2)
+                .padding(.horizontal, 20)
             }
             
 //            VStack {
@@ -96,7 +110,6 @@ struct WallpaperExportScreen: View {
 //            }
 //            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.downloadStatus)
         }
-        .padding(.horizontal, 20)
         .defaultPage()
         .id(refreshID)
         .onAppear() {

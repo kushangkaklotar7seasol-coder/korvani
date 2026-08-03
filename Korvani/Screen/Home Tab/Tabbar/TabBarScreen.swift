@@ -65,29 +65,38 @@ struct TabBarScreen: View {
     
     // ViewModel ને એક જ વાર ઇનિશિયલાઇઝ કરવા માટે સ્ટેટ પ્રોપર્ટી વાપરો
     @StateObject private var puzzleViewModel = PuzzleViewModel()
+    @State private var loadedTabs: Set<TabItem> = [.home]
     
     var body: some View {
         VStack(spacing: 0) {
             // Main Active View Container using ZStack
             ZStack {
 //                FScreen1()
-                HomeScreen()
-                    .opacity(selectedTab == .home ? 1 : 0)
-                    .allowsHitTesting(selectedTab == .home)
+                if loadedTabs.contains(.home) {
+                    HomeScreen()
+                        .opacity(selectedTab == .home ? 1 : 0)
+                        .allowsHitTesting(selectedTab == .home)
+                }
                 
-                DiscoverScreen()
-                    .opacity(selectedTab == .movies ? 1 : 0)
-                    .allowsHitTesting(selectedTab == .movies)
+                if loadedTabs.contains(.movies) {
+                    DiscoverScreen()
+                        .opacity(selectedTab == .movies ? 1 : 0)
+                        .allowsHitTesting(selectedTab == .movies)
+                }
                 
-                PuzzleView(viewModel: puzzleViewModel)
-//                FScreen3()
-                    .opacity(selectedTab == .puzzle ? 1 : 0)
-                    .allowsHitTesting(selectedTab == .puzzle)
+                if loadedTabs.contains(.puzzle) {
+                    PuzzleView(viewModel: puzzleViewModel)
+                    //   FScreen3()
+                        .opacity(selectedTab == .puzzle ? 1 : 0)
+                        .allowsHitTesting(selectedTab == .puzzle)
+                }
                 
-                SettingScreen()
-//                FScreen4()
-                    .opacity(selectedTab == .setting ? 1 : 0)
-                    .allowsHitTesting(selectedTab == .setting)
+                if loadedTabs.contains(.setting) {
+                    SettingScreen()
+                    //    FScreen4()
+                        .opacity(selectedTab == .setting ? 1 : 0)
+                        .allowsHitTesting(selectedTab == .setting)
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
@@ -95,7 +104,7 @@ struct TabBarScreen: View {
                 .background(Color.tabbarBorderColour)
             
             // Custom TabBar
-            CustomTabBar(selectedTab: $selectedTab)
+            CustomTabBar(selectedTab: $selectedTab, loadedTabs: $loadedTabs)
                 .background(Color.tabbarBackgroundColour)
         }
         .background(Color.blackColour)
@@ -108,13 +117,17 @@ struct TabBarScreen: View {
 
 struct CustomTabBar: View {
     @Binding var selectedTab: TabItem
-
+    @Binding var loadedTabs: Set<TabItem>
+    
     var body: some View {
         HStack {
             ForEach(TabItem.allCases, id: \.self) { tab in
                 Button {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         selectedTab = tab
+                    }
+                    if !loadedTabs.contains(tab) {
+                        loadedTabs.insert(tab)
                     }
                 } label: {
                     ZStack {

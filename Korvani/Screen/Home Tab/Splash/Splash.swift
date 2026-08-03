@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AWSCore
 //import AWSCore
 
 struct Splash: View {
@@ -35,25 +36,25 @@ struct Splash: View {
             self.webservice_getJSON_api()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                self.requestTrackingPermission() {
+                self.requestTrackingPermission() {
                     viewModel.navigationManager()
-//                }
+                }
             }
         }
     }
     
-//    func requestTrackingPermission(completion: @escaping () -> Void) {
-//        
-//        let credentials = AWSStaticCredentialsProvider(accessKey: ACCESS, secretKey: SECRET)
-//        let configuration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentials)
-//        AWSServiceManager.default().defaultServiceConfiguration = configuration
-//        
-//        AdsManager.shared.requestForConsentForm { _ in
-//            DispatchQueue.main.async {
-//                completion()
-//            }
-//        }
-//    }
+    func requestTrackingPermission(completion: @escaping () -> Void) {
+        
+        let credentials = AWSStaticCredentialsProvider(accessKey: ACCESS, secretKey: SECRET)
+        let configuration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentials)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        AdsManager.shared.requestForConsentForm { _ in
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
 
     func webservice_getJSON_api(completion: (() -> Void)? = nil) {
 
@@ -102,6 +103,17 @@ struct Splash: View {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
                     print(json)
+                    
+                    bannerId = json["bannerId"] as? String ?? ""
+                    nativeId = json["nativeId"] as? String ?? ""
+                    interstialId = json["interstialId"] as? String ?? ""
+                    appopenId = json["appopenId"] as? String ?? ""
+                    rewardId = json["rewardId"] as? String ?? ""
+                    
+                    addButtonColor = json["addButtonColor"] as? String ?? "#FA5026"
+                    
+                    adsPlus = 0
+                    adsCount = Int(json["afterClick"] as? String ?? "2") ?? 2
                     
                     if let result = json["extraFields"] as? [String: Any] {
                         let result  = result

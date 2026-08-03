@@ -6,8 +6,9 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 import UIKit
+import Kingfisher
 
 class MovieDetailViewModel: ObservableObject {
     @Published var isLoading = false
@@ -257,8 +258,10 @@ class MovieDetailViewModel: ObservableObject {
     func manageLike() {
         if self.isLiked {
             database.removeMovie(id: movieId ?? 0)
+            Toast.shared.show(message: "Movie Removed", type: .success)
         } else {
             database.addMovie(MediaItem(adult: false, backdropPath: "", genreIds: [], id: movieId ?? 0, originalLanguage: "", overview: "", popularity: 0.0, posterPath: movieDetail?.posterPath, softcore: false, voteAverage: movieDetail?.voteAverage ?? 0.0, voteCount: 0, title: movieDetail?.title, originalTitle: "", releaseDate: "", video: false, name: movieDetail?.title, originalName: "", firstAirDate: movieDetail?.releaseDate, originCountry: [], character: "", creditId: "", episodeCount: 0, firstCreditAirDate: "", isMovie: self.isMovie ?? true ? 1 : 0))
+            Toast.shared.show(message: "Movie Favourite", type: .success)
         }
         self.isLiked.toggle()
     }
@@ -267,6 +270,9 @@ class MovieDetailViewModel: ObservableObject {
         return """
         \(Strings.shareText1) \(self.movieDetail?.name ?? self.movieDetail?.title ?? "")
         \(Strings.shareText2)
+        
+        "Release date =" \(self.movieDetail?.releaseDate ?? self.movieDetail?.firstAirDate ?? "")
+        "⭐ =" \((self.movieDetail?.voteAverage ?? 0.0)/2)
         """
     }
     
@@ -281,4 +287,51 @@ class MovieDetailViewModel: ObservableObject {
 //            }
 //        }
 //    }
+    
+    func shareMediaItem(_ item: MediaDetail, completion: @escaping ([Any]) -> Void) {
+            let shareText = """
+            Check out \(item.title ?? item.name ?? "")!
+            Release date: \(item.releaseDate ?? "")
+            Rating: \(String(format: "%.1f", item.voteAverage))/10
+            """
+            
+            guard let url = item.posterPath else {
+                let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: nil)
+                completion([itemSource, shareText])
+                return
+            }
+            
+            // 1. Check Kingfisher cache synchronously first for instant loading
+            ImageCache.default.retrieveImage(forKey: url) { result in
+                switch result {
+                case .success(let cacheResult):
+                    if let cachedImage = cacheResult.image {
+                        let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: cachedImage)
+                        DispatchQueue.main.async {
+                            completion([itemSource, shareText, cachedImage])
+                        }
+                    } else {
+                        print("No image find")
+                        // 2. Fallback to async download if image is not cached
+//                        KingfisherManager.shared.retrieveImage(with: url) { downloadResult in
+//                            let downloadedImage = try? downloadResult.get().image
+//                            let itemSource = MediaActivityItemSource(title: item.title, shareText: shareText, image: downloadedImage)
+//                            
+//                            DispatchQueue.main.async {
+//                                if let image = downloadedImage {
+//                                    completion([itemSource, shareText, image])
+//                                } else {
+//                                    completion([itemSource, shareText])
+//                                }
+//                            }
+//                        }
+                    }
+                case .failure:
+                    let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: nil)
+                    DispatchQueue.main.async {
+                        completion([itemSource, shareText])
+                    }
+                }
+            }
+        }
 }

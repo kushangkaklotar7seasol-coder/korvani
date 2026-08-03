@@ -6,7 +6,7 @@
 ////
 //
 //import Foundation
-//internal import Combine
+//import Combine
 //
 //class UnitConverterViewModel: ObservableObject {
 //    @Published var selectedUnit: UnitType = .length {
@@ -243,7 +243,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 
 class UnitConverterViewModel: ObservableObject {
     // Swap દરમિયાન વચગાળાનું (intermediate) ખોટું convertUnit() ટ્રિગર ન થાય એટલે આ flag

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import CoreLocation
+import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     

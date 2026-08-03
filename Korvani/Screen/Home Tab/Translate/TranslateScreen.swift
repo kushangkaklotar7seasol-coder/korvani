@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import AVFAudio
+import AVFAudio
 
 struct TranslateScreen: View {
     @Environment(\.dismiss) private var dismiss
@@ -21,6 +21,7 @@ struct TranslateScreen: View {
                 DefaultDesign.Header(name: Strings.translate, back: {
                     self.dismiss()
                 })
+                .padding(.horizontal, 16)
                 
                 HStack {
                     Spacer()
@@ -65,6 +66,11 @@ struct TranslateScreen: View {
                 .background(.lightBlackColour)
                 .cornerRadius(16)
                 .padding(.top, 10)
+                .padding(.horizontal, 16)
+                
+                if isShowAdd() {
+                    NativeAd6()
+                }
                 
                 ScrollView(.vertical,showsIndicators: false) {
                     TextCard(
@@ -110,11 +116,12 @@ struct TranslateScreen: View {
                     )
                     .padding(.top, 10)
                 }
-                .padding(.top, 10)
+//                .padding(.top, 10)
+                .padding(.horizontal, 16)
+                
                 Spacer()
             }
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .contentShape(Rectangle())
         .onTapGesture {
@@ -126,7 +133,7 @@ struct TranslateScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
-        .onChange(of: scenePhase) { oldPhase, newPhase in
+        .onChange(of: scenePhase) { newPhase in
             switch newPhase {
             case .background:
                 if viewModel.isPlaying {
@@ -136,6 +143,16 @@ struct TranslateScreen: View {
                 break
             }
         }
+//        .onChange(of: scenePhase) { oldPhase, newPhase in
+//            switch newPhase {
+//            case .background:
+//                if viewModel.isPlaying {
+//                    viewModel.speaker.pauseSpeaking(at: .immediate)
+//                }
+//            @unknown default:
+//                break
+//            }
+//        }
     }
 }
 

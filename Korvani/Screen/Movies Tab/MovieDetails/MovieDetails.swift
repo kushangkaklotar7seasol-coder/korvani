@@ -14,6 +14,7 @@ struct MovieDetails: View {
     @StateObject var viewModel: MovieDetailViewModel
     @Environment(\.dismiss) private var dismiss
     @State var refreshID = UUID()
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var columns: [GridItem] {
         let count = isiPad ? (Device.isiPadLandscape ? 6 : 5) : 3
@@ -28,11 +29,7 @@ struct MovieDetails: View {
         }
     }
     
-//    private let columns = [
-//        GridItem(.flexible()),
-//        GridItem(.flexible()),
-//        GridItem(.flexible())
-//    ]
+    
     
     var body: some View {
         ZStack {
@@ -40,7 +37,7 @@ struct MovieDetails: View {
                 VStack {
                     // Topbar
                     ZStack {
-                        KFImage.url(URL(string: imageUrl+"\(viewModel.movieDetail?.posterPath ?? "")"))
+                        KFImage.url(URL(string: imageUrl+"\(viewModel.movieDetail?.backdropPath ?? "")"))
                             .placeholder { progress in
                                 Image("img_nomovie")
                                     .resizable()
@@ -48,7 +45,6 @@ struct MovieDetails: View {
                             }
                             .resizable()
                             .scaledToFill()
-//                            .frame(width: imageWidth, height: (screenHeight/2)+100, alignment: .center)
                             .frame(
                                 maxWidth: Device.isiPadLandscape ? .infinity : screenWidth,
                                 maxHeight: (screenHeight / 2) + 100,
@@ -146,6 +142,10 @@ struct MovieDetails: View {
                     .background(.whiteColour)
                     .id(refreshID)
                     
+                    if isShowAdd() {
+                        NativeAd6()
+                    }
+                    
                     if let overView = viewModel.movieDetail?.overview, overView != "" {
                         VStack {
                             HStack {
@@ -214,6 +214,7 @@ struct MovieDetails: View {
                         }, onViewAll: {
                             viewModel.isCastSelected = viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast
                             self.viewModel.isShowAllCast = true
+                            adVm.registerTap()
                         })
                         
                         if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast{
@@ -226,6 +227,7 @@ struct MovieDetails: View {
                                                 .onTapGesture {
                                                     viewModel.selectedCelebrityId = cast.id
                                                     viewModel.isShowCastDetails = true
+                                                    adVm.registerTap()
                                                 }
 //                                            MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
                                                 
@@ -246,6 +248,7 @@ struct MovieDetails: View {
                                         ForEach(crew, id: \.id) { crew in
                                             MovieDetailsDesign.CastDetail(image: crew.profilePath ?? "", firstName: crew.name, lastName: crew.department)
                                                 .onTapGesture {
+                                                    adVm.registerTap()
                                                     viewModel.selectedCelebrityId = crew.id
                                                     viewModel.isShowCastDetails = true
                                                 }
@@ -272,6 +275,7 @@ struct MovieDetails: View {
                             } else {
                                 viewModel.isShowVideo = true
                             }
+                            adVm.registerTap()
                         })
                         
                         if viewModel.mediaItems[viewModel.selectedMediaOption] == Strings.poster {
@@ -283,6 +287,7 @@ struct MovieDetails: View {
                                                 .onTapGesture {
                                                     viewModel.posterIndex = index
                                                     viewModel.isShowPosterDetail = true
+                                                    adVm.registerTap()
                                                 }
                                         }
                                     }
@@ -356,7 +361,6 @@ struct MovieDetails: View {
                 Spacer()
             }
         }
-//        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowCastDetails) {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.selectedCelebrityId))
         }
@@ -674,3 +678,72 @@ struct WebView: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: Context) {
     }
 }
+
+
+import SwiftUI
+import UIKit
+import LinkPresentation
+ 
+// MARK: - Custom Activity Item Source for Rich Sharing
+class MediaActivityItemSource: NSObject, UIActivityItemSource {
+    let title: String
+    let shareText: String
+    let image: UIImage?
+    
+    init(title: String, shareText: String, image: UIImage?) {
+        self.title = title
+        self.shareText = shareText
+        self.image = image
+        super.init()
+    }
+    
+    // Placeholder item used to determine available sharing extensions
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        return shareText
+    }
+    
+    // Actual content passed to the targeted app
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        if let image = image {
+            return [shareText, image]
+        }
+        return shareText
+    }
+    
+    // Metadata configuration for iMessage, Mail, AirDrop, and system sheet preview header
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        metadata.title = title
+        
+        if let image = image {
+            metadata.imageProvider = NSItemProvider(object: image)
+        }
+        return metadata
+    }
+}
+enum SharePresenter {
+    static func present(items: [Any]) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
+            return
+        }
+        
+        // Find top-most presented controller
+        var topController = rootViewController
+        while let presented = topController.presentedViewController {
+            topController = presented
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        // iPad Popover support to avoid crashes on iPad
+        if let popover = activityVC.popoverPresentationController {
+            popover.sourceView = topController.view
+            popover.sourceRect = CGRect(x: topController.view.bounds.midX, y: topController.view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+        
+        topController.present(activityVC, animated: true)
+    }
+}
+ 

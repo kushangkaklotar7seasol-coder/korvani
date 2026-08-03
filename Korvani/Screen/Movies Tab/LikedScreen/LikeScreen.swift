@@ -27,87 +27,178 @@ struct LikeScreen: View {
                 DefaultDesign.Header(name: "FAVORITE", back: {
                     self.dismiss()
                 })
+                .padding(.horizontal, 16)
                 
                 CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: [Strings.movies, Strings.series])
+                    .padding(.horizontal, 16)
                 
-                if viewModel.selectedIndex == 0 {
-                    if !viewModel.movies.isEmpty {
-                        ScrollView(showsIndicators: false) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(viewModel.movies.indices, id: \.self) { index in
-                                    MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
-                                        viewModel.movies.removeAll(where: {$0.id == movie.id})
-                                        DispatchQueue.main.async {
-                                            viewModel.fetchMovie()
+//                if viewModel.selectedIndex == 0 {
+                    
+                    ScrollView(showsIndicators: false) {
+                        
+                        if isShowAdd() {
+                            NativeAd6()
+                        }
+                        
+                        VStack {
+                            if !viewModel.movies.isEmpty {
+                                LazyVGrid(columns: columns) {
+                                    ForEach(viewModel.movies.indices, id: \.self) { index in
+                                        MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
+                                            viewModel.movies.removeAll(where: {$0.id == movie.id})
+                                            DispatchQueue.main.async {
+                                                viewModel.fetchMovie()
+                                            }
+                                        })
+                                        .id(viewModel.movies[index].id)
+                                        .onTapGesture {
+                                            viewModel.selectedMovie = viewModel.movies[index]
+                                            viewModel.isShowmovieDetail = true
                                         }
-                                    })
-                                    .id(viewModel.movies[index].id)
-                                    .onTapGesture {
-                                        viewModel.selectedMovie = viewModel.movies[index]
-                                        viewModel.isShowmovieDetail = true
                                     }
                                 }
                             }
+//                            else {
+//                                VStack {
+//                                    Spacer()
+//                                    Image("ic_no_favorite")
+//                                        .resizable()
+//                                        .frame(width: 120, height: 120, alignment: .center)
+//                                    
+//                                    Text(Strings.noFavourite)
+//                                        .foregroundColor(.whiteColour)
+//                                        .font(.system(size: 18, weight: .medium))
+//                                    
+//                                    Text(Strings.noFavouriteMovie)
+//                                        .foregroundColor(.grayColour)
+//                                        .font(.system(size: 14, weight: .regular))
+//                                    Spacer()
+//                                }
+//                            }
                         }
-                    } else {
+                        .opacity(viewModel.selectedIndex == 0 ? 1 : 0)
+                        .padding(.horizontal, 16)
+                        
                         VStack {
-                            Spacer()
-                            Image("ic_no_favorite")
-                                .resizable()
-                                .frame(width: 120, height: 120, alignment: .center)
-                            
-                            Text(Strings.noFavourite)
-                                .foregroundColor(.whiteColour)
-                                .font(.system(size: 18, weight: .medium))
-                            
-                            Text(Strings.noFavouriteMovie)
-                                .foregroundColor(.grayColour)
-                                .font(.system(size: 14, weight: .regular))
-                            Spacer()
-                        }
-                    }
-                } else {
-                    if !viewModel.series.isEmpty {
-                        ScrollView(showsIndicators: false) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(viewModel.series.indices, id: \.self) { index in
-                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
-                                        viewModel.series.removeAll(where: {$0.id == movie.id})
-                                        DispatchQueue.main.async {
-                                            viewModel.fetchSeries()
+                            if !viewModel.series.isEmpty {
+                                LazyVGrid(columns: columns) {
+                                    ForEach(viewModel.series.indices, id: \.self) { index in
+                                        MovieDetail.card(movies: viewModel.series[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
+                                            viewModel.series.removeAll(where: {$0.id == movie.id})
+                                            DispatchQueue.main.async {
+                                                viewModel.fetchSeries()
+                                            }
+                                        })
+                                        .id(viewModel.series[index].id)
+                                        .onTapGesture {
+                                            viewModel.selectedMovie = viewModel.series[index]
+                                            viewModel.isShowmovieDetail = true
                                         }
-                                    })
-                                    .id(viewModel.series[index].id)
-                                    .onTapGesture {
-                                        viewModel.selectedMovie = viewModel.series[index]
-                                        viewModel.isShowmovieDetail = true
                                     }
                                 }
                             }
+//                            else {
+//                                VStack {
+//                                    Spacer()
+//                                    Image("ic_no_favorite")
+//                                        .resizable()
+//                                        .frame(width: 120, height: 120, alignment: .center)
+//                                    
+//                                    Text(Strings.noFavourite)
+//                                        .foregroundColor(.whiteColour)
+//                                        .font(.system(size: 18, weight: .medium))
+//                                    
+//                                    Text(Strings.noFavouriteSeries)
+//                                        .foregroundColor(.grayColour)
+//                                        .font(.system(size: 14, weight: .regular))
+//                                    Spacer()
+//                                }
+//                            }
                         }
-                    } else {
-                        VStack {
-                            Spacer()
-                            Image("ic_no_favorite")
-                                .resizable()
-                                .frame(width: 120, height: 120, alignment: .center)
-                            
-                            Text(Strings.noFavourite)
-                                .foregroundColor(.whiteColour)
-                                .font(.system(size: 18, weight: .medium))
-                            
-                            Text(Strings.noFavouriteSeries)
-                                .foregroundColor(.grayColour)
-                                .font(.system(size: 14, weight: .regular))
-                            Spacer()
-                        }
+                        .opacity(viewModel.selectedIndex == 1 ? 1 : 0)
+                        .padding(.horizontal, 16)
                     }
-                }
+//                }
+//                else {
+//                    ScrollView(showsIndicators: false) {
+//                        if !viewModel.series.isEmpty {
+//                            
+//                            LazyVGrid(columns: columns) {
+//                                ForEach(viewModel.series.indices, id: \.self) { index in
+//                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
+//                                        viewModel.series.removeAll(where: {$0.id == movie.id})
+//                                        DispatchQueue.main.async {
+//                                            viewModel.fetchSeries()
+//                                        }
+//                                    })
+//                                    .id(viewModel.series[index].id)
+//                                    .onTapGesture {
+//                                        viewModel.selectedMovie = viewModel.series[index]
+//                                        viewModel.isShowmovieDetail = true
+//                                    }
+//                                }
+//                            }
+//                        } else {
+//                            VStack {
+//                                Spacer()
+//                                Image("ic_no_favorite")
+//                                    .resizable()
+//                                    .frame(width: 120, height: 120, alignment: .center)
+//                                
+//                                Text(Strings.noFavourite)
+//                                    .foregroundColor(.whiteColour)
+//                                    .font(.system(size: 18, weight: .medium))
+//                                
+//                                Text(Strings.noFavouriteSeries)
+//                                    .foregroundColor(.grayColour)
+//                                    .font(.system(size: 14, weight: .regular))
+//                                Spacer()
+//                            }
+//                        }
+//                    }
+//                }
                 
                 Spacer()
             }
+            
+            if viewModel.selectedIndex == 0 {
+                if viewModel.movies.isEmpty {
+                    VStack {
+                        Spacer()
+                        Image("ic_no_favorite")
+                            .resizable()
+                            .frame(width: 120, height: 120, alignment: .center)
+                        
+                        Text(Strings.noFavourite)
+                            .foregroundColor(.whiteColour)
+                            .font(.system(size: 18, weight: .medium))
+                        
+                        Text(Strings.noFavouriteMovie)
+                            .foregroundColor(.grayColour)
+                            .font(.system(size: 14, weight: .regular))
+                        Spacer()
+                    }
+                }
+            } else {
+                if viewModel.series.isEmpty {
+                    VStack {
+                        Spacer()
+                        Image("ic_no_favorite")
+                            .resizable()
+                            .frame(width: 120, height: 120, alignment: .center)
+                        
+                        Text(Strings.noFavourite)
+                            .foregroundColor(.whiteColour)
+                            .font(.system(size: 18, weight: .medium))
+                        
+                        Text(Strings.noFavouriteSeries)
+                            .foregroundColor(.grayColour)
+                            .font(.system(size: 14, weight: .regular))
+                        Spacer()
+                    }
+                }
+            }
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .id(refreshID)
         .edgesIgnoringSafeArea(.bottom)

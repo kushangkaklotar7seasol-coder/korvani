@@ -27,6 +27,18 @@ let imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_face"
 public let ACCESS = "AKIA2FCATE7MLGSZBHML"
 public let SECRET = "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"
 
+// MARK: - Ads manager -
+let isPro = false
+var bannerId = ""
+var nativeId = ""
+var appopenId = ""
+var rewardId = ""
+var interstialId = ""
+var addButtonColor = ""
+var smallNativeBannerId = ""
+var adsCount = 0
+var adsPlus = 0
+
 // MARK: - Supporting class
 let locationManager = LocationManager()
 
@@ -43,3 +55,7 @@ final class SwipeBackManager {
 // MARK: - Default message -
 
 let noInternet = "Please check you're internet connection!"
+
+func isShowAdd() -> Bool {
+    return !isPro && (nativeId != "" || nativeId != "ca" )
+}

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 
 class LikeViewModel: ObservableObject {
     @Published var movies: [MediaItem] = []

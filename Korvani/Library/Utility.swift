@@ -36,19 +36,57 @@ class Utility {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
-    class func shareText(_ text: String) {
+//    class func shareText(_ text: String) {
+//        
+//        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//              let rootViewController = windowScene.windows.first?.rootViewController else {
+//            return
+//        }
+//        
+//        let activityVC = UIActivityViewController(
+//            activityItems: [text],
+//            applicationActivities: nil
+//        )
+//        
+//        rootViewController.present(activityVC, animated: true)
+//    }
+    
+    class func shareText(_ text: String, url: String? = nil, image: UIImage? = nil, from sourceView: UIView? = nil) {
+        var itemsToShare: [Any] = [text]
         
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let rootViewController = windowScene.windows.first?.rootViewController else {
+        if let urlString = url, let shareURL = URL(string: urlString) {
+            itemsToShare.append(shareURL)
+        }
+        
+        if let shareImage = image {
+            itemsToShare.append(shareImage)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        
+        guard let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let rootVC = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
             return
         }
         
-        let activityVC = UIActivityViewController(
-            activityItems: [text],
-            applicationActivities: nil
-        )
+        if let popover = activityVC.popoverPresentationController {
+            if let sourceView = sourceView {
+                popover.sourceView = sourceView
+                popover.sourceRect = sourceView.bounds
+            } else {
+                popover.sourceView = rootVC.view
+                popover.sourceRect = CGRect(
+                    x: rootVC.view.bounds.midX,
+                    y: rootVC.view.bounds.midY,
+                    width: 0,
+                    height: 0
+                )
+                popover.permittedArrowDirections = []
+            }
+        }
         
-        rootViewController.present(activityVC, animated: true)
+        rootVC.present(activityVC, animated: true)
     }
 }
 

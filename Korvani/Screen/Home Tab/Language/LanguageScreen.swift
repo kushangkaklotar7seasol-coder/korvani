@@ -58,8 +58,9 @@ struct LanguageScreen: View {
                     }
                 }
                 .foregroundColor(.whiteColour)
+                .padding(.horizontal, 16)
                 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     LazyVGrid(columns: columns, spacing: 15) {
                         ForEach(viewModel.languages, id: \.id) { language in
                             VStack(spacing: 3) {
@@ -80,9 +81,14 @@ struct LanguageScreen: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 16)
+                    
+                    if isShowAdd() {
+                        NativeAd9()
+                    }
                 }
             }
-            .padding(.horizontal, 16)
+            
         }
         .defaultPage()
         .navigationDestination(isPresented: $viewModel.isOnBording) {

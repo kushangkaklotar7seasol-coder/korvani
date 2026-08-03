@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 
 class WallpaperViewModel: ObservableObject {
     @Published var pageCount = 0

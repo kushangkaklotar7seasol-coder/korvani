@@ -10,15 +10,16 @@ import SwiftUI
 struct DiscoverScreen: View {
     @StateObject var viewModel = DiscoverViewModel()
     @EnvironmentObject var localization: LocalizationManager
-//    @State var refreshID = UUID()
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
             VStack {
                 DefaultDesign.Header(name: "DISCOVERY", secondIcon: "ic_like_squre", isShowSecondbutton: true, isShowBackButton: false, font: .system(size: 20, weight: .semibold), secondButton: {
                     viewModel.isShowLikeScreen = true
+                    adVm.registerTap()
                 })
-                    .padding(.horizontal, 16)
+                .padding(.horizontal, 16)
                 
                 CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: [Strings.movies, Strings.series]) { index in
                     if index == 0 {
@@ -33,44 +34,115 @@ struct DiscoverScreen: View {
                 }
                 .padding(.horizontal, 16)
                 
-                if viewModel.selectedIndex == 0 {
+                
+                ZStack {
+                    // ----------------- MOVIES TAB -----------------
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
                             ForEach(viewModel.moviesBunch, id: \.id) { item in
-                                MovieDetail.MediaBunchView(item: item,
-                                                           onViewAll: {
-                                    viewModel.selectedBunch = item
-                                    viewModel.isShowCategoryScreen = true
-                                }, onMovie: { movie in
-                                    print("\(movie.name ?? "") Tap")
-                                    viewModel.selectedMovie = movie
-                                    viewModel.isShowmovieDetail = true
-                                })
+                                MovieDetail.MediaBunchView(
+                                    item: item,
+                                    onViewAll: {
+                                        viewModel.selectedBunch = item
+                                        viewModel.isShowCategoryScreen = true
+                                        adVm.registerTap()
+                                    }, onMovie: { movie in
+                                        print("\(movie.name ?? "") Tap")
+                                        viewModel.selectedMovie = movie
+                                        viewModel.isShowmovieDetail = true
+                                        adVm.registerTap()
+                                    }
+                                )
+                                
+                                if item.id == 0 {
+                                    if isShowAdd() {
+                                        NativeAd9()
+                                    }
+                                }
                             }
                         }
                         .padding(.vertical, 24)
                     }
                     .id(localization.selectedLanguage)
-//                    .id(refreshID)
-                } else {
+                    .opacity(viewModel.selectedIndex == 0 ? 1 : 0)
+                    .allowsHitTesting(viewModel.selectedIndex == 0)
+                    
+                    // ----------------- SERIES TAB -----------------
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
                             ForEach(viewModel.seriesBunch, id: \.id) { item in
-                                MovieDetail.MediaBunchView(item: item,
-                                                           onViewAll: {
-                                    viewModel.selectedBunch = item
-                                    viewModel.isShowCategoryScreen = true
-                                }, onMovie: { movie in
-                                    viewModel.selectedMovie = movie
-                                    viewModel.isShowmovieDetail = true
-                                })
+                                MovieDetail.MediaBunchView(
+                                    item: item,
+                                    onViewAll: {
+                                        viewModel.selectedBunch = item
+                                        viewModel.isShowCategoryScreen = true
+                                        adVm.registerTap()
+                                    }, onMovie: { movie in
+                                        viewModel.selectedMovie = movie
+                                        viewModel.isShowmovieDetail = true
+                                        adVm.registerTap()
+                                    }
+                                )
+                                
+                                if item.id == 0 {
+                                    if isShowAdd() {
+                                        NativeAd9()
+                                    }
+                                }
                             }
                         }
                         .padding(.vertical, 24)
                     }
                     .id(localization.selectedLanguage)
-//                    .id(refreshID)
+                    .opacity(viewModel.selectedIndex == 1 ? 1 : 0)
+                    .allowsHitTesting(viewModel.selectedIndex == 1)
                 }
+                
+                
+                
+//                if viewModel.selectedIndex == 0 {
+//                    ScrollView(showsIndicators: false) {
+//                        VStack(spacing: 24) {
+//                            ForEach(viewModel.moviesBunch, id: \.id) { item in
+//                                MovieDetail.MediaBunchView(item: item,
+//                                                           onViewAll: {
+//                                    viewModel.selectedBunch = item
+//                                    viewModel.isShowCategoryScreen = true
+//                                }, onMovie: { movie in
+//                                    print("\(movie.name ?? "") Tap")
+//                                    viewModel.selectedMovie = movie
+//                                    viewModel.isShowmovieDetail = true
+//                                })
+//                                
+//                                if item.id == 0 {
+//                                    if isShowAdd() {
+//                                        NativeAd7()
+//                                            .padding(.vertical, 8)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.vertical, 24)
+//                    }
+//                    .id(localization.selectedLanguage)
+//                } else {
+//                    ScrollView(showsIndicators: false) {
+//                        VStack(spacing: 24) {
+//                            ForEach(viewModel.seriesBunch, id: \.id) { item in
+//                                MovieDetail.MediaBunchView(item: item,
+//                                                           onViewAll: {
+//                                    viewModel.selectedBunch = item
+//                                    viewModel.isShowCategoryScreen = true
+//                                }, onMovie: { movie in
+//                                    viewModel.selectedMovie = movie
+//                                    viewModel.isShowmovieDetail = true
+//                                })
+//                            }
+//                        }
+//                        .padding(.vertical, 24)
+//                    }
+//                    .id(localization.selectedLanguage)
+//                }
             }
         }
         .defaultPage()
@@ -87,9 +159,6 @@ struct DiscoverScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = false
         }
-//        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-//            refreshID = UUID()
-//        }
     }
 }
 

@@ -26,6 +26,10 @@ struct PosterDetailScreen: View {
                 })
                 .padding(.horizontal, 16)
                 
+                if isShowAdd() {
+                    NativeAd6()
+                }
+                
                 Spacer()
                 
                 ScrollView(.horizontal, showsIndicators: false) {

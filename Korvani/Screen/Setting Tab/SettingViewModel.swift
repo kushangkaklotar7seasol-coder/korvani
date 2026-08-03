@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 import UIKit
 
 class SettingViewModel: ObservableObject {
@@ -38,15 +38,45 @@ class SettingViewModel: ObservableObject {
     }
     
     // MARK: - Actions
-    func shareApp() {
-        let url = URL(string: AppInfo.shareApp)!
+//    func shareApp() {
+//        let url = URL(string: AppInfo.shareApp)!
+//        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+//        
+//        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let root = scene.windows.first?.rootViewController {
+//            root.present(activityVC, animated: true)
+//        }
+//    }
+    
+    func shareApp(from sourceView: UIView? = nil) {
+        guard let url = URL(string: AppInfo.shareApp) else { return }
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let root = scene.windows.first?.rootViewController {
-            root.present(activityVC, animated: true)
+        guard let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let rootVC = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
+            return
         }
+        
+        if let popover = activityVC.popoverPresentationController {
+            if let sourceView = sourceView {
+                popover.sourceView = sourceView
+                popover.sourceRect = sourceView.bounds
+            } else {
+                popover.sourceView = rootVC.view
+                popover.sourceRect = CGRect(
+                    x: rootVC.view.bounds.midX,
+                    y: rootVC.view.bounds.midY,
+                    width: 0,
+                    height: 0
+                )
+                popover.permittedArrowDirections = []
+            }
+        }
+        
+        rootVC.present(activityVC, animated: true)
     }
+    
 
     func rateApp() {
         guard let url = URL(string: AppInfo.rateApp) else { return }

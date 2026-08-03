@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-internal import Combine
+import Combine
 
 @main
 struct KorvaniApp: App {
     @StateObject private var localization = LocalizationManager.shared
+    let adCountViewModel = AdCountViewModel.sharedd
     
     init() {
         UINavigationBar.appearance().isHidden = true
@@ -26,6 +27,7 @@ struct KorvaniApp: App {
             }
             .environment(\.locale, Locale(identifier: localization.selectedLanguage))
             .environmentObject(localization)
+            .environmentObject(adCountViewModel)
             .toastManager()
         }
     }

@@ -6,8 +6,8 @@
 //
 
 import Foundation
-internal import Combine
-internal import AVFAudio
+import Combine
+import AVFAudio
 import UIKit
 
 struct TranslateLanguageModel {

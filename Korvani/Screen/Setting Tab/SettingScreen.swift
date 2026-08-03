@@ -10,11 +10,13 @@ import SwiftUI
 struct SettingScreen: View {
     @StateObject var viewModel = SettingViewModel()
     @EnvironmentObject var localization: LocalizationManager
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
             VStack {
                 DefaultDesign.Header(name: Strings.setting, isShowBackButton: false)
+                    .padding(.horizontal, 16)
                 
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 0) {
@@ -40,19 +42,27 @@ struct SettingScreen: View {
                                     .background(.lightBlackColour)
                                     .cornerRadius(10)
                                     .onTapGesture {
+                                        if field.id == 0 { // For language navigation
+                                            adVm.registerTap()
+                                        }
                                         viewModel.onSelect(field.id)
                                     }
                                 }
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 16)
+                        .padding(.top, 16)
+                        .padding(.horizontal, 16)
+                        
+                        if isShowAdd() {
+                            NativeAd9()
+                                .padding(.vertical, 8)
+                        }
                     }
                 }
                 .id(localization.selectedLanguage)
             }
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .id(localization.selectedLanguage)
         .navigationDestination(isPresented: $viewModel.isShowLanguage) {

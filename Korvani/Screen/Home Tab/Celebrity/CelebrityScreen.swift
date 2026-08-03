@@ -12,12 +12,6 @@ struct CelebrityScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: CelebrityViewModel
     @State private var refreshID = UUID()
-//    @EnvironmentObject var orientation: OrientationObserver
-//    private let columns = [
-//        GridItem(.flexible()),
-//        GridItem(.flexible()),
-//        GridItem(.flexible())
-//    ]
     
     var columns: [GridItem] {
             let count = isiPad ? (Device.isiPadLandscape ? 6 : 5) : 3

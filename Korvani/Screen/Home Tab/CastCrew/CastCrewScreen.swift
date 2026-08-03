@@ -14,7 +14,9 @@ struct CastCrewScreen: View {
     var isCast: Bool = true
     @Environment(\.dismiss) private var dismiss
     @State private var refreshID = UUID()
-//    @EnvironmentObject var orientation: OrientationObserver
+    @EnvironmentObject var adVm: AdCountViewModel
+    @State var selectedCelebrityId: Int = 0
+    @State var isShowCastDetails: Bool = false
     var columns: [GridItem] {
             let count = isiPad ? (Device.isiPadLandscape ? 6 : 5) : 3
             return Array(repeating: GridItem(.flexible(), spacing: 15), count: count)
@@ -30,6 +32,10 @@ struct CastCrewScreen: View {
                  
                 if isCast {
                     ScrollView(showsIndicators: false) {
+                        if isShowAdd() {
+                            NativeAd6()
+                        }
+                        
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(cast.indices, id: \.self) { index in
                                 MovieDetailsDesign.CastDetail(
@@ -37,32 +43,38 @@ struct CastCrewScreen: View {
                                     firstName: cast[index].name,
                                     lastName: ""
                                 )
-//                                .onTapGesture {
-//                                    viewModel.selectedCelebrityId = cast[index].id
-//                                    viewModel.isShowCastDetails = true
-//                                }
+                                .onTapGesture {
+                                    selectedCelebrityId = cast[index].id
+                                    isShowCastDetails = true
+                                    adVm.registerTap()
+                                }
                             }
                         }
                         .padding(.top, 20)
+                        .padding(.horizontal, 16)
                     }
-                }
-                // ૨. જો isCast False હોય અથવા Cast ખાલી હોય, તો Crew ચેક કરશે
-                else  {
+                } else  {
                     ScrollView(showsIndicators: false) {
+                        if isShowAdd() {
+                            NativeAd9()
+                        }
+                        
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(crew.indices, id: \.self) { index in
                                 MovieDetailsDesign.CastDetail(
-                                    image: crew[index].profilePath ?? "",  // અહીં crew[index] વાપરવું
-                                    firstName: crew[index].name,          // અહીં crew[index] વાપરવું
+                                    image: crew[index].profilePath ?? "",
+                                    firstName: crew[index].name,
                                     lastName: ""
                                 )
-//                                .onTapGesture {
-//                                    viewModel.selectedCelebrityId = crew[index].id
-//                                    viewModel.isShowCastDetails = true
-//                                }
+                                .onTapGesture {
+                                    selectedCelebrityId = crew[index].id
+                                    isShowCastDetails = true
+                                    adVm.registerTap()
+                                }
                             }
                         }
                         .padding(.top, 20)
+                        .padding(.horizontal, 16)
                     }
                 }
                 // ૩. જો Cast અને Crew બંને ખાલી હોય તો નો ડેટા લેબલ બતાવશે
@@ -87,6 +99,9 @@ struct CastCrewScreen: View {
         .defaultPage()
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
             refreshID = UUID()
+        }
+        .navigationDestination(isPresented: $isShowCastDetails) {
+            CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: selectedCelebrityId))
         }
     }
 }

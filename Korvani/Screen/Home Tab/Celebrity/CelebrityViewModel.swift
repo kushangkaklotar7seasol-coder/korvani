@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 
 class CelebrityViewModel : ObservableObject {
     @Published var celebrity: CelebrityResponse?

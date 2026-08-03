@@ -20,6 +20,7 @@ struct CategoryListScreen: View {
             let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
             return Array(repeating: GridItem(.flexible()), count: count)
         }
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
@@ -27,24 +28,30 @@ struct CategoryListScreen: View {
                 DefaultDesign.Header(name: viewModel.media.name, back:  {
                     self.dismiss()
                 })
+                .padding(.horizontal, 16)
                 
                 ScrollView(showsIndicators: false) {
+                    if isShowAdd() {
+                        NativeAd9()
+                    }
+                    
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.mediaItem.indices, id: \.self) { index in
                             MovieDetail.card(movies: viewModel.mediaItem[index], numbersOfCard: isiPad ? 4 : 2)
                                 .onTapGesture {
                                     viewModel.selectedMovieId = viewModel.mediaItem[index].id
                                     viewModel.isShowmovieDetail = true
+                                    adVm.registerTap()
                                 }
                                 .onAppear() {
                                     self.loadMoreIfNeeded(currentItem: index)
                                 }
                         }
                     }
+                    .padding(.horizontal, 16)
                 }
             }
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {

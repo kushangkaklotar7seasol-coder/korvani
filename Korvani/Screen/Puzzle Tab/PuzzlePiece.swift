@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-internal import UniformTypeIdentifiers
-internal import Combine
+import UniformTypeIdentifiers
+import Combine
 
 // MARK: - View
 struct PuzzleView: View {
@@ -33,6 +33,7 @@ struct PuzzleView: View {
                         self.showInstructionsSheet = true
                     }
                 )
+                .padding(.horizontal, 16)
                 
                 if Device.isiPadLandscape {
                     ScrollView(.vertical, showsIndicators: false) {
@@ -41,7 +42,12 @@ struct PuzzleView: View {
                             
                             VStack {
                                 PuzzleDesign.PuzzleProgressBar(viewModel: viewModel)
+                                    .padding(.horizontal, 16)
                                 
+                                if isShowAdd() {
+                                    NativeAd6()
+                                }
+
                                 ZStack {
                                     Image(uiImage: viewModel.originalImage ?? UIImage())
                                         .resizable()
@@ -50,23 +56,28 @@ struct PuzzleView: View {
                                 .background(.whiteColour)
                                 .cornerRadius(10)
                                 
-//                                PuzzleDesign.FullPosterButton(viewModel: viewModel, showOriginalPosterSheet: $showOriginalPosterSheet)
-                                
                                 PuzzleDesign.PuzzleSheetNote()
+                                    .padding(.horizontal, 16)
                             }
                         }
                         .frame(maxWidth: .infinity)
                     }
                 } else {
                     PuzzleDesign.PuzzleProgressBar(viewModel: viewModel)
+                        .padding(.horizontal, 16)
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 16) {
+                            if isShowAdd() {
+                                NativeAd6()
+                            }
+                            
                             PuzzleDesign.PuzzlecollevtionView(viewModel: viewModel)
                             
                             PuzzleDesign.FullPosterButton(viewModel: viewModel, showOriginalPosterSheet: $showOriginalPosterSheet)
                             
                             PuzzleDesign.PuzzleSheetNote()
+                                .padding(.horizontal, 16)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -74,7 +85,7 @@ struct PuzzleView: View {
             }
             .id(refreshID)
         }
-        .padding(.horizontal, 16)
+//        .padding(.horizontal, 16)
         .background(.blackColour)
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)

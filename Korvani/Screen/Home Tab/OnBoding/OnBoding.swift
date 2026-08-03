@@ -41,6 +41,11 @@ struct OnBoding: View {
                 }
                 .padding(.bottom, 10)
                 
+                if isShowAdd() {
+                    NativeAd6()
+                        .padding(.bottom, 10)
+                }
+                
                 Button {
                     if viewModel.selectedTab == viewModel.information.count-1 {
                         DispatchQueue.main.async {
@@ -80,12 +85,7 @@ struct OnBoding: View {
         .navigationDestination(isPresented: $viewModel.isShowHome) {
             TabBarScreen()
         }
-        
-        .onReceive(
-            NotificationCenter.default.publisher(
-                for: UIDevice.orientationDidChangeNotification
-            )
-        ) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
         }
         .onAppear {

@@ -52,6 +52,10 @@ struct UnitConverterScreen: View {
                         .padding(.horizontal, 16)
                     }
                     
+                    if isShowAdd() {
+                        NativeAd9()
+                    }
+                    
                     ZStack {
                         VStack(spacing:20) {
                             UnitConvertCard(
@@ -82,7 +86,7 @@ struct UnitConverterScreen: View {
                         }
                         .buttonStyle(.plain)
                     }
-                    .padding(.top, 30)
+                    .padding(.top, 8)
                     .padding(.horizontal, 16)
                     
                     Spacer()

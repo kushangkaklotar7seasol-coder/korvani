@@ -13,7 +13,7 @@ struct WallpaperScreen: View {
     @StateObject var viewModel = WallpaperViewModel()
     @State private var refreshID = UUID()
 //    @EnvironmentObject var orientation: OrientationObserver
-    
+    @EnvironmentObject var adVm: AdCountViewModel
     var cardWidth : CGFloat {
         if isiPad {
             if Device.isiPadLandscape {
@@ -43,8 +43,13 @@ struct WallpaperScreen: View {
                 DefaultDesign.Header(name: "WALLPAPERS", back: {
                     self.dismiss()
                 })
+                .padding(.horizontal, 20)
                 
                 ScrollView(showsIndicators: false) {
+                    if isShowAdd() {
+                        NativeAd6()
+                    }
+                    
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.displayWallpaper.indices, id: \.self) { index in
                             ZStack {
@@ -61,12 +66,13 @@ struct WallpaperScreen: View {
                             .onTapGesture {
                                 viewModel.selectedWallpaper = viewModel.displayWallpaper[index]
                                 viewModel.isShowDownload = true
+                                adVm.registerTap()
                             }
                         }
                     }
+                    .padding(.horizontal, 20)
                 }
             }
-            .padding(.horizontal, 20)
         }
         .defaultPage()
         .id(refreshID)
@@ -76,11 +82,7 @@ struct WallpaperScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
-        .onReceive(
-            NotificationCenter.default.publisher(
-                for: UIDevice.orientationDidChangeNotification
-            )
-        ) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
         }
     }

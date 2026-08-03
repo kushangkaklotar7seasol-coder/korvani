@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-internal import CoreLocation
+import CoreLocation
 
 class WeatherService {
     

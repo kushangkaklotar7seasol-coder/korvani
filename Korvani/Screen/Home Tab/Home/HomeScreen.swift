@@ -6,22 +6,28 @@
 //
 
 import SwiftUI
-internal import Combine
+import Combine
 import Kingfisher
 
 struct HomeScreen: View {
     @StateObject var viewModel = HomeViewModel()
-//    @EnvironmentObject var localization: LocalizationManager
+    @EnvironmentObject var localization: LocalizationManager
     @State var refreshID = UUID()
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
             VStack {
                 Home.Header(viewModel: viewModel)
-               
+                
                 ScrollView(showsIndicators: false) {
                     VStack {
                         PagerViewIOS17(viewModel: viewModel)
+                        
+                        if isShowAdd() {
+                            NativeAd9()
+                                .padding(.vertical, 8)
+                        }
                         
                         VStack(spacing: 24) {
                             ForEach(viewModel.moviesBunch, id: \.id) { item in
@@ -29,15 +35,16 @@ struct HomeScreen: View {
                                                            onViewAll: {
                                     viewModel.selectedBunch = item
                                     viewModel.isShowCategoryScreen = true
+                                    adVm.registerTap()
                                 }, onMovie: { movie in
                                     viewModel.selectedMovieId = movie.id
                                     viewModel.isSelectedMovie = movie.title != nil ? true : false
                                     viewModel.navigationItem.movieDetail = true
+                                    adVm.registerTap()
                                 })
                             }
                         }
-                        .padding(.vertical, 24)
-//                        .id(refreshID)
+                        .padding(.bottom, 24)
 
                         VStack {
                             HStack {
@@ -47,6 +54,7 @@ struct HomeScreen: View {
                                 Spacer()
                                 
                                 Button {
+                                    adVm.registerTap()
                                     viewModel.navigationItem.celebrity = true
                                 } label: {
                                     Text(Strings.viewAll)
@@ -62,6 +70,7 @@ struct HomeScreen: View {
                                         ForEach(array.indices, id: \.self) { index in
                                             celebrity.profile(celebrity: array[index])
                                                 .onTapGesture {
+                                                    adVm.registerTap()
                                                     viewModel.navigationItem.celebrityDetail = true
                                                     viewModel.celebritySelectedId = array[index].id
                                                 }
@@ -71,7 +80,7 @@ struct HomeScreen: View {
                                 }
                             }
                         }
-                        .padding(.top, 24)
+                        .padding(.top, 8)
                         .id(refreshID)
                         
                         VStack(alignment: .leading) {
@@ -110,6 +119,7 @@ struct HomeScreen: View {
 //                                .id(refreshID)
                             
                             Button {
+                                adVm.registerTap()
                                 viewModel.navigationItem.wallpaper = true
                             } label: {
                                 Home.HdWallpaperView()
@@ -123,7 +133,7 @@ struct HomeScreen: View {
             }
         }
         .defaultPage()
-//        .id(localization.selectedLanguage)
+        .id(localization.selectedLanguage)
 //        .id(orientation.isLandscape)
         .onAppear() {
 //            viewModel.onApper()
@@ -542,11 +552,13 @@ class Home {
     struct UnitTranslaterView: View {
         @StateObject var viewModel: HomeViewModel
 //        @State private var refreshID = UUID()
-        
+        @EnvironmentObject var adVm: AdCountViewModel
+
         var body: some View {
             HStack() {
                 
                 Button {
+                    adVm.registerTap()
                     viewModel.navigationItem.unitConverter = true
                 } label: {
                     ZStack(alignment: .leading) {
@@ -576,6 +588,7 @@ class Home {
                 }
                 
                 Button {
+                    adVm.registerTap()
                     viewModel.navigationItem.translater = true
                 } label: {
                     ZStack(alignment: .leading) {
@@ -658,7 +671,7 @@ struct MyView: View {
 struct PagerViewIOS17: View {
     let pages: [Color] = [.red, .blue, .green, .orange, .purple]
     @StateObject var viewModel: HomeViewModel
-    
+    @EnvironmentObject var adVm: AdCountViewModel
     @StateObject var pagerState = PagerState()
     @State private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
@@ -740,6 +753,7 @@ struct PagerViewIOS17: View {
                                 viewModel.selectedMovieId = movie.id
                                 viewModel.navigationItem.movieDetail = true
                                 viewModel.isSelectedMovie = true
+                                adVm.registerTap()
                             }
                         }
                     }

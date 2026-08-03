@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 import Photos
 import UIKit
 

@@ -21,6 +21,7 @@ struct PosterScreen: View {
             let count = isiPad ? (Device.isiPadLandscape ? 4 : 3) : 2
             return Array(repeating: GridItem(.flexible(), spacing: 15), count: count)
         }
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
@@ -28,8 +29,13 @@ struct PosterScreen: View {
                 DefaultDesign.Header(name: viewModel.isImage ?? true ? Strings.poster : Strings.videos, back: {
                     self.dismiss()
                 })
+                .padding(.horizontal, 16)
                 
                 ScrollView(showsIndicators: false) {
+                    if isShowAdd() {
+                        NativeAd9()
+                    }
+                    
                     LazyVGrid(columns: columns) {
                         if viewModel.isImage ?? true  {
                             ForEach(viewModel.images.indices, id: \.self) { index in
@@ -38,6 +44,7 @@ struct PosterScreen: View {
                                     .onTapGesture {
                                         viewModel.posterIndex = index
                                         viewModel.isShowPosterDetail = true
+                                        adVm.registerTap()
                                     }
                             }
                         } else {
@@ -52,13 +59,14 @@ struct PosterScreen: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 16)
                 }
                 
                 Spacer()
             }
             .id(refreshID)
         }
-        .padding(.horizontal, 16)
+        
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
         .navigationDestination(isPresented: $viewModel.isShowPosterDetail) {
