@@ -13,8 +13,13 @@ let appName = "Korvani"
 let screenSize: CGRect = UIScreen.main.bounds
 let isiPad = UIDevice.current.userInterfaceIdiom == .pad
 // Extract width and height
-let screenWidth = screenSize.width
-let screenHeight = screenSize.height
+var screenWidth: CGFloat {
+    return UIScreen.main.bounds.width
+}
+
+var screenHeight: CGFloat {
+    return UIScreen.main.bounds.height
+}
 
 let isAppInTestMode = true
 

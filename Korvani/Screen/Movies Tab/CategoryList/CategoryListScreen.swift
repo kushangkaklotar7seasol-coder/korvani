@@ -53,7 +53,7 @@ struct CategoryListScreen: View {
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
             refreshID = UUID()
         }
     }

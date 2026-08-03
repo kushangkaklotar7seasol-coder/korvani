@@ -11,11 +11,12 @@ struct SearchScreen: View {
     @StateObject var viewModel = SearchViewModel()
     @Environment(\.dismiss) private var dismiss
     @FocusState var isTextFieldFocused: Bool
+    @State private var refreshID = UUID()
     
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    var columns: [GridItem] {
+            let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
+            return Array(repeating: GridItem(.flexible()), count: count)
+        }
     
     
     var body: some View {
@@ -79,7 +80,7 @@ struct SearchScreen: View {
                                 
                                 LazyVGrid(columns: columns) {
                                     ForEach(array.indices, id: \.self) { index in
-                                        MovieDetail.card(movies: array[index])
+                                        MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
                                             .onTapGesture {
                                                 Utility.closeKeyboard()
                                                 viewModel.selectedMovie = array[index]
@@ -94,12 +95,13 @@ struct SearchScreen: View {
                                 
                             }
                             .scrollDismissesKeyboard(.immediately)
+                            .id(refreshID)
                         } else {
                             ScrollView(showsIndicators: false) {
                                 
                                 LazyVGrid(columns: columns) {
                                     ForEach(array.indices, id: \.self) { index in
-                                        MovieDetail.card(movies: array[index])
+                                        MovieDetail.card(movies: array[index], numbersOfCard: isiPad ? 4 : 2)
                                             .onTapGesture {
                                                 Utility.closeKeyboard()
                                                 viewModel.selectedMovie = array[index]
@@ -114,7 +116,7 @@ struct SearchScreen: View {
                                 
                             }
                             .scrollDismissesKeyboard(.immediately)
-                            
+                            .id(refreshID)
                         }
                     }
                     
@@ -166,8 +168,6 @@ struct SearchScreen: View {
             .edgesIgnoringSafeArea(.bottom)
         }
         .padding(.horizontal, 16)
-//        .padding(.bottom, viewModel.isKeyboardVisible ? viewModel.keyboardHeight : 0)
-//        .animation(.easeOut(duration: 0.25), value: viewModel.keyboardHeight)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
         .ignoresSafeArea(.keyboard, edges: .bottom)
@@ -181,17 +181,20 @@ struct SearchScreen: View {
             SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
-                    if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                        withAnimation(.easeOut(duration: 0.25)) {
-                            viewModel.keyboardHeight = keyboardFrame.height
-                        }
-                    }
+            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                withAnimation(.easeOut(duration: 0.25)) {
+                    viewModel.keyboardHeight = keyboardFrame.height
                 }
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                    withAnimation(.easeOut(duration: 0.25)) {
-                        viewModel.keyboardHeight = 0
-                    }
-                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            withAnimation(.easeOut(duration: 0.25)) {
+                viewModel.keyboardHeight = 0
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            refreshID = UUID()
+        }
     }
     
     func loadMoreIfNeeded(currentItem: Int) {

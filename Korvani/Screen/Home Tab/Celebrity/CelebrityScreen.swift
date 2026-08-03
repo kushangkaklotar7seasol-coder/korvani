@@ -52,11 +52,11 @@ struct CelebrityScreen: View {
                 
                 Spacer()
             }
+            .id(refreshID)
         }
         .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
-        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowCelebrityDetail) {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
         }
@@ -86,12 +86,14 @@ class celebrity {
     
     struct profile: View {
         var celebrity: Celebrity
-        var size = {
+        
+        var size: CGFloat {
             if isiPad {
                 
                 if Device.isiPadLandscape {
 //                    return (screenHeight-60)/5
-                    return (screenHeight-28)/6
+//                    return (screenHeight-28)/6
+                    return (screenWidth-60)/6
                 } else {
                     return (screenWidth-60)/5
                 }
@@ -112,15 +114,14 @@ class celebrity {
                         .resizable()
                         .scaledToFill()
                 }
-                .frame(width: size(), height: size(), alignment: .center)
-//                .background(.whiteColour)
+                .frame(width: size, height: size, alignment: .center)
                 .cornerRadius(14)
                 
                 Text(celebrity.name)
                     .font(.system(size: 14,weight: .regular))
                     .lineLimit(1)
             }
-            .frame(width: size())
+            .frame(width: size)
         }
     }
 }

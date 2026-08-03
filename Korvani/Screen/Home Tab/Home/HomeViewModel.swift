@@ -30,7 +30,7 @@ class HomeViewModel : ObservableObject {
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDataNotification(_:)), name: .didReceiveData, object: nil)
         
-        self.topRatedMovieAPI()
+//        self.topRatedMovieAPI()
     }
     
     func onApper(){

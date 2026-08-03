@@ -13,8 +13,6 @@ struct MovieDetails: View {
     @State var isShowMore = false
     @StateObject var viewModel: MovieDetailViewModel
     @Environment(\.dismiss) private var dismiss
-//    @State private var refreshID = UUID()
-//    @EnvironmentObject var orientation: OrientationObserver
     @State var refreshID = UUID()
     
     var columns: [GridItem] {
@@ -219,20 +217,23 @@ struct MovieDetails: View {
                         })
                         
                         if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast{
-                            
                             if let cast = viewModel.movieCredits?.cast, !cast.isEmpty {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack {
                                         ForEach(cast, id: \.id) { cast in
-                                            MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
+                                            
+                                            celebrity.profile(celebrity: Celebrity(adult: false, gender: 0, id: cast.id, knownForDepartment: "", name: cast.name, originalName: cast.character, popularity: 0.0, profilePath: cast.profilePath ?? ""))
                                                 .onTapGesture {
                                                     viewModel.selectedCelebrityId = cast.id
                                                     viewModel.isShowCastDetails = true
                                                 }
+//                                            MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
+                                                
                                         }
                                     }
                                     .padding(.horizontal)
                                 }
+//                                .id(refreshID)
                             } else {
                                 Text(Strings.noCast)
                                     .font(.system(size: 21, weight: .bold))
@@ -252,6 +253,7 @@ struct MovieDetails: View {
                                     }
                                     .padding(.horizontal)
                                 }
+//                                .id(refreshID)
                             } else {
                                 Text(Strings.noCrew)
                                     .font(.system(size: 21, weight: .bold))
@@ -520,10 +522,22 @@ class MovieDetailsDesign {
         
         var size: CGFloat {
             if isiPad {
-                return (screenWidth-60)/5
+                
+                if Device.isiPadLandscape {
+//                    return (screenHeight-60)/5
+//                    return (screenHeight-28)/6
+                    return (screenWidth-60)/6
+                } else {
+                    return (screenWidth-60)/5
+                }
             } else {
                 return (screenWidth-60)/3
             }
+//            if isiPad {
+//                return (screenWidth-60)/5
+//            } else {
+//                return (screenWidth-60)/3
+//            }
         }
         var body: some View {
             VStack(alignment: .leading) {
@@ -563,7 +577,7 @@ class MovieDetailsDesign {
         var width: CGFloat {
             if isiPad {
                 if Device.isiPadLandscape {
-                    return (screenHeight-70)/4
+                    return (screenWidth-70)/4
                 } else {
                     return (screenWidth-70)/3
                 }

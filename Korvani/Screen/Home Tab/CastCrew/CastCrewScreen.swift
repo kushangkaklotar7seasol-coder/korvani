@@ -82,8 +82,12 @@ struct CastCrewScreen: View {
 //                }
                 
             }
+            .id(refreshID)
         }
         .defaultPage()
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
+            refreshID = UUID()
+        }
     }
 }
 

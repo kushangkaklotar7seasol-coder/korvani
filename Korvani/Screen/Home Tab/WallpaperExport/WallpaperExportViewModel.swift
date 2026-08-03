@@ -100,14 +100,37 @@ class WallpaperExportViewModel: ObservableObject {
     func shareImage(){
         WallpaperService.shared.downloadImage(url: URL(string: self.wallpaper?.src.original ?? "")!) { image in
             
+//            let controller = UIActivityViewController(
+//                activityItems: [image],
+//                applicationActivities: nil
+//            )
+//            
+//            DispatchQueue.main.async {
+//                UIApplication.shared.topViewController?
+//                    .present(controller, animated: true)
+//            }
+//
             let controller = UIActivityViewController(
                 activityItems: [image],
                 applicationActivities: nil
             )
-            
+
             DispatchQueue.main.async {
-                UIApplication.shared.topViewController?
-                    .present(controller, animated: true)
+            if let popover = controller.popoverPresentationController {
+                if let topVC = UIApplication.shared.topViewController {
+                    popover.sourceView = topVC.view
+                    popover.sourceRect = CGRect(
+                        x: topVC.view.bounds.midX,
+                        y: topVC.view.bounds.midY,
+                        width: 0,
+                        height: 0
+                    )
+                    popover.permittedArrowDirections = []
+                }
+            }
+
+            
+                UIApplication.shared.topViewController?.present(controller, animated: true)
             }
             
         } failure: { error in

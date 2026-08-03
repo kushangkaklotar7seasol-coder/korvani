@@ -230,9 +230,9 @@ class CelebrityDetails {
                         Spacer()
                     }
                 }
-                .frame(width: Device.isiPadLandscape ? screenHeight-32 :size, height: Device.isiPadLandscape ? screenWidth-170 : size, alignment: .center)
+                .frame(width: Device.isiPadLandscape ? screenWidth-32 :size, height: Device.isiPadLandscape ? screenHeight-170 : size, alignment: .center)
             }
-            .frame(width: Device.isiPadLandscape ? screenHeight-32 :size, height: Device.isiPadLandscape ? screenWidth-170 : size, alignment: .center)
+            .frame(width: Device.isiPadLandscape ? screenWidth-32 :size, height: Device.isiPadLandscape ? screenHeight-170 : size, alignment: .center)
             .cornerRadius(16)
             .padding(.top, 24)
             .id(refreshID)
@@ -392,7 +392,8 @@ class MovieDetail {
             case 3:
                 if Device.isIpad {
                     if Device.isiPadLandscape {
-                        return (screenHeight-80) / 5
+//                        return (screenHeight-80) / 5
+                        return (screenWidth - 80) / 5
                     } else {
                         return (screenWidth-28) / 4
                     }
@@ -401,7 +402,8 @@ class MovieDetail {
                 }
             case 4:
                 if Device.isiPadLandscape {
-                    return (screenHeight-80) / 5
+//                    return (screenHeight-80) / 5
+                    return (screenWidth - 80) / 5
                 } else {
                     return (screenWidth-70) / 4
                 }

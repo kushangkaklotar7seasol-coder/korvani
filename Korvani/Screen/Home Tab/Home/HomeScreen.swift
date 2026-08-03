@@ -11,28 +11,35 @@ import Kingfisher
 
 struct HomeScreen: View {
     @StateObject var viewModel = HomeViewModel()
-    @EnvironmentObject var localization: LocalizationManager
-//    @EnvironmentObject var orientation: OrientationObserver
-//    @State private var orientation = UIDevice.current.orientation
-//    @State var refreshID = UUID()
+//    @EnvironmentObject var localization: LocalizationManager
+    @State var refreshID = UUID()
     
     var body: some View {
         ZStack {
             VStack {
                 Home.Header(viewModel: viewModel)
-                
+               
                 ScrollView(showsIndicators: false) {
                     VStack {
-                        if !viewModel.topRatedMovie.isEmpty {
+//                        if !viewModel.topRatedMovie.isEmpty {
 //                            Home.PagerView(viewModel: viewModel)
 //                                .id(refreshID)
-                        } else {
-                            ZStack { }
-                                .frame(width: screenWidth * 0.8, height: isiPad ? 320 : 177)
-                                .background(.grayColour)
-                                .cornerRadius(10)
-                                .padding(.bottom, 53)
-                        }
+//                        }
+//                        else {
+//                            ZStack { }
+//                                .frame(width: screenWidth * 0.8, height: isiPad ? 320 : 177)
+//                                .background(.grayColour)
+//                                .cornerRadius(10)
+//                                .padding(.bottom, 53)
+//                        }
+                        
+//                        TabView {
+//                            ForEach(1...20, id: \.self) { item in
+//                                MyView()
+//                            }
+//                        }
+//                        .tabViewStyle(PageTabViewStyle())
+//                        .frame(width: screenWidth, height: Device.isIpad ? 320 : 177)
                         
                         VStack(spacing: 24) {
                             ForEach(viewModel.moviesBunch, id: \.id) { item in
@@ -83,7 +90,7 @@ struct HomeScreen: View {
                             }
                         }
                         .padding(.top, 24)
-//                        .id(refreshID)
+                        .id(refreshID)
                         
                         VStack(alignment: .leading) {
                             HStack {
@@ -134,7 +141,7 @@ struct HomeScreen: View {
             }
         }
         .defaultPage()
-        .id(localization.selectedLanguage)
+//        .id(localization.selectedLanguage)
 //        .id(orientation.isLandscape)
         .onAppear() {
 //            viewModel.onApper()
@@ -171,9 +178,9 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.isShowCategoryScreen) {
             CategoryListScreen(viewModel: CategoryListViewModel(media: viewModel.selectedBunch))
         }
-//        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-//            refreshID = UUID()
-//        }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            refreshID = UUID()
+        }
     }
 }
 
@@ -656,5 +663,16 @@ class Home {
             .cornerRadius(20)
 
         }
+    }
+}
+
+
+struct MyView: View {
+    var body: some View {
+        ZStack {
+            
+        }
+        .frame(width: screenWidth * 0.8, height: Device.isIpad ? 320 : 177)
+        .background(.white)
     }
 }

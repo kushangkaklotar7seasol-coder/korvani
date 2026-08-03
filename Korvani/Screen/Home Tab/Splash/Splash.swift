@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AWSCore
+//import AWSCore
 
 struct Splash: View {
     @StateObject var viewModel = SplashViewModel()
@@ -35,25 +35,25 @@ struct Splash: View {
             self.webservice_getJSON_api()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.requestTrackingPermission() {
+//                self.requestTrackingPermission() {
                     viewModel.navigationManager()
-                }
+//                }
             }
         }
     }
     
-    func requestTrackingPermission(completion: @escaping () -> Void) {
-        
-        let credentials = AWSStaticCredentialsProvider(accessKey: ACCESS, secretKey: SECRET)
-        let configuration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentials)
-        AWSServiceManager.default().defaultServiceConfiguration = configuration
-        
-        AdsManager.shared.requestForConsentForm { _ in
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
+//    func requestTrackingPermission(completion: @escaping () -> Void) {
+//        
+//        let credentials = AWSStaticCredentialsProvider(accessKey: ACCESS, secretKey: SECRET)
+//        let configuration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentials)
+//        AWSServiceManager.default().defaultServiceConfiguration = configuration
+//        
+//        AdsManager.shared.requestForConsentForm { _ in
+//            DispatchQueue.main.async {
+//                completion()
+//            }
+//        }
+//    }
 
     func webservice_getJSON_api(completion: (() -> Void)? = nil) {
 

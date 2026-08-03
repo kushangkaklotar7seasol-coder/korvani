@@ -17,7 +17,7 @@ struct WallpaperScreen: View {
     var cardWidth : CGFloat {
         if isiPad {
             if Device.isiPadLandscape {
-                return (screenHeight-47)/5
+                return (screenWidth-47)/5
             } else {
                 return (screenWidth-47)/4
             }

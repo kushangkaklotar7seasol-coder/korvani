@@ -21,7 +21,7 @@ struct WallpaperExportScreen: View {
     var imageHeight: CGFloat {
         if isiPad {
             if Device.isiPadLandscape {
-                return screenWidth-200
+                return screenHeight-200
             } else {
                 return screenHeight-200
             }
@@ -33,12 +33,12 @@ struct WallpaperExportScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(isShowSecondbutton: true) {
+                DefaultDesign.Header(isShowSecondbutton: true, back: {
                     self.dismiss()
-                } secondButton: {
+                }, secondButton: {
                     viewModel.shareImage()
-                }
-
+                })
+                
                 ZStack {
                     KFImage.url(URL(string: isiPad ? viewModel.wallpaper?.src.large2x ?? "" : viewModel.wallpaper?.src.medium ?? ""))
                         .resizable()
