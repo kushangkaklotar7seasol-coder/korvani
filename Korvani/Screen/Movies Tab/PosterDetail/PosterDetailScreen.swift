@@ -32,30 +32,35 @@ struct PosterDetailScreen: View {
                 
                 Spacer()
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        ForEach(viewModel.images.indices, id: \.self) { index in
-                            VStack(alignment: .leading) {
-                                ZStack {
-                                    KFImage.url(URL(string: imageUrl + viewModel.images[index].filePath))
-                                        .resizable()
-                                        .scaledToFill()
+                if #available(iOS 17.0, *) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        
+                        HStack(spacing: 10) {
+                            ForEach(viewModel.images.indices, id: \.self) { index in
+                                VStack(alignment: .leading) {
+                                    ZStack {
+                                        KFImage.url(URL(string: imageUrl + viewModel.images[index].filePath))
+                                            .resizable()
+                                            .scaledToFill()
+                                    }
+                                    .frame(width: cardWidth, height: self.isSelected(index) ? posterHeight : posterHeight-50)
+                                    .background(.white)
+                                    .cornerRadius(10)
+                                    .id(index)
+                                    .animation(.easeInOut(duration: 0.3), value: scrollPosition)
                                 }
-                                .frame(width: cardWidth, height: self.isSelected(index) ? posterHeight : posterHeight-50)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .id(index)
-                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
                             }
                         }
+                        .scrollTargetLayout()
                     }
-                    .scrollTargetLayout()
+                    .safeAreaPadding(.horizontal, (screenWidth - cardWidth) / 2)
+                    .scrollTargetBehavior(.viewAligned)
+                    .scrollPosition(id: $scrollPosition)
+                    .frame(height: posterHeight)
+                } else {
+                    // Fallback on earlier versions
                 }
-                .safeAreaPadding(.horizontal, (screenWidth - cardWidth) / 2)
-                .scrollTargetBehavior(.viewAligned)
-                .scrollPosition(id: $scrollPosition)
-                .frame(height: posterHeight)
-
+                
                 Spacer()
             }
         }

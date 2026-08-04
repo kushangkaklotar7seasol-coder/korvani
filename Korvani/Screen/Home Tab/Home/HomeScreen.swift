@@ -217,293 +217,6 @@ class Home {
         }
     }
     
-//    struct PagerView: View {
-//        @StateObject var viewModel: HomeViewModel
-//        var cardWidth: CGFloat { screenWidth * 0.8 }
-//        var spacing: CGFloat = 16
-//        @State var scrollPosition: Int? = 0
-//        
-//        // Auto-scroll timer
-//        let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-//        
-//        var body: some View {
-//            ScrollView(.horizontal, showsIndicators: false) {
-//                HStack(spacing: spacing) {
-//                    ForEach(viewModel.topRatedMovie.indices, id: \.self) { index in
-//                        VStack(alignment: .leading) {
-//                            ZStack {
-//                                KFImage.url(URL(string: imageUrl + (viewModel.topRatedMovie[index].posterPath ?? "")))
-//                                    .resizable()
-//                                    .scaledToFill()
-//                            }
-//                            .frame(width: cardWidth, height: self.isSelected(index) ? isiPad ? 354 : 177 : isiPad ? 300 : 150)
-//                            .background(.white)
-//                            .cornerRadius(10)
-//                            .animation(.easeInOut(duration: 0.5), value: scrollPosition)
-//                            
-//                            Text(viewModel.topRatedMovie[index].title)
-//                                .font(.system(size: 15, weight: .medium))
-//                                .animation(.easeInOut(duration: 0.5), value: scrollPosition)
-//                            
-//                            HStack(spacing: 0) {
-//                                Text("\(viewModel.topRatedMovie[index].releaseDate)   |")
-//                                    .font(.system(size: 12, weight: .medium))
-//                                    .foregroundColor(.grayColour)
-//                                    .padding(.trailing, 8)
-//                                
-//                                Image("ic_star")
-//                                    .frame(width: 14, height: 14, alignment: .center)
-//                                
-//                                Text("\(viewModel.topRatedMovie[index].voteAverage / 2)".prefix(3))
-//                                    .font(.system(size: 12, weight: .medium))
-//                                    .foregroundColor(.yellowColour)
-//                            }
-//                            .animation(.easeInOut(duration: 0.5), value: scrollPosition)
-//                        }
-//                        .id(index)
-//                        .onTapGesture {
-//                            viewModel.selectedMovieId = viewModel.topRatedMovie[index].id
-//                            viewModel.navigationItem.movieDetail = true
-//                        }
-//                    }
-//                }
-//                .scrollTargetLayout()
-//            }
-//            .safeAreaPadding(.horizontal, (screenWidth - cardWidth) / 2)
-//            .scrollTargetBehavior(.viewAligned)
-//            .scrollPosition(id: $scrollPosition)
-//            .frame(height: isiPad ? 460 : 230)
-//            .onAppear {
-//                DispatchQueue.main.async {
-//                    if scrollPosition == 0 {
-//                        scrollPosition = 250
-//                    }
-//                }
-//            }
-//            .onReceive(timer) { _ in
-//                autoScrollToNext()
-//            }
-//        }
-//        
-//        private func isSelected(_ index: Int) -> Bool {
-//            (scrollPosition ?? 0) == index
-//        }
-//        
-//        private func autoScrollToNext() {
-//            guard !viewModel.topRatedMovie.isEmpty else { return }
-//            let current = scrollPosition ?? 0
-//            let next = current < viewModel.topRatedMovie.count - 1 ? current + 1 : 0
-//            withAnimation(.spring(response: 0.5, dampingFraction: 0.75, blendDuration: 0.3)) {
-//                scrollPosition = next
-//            }
-//        }
-//    }
-    
-
-    struct AppLayout {
-        static var bounds: CGRect {
-            UIScreen.main.bounds
-        }
-        
-        // Check if device is in Landscape
-        static var isLandscape: Bool {
-            bounds.width > bounds.height
-        }
-        
-        // Real Dynamic Width
-        static var screenWidth: CGFloat {
-            bounds.width
-        }
-        
-        // Dynamic Card Width Calculation
-        static var cardWidth: CGFloat {
-            if isiPad {
-                // iPad Landscape mode -> 50% screen, Portrait -> 65% screen
-                return isLandscape ? screenWidth * 0.5 : screenWidth * 0.65
-            } else {
-                // iPhone
-                return screenWidth * 0.8
-            }
-        }
-        
-        // Dynamic Pager Height
-        static var pagerHeight: CGFloat {
-            if isiPad {
-                return isLandscape ? 380 : 420
-            } else {
-                return 230
-            }
-        }
-    }
-    
-    
-    struct PagerView: View {
-        @StateObject var viewModel: HomeViewModel
-        var spacing: CGFloat = 16
-        @State private var scrollPosition: Int? = 0
-        
-        // Auto-scroll timer
-        let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-        
-        // Dynamic Side Padding for Centering Active Card
-        private var sidePadding: CGFloat {
-            (AppLayout.screenWidth - AppLayout.cardWidth) / 2
-        }
-        
-        var body: some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: spacing) {
-                    ForEach(viewModel.topRatedMovie.indices, id: \.self) { index in
-                        VStack(alignment: .leading, spacing: 6) {
-                            ZStack {
-                                KFImage.url(URL(string: imageUrl + (viewModel.topRatedMovie[index].posterPath ?? "")))
-                                    .resizable()
-                                    .scaledToFill()
-                            }
-                            .frame(
-                                width: AppLayout.cardWidth,
-                                height: self.isSelected(index) ? (isiPad ? 320 : 177) : (isiPad ? 280 : 150)
-                            )
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .clipped()
-                            
-                            Text(viewModel.topRatedMovie[index].title)
-                                .font(.system(size: isiPad ? 18 : 15, weight: .medium))
-                                .lineLimit(1)
-                            
-                            HStack(spacing: 4) {
-                                Text("\(viewModel.topRatedMovie[index].releaseDate)  |")
-                                    .font(.system(size: isiPad ? 14 : 12, weight: .medium))
-                                    .foregroundColor(.grayColour)
-                                
-                                Image("ic_star")
-                                    .resizable()
-                                    .frame(width: 14, height: 14)
-                                
-                                Text("\(viewModel.topRatedMovie[index].voteAverage / 2)".prefix(3))
-                                    .font(.system(size: isiPad ? 14 : 12, weight: .medium))
-                                    .foregroundColor(.yellowColour)
-                            }
-                        }
-                        .id(index)
-                        .onTapGesture {
-                            viewModel.selectedMovieId = viewModel.topRatedMovie[index].id
-                            viewModel.navigationItem.movieDetail = true
-                            viewModel.isSelectedMovie = true
-                        }
-                    }
-                }
-                .scrollTargetLayout()
-            }
-            .safeAreaPadding(.horizontal, sidePadding)
-            .scrollTargetBehavior(.viewAligned)
-            .scrollPosition(id: $scrollPosition)
-            .frame(height: AppLayout.pagerHeight)
-            .animation(.easeInOut(duration: 0.3), value: scrollPosition)
-            .onAppear {
-                if scrollPosition == nil {
-                    scrollPosition = 250
-                }
-            }
-            .onReceive(timer) { _ in
-                autoScrollToNext()
-            }
-        }
-        
-        private func isSelected(_ index: Int) -> Bool {
-            (scrollPosition ?? 0) == index
-        }
-        
-        private func autoScrollToNext() {
-            guard !viewModel.topRatedMovie.isEmpty else { return }
-            let current = scrollPosition ?? 0
-            let next = current < viewModel.topRatedMovie.count - 1 ? current + 1 : 0
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                scrollPosition = next
-            }
-        }
-    }
-    
-    
-    
-//    struct PagerView: View {
-//        @StateObject var viewModel: HomeViewModel
-//        var cardWidth: CGFloat { screenWidth * 0.8 }
-//        var spacing: CGFloat = 16
-//        @State private var scrollPosition: Int?
-//        
-//        // Auto-scroll timer
-//        let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
-//        
-//        var body: some View {
-//            ScrollView(.horizontal, showsIndicators: false) {
-//                HStack(spacing: spacing) {
-//                    ForEach(viewModel.topRatedMovie.indices, id: \.self) { index in
-//                            VStack(alignment: .leading) {
-//                                ZStack {
-//                                    KFImage.url(URL(string: imageUrl+(viewModel.topRatedMovie[index].posterPath ?? "")))
-//                                        .resizable()
-//                                        .scaledToFill()
-//                                }
-//                                .frame(width: cardWidth, height: self.isSelected(index) ? 177 : 150)
-//                                .background(.white)
-//                                .cornerRadius(10)
-//                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
-//                                
-//                                Text(viewModel.topRatedMovie[index].title)
-//                                    .font(.system(size: 15, weight: .medium))
-//                                    .animation(.easeInOut(duration: 0.3), value: scrollPosition)
-//                                
-//                                HStack(spacing: 0) {
-//                                    Text("\(viewModel.topRatedMovie[index].releaseDate)   |")
-//                                        .font(.system(size: 12, weight: .medium))
-//                                        .foregroundColor(.grayColour)
-//                                        .padding(.trailing, 8)
-//                                    
-//                                    Image("ic_star")
-//                                        .frame(width: 14, height: 14, alignment: .center)
-//                                    
-//                                    Text("\(viewModel.topRatedMovie[index].voteAverage/2)".prefix(3))
-//                                        .font(.system(size: 12, weight: .medium))
-//                                        .foregroundColor(.yellowColour)
-//                                    
-//                                }
-//                                .animation(.easeInOut(duration: 0.3), value: scrollPosition)
-//                            }
-//                            .id(index)
-//                    }
-//                }
-//                .scrollTargetLayout()
-//                .padding(.horizontal, (screenWidth - cardWidth) / 2)
-//            }
-//            .scrollTargetBehavior(.viewAligned)
-//            .scrollPosition(id: $scrollPosition)
-//            .frame(height: 230)
-//            .onAppear {
-//                DispatchQueue.main.async {
-//                    scrollPosition = 0
-//                }
-//            }
-//            .onReceive(timer) { _ in
-//                autoScrollToNext()
-//            }
-//        }
-//        
-//        private func isSelected(_ index: Int) -> Bool {
-//            (scrollPosition ?? 0) == index
-//        }
-//        
-//        private func autoScrollToNext() {
-//            guard !viewModel.topRatedMovie.isEmpty else { return }
-//            let current = scrollPosition ?? 0
-//            let next = current < viewModel.topRatedMovie.count - 1 ? current + 1 : 0
-//            withAnimation(.easeInOut(duration: 0.3)) {
-//                scrollPosition = next
-//            }
-//        }
-//    }
-    
     struct Weather: View {
         @StateObject var viewModel: HomeViewModel
         
@@ -700,87 +413,91 @@ struct PagerViewIOS17: View {
     }
 
     var body: some View {
-        Group {
-            if !viewModel.topRatedMovie.isEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 12) {
-                        ForEach(0..<1000, id: \.self) { index in
-                            let pageIndex = index % viewModel.topRatedMovie.count
-                            let movie = viewModel.topRatedMovie[pageIndex]
-                            let isCurrent = (pagerState.currentScrolledID ?? 500) == index
-                            
-                            VStack(alignment: .leading, spacing: 6) {
-                                ZStack {
-                                    KFImage.url(URL(string: imageUrl + (movie.posterPath ?? "")))
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                .frame(width: cardWidth, height: cardHeight)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .clipped()
+        if #available(iOS 17.0, *) {
+            Group {
+                if !viewModel.topRatedMovie.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack(spacing: 12) {
+                            ForEach(0..<1000, id: \.self) { index in
+                                let pageIndex = index % viewModel.topRatedMovie.count
+                                let movie = viewModel.topRatedMovie[pageIndex]
+                                let isCurrent = (pagerState.currentScrolledID ?? 500) == index
                                 
-                                if isCurrent {
-                                    Text(movie.title)
-                                        .font(.system(size: Device.isIpad ? 18 : 15, weight: .medium))
-                                        .lineLimit(1)
-                                    
-                                    HStack(spacing: 4) {
-                                        Text("\(movie.releaseDate)  |")
-                                            .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
-                                            .foregroundColor(.grayColour)
-                                        
-                                        Image("ic_star")
+                                VStack(alignment: .leading, spacing: 6) {
+                                    ZStack {
+                                        KFImage.url(URL(string: imageUrl + (movie.posterPath ?? "")))
                                             .resizable()
-                                            .frame(width: 14, height: 14)
-                                        
-                                        Text("\(movie.voteAverage / 2)".prefix(3))
-                                            .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
-                                            .foregroundColor(.yellowColour)
+                                            .scaledToFill()
                                     }
-                                } else {
-                                    Color.clear
-                                        .frame(height: Device.isIpad ? 45 : 35)
+                                    .frame(width: cardWidth, height: cardHeight)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    .clipped()
+                                    
+                                    if isCurrent {
+                                        Text(movie.title)
+                                            .font(.system(size: Device.isIpad ? 18 : 15, weight: .medium))
+                                            .lineLimit(1)
+                                        
+                                        HStack(spacing: 4) {
+                                            Text("\(movie.releaseDate)  |")
+                                                .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
+                                                .foregroundColor(.grayColour)
+                                            
+                                            Image("ic_star")
+                                                .resizable()
+                                                .frame(width: 14, height: 14)
+                                            
+                                            Text("\(movie.voteAverage / 2)".prefix(3))
+                                                .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
+                                                .foregroundColor(.yellowColour)
+                                        }
+                                    } else {
+                                        Color.clear
+                                            .frame(height: Device.isIpad ? 45 : 35)
+                                    }
                                 }
-                            }
-                            .scrollTransition { content, phase in
-                                content
-                                    .scaleEffect(phase.isIdentity ? 1.0 : 0.85)
-                                    .opacity(phase.isIdentity ? 1.0 : 0.6)
-                            }
-                            .id(index)
-                            .onTapGesture {
-                                viewModel.selectedMovieId = movie.id
-                                viewModel.navigationItem.movieDetail = true
-                                viewModel.isSelectedMovie = true
-                                adVm.registerTap()
+                                .scrollTransition { content, phase in
+                                    content
+                                        .scaleEffect(phase.isIdentity ? 1.0 : 0.85)
+                                        .opacity(phase.isIdentity ? 1.0 : 0.6)
+                                }
+                                .id(index)
+                                .onTapGesture {
+                                    viewModel.selectedMovieId = movie.id
+                                    viewModel.navigationItem.movieDetail = true
+                                    viewModel.isSelectedMovie = true
+                                    adVm.registerTap()
+                                }
                             }
                         }
+                        .scrollTargetLayout()
                     }
-                    .scrollTargetLayout()
-                }
-                .contentMargins(.horizontal, sidePadding, for: .scrollContent)
-                .scrollTargetBehavior(.viewAligned)
-                .scrollPosition(id: $pagerState.currentScrolledID)
-                .onReceive(timer) { _ in
-                    withAnimation(.easeInOut(duration: 0.6)) {
-                        let current = pagerState.currentScrolledID ?? 500
-                        pagerState.currentScrolledID = current + 1
+                    .contentMargins(.horizontal, sidePadding, for: .scrollContent)
+                    .scrollTargetBehavior(.viewAligned)
+                    .scrollPosition(id: $pagerState.currentScrolledID)
+                    .onReceive(timer) { _ in
+                        withAnimation(.easeInOut(duration: 0.6)) {
+                            let current = pagerState.currentScrolledID ?? 500
+                            pagerState.currentScrolledID = current + 1
+                        }
                     }
-                }
-                .onChange(of: screenWidth) { _, _ in
-                    let savedID = pagerState.currentScrolledID
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                        pagerState.currentScrolledID = savedID
+                    .onChange(of: screenWidth) { _, _ in
+                        let savedID = pagerState.currentScrolledID
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                            pagerState.currentScrolledID = savedID
+                        }
                     }
+                } else {
+                    ZStack { }
+                        .frame(width: cardWidth, height: cardHeight, alignment: .center)
+                        .background(Color.gray.opacity(0.4))
+                        .cornerRadius(10)
+                        .shimmer()
                 }
-            } else {
-                ZStack { }
-                .frame(width: cardWidth, height: cardHeight, alignment: .center)
-                .background(Color.gray.opacity(0.4))
-                .cornerRadius(10)
-                .shimmer()
             }
+        } else {
+            
         }
     }
 }
