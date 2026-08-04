@@ -44,9 +44,10 @@ struct CastCrewScreen: View {
                                     lastName: ""
                                 )
                                 .onTapGesture {
-                                    selectedCelebrityId = cast[index].id
-                                    isShowCastDetails = true
-                                    adVm.registerTap()
+                                    adVm.registerTap {
+                                        selectedCelebrityId = cast[index].id
+                                        isShowCastDetails = true
+                                    }
                                 }
                             }
                         }
@@ -68,9 +69,10 @@ struct CastCrewScreen: View {
                                     lastName: ""
                                 )
                                 .onTapGesture {
-                                    selectedCelebrityId = crew[index].id
-                                    isShowCastDetails = true
-                                    adVm.registerTap()
+                                    adVm.registerTap {
+                                        selectedCelebrityId = crew[index].id
+                                        isShowCastDetails = true
+                                    }
                                 }
                             }
                         }

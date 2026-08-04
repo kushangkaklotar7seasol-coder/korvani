@@ -7,11 +7,20 @@
 
 import SwiftUI
 import Combine
+import AWSCore
 
+final class AdState {
+    static let shared = AdState()
+    
+    var isShowingInterstitial = false
+}
 @main
 struct KorvaniApp: App {
     @StateObject private var localization = LocalizationManager.shared
     let adCountViewModel = AdCountViewModel.sharedd
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var wasInBackground = false
+    @State private var showSplashView = false
     
     init() {
         UINavigationBar.appearance().isHidden = true
@@ -19,18 +28,106 @@ struct KorvaniApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                Splash()
-                    .navigationBarHidden(true)
-                    .toolbar(.hidden, for: .navigationBar)
+            if showSplashView {
+                NavigationStack {
+                    Splash()
+                        .navigationBarHidden(true)
+                        .toolbar(.hidden, for: .navigationBar)
+                        .preferredColorScheme(.dark)
+                }
+                .environment(\.locale, Locale(identifier: localization.selectedLanguage))
+                .environmentObject(localization)
+                .environmentObject(adCountViewModel)
+                .toastManager()
+            }  else {
+                SplashConetentView()
                     .preferredColorScheme(.dark)
+                    .onAppear {
+                        requestTrackingPermission()
+                    }
             }
-            .environment(\.locale, Locale(identifier: localization.selectedLanguage))
-            .environmentObject(localization)
-            .environmentObject(adCountViewModel)
-            .toastManager()
         }
+        .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                        
+                    case .background:
+                        print("APP IS IN BACKGROUND")
+                        wasInBackground = true
+                    case .inactive:
+                        print("APP IS IN ACTIVE")
+                        break
+                    case .active:
+                        print("APP IS AVTIVE")
+                        guard wasInBackground else {
+                            print("🚫 Not from background → skip AppOpen")
+                            return
+                        }
+                        
+                        wasInBackground = false
+                        
+                        if isPro {
+                            return
+                        }
+                        
+                        if AdState.shared.isShowingInterstitial {
+                            print("⛔ Interstitial running → skip AppOpen")
+                            return
+                        }
+                        
+                        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: isFirstLaunchKey)
+                        
+                        if !hasLaunchedBefore {
+                            print("🚀 Fresh Install detected - Running first launch Ad logic")
+                            
+                            if AppOpenAdManager.shared.isShowingAd {
+                                return
+                            }
+                            
+                            AppOpenAdManager.shared.resetForForeground()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                Task {
+                                    await AppOpenAdManager.shared.loadAd()
+                                    
+                                    AppOpenAdManager.shared.showAdIfAvailable()
+                                }
+                            }
+                        } else {
+                            if AppOpenBackAdManager.shared.isShowingAd {
+                                return
+                            }
+                            
+                            AppOpenBackAdManager.shared.resetForForeground()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                Task {
+                                    await AppOpenBackAdManager.shared.loadAd()
+                                    
+                                    AppOpenBackAdManager.shared.showAdIfAvailable()
+                                }
+                            }
+                        }
+                    @unknown default:
+                        break
+                    }
+                }
     }
+    
+    
+    func requestTrackingPermission() {
+            
+            UserDefaults.standard.set(true, forKey: userdefaultKey.hasShownConsent)
+            
+            let credentials = AWSStaticCredentialsProvider(accessKey: ACCESS, secretKey: SECRET)
+            let configuration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentials)
+            AWSServiceManager.default().defaultServiceConfiguration = configuration
+            
+            AdsManager.shared.requestForConsentForm { _ in
+                DispatchQueue.main.async{
+                    showSplashView = true
+                }
+            }
+        }
 }
 
 class LocalizationManager: ObservableObject {

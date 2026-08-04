@@ -1,20 +1,14 @@
 //
 //  AppOpenAd.swift
-//  MovieBox
+//  Screen Mirroring Casting
 //
-//  Created by Parthiv Akbari on 19/03/26.
+//  Created by Parthiv Akbari on 28/10/25.
 //
 
 import SwiftUI
 import GoogleMobileAds
 import UIKit
 import Foundation
-
-final class AdState {
-    static let shared = AdState()
-    
-    var isShowingInterstitial = false
-}
 
 class AppOpenAdManager: NSObject, FullScreenContentDelegate {
     var appOpenAd: AppOpenAd?
@@ -23,10 +17,9 @@ class AppOpenAdManager: NSObject, FullScreenContentDelegate {
     var loadTime: Date?
     var hasLoadedOnce = false
     static let shared = AppOpenAdManager()
-
-    // Keep a reference to the completion closure
+    
     private var adCompletion: (() -> Void)?
-
+    
     // MARK: - Load Ad
     func loadAd() async {
         if isLoadingAd {
@@ -37,7 +30,7 @@ class AppOpenAdManager: NSObject, FullScreenContentDelegate {
             print("✅ App open ad already loaded this session — skipping.")
             return
         }
-
+        
         isLoadingAd = true
         do {
             print("🚀 Loading App Open Ad...")
@@ -56,16 +49,9 @@ class AppOpenAdManager: NSObject, FullScreenContentDelegate {
         }
         isLoadingAd = false
     }
-
+    
     // MARK: - Show Ad with Completion
     func showAdIfAvailable(completion: @escaping () -> Void) {
-        
-        if AdState.shared.isShowingInterstitial {
-                print("⛔ Skipping AppOpenAd because interstitial is showing")
-                completion()
-                return
-            }
-        
         if isShowingAd {
             print("⚠️ App open ad is already showing.")
             completion()
@@ -85,34 +71,50 @@ class AppOpenAdManager: NSObject, FullScreenContentDelegate {
             completion()
         }
     }
-
+    
+    func showAdIfAvailable() {
+        if isShowingAd {
+            print("⚠️ App open ad is already showing.")
+            return
+        }
+        guard let ad = appOpenAd else {
+            print("⚠️ App open ad not available.")
+            return
+        }
+        if let topVC = UIApplication.topViewController {
+            print("🎬 Presenting App Open Ad...")
+            ad.present(from: topVC)
+            isShowingAd = true
+        }
+    }
+    
     // MARK: - Ad Delegate Callbacks
     func adWillPresentFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("ℹ️ Ad will present full screen content.")
     }
-
+    
     func adDidRecordImpression(_ ad: FullScreenPresentingAd) {
         print("ℹ️ App open ad impression recorded.")
     }
-
+    
     func adDidRecordClick(_ ad: FullScreenPresentingAd) {
         print("ℹ️ App open ad clicked.")
     }
-
+    
     func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("ℹ️ App open ad will dismiss.")
     }
-
+    
     func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("✅ App open ad dismissed.")
         finishAdFlow()
     }
-
+    
     func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         print("❌ Ad failed to present: \(error.localizedDescription)")
         finishAdFlow()
     }
-
+    
     private func finishAdFlow() {
         isShowingAd = false
         appOpenAd = nil
@@ -120,13 +122,13 @@ class AppOpenAdManager: NSObject, FullScreenContentDelegate {
         adCompletion?()
         adCompletion = nil
     }
-
+    
     // MARK: - Reset for new session
     func resetForForeground() {
         print("🔄 Resetting AppOpenAdManager for foreground session.")
         hasLoadedOnce = false
         appOpenAd = nil
-//        isShowingAd = false
+        isShowingAd = false
         loadTime = nil
     }
 }
@@ -139,13 +141,15 @@ class AppOpenBackAdManager: NSObject, FullScreenContentDelegate {
     var isShowingAd = false
     var loadTime: Date?
     var hasLoadedOnce = false
-
+    
+    private var adCompletion: (() -> Void)?
+    
     static let shared = AppOpenBackAdManager()
-
+    
     protocol AppOpenAdManagerDelegate: AnyObject {
         func appOpenAdManagerAdDidComplete(_ appOpenAdManager: AppOpenBackAdManager)
     }
-
+    
     // MARK: - Load Ad
     func loadAd() async {
         if isLoadingAd {
@@ -156,7 +160,7 @@ class AppOpenBackAdManager: NSObject, FullScreenContentDelegate {
             print("✅ App open ad already loaded this session — skipping.")
             return
         }
-
+        
         isLoadingAd = true
         do {
             print("🚀 Loading App Open Ad...")
@@ -175,9 +179,14 @@ class AppOpenBackAdManager: NSObject, FullScreenContentDelegate {
         }
         isLoadingAd = false
     }
-
+    
     // MARK: - Show Ad
     func showAdIfAvailable() {
+        if !sholdShowAppOpenAd {
+            print("⚠️ Some Other Content is showing.")
+            return
+        }
+        
         if isShowingAd {
             print("⚠️ App open ad is already showing.")
             return
@@ -193,45 +202,82 @@ class AppOpenBackAdManager: NSObject, FullScreenContentDelegate {
             isShowingAd = true
         }
     }
-
+    
+    func showAdIfAvailable(completion: @escaping () -> Void) {
+        if !sholdShowAppOpenAd {
+            print("⚠️ Some Other Content is showing.")
+            return
+        }
+        
+        if isShowingAd {
+            print("⚠️ App open ad is already showing.")
+            completion()
+            return
+        }
+        guard let ad = appOpenAd else {
+            print("⚠️ App open ad not available.")
+            appOpenAdManagerDelegate?.appOpenAdManagerAdDidComplete(self)
+            completion()
+            return
+        }
+        if let topVC = UIApplication.topViewController {
+            print("🎬 Presenting App Open Ad...")
+            ad.present(from: topVC)
+            isShowingAd = true
+            adCompletion = completion
+        } else {
+            completion()
+        }
+    }
+    
     // MARK: - Ad Delegate Callbacks
     func adWillPresentFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("ℹ️ Ad will present full screen content.")
     }
-
+    
     func adDidRecordImpression(_ ad: FullScreenPresentingAd) {
         print("ℹ️ App open ad impression recorded.")
     }
-
+    
     func adDidRecordClick(_ ad: FullScreenPresentingAd) {
         print("ℹ️ App open ad clicked.")
     }
-
+    
     func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("ℹ️ App open ad will dismiss.")
     }
-
+    
     func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("✅ App open ad dismissed.")
         isShowingAd = false
         appOpenAd = nil
         appOpenAdManagerDelegate?.appOpenAdManagerAdDidComplete(self)
+        finishAdFlow()
     }
-
+    
     func ad(_ ad: FullScreenPresentingAd,
             didFailToPresentFullScreenContentWithError error: Error) {
         print("❌ Ad failed to present: \(error.localizedDescription)")
         isShowingAd = false
         appOpenAd = nil
         appOpenAdManagerDelegate?.appOpenAdManagerAdDidComplete(self)
+        finishAdFlow()
     }
-
+    
+    private func finishAdFlow() {
+        isShowingAd = false
+        appOpenAd = nil
+        hasLoadedOnce = true
+        adCompletion?()
+        adCompletion = nil
+    }
+    
     // MARK: - Reset for new session
     func resetForForeground() {
         print("🔄 Resetting AppOpenAdManager for foreground session.")
         hasLoadedOnce = false
         appOpenAd = nil
-//        isShowingAd = false
+        isShowingAd = false
         loadTime = nil
     }
 }

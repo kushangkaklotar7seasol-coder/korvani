@@ -98,8 +98,6 @@ struct DiscoverScreen: View {
                     .allowsHitTesting(viewModel.selectedIndex == 1)
                 }
                 
-                
-                
 //                if viewModel.selectedIndex == 0 {
 //                    ScrollView(showsIndicators: false) {
 //                        VStack(spacing: 24) {

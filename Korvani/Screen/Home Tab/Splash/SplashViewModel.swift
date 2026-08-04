@@ -17,7 +17,7 @@ class SplashViewModel: ObservableObject {
     }
     
     func navigationManager(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
              let language = UserdefaultManager.shared.getLanguage()
              let onBoarding = UserdefaultManager.shared.getOnBoarding()
             

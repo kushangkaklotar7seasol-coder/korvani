@@ -127,55 +127,12 @@ struct CelebrityDetailsScreen: View {
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
-        .onAppear {
-            SwipeBackManager.shared.isEnabled = true
-        }
         .navigationDestination(isPresented: $viewModel.isViewAllSheet){
             AllMoviesScreen(header: viewModel.celebrityDetail?.name ?? "", mediaItem: viewModel.movies)
         }
-        
-//        .sheet(isPresented: $viewModel.isViewAllSheet) {
-//            VStack {
-//                HStack {
-//                    Button {
-//                        viewModel.isViewAllSheet = false
-//                    } label: {
-//                        Image("ic_cancel")
-//                            .resizable()
-//                            .frame(width: 40, height: 40, alignment: .center)
-//                    }
-//                    
-//                    Text("\(viewModel.celebrityDetail?.name ?? "")")
-//                        .font(.system(size: 21, weight: .semibold))
-//                        .lineLimit(1)
-//                    
-//                    Spacer()
-//                }
-//                .padding(.vertical, 5)
-//                .padding(.horizontal, 16)
-//                
-//                if !viewModel.movies.isEmpty {
-//                    ScrollView(showsIndicators: false) {
-//                        LazyVGrid(columns: columns) {
-//                            ForEach(viewModel.movies.indices, id: \.self) { item in
-//                                MovieDetail.card(movies: viewModel.movies[item], numbersOfCard: 2)
-//                                    .onTapGesture {
-//                                        viewModel.isViewAllSheet = false
-//                                        viewModel.selectedMovie = viewModel.movies[item]
-//                                        viewModel.isShowmovieDetail = true
-//                                    }
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    Spacer()
-//                    Text("No Media Found")
-//                        .font(.system(size: 21, weight: .semibold))
-//                        .foregroundColor(.whiteColour)
-//                    Spacer()
-//                }
-//            }
-//        }
+        .onAppear {
+            SwipeBackManager.shared.isEnabled = true
+        }
     }
     
     private func checkTruncation(fullHeight: CGFloat) {
@@ -199,10 +156,12 @@ class CelebrityDetails {
         var size: CGFloat {
             if Device.isiPadLandscape {
                 return screenWidth/3
-            } else if Device.isiPadPortrait {
-                return screenWidth/2
             } else {
-                return screenWidth-32
+                if Device.isIpad {
+                    return screenWidth/2
+                } else {
+                    return screenWidth-32
+                }
             }
         }
         

@@ -12,6 +12,7 @@ struct CelebrityScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: CelebrityViewModel
     @State private var refreshID = UUID()
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var columns: [GridItem] {
             let count = isiPad ? (Device.isiPadLandscape ? 6 : 5) : 3
@@ -40,6 +41,7 @@ struct CelebrityScreen: View {
                                     .onTapGesture {
                                         viewModel.isShowCelebrityDetail = true
                                         viewModel.celebritySelectedId = array[person].id
+                                        adVm.registerTap()
                                     }
                                     .onAppear() {
                                         loadMoreIfNeeded(currentItem: person)

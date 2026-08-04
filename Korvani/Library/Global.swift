@@ -38,6 +38,12 @@ var addButtonColor = ""
 var smallNativeBannerId = ""
 var adsCount = 0
 var adsPlus = 0
+var sholdShowAppOpenAd = true
+let isFirstLaunchKey = "isFirstLaunch"
+
+enum userdefaultKey {
+static let hasShownConsent = "hasShownConsent"
+}
 
 // MARK: - Supporting class
 let locationManager = LocationManager()

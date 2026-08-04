@@ -33,28 +33,45 @@ struct Splash: View {
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = false
-            self.webservice_getJSON_api()
+            self.webservice_getJSON_api(completion: {
+                Task {
+                    await handleFlow()
+                }
+            })
+        }
+    }
+    
+    func handleFlow() async {
+        print("🔥 AppOpen ID:", appopenId)
+        
+        Task {
+            print("✅ isPro after check:", isPro)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.requestTrackingPermission() {
+            if !isPro {
+                BannerAdManager.shared.loadBanner()
+            }
+            
+            // 🔥 STEP 2: PRO USER → DIRECT NAVIGATION
+            if isPro {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    viewModel.navigationManager()
+                }
+                return
+            }
+            
+            // 🔥 STEP 3: NON-PRO → SHOW AD
+            AdCountViewModel.sharedd.reloadAd()
+            
+            await AppOpenAdManager.shared.loadAd()
+            
+            AppOpenAdManager.shared.showAdIfAvailable {
+                DispatchQueue.main.async {
                     viewModel.navigationManager()
                 }
             }
         }
-    }
+      }
     
-    func requestTrackingPermission(completion: @escaping () -> Void) {
-        
-        let credentials = AWSStaticCredentialsProvider(accessKey: ACCESS, secretKey: SECRET)
-        let configuration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentials)
-        AWSServiceManager.default().defaultServiceConfiguration = configuration
-        
-        AdsManager.shared.requestForConsentForm { _ in
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
 
     func webservice_getJSON_api(completion: (() -> Void)? = nil) {
 
@@ -68,7 +85,6 @@ struct Splash: View {
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-//        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
@@ -78,25 +94,22 @@ struct Splash: View {
 
         let task = session.dataTask(with: request) { data, response, error in
 
-            defer {
-                DispatchQueue.main.async {
-                    completion?()
-                }
-            }
-
             if let error = error {
                 print("Error:- \(error.localizedDescription)")
+                DispatchQueue.main.async { completion?() }
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
                 print("Invalid Response")
+                DispatchQueue.main.async { completion?() }
                 return
             }
 
             guard let data = data else {
                 Toast.shared.show(message: "No Data Found", type: .error)
+                DispatchQueue.main.async { completion?() }
                 return
             }
             
@@ -137,6 +150,17 @@ struct Splash: View {
     
 }
 
-#Preview {
-    Splash()
+struct SplashConetentView: View {
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                Image("ic_app_name")
+                    .frame(width: 196)
+                
+                Text(Strings.splashSubtitle)
+                    .foregroundColor(.grayColour)
+            }
+        }
+    }
 }

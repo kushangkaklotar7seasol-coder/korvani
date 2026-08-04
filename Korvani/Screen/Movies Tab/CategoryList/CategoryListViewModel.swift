@@ -16,6 +16,7 @@ class CategoryListViewModel: ObservableObject {
     @Published var isLoading = false
     
     @Published var selectedMovieId: Int = 0
+    @Published var isMovieselected = false
     @Published var isShowmovieDetail = false
     
     init(media: MediaBunch? = nil) {

@@ -17,6 +17,7 @@ struct PosterDetailScreen: View {
     var posterHeight: CGFloat {
         return screenHeight-360
     }
+    @State private var currentIndex: Int = 0
     
     var body: some View {
         ZStack {
@@ -34,7 +35,6 @@ struct PosterDetailScreen: View {
                 
                 if #available(iOS 17.0, *) {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        
                         HStack(spacing: 10) {
                             ForEach(viewModel.images.indices, id: \.self) { index in
                                 VStack(alignment: .leading) {
@@ -58,7 +58,24 @@ struct PosterDetailScreen: View {
                     .scrollPosition(id: $scrollPosition)
                     .frame(height: posterHeight)
                 } else {
-                    // Fallback on earlier versions
+                    TabView(selection: $currentIndex) {
+                        ForEach(viewModel.images.indices, id: \.self) { index in
+                            VStack {
+                                ZStack {
+                                    KFImage.url(URL(string: imageUrl + viewModel.images[index].filePath))
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: cardWidth, height: posterHeight)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .clipped()
+                            }
+                            .tag(index)
+                        }
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .clipped(antialiased: false)
                 }
                 
                 Spacer()
@@ -68,6 +85,7 @@ struct PosterDetailScreen: View {
         .onAppear {
             DispatchQueue.main.async {
                 scrollPosition = position
+                currentIndex = position ?? 0
                 SwipeBackManager.shared.isEnabled = true
             }
         }

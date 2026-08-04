@@ -204,10 +204,14 @@ class TranslateViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegat
     }
     
     func shareText(_ text: String) {
-        
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let rootViewController = windowScene.windows.first?.rootViewController else {
+        guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let rootViewController = windowScene.windows.first(where: \.isKeyWindow)?.rootViewController ?? windowScene.windows.first?.rootViewController else {
             return
+        }
+        
+        var topController = rootViewController
+        while let presented = topController.presentedViewController {
+            topController = presented
         }
         
         let activityVC = UIActivityViewController(
@@ -215,7 +219,20 @@ class TranslateViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegat
             applicationActivities: nil
         )
         
-        rootViewController.present(activityVC, animated: true)
+        // 💡 iPad Safe Check: iPad માં Share Sheet બતાવવા માટે Popover setup કરવું પડે
+        if let popoverController = activityVC.popoverPresentationController {
+            popoverController.sourceView = topController.view
+            // સ્ક્રીનના સેન્ટરમાં પૉપઅપ બતાવશે (તમે કોઈ બટનના bounds પણ આપી શકો છો)
+            popoverController.sourceRect = CGRect(
+                x: topController.view.bounds.midX,
+                y: topController.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = [] // Arrow બતાવવાની જરૂર નથી
+        }
+        
+        topController.present(activityVC, animated: true)
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {

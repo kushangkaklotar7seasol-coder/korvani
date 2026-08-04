@@ -347,10 +347,14 @@ struct MovieDetails: View {
                     }
                     
                     Button {
-                        viewModel.shareMediaItem(viewModel.movieDetail!, completion: { value in
-                            print(value)
-                            SharePresenter.present(items: value)
-                        })
+                        if let movie = viewModel.movieDetail {
+                            viewModel.shareMediaItem(movie, completion: { value in
+                                print(value)
+                                SharePresenter.present(items: value)
+                            })
+                        } else {
+                            Toast.shared.show(message: "Not able to share", type: .error)
+                        }
                     } label: {
                         Image("ic_share_semilight")
                             .resizable()

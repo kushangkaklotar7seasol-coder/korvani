@@ -135,10 +135,6 @@ struct HomeScreen: View {
         .defaultPage()
         .id(localization.selectedLanguage)
 //        .id(orientation.isLandscape)
-        .onAppear() {
-//            viewModel.onApper()
-            SwipeBackManager.shared.isEnabled = false
-        }
 //        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
 //            refreshID = UUID()
 //            orientation = UIDevice.current.orientation
@@ -172,6 +168,9 @@ struct HomeScreen: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
+        }
+        .onAppear() {
+            SwipeBackManager.shared.isEnabled = false
         }
     }
 }
@@ -412,6 +411,8 @@ struct PagerViewIOS17: View {
         (screenWidth - cardWidth) / 2
     }
 
+    @State private var currentIndex: Int = 500
+    
     var body: some View {
         if #available(iOS 17.0, *) {
             Group {
@@ -497,7 +498,108 @@ struct PagerViewIOS17: View {
                 }
             }
         } else {
-            
+            Group {
+                if !viewModel.topRatedMovie.isEmpty {
+                    VStack(spacing: 0) {
+                        GeometryReader { geo in
+                            // Peek amount - baju ma keteli card dikhse
+                            let sidePeek: CGFloat = Device.isIpad ? 30 : 20
+                            
+                            TabView(selection: $currentIndex) {
+                                ForEach(0..<10000, id: \.self) { index in
+                                    let pageIndex = index % viewModel.topRatedMovie.count
+                                    let movie = viewModel.topRatedMovie[pageIndex]
+                                    let isCurrent = currentIndex == index
+                                    
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        KFImage.url(URL(string: imageUrl + (movie.posterPath ?? "")))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: cardWidth, height: cardHeight)
+                                            .background(Color.white)
+                                            .cornerRadius(10)
+                                            .clipped()
+                                        
+                                        if isCurrent {
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(movie.title)
+                                                    .font(.system(size: Device.isIpad ? 18 : 15, weight: .medium))
+                                                    .lineLimit(1)
+                                                
+                                                HStack(spacing: 4) {
+                                                    Text("\(movie.releaseDate)  |")
+                                                        .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
+                                                        .foregroundColor(.grayColour)
+                                                    
+                                                    Image("ic_star")
+                                                        .resizable()
+                                                        .frame(width: 14, height: 14)
+                                                    
+                                                    Text(String(format: "%.1f", movie.voteAverage / 2))
+                                                        .font(.system(size: Device.isIpad ? 14 : 12, weight: .medium))
+                                                        .foregroundColor(.yellowColour)
+                                                }
+                                            }
+                                            .frame(width: cardWidth, alignment: .leading)
+                                        } else {
+                                            Color.clear
+                                                .frame(width: cardWidth, height: Device.isIpad ? 45 : 35)
+                                        }
+                                    }
+                                    // MARK: - Simple animation jyare current card change thay
+                                    .scaleEffect(isCurrent ? 1.0 : 0.9)
+                                    .opacity(isCurrent ? 1.0 : 0.55)
+                                    .animation(.easeInOut(duration: 0.28), value: currentIndex)
+                                    .padding(.horizontal, sidePeek) // ← peek gap
+                                    .tag(index)
+                                    .onTapGesture {
+                                        viewModel.selectedMovieId = movie.id
+                                        viewModel.navigationItem.movieDetail = true
+                                        viewModel.isSelectedMovie = true
+                                        adVm.registerTap()
+                                    }
+                                }
+                            }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                            // MARK: - Container thi pahoda banavi, offset thi center karo → peek effect
+                            .frame(width: geo.size.width + sidePeek * 2)
+                            .offset(x: -sidePeek)
+                        }
+                        .frame(height: cardHeight + (Device.isIpad ? 75 : 65))
+                    }
+                    .onAppear {
+                        if currentIndex == 0 {
+                            currentIndex = 5000 - (5000 % viewModel.topRatedMovie.count)
+                        }
+                    }
+                    .onReceive(timer) { _ in
+                        withAnimation {
+                            currentIndex += 1
+                        }
+                    }
+                    .onChange(of: currentIndex) { newIndex in
+                        pagerState.currentScrolledID = newIndex
+                        
+                        if newIndex > 9500 || newIndex < 500 {
+                            let count = viewModel.topRatedMovie.count
+                            let recentered = 5000 - (5000 % count) + (newIndex % count)
+                            DispatchQueue.main.async {
+                                var t = Transaction()
+                                t.disablesAnimations = true
+                                withTransaction(t) {
+                                    currentIndex = recentered
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    ZStack { }
+                        .frame(width: cardWidth, height: cardHeight, alignment: .center)
+                        .background(Color.gray.opacity(0.4))
+                        .cornerRadius(10)
+                        .shimmer()
+                }
+            }
         }
     }
 }

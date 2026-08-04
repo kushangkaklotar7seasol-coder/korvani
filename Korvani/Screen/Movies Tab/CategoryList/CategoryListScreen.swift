@@ -40,6 +40,7 @@ struct CategoryListScreen: View {
                             MovieDetail.card(movies: viewModel.mediaItem[index], numbersOfCard: isiPad ? 4 : 2)
                                 .onTapGesture {
                                     viewModel.selectedMovieId = viewModel.mediaItem[index].id
+                                    viewModel.isMovieselected = viewModel.mediaItem[index].title != nil ? true : false
                                     viewModel.isShowmovieDetail = true
                                     adVm.registerTap()
                                 }
@@ -55,7 +56,7 @@ struct CategoryListScreen: View {
         }
         .defaultPage()
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
-            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId, isMovie: viewModel.isMovieselected))
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true
