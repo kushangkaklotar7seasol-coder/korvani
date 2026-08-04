@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "배경화면을 둘러보고 다운로드하세요";
 "ABOUT_CELEBRITY" = "유명인 정보";
 "VIEW_ALL" = "모두 보기";
+"UPCOMING_MOVIE" = "개봉 예정 영화";
+"ON_AIR_SERIES" = "방영 중인 시리즈";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "영화 및 TV 프로그램 검색";

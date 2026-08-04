@@ -20,6 +20,7 @@ struct LikeScreen: View {
             let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
             return Array(repeating: GridItem(.flexible()), count: count)
         }
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var body: some View {
         ZStack {
@@ -60,6 +61,7 @@ struct LikeScreen: View {
                                         .onTapGesture {
                                             viewModel.selectedMovie = viewModel.movies[index]
                                             viewModel.isShowmovieDetail = true
+                                            adVm.registerTap()
                                         }
                                     }
                                 }
@@ -85,6 +87,7 @@ struct LikeScreen: View {
                                         .onTapGesture {
                                             viewModel.selectedMovie = viewModel.series[index]
                                             viewModel.isShowmovieDetail = true
+                                            adVm.registerTap()
                                         }
                                     }
                                 }

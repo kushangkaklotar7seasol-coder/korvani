@@ -78,7 +78,7 @@ class HomeViewModel : ObservableObject {
             isLoading = true
             HomeServices.shared.upCommingdAPI { statusCode, response in
                 print(response.results)
-                self.moviesBunch.append(MediaBunch(id: 0, name: "Upcoming movies", type: .upcommingMovie, media: response))
+                self.moviesBunch.append(MediaBunch(id: 0, name: "UPCOMING_MOVIE", type: .upcommingMovie, media: response))
                 self.onTheAirSeriesAPI()
             } failure: { error in
                 self.isLoading = false
@@ -94,7 +94,7 @@ class HomeViewModel : ObservableObject {
             isLoading = true
             HomeServices.shared.onTheAirAPI { statusCode, response in
                 print(response.results)
-                self.moviesBunch.append(MediaBunch(id: 1, name: "On The Air Series", type: .onTheAirSeries, media: response))
+                self.moviesBunch.append(MediaBunch(id: 1, name: "ON_AIR_SERIES", type: .onTheAirSeries, media: response))
                 self.celebrityAPI()
             } failure: { error in
                 self.isLoading = false

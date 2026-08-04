@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "Explora e descarrega papéis de parede";
 "ABOUT_CELEBRITY" = "Sobre a Celebridade";
 "VIEW_ALL" = "Ver tudo";
+"UPCOMING_MOVIE" = "Filmes em Breve";
+"ON_AIR_SERIES" = "Séries em Exibição";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "Pesquisar Filmes e Séries";

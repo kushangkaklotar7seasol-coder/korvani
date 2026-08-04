@@ -13,7 +13,7 @@ struct AllMoviesScreen: View {
     @State var isShowmovieDetail = false
     var header: String = ""
     @State var mediaItem: [MediaItem] = []
-    @State var selectedMovieId: Int = 0
+    @State var selectedMovie: MediaItem?
     @EnvironmentObject var adVm: AdCountViewModel
     
     var columns: [GridItem] {
@@ -39,7 +39,7 @@ struct AllMoviesScreen: View {
                             ForEach(mediaItem.indices, id: \.self) { index in
                                 MovieDetail.card(movies: mediaItem[index], numbersOfCard: isiPad ? 4 : 2)
                                     .onTapGesture {
-                                        selectedMovieId = mediaItem[index].id
+                                        selectedMovie = mediaItem[index]
                                         isShowmovieDetail = true
                                         adVm.registerTap()
                                     }
@@ -59,7 +59,7 @@ struct AllMoviesScreen: View {
         }
         .defaultPage()
         .navigationDestination(isPresented: $isShowmovieDetail) {
-            MovieDetails(viewModel: MovieDetailViewModel(movieId: selectedMovieId))
+            MovieDetails(viewModel: MovieDetailViewModel(movieId: selectedMovie?.id ?? 0, isMovie: selectedMovie?.title != nil ? true : false))
         }
         .onAppear {
             SwipeBackManager.shared.isEnabled = true

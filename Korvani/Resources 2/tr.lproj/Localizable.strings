@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "Duvar kağıtlarına göz at ve indir";
 "ABOUT_CELEBRITY" = "Ünlü Hakkında";
 "VIEW_ALL" = "Tümünü gör";
+"UPCOMING_MOVIE" = "Yakında Gelecek Filmler";
+"ON_AIR_SERIES" = "Yayında Olan Diziler";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "Film ve Dizi Ara";

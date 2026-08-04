@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "Gennemse og download baggrunde";
 "ABOUT_CELEBRITY" = "Om Kendisen";
 "VIEW_ALL" = "Se alle";
+"UPCOMING_MOVIE" = "Kommende Film";
+"ON_AIR_SERIES" = "Serier på Skærmen Nu";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "Søg efter Film og Serier";

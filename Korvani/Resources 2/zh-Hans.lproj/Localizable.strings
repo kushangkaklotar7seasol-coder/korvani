@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "浏览并下载壁纸";
 "ABOUT_CELEBRITY" = "关于该名人";
 "VIEW_ALL" = "查看全部";
+"UPCOMING_MOVIE" = "即将上映";
+"ON_AIR_SERIES" = "正在播出";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "搜索电影和电视剧";

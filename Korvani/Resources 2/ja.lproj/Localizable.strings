@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "壁紙を閲覧してダウンロード";
 "ABOUT_CELEBRITY" = "著名人について";
 "VIEW_ALL" = "すべて表示";
+"UPCOMING_MOVIE" = "近日公開の映画";
+"ON_AIR_SERIES" = "放送中のシリーズ";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "映画・テレビ番組を検索";

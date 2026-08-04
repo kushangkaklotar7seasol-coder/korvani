@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "Parcourez et téléchargez des fonds d'écran";
 "ABOUT_CELEBRITY" = "À propos de la Célébrité";
 "VIEW_ALL" = "Voir tout";
+"UPCOMING_MOVIE" = "Films à Venir";
+"ON_AIR_SERIES" = "Séries en Diffusion";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "Rechercher Films et Séries";

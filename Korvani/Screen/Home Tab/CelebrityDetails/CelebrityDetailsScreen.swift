@@ -90,6 +90,7 @@ struct CelebrityDetailsScreen: View {
                                             .onTapGesture {
                                                 viewModel.selectedMovie = viewModel.movies[item]
                                                 viewModel.isShowmovieDetail = true
+                                                adVm.registerTap()
                                             }
                                     }
                                 }

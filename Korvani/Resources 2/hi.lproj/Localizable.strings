@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "वॉलपेपर ब्राउज़ करें और डाउनलोड करें";
 "ABOUT_CELEBRITY" = "सेलिब्रिटी के बारे में";
 "VIEW_ALL" = "सभी देखें";
+"UPCOMING_MOVIE" = "आगामी मूवीज़";
+"ON_AIR_SERIES" = "प्रसारित हो रही सीरीज़";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "मूवीज़ और टीवी शो खोजें";

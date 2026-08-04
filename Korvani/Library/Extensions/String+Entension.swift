@@ -51,6 +51,7 @@ class Strings {
     static var wallpapersTagline: String { "WALLPAPERS_TAGLINE".localized() }
     static var aboutCelebrity: String { "ABOUT_CELEBRITY".localized() }
     static var viewAll: String { "VIEW_ALL".localized() }
+    static var upcomingMovie: String { "UPCOMING_MOVIE".localized() }
     
     // MARK: - Search -
     static var searchPlaceHolder: String { "SEARCH_PLACEHOLDER".localized() }

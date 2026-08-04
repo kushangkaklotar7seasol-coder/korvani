@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "Browse and download wallpapers";
 "ABOUT_CELEBRITY" = "About the Celebrity";
 "VIEW_ALL" = "View all";
+"UPCOMING_MOVIE" = "Upcoming movies";
+"ON_AIR_SERIES" = "On The Air Series";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "Search Movies & TV Shows";

@@ -37,6 +37,8 @@
 "WALLPAPERS_TAGLINE" = "Просматривайте и скачивайте обои";
 "ABOUT_CELEBRITY" = "О Знаменитости";
 "VIEW_ALL" = "Смотреть все";
+"UPCOMING_MOVIE" = "Скоро в Прокате";
+"ON_AIR_SERIES" = "Сериалы в Эфире";
 
 // MARK: - Search Screen -
 "SEARCH_PLACEHOLDER" = "Поиск Фильмов и Сериалов";

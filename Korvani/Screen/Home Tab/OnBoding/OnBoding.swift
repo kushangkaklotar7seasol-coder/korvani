@@ -43,10 +43,7 @@ struct OnBoding: View {
                 .padding(.bottom, 10)
                 .id(refreshID)
                 
-                if isShowAdd() {
-                    NativeAd6()
-                        .padding(.bottom, 10)
-                }
+                
                 
                 Button {
                     if viewModel.selectedTab == viewModel.information.count-1 {
@@ -77,9 +74,14 @@ struct OnBoding: View {
                         .cornerRadius(14)
                         .animation(.easeInOut, value: viewModel.selectedTab == viewModel.information.count-1)
                 }
-                .padding(.bottom, 40)
+                .padding(.bottom, 10)
                 .background(.clear)
                 .id(refreshID)
+                
+                if isShowAdd() {
+                    NativeAd6()
+                        .padding(.bottom, 40)
+                }
             }
         }
         .defaultPage()
