@@ -47,7 +47,7 @@ struct WallpaperScreen: View {
                 
                 ScrollView(showsIndicators: false) {
                     if isShowAdd() {
-                        NativeAd6()
+                        NativeAd9()
                     }
                     
                     LazyVGrid(columns: columns) {

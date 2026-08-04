@@ -39,10 +39,12 @@ struct PuzzleView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         HStack(spacing: 16) {
                             PuzzleDesign.PuzzlecollevtionView(viewModel: viewModel)
+                                .id(refreshID)
                             
                             VStack {
                                 PuzzleDesign.PuzzleProgressBar(viewModel: viewModel)
                                     .padding(.horizontal, 16)
+                                    .id(refreshID)
                                 
                                 if isShowAdd() {
                                     NativeAd6()
@@ -52,19 +54,24 @@ struct PuzzleView: View {
                                     Image(uiImage: viewModel.originalImage ?? UIImage())
                                         .resizable()
                                         .scaledToFit()
+                                        .frame(width: (screenWidth-400)/2, height: (screenWidth-400)/2, alignment: .center)
                                 }
                                 .background(.whiteColour)
                                 .cornerRadius(10)
+                                .id(refreshID)
                                 
                                 PuzzleDesign.PuzzleSheetNote()
                                     .padding(.horizontal, 16)
+                                    .id(refreshID)
                             }
                         }
                         .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 16)
                     }
                 } else {
                     PuzzleDesign.PuzzleProgressBar(viewModel: viewModel)
                         .padding(.horizontal, 16)
+                        .id(refreshID)
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 16) {
@@ -73,17 +80,19 @@ struct PuzzleView: View {
                             }
                             
                             PuzzleDesign.PuzzlecollevtionView(viewModel: viewModel)
+                                .id(refreshID)
                             
                             PuzzleDesign.FullPosterButton(viewModel: viewModel, showOriginalPosterSheet: $showOriginalPosterSheet)
+                                .id(refreshID)
                             
                             PuzzleDesign.PuzzleSheetNote()
                                 .padding(.horizontal, 16)
+                                .id(refreshID)
                         }
                         .frame(maxWidth: .infinity)
                     }
                 }
             }
-            .id(refreshID)
         }
 //        .padding(.horizontal, 16)
         .background(.blackColour)
@@ -156,9 +165,13 @@ class PuzzleDesign {
         
         var puzzleSize: CGFloat {
             if Device.isiPadLandscape {
-                return screenHeight-200
+                return (screenWidth-200)/2
             } else {
-                return screenWidth-32
+                if Device.isIpad {
+                    return screenWidth-132
+                } else {
+                    return screenWidth-112
+                }
             }
         }
         

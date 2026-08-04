@@ -12,6 +12,7 @@ struct LanguageScreen: View {
     var isShowBackButton: Bool = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var localization: LocalizationManager
+    @EnvironmentObject var adVm: AdCountViewModel
     
     let columns = Array(
         repeating: GridItem(.flexible(), spacing: 15),
@@ -43,6 +44,7 @@ struct LanguageScreen: View {
                         localization.changeLanguage(languageCode: viewModel.selectedLanguage?.code ?? "en")
                         if self.isShowBackButton {
                             self.dismiss()
+                            adVm.registerTap()
                         } else {
                             viewModel.isOnBording = true
                         }
@@ -83,9 +85,13 @@ struct LanguageScreen: View {
                     }
                     .padding(.horizontal, 16)
                     
-                    if isShowAdd() {
-                        NativeAd9()
-                    }
+
+                }
+                
+                Spacer()
+                
+                if isShowAdd() {
+                    NativeAd9()
                 }
             }
             

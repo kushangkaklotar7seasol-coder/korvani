@@ -27,7 +27,7 @@ struct CelebrityDetailsScreen: View {
                         .padding(.top, 40)
                     
                     if isShowAdd() {
-                        NativeAd6()
+                        NativeAd9()
                     }
                     
                     if viewModel.celebrityDetail?.biography != "" {
@@ -198,7 +198,9 @@ class CelebrityDetails {
         
         var size: CGFloat {
             if Device.isiPadLandscape {
-                return screenWidth
+                return screenWidth/3
+            } else if Device.isiPadPortrait {
+                return screenWidth/2
             } else {
                 return screenWidth-32
             }
@@ -239,9 +241,9 @@ class CelebrityDetails {
                         Spacer()
                     }
                 }
-                .frame(width: Device.isiPadLandscape ? screenWidth-32 :size, height: Device.isiPadLandscape ? screenHeight-170 : size, alignment: .center)
+                .frame(width: size, height: size, alignment: .center)
             }
-            .frame(width: Device.isiPadLandscape ? screenWidth-32 :size, height: Device.isiPadLandscape ? screenHeight-170 : size, alignment: .center)
+            .frame(width: size, height: size, alignment: .center)
             .cornerRadius(16)
             .padding(.top, 24)
             .id(refreshID)

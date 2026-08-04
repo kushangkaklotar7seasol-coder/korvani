@@ -170,3 +170,12 @@
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Vælg Sprog";
 "DONE" = "Udført";
+
+// MARK: - Rate Popup -
+"LIKE_APP" = "Kan du lide vores App?";
+"RATE_NO" = "Nej ❌";
+"RATE_YES" = "Ja 👍";
+"RATE_INTO" = "Hjælp os med at forbedre appen ved at besvare denne korte afstemning.";
+
+// MARK: - IPAD -
+"CHUSE_LANGUAGE_IPAD" = "Vælg Dit Foretrukne Sprog";

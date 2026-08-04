@@ -170,3 +170,12 @@
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Elegir Idioma";
 "DONE" = "Listo";
+
+// MARK: - Rate Popup -
+"LIKE_APP" = "¿Te gusta nuestra App?";
+"RATE_NO" = "No ❌";
+"RATE_YES" = "Sí 👍";
+"RATE_INTO" = "Ayúdanos a mejorar la app respondiendo esta breve encuesta.";
+
+// MARK: - IPAD -
+"CHUSE_LANGUAGE_IPAD" = "Elige Tu Idioma Preferido";

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 enum TabItem: CaseIterable {
     case home
@@ -62,10 +63,9 @@ import SwiftUI
 
 struct TabBarScreen: View {
     @State private var selectedTab: TabItem = .home
-    
-    // ViewModel ને એક જ વાર ઇનિશિયલાઇઝ કરવા માટે સ્ટેટ પ્રોપર્ટી વાપરો
     @StateObject private var puzzleViewModel = PuzzleViewModel()
     @State private var loadedTabs: Set<TabItem> = [.home]
+    @State private var showRateAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -109,9 +109,46 @@ struct TabBarScreen: View {
         }
         .background(Color.blackColour)
         .ignoresSafeArea(.keyboard)
-        
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .navigationBar)
+        .onAppear {
+            if !AppSession.shared.hasShownRate {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.handlePostReviewLogic()
+                    AppSession.shared.hasShownRate = true
+                }
+            }
+        }
+        .alert(Strings.likeApp, isPresented: $showRateAlert) {
+
+            Button(Strings.rateNo, role: .cancel) { }
+            
+            Button(Strings.rateYes) {
+                rateApp()
+            }
+            
+        } message: {
+            Text(Strings.rateInfo)
+        }
+    }
+    
+    func handlePostReviewLogic() {
+        let didAskForReview = UserDefaults.standard.bool(forKey: "didAskForReview")
+
+        if didAskForReview {
+            print("Review dialog was requested")
+            rateApp()
+        } else {
+            print("Review not requested")
+            showRateAlert = true
+        }
+    }
+    
+    func rateApp() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            UserDefaults.standard.set(true, forKey: "didAskForReview")
+            SKStoreReviewController.requestReview(in: scene)
+        }
     }
 }
 

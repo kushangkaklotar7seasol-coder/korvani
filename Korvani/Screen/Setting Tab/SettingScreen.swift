@@ -42,9 +42,6 @@ struct SettingScreen: View {
                                     .background(.lightBlackColour)
                                     .cornerRadius(10)
                                     .onTapGesture {
-                                        if field.id == 0 { // For language navigation
-                                            adVm.registerTap()
-                                        }
                                         viewModel.onSelect(field.id)
                                     }
                                 }
@@ -54,13 +51,17 @@ struct SettingScreen: View {
                         .padding(.top, 16)
                         .padding(.horizontal, 16)
                         
-                        if isShowAdd() {
-                            NativeAd9()
-                                .padding(.vertical, 8)
-                        }
+                        
                     }
                 }
                 .id(localization.selectedLanguage)
+                
+                Spacer()
+                
+                if isShowAdd() {
+                    NativeAd9()
+                        .padding(.vertical, 8)
+                }
             }
         }
         .defaultPage()

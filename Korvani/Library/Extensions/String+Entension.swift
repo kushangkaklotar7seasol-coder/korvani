@@ -184,6 +184,11 @@ class Strings {
     static var changeLanguage: String { "CHUSE_LANGUAGE".localized() }
     static var done: String { "DONE".localized() }
     
+    // MARK: - RAte App -
+    static var likeApp: String { "LIKE_APP".localized() }
+    static var rateNo: String { "RATE_NO".localized() }
+    static var rateYes: String { "RATE_YES".localized() }
+    static var rateInfo: String { "RATE_INTO".localized() }
     
     // MARK: - IPAD -
     static var changeLanguageIpad: String { "CHUSE_LANGUAGE_IPAD".localized() }

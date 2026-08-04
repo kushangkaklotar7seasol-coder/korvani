@@ -32,24 +32,30 @@ struct LikeScreen: View {
                 CustomSegmentedControl(preselectedIndex: $viewModel.selectedIndex, options: [Strings.movies, Strings.series])
                     .padding(.horizontal, 16)
                 
-//                if viewModel.selectedIndex == 0 {
+                //                if viewModel.selectedIndex == 0 {
+                
+                ScrollView(showsIndicators: false) {
                     
-                    ScrollView(showsIndicators: false) {
-                        
-                        if isShowAdd() {
-                            NativeAd6()
-                        }
-                        
-                        VStack {
+                    if isShowAdd() {
+                        NativeAd6()
+                    }
+                    
+                    VStack(spacing: 0) {
+                        if viewModel.selectedIndex == 0 {
+                            // MARK: - Movies Section
                             if !viewModel.movies.isEmpty {
                                 LazyVGrid(columns: columns) {
                                     ForEach(viewModel.movies.indices, id: \.self) { index in
-                                        MovieDetail.card(movies: viewModel.movies[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
-                                            viewModel.movies.removeAll(where: {$0.id == movie.id})
-                                            DispatchQueue.main.async {
-                                                viewModel.fetchMovie()
+                                        MovieDetail.card(
+                                            movies: viewModel.movies[index],
+                                            numbersOfCard: isiPad ? 4 : 2,
+                                            onLike: { movie in
+                                                viewModel.movies.removeAll(where: { $0.id == movie.id })
+                                                DispatchQueue.main.async {
+                                                    viewModel.fetchMovie()
+                                                }
                                             }
-                                        })
+                                        )
                                         .id(viewModel.movies[index].id)
                                         .onTapGesture {
                                             viewModel.selectedMovie = viewModel.movies[index]
@@ -57,38 +63,24 @@ struct LikeScreen: View {
                                         }
                                     }
                                 }
+                                .padding(.horizontal, 16)
+                                .id(refreshID)
                             }
-//                            else {
-//                                VStack {
-//                                    Spacer()
-//                                    Image("ic_no_favorite")
-//                                        .resizable()
-//                                        .frame(width: 120, height: 120, alignment: .center)
-//                                    
-//                                    Text(Strings.noFavourite)
-//                                        .foregroundColor(.whiteColour)
-//                                        .font(.system(size: 18, weight: .medium))
-//                                    
-//                                    Text(Strings.noFavouriteMovie)
-//                                        .foregroundColor(.grayColour)
-//                                        .font(.system(size: 14, weight: .regular))
-//                                    Spacer()
-//                                }
-//                            }
-                        }
-                        .opacity(viewModel.selectedIndex == 0 ? 1 : 0)
-                        .padding(.horizontal, 16)
-                        
-                        VStack {
+                        } else {
+                            // MARK: - Series Section
                             if !viewModel.series.isEmpty {
                                 LazyVGrid(columns: columns) {
                                     ForEach(viewModel.series.indices, id: \.self) { index in
-                                        MovieDetail.card(movies: viewModel.series[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
-                                            viewModel.series.removeAll(where: {$0.id == movie.id})
-                                            DispatchQueue.main.async {
-                                                viewModel.fetchSeries()
+                                        MovieDetail.card(
+                                            movies: viewModel.series[index],
+                                            numbersOfCard: isiPad ? 4 : 2,
+                                            onLike: { movie in
+                                                viewModel.series.removeAll(where: { $0.id == movie.id })
+                                                DispatchQueue.main.async {
+                                                    viewModel.fetchSeries()
+                                                }
                                             }
-                                        })
+                                        )
                                         .id(viewModel.series[index].id)
                                         .onTapGesture {
                                             viewModel.selectedMovie = viewModel.series[index]
@@ -96,69 +88,14 @@ struct LikeScreen: View {
                                         }
                                     }
                                 }
+                                .padding(.horizontal, 16)
+                                .id(refreshID)
                             }
-//                            else {
-//                                VStack {
-//                                    Spacer()
-//                                    Image("ic_no_favorite")
-//                                        .resizable()
-//                                        .frame(width: 120, height: 120, alignment: .center)
-//                                    
-//                                    Text(Strings.noFavourite)
-//                                        .foregroundColor(.whiteColour)
-//                                        .font(.system(size: 18, weight: .medium))
-//                                    
-//                                    Text(Strings.noFavouriteSeries)
-//                                        .foregroundColor(.grayColour)
-//                                        .font(.system(size: 14, weight: .regular))
-//                                    Spacer()
-//                                }
-//                            }
                         }
-                        .opacity(viewModel.selectedIndex == 1 ? 1 : 0)
-                        .padding(.horizontal, 16)
+                        
+                        Spacer()
                     }
-//                }
-//                else {
-//                    ScrollView(showsIndicators: false) {
-//                        if !viewModel.series.isEmpty {
-//                            
-//                            LazyVGrid(columns: columns) {
-//                                ForEach(viewModel.series.indices, id: \.self) { index in
-//                                    MovieDetail.card(movies: viewModel.series[index], numbersOfCard: isiPad ? 4 : 2, onLike: { movie in
-//                                        viewModel.series.removeAll(where: {$0.id == movie.id})
-//                                        DispatchQueue.main.async {
-//                                            viewModel.fetchSeries()
-//                                        }
-//                                    })
-//                                    .id(viewModel.series[index].id)
-//                                    .onTapGesture {
-//                                        viewModel.selectedMovie = viewModel.series[index]
-//                                        viewModel.isShowmovieDetail = true
-//                                    }
-//                                }
-//                            }
-//                        } else {
-//                            VStack {
-//                                Spacer()
-//                                Image("ic_no_favorite")
-//                                    .resizable()
-//                                    .frame(width: 120, height: 120, alignment: .center)
-//                                
-//                                Text(Strings.noFavourite)
-//                                    .foregroundColor(.whiteColour)
-//                                    .font(.system(size: 18, weight: .medium))
-//                                
-//                                Text(Strings.noFavouriteSeries)
-//                                    .foregroundColor(.grayColour)
-//                                    .font(.system(size: 14, weight: .regular))
-//                                Spacer()
-//                            }
-//                        }
-//                    }
-//                }
-                
-                Spacer()
+                }
             }
             
             if viewModel.selectedIndex == 0 {
@@ -200,7 +137,6 @@ struct LikeScreen: View {
             }
         }
         .defaultPage()
-        .id(refreshID)
         .edgesIgnoringSafeArea(.bottom)
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))

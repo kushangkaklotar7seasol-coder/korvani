@@ -170,3 +170,13 @@
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "언어 선택";
 "DONE" = "완료";
+
+// MARK: - Rate Popup -
+"LIKE_APP" = "우리 앱이 마음에 드시나요?";
+"RATE_NO" = "아니요 ❌";
+"RATE_YES" = "네 👍";
+"RATE_INTO" = "이 간단한 설문에 답해 앱 개선에 도움을 주세요.";
+
+// MARK: - IPAD -
+"CHUSE_LANGUAGE_IPAD" = "선호하는 언어를 선택하세요";
+

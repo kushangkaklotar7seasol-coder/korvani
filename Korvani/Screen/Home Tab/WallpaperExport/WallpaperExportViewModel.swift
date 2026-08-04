@@ -99,19 +99,10 @@ class WallpaperExportViewModel: ObservableObject {
     
     func shareImage(){
         WallpaperService.shared.downloadImage(url: URL(string: self.wallpaper?.src.original ?? "")!) { image in
+            let itemSource = ImageActivityItemSource(image: image, title: "")
             
-//            let controller = UIActivityViewController(
-//                activityItems: [image],
-//                applicationActivities: nil
-//            )
-//            
-//            DispatchQueue.main.async {
-//                UIApplication.shared.topViewController?
-//                    .present(controller, animated: true)
-//            }
-//
             let controller = UIActivityViewController(
-                activityItems: [image],
+                activityItems: [itemSource],
                 applicationActivities: nil
             )
 
@@ -169,5 +160,40 @@ extension UIApplication {
         }
 
         return controller
+    }
+}
+
+import UIKit
+import LinkPresentation
+
+class ImageActivityItemSource: NSObject, UIActivityItemSource {
+    let image: UIImage
+    let title: String
+    
+    init(image: UIImage, title: String = "Share Image") {
+        self.image = image
+        self.title = title
+        super.init()
+    }
+    
+    // ૧. શેર કરવા માટેનો આઈટમ ડેટા
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        return image
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        return image
+    }
+    
+    // ૨. શેર શીટના Header Preview માં ઈમેજ બતાવવા માટે (Main Logic)
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        metadata.title = title
+        
+        // ઈમેજના થંબનેલ (Thumbnail) તરીકે ઈમેજ પ્રોવાઈડ કરવી
+        let itemProvider = NSItemProvider(object: image)
+        metadata.imageProvider = itemProvider
+        
+        return metadata
     }
 }

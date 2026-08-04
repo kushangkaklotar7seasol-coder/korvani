@@ -171,6 +171,11 @@
 "CHUSE_LANGUAGE" = "Choose Your\nPreferred Language";
 "DONE" = "Done";
 
+// MARK: - Rate Popup -
+"LIKE_APP" = "Do you like our App?";
+"RATE_NO" = "No ❌";
+"RATE_YES" = "Yes 👍";
+"RATE_INTO" = "Help us to improve app by answering this quick poll.";
 
 // MARK: - IPAD -
 "CHUSE_LANGUAGE_IPAD" = "Choose Your Preferred Language";

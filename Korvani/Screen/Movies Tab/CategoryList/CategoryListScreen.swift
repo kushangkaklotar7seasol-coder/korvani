@@ -49,11 +49,11 @@ struct CategoryListScreen: View {
                         }
                     }
                     .padding(.horizontal, 16)
+                    .id(refreshID)
                 }
             }
         }
         .defaultPage()
-        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId))
         }

@@ -46,6 +46,7 @@ struct AllMoviesScreen: View {
                             }
                         }
                         .padding(.horizontal, 16)
+                        .id(refreshID)
                     } else {
                         Spacer()
                         Text("No Media Found")
@@ -57,7 +58,6 @@ struct AllMoviesScreen: View {
             }
         }
         .defaultPage()
-        .id(refreshID)
         .navigationDestination(isPresented: $isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: selectedMovieId))
         }

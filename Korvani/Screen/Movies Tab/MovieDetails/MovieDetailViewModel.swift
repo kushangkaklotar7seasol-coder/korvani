@@ -294,12 +294,14 @@ class MovieDetailViewModel: ObservableObject {
             Release date: \(item.releaseDate ?? "")
             Rating: \(String(format: "%.1f", item.voteAverage))/10
             """
-            
-            guard let url = item.posterPath else {
-                let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: nil)
-                completion([itemSource, shareText])
-                return
-            }
+        
+            let url = imageUrl+(item.posterPath ?? "")
+        
+//            guard let url = url else {
+//                let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: nil)
+//                completion([itemSource, shareText])
+//                return
+//            }
             
             // 1. Check Kingfisher cache synchronously first for instant loading
             ImageCache.default.retrieveImage(forKey: url) { result in
@@ -313,18 +315,18 @@ class MovieDetailViewModel: ObservableObject {
                     } else {
                         print("No image find")
                         // 2. Fallback to async download if image is not cached
-//                        KingfisherManager.shared.retrieveImage(with: url) { downloadResult in
-//                            let downloadedImage = try? downloadResult.get().image
-//                            let itemSource = MediaActivityItemSource(title: item.title, shareText: shareText, image: downloadedImage)
-//                            
-//                            DispatchQueue.main.async {
-//                                if let image = downloadedImage {
-//                                    completion([itemSource, shareText, image])
-//                                } else {
-//                                    completion([itemSource, shareText])
-//                                }
-//                            }
-//                        }
+                        KingfisherManager.shared.retrieveImage(with: URL(string: url) ?? URL(filePath: "")) { downloadResult in
+                            let downloadedImage = try? downloadResult.get().image
+                            let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: downloadedImage)
+                            
+                            DispatchQueue.main.async {
+                                if let image = downloadedImage {
+                                    completion([itemSource, shareText, image])
+                                } else {
+                                    completion([itemSource, shareText])
+                                }
+                            }
+                        }
                     }
                 case .failure:
                     let itemSource = MediaActivityItemSource(title: item.title ?? item.name ?? "", shareText: shareText, image: nil)

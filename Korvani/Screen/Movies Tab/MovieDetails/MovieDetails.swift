@@ -29,8 +29,6 @@ struct MovieDetails: View {
         }
     }
     
-    
-    
     var body: some View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -143,7 +141,7 @@ struct MovieDetails: View {
                     .id(refreshID)
                     
                     if isShowAdd() {
-                        NativeAd6()
+                        NativeAd9()
                     }
                     
                     if let overView = viewModel.movieDetail?.overview, overView != "" {
@@ -349,7 +347,10 @@ struct MovieDetails: View {
                     }
                     
                     Button {
-                        Utility.shareText(viewModel.translatedText())
+                        viewModel.shareMediaItem(viewModel.movieDetail!, completion: { value in
+                            print(value)
+                            SharePresenter.present(items: value)
+                        })
                     } label: {
                         Image("ic_share_semilight")
                             .resizable()
@@ -615,7 +616,7 @@ class MovieDetailsDesign {
                 }
             }
             .frame(width: width, height: height, alignment: .center)
-            .background(.grayColour)
+//            .background(.grayColour)
             .cornerRadius(10)
         }
     }
@@ -721,29 +722,29 @@ class MediaActivityItemSource: NSObject, UIActivityItemSource {
         return metadata
     }
 }
+
 enum SharePresenter {
     static func present(items: [Any]) {
-        guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
-              let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
-            return
+        DispatchQueue.main.async {
+            guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+                  let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
+                return
+            }
+            
+            var topController = rootViewController
+            while let presented = topController.presentedViewController {
+                topController = presented
+            }
+            
+            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            
+            if let popover = activityVC.popoverPresentationController {
+                popover.sourceView = topController.view
+                popover.sourceRect = CGRect(x: topController.view.bounds.midX, y: topController.view.bounds.midY, width: 0, height: 0)
+                popover.permittedArrowDirections = []
+            }
+            
+            topController.present(activityVC, animated: true)
         }
-        
-        // Find top-most presented controller
-        var topController = rootViewController
-        while let presented = topController.presentedViewController {
-            topController = presented
-        }
-        
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        
-        // iPad Popover support to avoid crashes on iPad
-        if let popover = activityVC.popoverPresentationController {
-            popover.sourceView = topController.view
-            popover.sourceRect = CGRect(x: topController.view.bounds.midX, y: topController.view.bounds.midY, width: 0, height: 0)
-            popover.permittedArrowDirections = []
-        }
-        
-        topController.present(activityVC, animated: true)
     }
 }
- 

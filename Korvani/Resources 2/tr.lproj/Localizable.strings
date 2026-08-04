@@ -170,3 +170,12 @@
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Dil Seç";
 "DONE" = "Tamam";
+
+// MARK: - Rate Popup -
+"LIKE_APP" = "Uygulamamızı beğendin mi?";
+"RATE_NO" = "Hayır ❌";
+"RATE_YES" = "Evet 👍";
+"RATE_INTO" = "Bu kısa anketi yanıtlayarak uygulamayı geliştirmemize yardımcı olun.";
+
+// MARK: - IPAD -
+"CHUSE_LANGUAGE_IPAD" = "Tercih Ettiğin Dili Seç";

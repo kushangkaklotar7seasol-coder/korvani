@@ -171,6 +171,7 @@ struct resultCard: View {
                         Text(Strings.translationPlaceholder)
                             .font(.system(size:16, weight: .regular))
                             .foregroundStyle(.grayColour)
+                            .padding(.top, 5)
                     }
                     
                     TextEditor(text: $translatedText)

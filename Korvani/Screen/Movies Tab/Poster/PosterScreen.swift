@@ -60,11 +60,11 @@ struct PosterScreen: View {
                         }
                     }
                     .padding(.horizontal, 16)
+                    .id(refreshID)
                 }
                 
                 Spacer()
             }
-            .id(refreshID)
         }
         
         .defaultPage()

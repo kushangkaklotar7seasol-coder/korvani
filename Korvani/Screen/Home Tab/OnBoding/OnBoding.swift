@@ -22,6 +22,7 @@ struct OnBoding: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .id(refreshID)
                 
                 Spacer()
                 
@@ -40,6 +41,7 @@ struct OnBoding: View {
                     }
                 }
                 .padding(.bottom, 10)
+                .id(refreshID)
                 
                 if isShowAdd() {
                     NativeAd6()
@@ -77,11 +79,11 @@ struct OnBoding: View {
                 }
                 .padding(.bottom, 40)
                 .background(.clear)
+                .id(refreshID)
             }
         }
         .defaultPage()
         .ignoresSafeArea()
-        .id(refreshID)
         .navigationDestination(isPresented: $viewModel.isShowHome) {
             TabBarScreen()
         }

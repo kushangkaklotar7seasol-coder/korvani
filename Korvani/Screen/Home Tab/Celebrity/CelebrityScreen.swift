@@ -25,8 +25,14 @@ struct CelebrityScreen: View {
                 DefaultDesign.Header(name: "ABOUT_CELEBRITY", back: {
                     self.dismiss()
                 })
+                .padding(.horizontal, 16)
                 
                 ScrollView(showsIndicators: false) {
+                    
+                    if isShowAdd() {
+                        NativeAd9()
+                    }
+                    
                     if let array = viewModel.celebrity?.results {
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(array.indices, id: \.self) { person in
@@ -41,14 +47,15 @@ struct CelebrityScreen: View {
                             }
                         }
                         .padding(.top, 20)
+                        .padding(.horizontal, 16)
+                        .id(refreshID)
                     }
                 }
                 
                 Spacer()
             }
-            .id(refreshID)
+            
         }
-        .padding(.horizontal, 16)
         .defaultPage()
         .edgesIgnoringSafeArea(.bottom)
         .navigationDestination(isPresented: $viewModel.isShowCelebrityDetail) {

@@ -52,6 +52,7 @@ struct CastCrewScreen: View {
                         }
                         .padding(.top, 20)
                         .padding(.horizontal, 16)
+                        .id(refreshID)
                     }
                 } else  {
                     ScrollView(showsIndicators: false) {
@@ -75,6 +76,7 @@ struct CastCrewScreen: View {
                         }
                         .padding(.top, 20)
                         .padding(.horizontal, 16)
+                        .id(refreshID)
                     }
                 }
                 // ૩. જો Cast અને Crew બંને ખાલી હોય તો નો ડેટા લેબલ બતાવશે
@@ -94,7 +96,6 @@ struct CastCrewScreen: View {
 //                }
                 
             }
-            .id(refreshID)
         }
         .defaultPage()
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in

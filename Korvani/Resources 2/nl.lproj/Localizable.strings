@@ -170,3 +170,12 @@
 // MARK: - Language Change -
 "CHUSE_LANGUAGE" = "Vælg Sprog";
 "DONE" = "Udført";
+
+// MARK: - Rate Popup -
+"LIKE_APP" = "Vind je onze App leuk?";
+"RATE_NO" = "Nee ❌";
+"RATE_YES" = "Ja 👍";
+"RATE_INTO" = "Help ons de app te verbeteren door deze korte poll te beantwoorden.";
+
+// MARK: - IPAD -
+"CHUSE_LANGUAGE_IPAD" = "Kies Je Voorkeurstaal";

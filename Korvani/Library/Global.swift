@@ -59,3 +59,10 @@ let noInternet = "Please check you're internet connection!"
 func isShowAdd() -> Bool {
     return !isPro && (nativeId != "" || nativeId != "ca" )
 }
+
+class AppSession {
+    static let shared = AppSession()
+    
+    var hasShownPremium = false
+    var hasShownRate = false
+}
