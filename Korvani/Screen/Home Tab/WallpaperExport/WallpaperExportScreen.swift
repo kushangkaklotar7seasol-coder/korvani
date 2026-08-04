@@ -21,13 +21,13 @@ struct WallpaperExportScreen: View {
         if isiPad {
             if Device.isiPadLandscape {
                 if isShowAdd() {
-                    return screenHeight-350
+                    return screenHeight-300
                 } else {
                     return screenHeight-200
                 }
             } else {
                 if Device.isIpad {
-                    return screenHeight-350
+                    return screenHeight-300
                 } else {
                     return screenHeight-200
                 }
@@ -40,19 +40,38 @@ struct WallpaperExportScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                DefaultDesign.Header(isShowSecondbutton: true, back: {
-                    self.dismiss()
-                }, secondButton: {
-                    viewModel.shareImage()
-                })
+                HStack {
+                    Button {
+                        self.dismiss()
+                    } label: {
+                        Image("ic_back")
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                    }
+                    .frame(width: 50, height: 50, alignment: .center)
+//                    .background(.red)
+                    
+                    Spacer()
+                    
+                    Button {
+                        viewModel.shareImage()
+                    } label: {
+                        Image("ic_share_background")
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                    }
+                }
                 .padding(.horizontal, 20)
                 
+                Spacer()
+                
                 ZStack {
-                    KFImage.url(URL(string: isiPad ? viewModel.wallpaper?.src.large2x ?? "" : viewModel.wallpaper?.src.medium ?? ""))
+                    KFImage.url(URL(string: isiPad ? viewModel.wallpaper?.src.large ?? "" : viewModel.wallpaper?.src.medium ?? ""))
                         .resizable()
                         .scaledToFill()
                         .clipped()
                 }
+                .id(refreshID)
                 .frame(maxWidth: imagewidth, maxHeight: imageHeight)
                 .background(.grayColour.opacity(0.5))
                 .cornerRadius(16)
@@ -77,6 +96,7 @@ struct WallpaperExportScreen: View {
                 .padding(.top, 5)
                 .padding(.bottom, 2)
                 .padding(.horizontal, 20)
+                .id(refreshID)
             }
             
 //            VStack {
@@ -111,7 +131,8 @@ struct WallpaperExportScreen: View {
 //            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.downloadStatus)
         }
         .defaultPage()
-        .id(refreshID)
+//        .edgesIgnoringSafeArea(.all)
+        .background(.red)
         .onAppear() {
             SwipeBackManager.shared.isEnabled = true
         }
