@@ -19,8 +19,7 @@ struct PuzzleView: View {
     @State private var refreshID = UUID()
     
     var body: some View {
-//        let puzzleSize: CGFloat = Device.isIpad ? (Device.isiPadLandscape ? (screenWidth-100)/2 : screenWidth-32) : screenWidth-32
-
+        
         ZStack {
             VStack(spacing: 8) {
                 // Header
@@ -94,7 +93,6 @@ struct PuzzleView: View {
                 }
             }
         }
-//        .padding(.horizontal, 16)
         .background(.blackColour)
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
@@ -149,7 +147,6 @@ class PuzzleDesign {
                     .allowsHitTesting(false)
             }
             .padding(.top, 5)
-
         }
     }
     
@@ -170,7 +167,7 @@ class PuzzleDesign {
                 if Device.isIpad {
                     return screenWidth-132
                 } else {
-                    return screenWidth-112
+                    return screenWidth-32
                 }
             }
         }
@@ -209,7 +206,6 @@ class PuzzleDesign {
             }
             .frame(width: puzzleSize, height: puzzleSize)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-
         }
     }
     
