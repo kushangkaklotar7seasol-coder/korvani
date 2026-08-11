@@ -42,7 +42,7 @@ var sholdShowAppOpenAd = true
 let isFirstLaunchKey = "isFirstLaunch"
 
 enum userdefaultKey {
-static let hasShownConsent = "hasShownConsent"
+    static let hasShownConsent = "hasShownConsent"
 }
 
 // MARK: - Supporting class
