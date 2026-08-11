@@ -37,10 +37,19 @@ class SplashViewModel: ObservableObject {
     
     func savePuzzle(){
         if UserdefaultManager.shared.getPuzzle().isEmpty {
-            let puzzleQuiz: [Puzzle] = [Puzzle(id: 0, name: "puzzle_1", isUsed: false),
-                                        Puzzle(id: 1, name: "puzzle_2", isUsed: false),
-                                        Puzzle(id: 2, name: "puzzle_3", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_4", isUsed: false)]
+            let puzzleQuiz: [Puzzle] = [Puzzle(id: 0, name: "puzzle_1.png", isUsed: false),
+                                        Puzzle(id: 1, name: "puzzle_2.png", isUsed: false),
+                                        Puzzle(id: 2, name: "puzzle_3.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_4.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_5.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_6.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_7.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_8.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_9.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_10.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_11.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_12.png", isUsed: false),
+                                        Puzzle(id: 3, name: "puzzle_13.png", isUsed: false)]
             
             UserdefaultManager.shared.savePuzzle(puzzleQuiz)
         }

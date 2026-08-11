@@ -26,52 +26,14 @@ enum TabItem: CaseIterable {
 
 import SwiftUI
 
-//struct TabBarScreen: View {
-//    @State private var selectedTab: TabItem = .home
-//    
-//    var body: some View {
-//        VStack(spacing: 0) {
-//            // Main Active View Container
-//            Group {
-//                switch selectedTab {
-//                case .home:
-//                    HomeScreen()
-//                case .movies:
-//                    DiscoverScreen()
-//                case .puzzle:
-//                    PuzzleView(viewModel: PuzzleViewModel())
-//                case .setting:
-//                    SettingScreen()
-//                }
-//            }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            
-//            Divider()
-//                .background(Color.tabbarBorderColour)
-//            
-//            // Custom TabBar
-//            CustomTabBar(selectedTab: $selectedTab)
-//                .background(Color.tabbarBackgroundColour)
-//        }
-//        .background(Color.blackColour)
-//        .ignoresSafeArea(.keyboard)
-//        // Ensure status bar & navigation doesn't push down
-//        .navigationBarHidden(true)
-//        .toolbar(.hidden, for: .navigationBar)
-//    }
-//}
-
 struct TabBarScreen: View {
     @State private var selectedTab: TabItem = .home
-    @StateObject private var puzzleViewModel = PuzzleViewModel()
     @State private var loadedTabs: Set<TabItem> = [.home]
     @State private var showRateAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
-            // Main Active View Container using ZStack
             ZStack {
-//                FScreen1()
                 if loadedTabs.contains(.home) {
                     HomeScreen()
                         .opacity(selectedTab == .home ? 1 : 0)
@@ -85,15 +47,13 @@ struct TabBarScreen: View {
                 }
                 
                 if loadedTabs.contains(.puzzle) {
-                    PuzzleView(viewModel: puzzleViewModel)
-                    //   FScreen3()
+                    PuzzleView()
                         .opacity(selectedTab == .puzzle ? 1 : 0)
                         .allowsHitTesting(selectedTab == .puzzle)
                 }
                 
                 if loadedTabs.contains(.setting) {
                     SettingScreen()
-                    //    FScreen4()
                         .opacity(selectedTab == .setting ? 1 : 0)
                         .allowsHitTesting(selectedTab == .setting)
                 }
@@ -103,7 +63,6 @@ struct TabBarScreen: View {
             Divider()
                 .background(Color.tabbarBorderColour)
             
-            // Custom TabBar
             CustomTabBar(selectedTab: $selectedTab, loadedTabs: $loadedTabs)
                 .background(Color.tabbarBackgroundColour)
         }
@@ -192,82 +151,6 @@ struct CustomTabBar: View {
     }
 }
 
-//struct TabBarScreen: View {
-//    @State private var selectedTab: TabItem = .home
-//    
-//    var body: some View {
-//        VStack(spacing: 0) {
-//            
-//            ZStack {
-//                HomeScreen()
-//                    .opacity(selectedTab == .home ? 1 : 0)
-//                
-//                DiscoverScreen()
-//                    .opacity(selectedTab == .movies ? 1 : 0)
-//                
-//                PuzzleView(viewModel: PuzzleViewModel())
-//                    .opacity(selectedTab == .puzzle ? 1 : 0)
-//                
-//                SettingScreen()
-//                    .opacity(selectedTab == .setting ? 1 : 0)
-//            }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//
-//            Divider()
-//                .background(.tabbarBorderColour)
-//            
-//            CustomTabBar(selectedTab: $selectedTab)
-//        }
-//        .ignoresSafeArea(.keyboard)
-//        .background(.tabbarBackgroundColour)
-//    }
-//}
-
 #Preview {
     TabBarScreen()
 }
-
-//struct CustomTabBar: View {
-//
-//    @Binding var selectedTab: TabItem
-//
-//    var body: some View {
-//
-//        HStack {
-//
-//            ForEach(TabItem.allCases, id: \.self) { tab in
-//
-//                Button {
-//
-//                    withAnimation(.spring()) {
-//                        selectedTab = tab
-//                    }
-//
-//                } label: {
-//                    
-//                    ZStack() {
-//                        Image(tab.icon)
-//                            .resizable()
-//                            .renderingMode(.template)
-//                            .tint(selectedTab == tab ? .whiteColour : .grayColour)
-//                            .frame(width: 24, height: 24, alignment: .center)
-//                    }
-//                    .padding(16)
-//                    .background(
-//                        LinearGradient(
-//                            colors: [selectedTab == tab ? .lightYellowColour : .clear, selectedTab == tab ? .orangeColour: .clear],
-//                            startPoint: .topLeading,
-//                            endPoint: .bottomTrailing
-//                        )
-//                    )
-//                    .cornerRadius(32)
-//                    .frame(maxWidth: .infinity)
-//                }
-//                .padding(.top, 5)
-//            }
-//        }
-////        .background(.blackColour)
-//        .padding(.horizontal, 10)
-////        .padding(.bottom, 5)
-//    }
-//}

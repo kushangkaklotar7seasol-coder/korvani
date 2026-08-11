@@ -63,7 +63,8 @@ final class SwipeBackManager {
 let noInternet = "Please check you're internet connection!"
 
 func isShowAdd() -> Bool {
-    return !isPro && (nativeId != "" || nativeId != "ca" )
+//    return !isPro && (nativeId != "" || nativeId != "ca" )
+    return false
 }
 
 class AppSession {

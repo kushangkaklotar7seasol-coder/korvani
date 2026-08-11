@@ -12,7 +12,7 @@ import Combine
 // MARK: - View
 struct PuzzleView: View {
     
-    @StateObject var viewModel: PuzzleViewModel
+    @StateObject var viewModel = PuzzleViewModel()
     @State private var showInstructionsSheet = false
     @State private var showOriginalPosterSheet = false
     @EnvironmentObject var localization: LocalizationManager
@@ -455,7 +455,7 @@ final class PuzzleViewModel: ObservableObject {
         self.startPuzzle()
     }
     
-    func startPuzzle() {
+    func startPuzzle()  {
         self.puzzleItem = UserdefaultManager.shared.getPuzzle().filter({ $0.isUsed == false }).first
         
         if self.puzzleItem == nil {
@@ -470,8 +470,11 @@ final class PuzzleViewModel: ObservableObject {
             self.puzzleItem = UserdefaultManager.shared.getPuzzle().filter({ $0.isUsed == false }).first
         }
         
-        self.originalImage = Self.cropToSquare(UIImage(named: puzzleItem?.name ?? "puzzle_1") ?? UIImage())
-        setupPuzzle()
+//        self.originalImage = Self.cropToSquare(UIImage(named: puzzleItem?.name ?? "puzzle_1") ?? UIImage())
+        Task {
+             await self.loadImage(from: "https://raw.githubusercontent.com/kushangkaklotar7seasol-coder/korvani/refs/heads/main/Images/puzzle_1.png")
+            setupPuzzle()
+        }
     }
     
     func setSuccessPuzzle() {
@@ -608,5 +611,26 @@ final class PuzzleViewModel: ObservableObject {
         }
         
         return Int((Double(correctCount) / Double(pieces.count)) * 100)
+    }
+    
+    func loadImage(from urlString: String) async {
+        guard let url = URL(string: urlString) else {
+            await MainActor.run {
+                self.originalImage = Self.cropToSquare(UIImage(named: self.puzzleItem?.name ?? "puzzle_1") ?? UIImage())
+            }
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            guard let image = UIImage(data: data) else { throw URLError(.cannotDecodeContentData) }
+            
+            await MainActor.run {
+                self.originalImage = Self.cropToSquare(image)
+            }
+        } catch {
+            print("Failed to load image: \(error.localizedDescription)")
+            self.originalImage = Self.cropToSquare(UIImage(named: self.puzzleItem?.name ?? "puzzle_1") ?? UIImage())
+        }
     }
 }
