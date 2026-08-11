@@ -23,6 +23,7 @@ var screenHeight: CGFloat {
 
 let isAppInTestMode = true
 
+let puzzleImageUrl = "https://raw.githubusercontent.com/kushangkaklotar7seasol-coder/korvani/refs/heads/main/Images/"
 let imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_face"
 public let ACCESS = "AKIA2FCATE7MLGSZBHML"
 public let SECRET = "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"

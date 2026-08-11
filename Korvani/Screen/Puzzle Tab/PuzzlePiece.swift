@@ -472,8 +472,8 @@ final class PuzzleViewModel: ObservableObject {
         
 //        self.originalImage = Self.cropToSquare(UIImage(named: puzzleItem?.name ?? "puzzle_1") ?? UIImage())
         Task {
-             await self.loadImage(from: "https://raw.githubusercontent.com/kushangkaklotar7seasol-coder/korvani/refs/heads/main/Images/puzzle_1.png")
-            setupPuzzle()
+             await self.loadImage(from: puzzleImageUrl+(puzzleItem?.name ?? "puzzle_1.png"))
+            setupPuzzle()//puzzleImageUrl
         }
     }
     
