@@ -24,7 +24,7 @@ struct HomeScreen: View {
                     VStack {
                         PagerViewIOS17(viewModel: viewModel)
                         
-                        if isShowAdd() {
+                        if !isPro && (nativeId != "" || nativeId != "ca" ) {
                             NativeAd9()
                                 .padding(.vertical, 8)
                         }

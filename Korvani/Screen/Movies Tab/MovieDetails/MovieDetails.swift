@@ -75,7 +75,16 @@ struct MovieDetails: View {
                                             if viewModel.youtubeUrl != "" {
                                                 Button {
                                                     print("Video Url = \(viewModel.youtubeUrl)")
-                                                    viewModel.isYoutubeVideo = true
+                                                    if isPremiumRequiredForYT {
+                                                        if isPro {
+                                                            viewModel.isYoutubeVideo = true
+                                                        } else {
+                                                            viewModel.isshowPremium = true
+                                                        }
+                                                        
+                                                    } else {
+                                                        viewModel.isYoutubeVideo = true
+                                                    }
                                                     
                                                 } label: {
                                                     Image("ic_play")
@@ -305,7 +314,16 @@ struct MovieDetails: View {
                                                 .onTapGesture {
                                                     if isYoutubeEnabled {
                                                         viewModel.youtubeUrl = "https://www.youtube.com/watch?v=\(viewModel.movieVideo?.results.first?.key ?? "")"
-                                                        viewModel.isYoutubeVideo = true
+                                                        if isPremiumRequiredForYT {
+                                                            if isPro {
+                                                                viewModel.isYoutubeVideo = true
+                                                            } else {
+                                                                viewModel.isshowPremium = true
+                                                            }
+                                                            
+                                                        } else {
+                                                            viewModel.isYoutubeVideo = true
+                                                        }
                                                     }
                                                 }
                                         }
@@ -390,6 +408,9 @@ struct MovieDetails: View {
         })
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
+        }
+        .fullScreenCover(isPresented: $viewModel.isshowPremium) {
+            PremiumScreen()
         }
 //        .sheet(isPresented: $viewModel.isShowAllCast) {
 //            VStack {

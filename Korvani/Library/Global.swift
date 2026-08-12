@@ -29,7 +29,7 @@ public let ACCESS = "AKIA2FCATE7MLGSZBHML"
 public let SECRET = "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"
 
 // MARK: - Ads manager -
-let isPro = false
+var isPro = false
 var bannerId = ""
 var nativeId = ""
 var appopenId = ""
@@ -46,12 +46,29 @@ enum userdefaultKey {
     static let hasShownConsent = "hasShownConsent"
 }
 
+var isYoutubeEnabled = false
+var isShowLifetime = true
+var isShowYearlyPlan = true
+var isShowWeeklyPlan = true
+var isShowMonthlyPlan = true
+var isPremiumRequiredForYT = true
+
+var enabledPlanCount: Int {
+    [isShowLifetime, isShowYearlyPlan, isShowWeeklyPlan, isShowMonthlyPlan]
+        .filter { $0 }
+        .count
+}
+
+var hasMultiplePlans: Bool {
+    enabledPlanCount > 1
+}
+
 // MARK: - Supporting class
 let locationManager = LocationManager()
 
 let database = SQLiteManager.shared
 
-var isYoutubeEnabled = false
+
 
 final class SwipeBackManager {
     static let shared = SwipeBackManager()
@@ -64,8 +81,7 @@ final class SwipeBackManager {
 let noInternet = "Please check you're internet connection!"
 
 func isShowAdd() -> Bool {
-//    return !isPro && (nativeId != "" || nativeId != "ca" )
-    return false
+    return !isPro && (nativeId != "" || nativeId != "ca" )
 }
 
 class AppSession {

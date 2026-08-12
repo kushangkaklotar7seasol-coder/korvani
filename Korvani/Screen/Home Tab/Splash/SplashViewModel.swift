@@ -41,15 +41,15 @@ class SplashViewModel: ObservableObject {
                                         Puzzle(id: 1, name: "puzzle_2.png", isUsed: false),
                                         Puzzle(id: 2, name: "puzzle_3.png", isUsed: false),
                                         Puzzle(id: 3, name: "puzzle_4.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_5.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_6.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_7.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_8.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_9.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_10.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_11.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_12.png", isUsed: false),
-                                        Puzzle(id: 3, name: "puzzle_13.png", isUsed: false)]
+                                        Puzzle(id: 4, name: "puzzle_5.png", isUsed: false),
+                                        Puzzle(id: 5, name: "puzzle_6.png", isUsed: false),
+                                        Puzzle(id: 6, name: "puzzle_7.png", isUsed: false),
+                                        Puzzle(id: 7, name: "puzzle_8.png", isUsed: false),
+                                        Puzzle(id: 8, name: "puzzle_9.png", isUsed: false),
+                                        Puzzle(id: 9, name: "puzzle_10.png", isUsed: false),
+                                        Puzzle(id: 10, name: "puzzle_11.png", isUsed: false),
+                                        Puzzle(id: 11, name: "puzzle_12.png", isUsed: false),
+                                        Puzzle(id: 12, name: "puzzle_13.png", isUsed: false)]
             
             UserdefaultManager.shared.savePuzzle(puzzleQuiz)
         }

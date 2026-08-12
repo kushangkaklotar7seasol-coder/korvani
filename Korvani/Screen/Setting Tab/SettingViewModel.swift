@@ -11,6 +11,7 @@ import UIKit
 
 class SettingViewModel: ObservableObject {
     @Published var isShowLanguage = false
+    @Published var isShowPremium = false
     var settingItem: [SettingSection] = [SettingSection(id: 0, name: "PREFERENCES",
                                                                    items: [LanguageModel(id: 0, name: "LANGUAGE", language: "ic_global")]),
                                          
@@ -18,7 +19,9 @@ class SettingViewModel: ObservableObject {
                                                                    items: [LanguageModel(id: 1, name: "SHARE_APP", language: "ic_share_white"),
                                                                            LanguageModel(id: 2, name: "RATE_US", language: "ic_star_white"),
                                                                            LanguageModel(id: 3, name: "PRIVECY_POLICY", language: "ic_lock"),
-                                                                           LanguageModel(id: 4, name: "TEMS_USE", language: "ic_terms")])]
+                                                                           LanguageModel(id: 4, name: "TEMS_USE", language: "ic_terms"),
+                                                                           LanguageModel(id: 5, name: "About Us", language: "ic_terms"),
+                                                                           LanguageModel(id: 6, name: "EULA", language: "ic_terms")])]
     
     
     func onSelect(_ id: Int){

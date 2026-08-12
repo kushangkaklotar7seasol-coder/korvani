@@ -53,7 +53,17 @@ struct PosterScreen: View {
                                     .onTapGesture {
                                         if isYoutubeEnabled {
                                             viewModel.youtubeUrl = "https://www.youtube.com/watch?v=\(video.key)"
-                                            viewModel.isYoutubeVideo = true
+                                            if isPremiumRequiredForYT {
+                                                if isPro {
+                                                    viewModel.isYoutubeVideo = true
+                                                } else {
+                                                    viewModel.isshowPremium = true
+                                                }
+                                                
+                                            } else {
+                                                viewModel.isYoutubeVideo = true
+                                            }
+
                                         }
                                     }
                             }
@@ -77,6 +87,9 @@ struct PosterScreen: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()
+        }
+        .fullScreenCover(isPresented: $viewModel.isshowPremium) {
+            PremiumScreen()
         }
         .sheet(isPresented: $viewModel.isYoutubeVideo) {
             NavigationStack {

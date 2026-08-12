@@ -11,6 +11,7 @@ struct AppInfo {
     static var appName             = "Korvani"
     static let privacyPolicy       = "https://evanrozario.blogspot.com/2026/07/privacy-policy.html"
     static let termsOfUse          = "https://evanrozario.blogspot.com/2026/07/terms-conditions.html"
+    static let eula          = "https://evanrozario.blogspot.com/2026/07/eula.html"
     static let shareApp            = "https://apps.apple.com/app/id\(appID)"
     static let appLink             = "https://itunes.apple.com/app/id\(appID)"
     static let rateApp             = "https://apps.apple.com/app/id\(appID)?action=write-review"

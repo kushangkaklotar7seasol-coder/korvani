@@ -43,8 +43,6 @@ struct OnBoding: View {
                 .padding(.bottom, 10)
                 .id(refreshID)
                 
-                
-                
                 Button {
                     if viewModel.selectedTab == viewModel.information.count-1 {
                         DispatchQueue.main.async {

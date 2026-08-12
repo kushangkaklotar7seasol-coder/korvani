@@ -1095,6 +1095,22 @@ struct AppConfig: Codable, Identifiable {
     let extraFields: [String: String]
     let updatedBy: UserRef
  
+    
+    static var iapLifetime = true
+    static var iapYearlyPlan = true
+    static var iapWeeklyPlan = true
+    static var iapMonthlyPlan = true
+    static var proCloseInter = true
+    static var enabledPlanCount: Int {
+        [iapLifetime, iapYearlyPlan, iapWeeklyPlan, iapMonthlyPlan]
+            .filter { $0 }
+            .count
+    }
+    
+    static var hasMultiplePlans: Bool {
+        enabledPlanCount > 1
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case name

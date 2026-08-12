@@ -14,6 +14,7 @@ class UserdefaultManager {
     private let languageKey = "SELECTED_LANGUAGE"
     private let onBoardingKey = "ONBOARDING"
     private let puzzleKey = "PUZZLE"
+    private let premiumKey = "PREMIUM"
     
     // MARK: - Language -
     func saveLanguage(_ selectedLanguage: LanguageItem){
@@ -44,6 +45,15 @@ class UserdefaultManager {
     
     func getOnBoarding() -> Int? {
         return defaults.object(forKey: self.onBoardingKey) as? Int ?? nil
+    }
+    
+    // MARK: - Deshboard -
+    func savePro(_ isProUser: Bool) {
+        self.defaults.set(isProUser, forKey: self.premiumKey)
+    }
+    
+    func getPro() -> Bool? {
+        return defaults.object(forKey: self.premiumKey) as? Bool ?? nil
     }
     
     // MARK: - Puzzle

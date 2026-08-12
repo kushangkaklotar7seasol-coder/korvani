@@ -35,6 +35,7 @@ class MovieDetailViewModel: ObservableObject {
     @Published var isCastSelected = false
     
     @Published var isYoutubeVideo = false
+    @Published var isshowPremium = false
     @Published var youtubeUrl = ""
     
     var movieId: Int?

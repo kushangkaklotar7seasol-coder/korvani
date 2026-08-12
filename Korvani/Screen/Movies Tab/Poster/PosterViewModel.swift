@@ -16,6 +16,7 @@ class PosterViewModel : ObservableObject {
     @Published var isShowPosterDetail = false
     
     @Published var isYoutubeVideo = false
+    @Published var isshowPremium = false
     @Published var youtubeUrl = ""
     
     var isImage: Bool?

@@ -8,9 +8,11 @@
 import SwiftUI
 import AWSCore
 //import AWSCore
+import StoreKit
 
 struct Splash: View {
     @StateObject var viewModel = SplashViewModel()
+    let subscriptionManager = SubscriptionManager.shared
     
     var body: some View {
         ZStack {
@@ -31,6 +33,10 @@ struct Splash: View {
         .navigationDestination(isPresented: $viewModel.navigation.home) {
             TabBarScreen()
         }
+        .task {
+            isPro = UserdefaultManager.shared.getPro() ?? true
+            await subscriptionManager.checkSubscriptionAtLaunch()
+        }
         .onAppear {
             SwipeBackManager.shared.isEnabled = false
             self.webservice_getJSON_api(completion: {
@@ -40,6 +46,33 @@ struct Splash: View {
             })
         }
     }
+    
+    func isPremiumActive(resule: @escaping (Bool) -> ()) async {
+            for await result in Transaction.currentEntitlements {
+                guard case .verified(let transaction) = result else {
+                    continue // Skip unverified/invalid receipts
+                }
+                
+                // Check for Auto-Renewable Subscriptions or Non-Consumable Lifetime Purchases
+                if transaction.productType == .autoRenewable || transaction.productType == .nonConsumable {
+                    
+                    // 1. Ensure it hasn't been refunded or revoked by Apple
+                    if transaction.revocationDate != nil {
+                        continue
+                    }
+                    
+                    // 2. Ensure the subscription hasn't expired
+                    if let expirationDate = transaction.expirationDate, expirationDate < Date() {
+                        continue
+                    }
+                    
+                    // If we reached here, the user has an ACTIVE Premium status!
+                    resule(true)
+                }
+            }
+            
+        resule(false) // No active premium entitlement found
+        }
     
     func handleFlow() async {
         print("🔥 AppOpen ID:", appopenId)
@@ -134,6 +167,12 @@ struct Splash: View {
                         proxiUrl = result["appjson"] as? String ?? ""
                         isYoutubeEnabled = result["isYoutubeEnabled"] as? String == "false" ? false : true
                         weatherAPIKey = result["weatherAPIKey"] as? String ?? "d74cbcfbbb9780cf5004245bc4311617"
+                        
+                        isShowLifetime = result["iapLifetime"] as? String == "true" ? true : false
+                        isShowYearlyPlan = result["iapYearlyPlan"] as? String == "true" ? true : false
+                        isShowWeeklyPlan = result["iapWeeklyPlan"] as? String == "true" ? true : false
+                        isShowMonthlyPlan = result["iapMonthlyPlan"] as? String == "true" ? true : false
+                        isPremiumRequiredForYT = result["isPremiumRequiredForYT"] as? String == "true" ? true : false
                     }
                 }
                 DispatchQueue.main.async { completion?() }
