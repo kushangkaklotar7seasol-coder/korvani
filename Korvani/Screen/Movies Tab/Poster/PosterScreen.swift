@@ -45,6 +45,7 @@ struct PosterScreen: View {
                                         viewModel.posterIndex = index
                                         viewModel.isShowPosterDetail = true
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.Poster)
                                     }
                             }
                         } else {
@@ -58,6 +59,7 @@ struct PosterScreen: View {
                                                     viewModel.isYoutubeVideo = true
                                                 } else {
                                                     viewModel.isshowPremium = true
+                                                    logAnalyticAction(title: "", status: AnalyticEvent.Poster)
                                                 }
                                                 
                                             } else {

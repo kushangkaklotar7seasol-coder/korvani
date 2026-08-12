@@ -8,6 +8,8 @@
 import SwiftUI
 import Combine
 import AWSCore
+import FirebaseCore
+import FirebaseCrashlytics
 
 final class AdState {
     static let shared = AdState()
@@ -23,6 +25,13 @@ struct KorvaniApp: App {
     @State private var showSplashView = false
     
     init() {
+        FirebaseApp.configure()
+        FirebaseApp.debugDescription()
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+        Crashlytics.crashlytics().log("App Launched")
+        
+        FirebaseConfiguration.shared.setLoggerLevel(FirebaseLoggerLevel.min)
+        
         UINavigationBar.appearance().isHidden = true
     }
     

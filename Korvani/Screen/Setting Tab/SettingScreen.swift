@@ -23,6 +23,7 @@ struct SettingScreen: View {
                     SettingDesign.PremiumView()
                         .onTapGesture {
                             viewModel.isShowPremium = true
+                            logAnalyticAction(title: "", status: AnalyticEvent.Setting)
                         }
                     
                     VStack(alignment: .leading, spacing: 0) {

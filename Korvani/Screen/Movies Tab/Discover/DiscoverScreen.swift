@@ -18,6 +18,7 @@ struct DiscoverScreen: View {
                 DefaultDesign.Header(name: "DISCOVERY", secondIcon: "ic_like_squre", isShowSecondbutton: true, isShowBackButton: false, font: .system(size: 20, weight: .semibold), secondButton: {
                     viewModel.isShowLikeScreen = true
                     adVm.registerTap()
+                    logAnalyticAction(title: "", status: AnalyticEvent.Discover)
                 })
                 .padding(.horizontal, 16)
                 
@@ -34,7 +35,6 @@ struct DiscoverScreen: View {
                 }
                 .padding(.horizontal, 16)
                 
-                
                 ZStack {
                     // ----------------- MOVIES TAB -----------------
                     ScrollView(showsIndicators: false) {
@@ -46,11 +46,13 @@ struct DiscoverScreen: View {
                                         viewModel.selectedBunch = item
                                         viewModel.isShowCategoryScreen = true
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.Discover)
                                     }, onMovie: { movie in
                                         print("\(movie.name ?? "") Tap")
                                         viewModel.selectedMovie = movie
                                         viewModel.isShowmovieDetail = true
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.Discover)
                                     }
                                 )
                                 
@@ -77,10 +79,12 @@ struct DiscoverScreen: View {
                                         viewModel.selectedBunch = item
                                         viewModel.isShowCategoryScreen = true
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.Discover)
                                     }, onMovie: { movie in
                                         viewModel.selectedMovie = movie
                                         viewModel.isShowmovieDetail = true
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.Discover)
                                     }
                                 )
                                 

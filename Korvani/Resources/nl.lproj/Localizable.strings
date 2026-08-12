@@ -158,6 +158,8 @@
 "RATE_US" = "Beoordeel Ons";
 "PRIVECY_POLICY" = "Privacybeleid";
 "TEMS_USE" = "Gebruiksvoorwaarden";
+"ABOUT_US" = "Over Ons";
+"EULA" = "EULA";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Exporteren";

@@ -158,6 +158,8 @@
 "RATE_US" = "Avalia-nos";
 "PRIVECY_POLICY" = "Política de Privacidade";
 "TEMS_USE" = "Termos de Utilização";
+"ABOUT_US" = "Sobre Nós";
+"EULA" = "CLUF";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Exportar";

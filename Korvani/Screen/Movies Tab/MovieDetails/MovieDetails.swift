@@ -235,6 +235,7 @@ struct MovieDetails: View {
                                                     viewModel.selectedCelebrityId = cast.id
                                                     viewModel.isShowCastDetails = true
                                                     adVm.registerTap()
+                                                    logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                                                 }
 //                                            MovieDetailsDesign.CastDetail(image: cast.profilePath ?? "", firstName: cast.name, lastName: cast.character)
                                                 
@@ -258,6 +259,7 @@ struct MovieDetails: View {
                                                     adVm.registerTap()
                                                     viewModel.selectedCelebrityId = crew.id
                                                     viewModel.isShowCastDetails = true
+                                                    logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                                                 }
                                         }
                                     }
@@ -279,8 +281,10 @@ struct MovieDetails: View {
                         }, onViewAll: {
                             if viewModel.mediaItems[viewModel.selectedMediaOption] == Strings.poster {
                                 viewModel.isShowPoster = true
+                                logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                             } else {
                                 viewModel.isShowVideo = true
+                                logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                             }
                             adVm.registerTap()
                         })
@@ -295,6 +299,7 @@ struct MovieDetails: View {
                                                     viewModel.posterIndex = index
                                                     viewModel.isShowPosterDetail = true
                                                     adVm.registerTap()
+                                                    logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                                                 }
                                         }
                                     }

@@ -158,6 +158,8 @@
 "RATE_US" = "Rate Us";
 "PRIVECY_POLICY" = "Privacy Policy";
 "TEMS_USE" = "Terms of Use";
+"ABOUT_US" = "About Us";
+"EULA" = "EULA";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Export";

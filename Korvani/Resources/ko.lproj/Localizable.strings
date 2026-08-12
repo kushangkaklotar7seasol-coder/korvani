@@ -158,6 +158,8 @@
 "RATE_US" = "평가하기";
 "PRIVECY_POLICY" = "개인정보 처리방침";
 "TEMS_USE" = "이용 약관";
+"ABOUT_US" = "회사 소개";
+"EULA" = "최종 사용자 사용권 계약";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "내보내기";

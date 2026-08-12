@@ -158,6 +158,8 @@
 "RATE_US" = "Bedøm Os";
 "PRIVECY_POLICY" = "Privatlivspolitik";
 "TEMS_USE" = "Brugsvilkår";
+"ABOUT_US" = "Om Os";
+"EULA" = "Slutbrugerlicensaftale";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Eksporter";

@@ -158,6 +158,8 @@
 "RATE_US" = "評価する";
 "PRIVECY_POLICY" = "プライバシーポリシー";
 "TEMS_USE" = "利用規約";
+"ABOUT_US" = "運営会社について";
+"EULA" = "使用許諾契約";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "エクスポート";

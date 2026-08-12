@@ -158,6 +158,8 @@
 "RATE_US" = "Bizi Değerlendirin";
 "PRIVECY_POLICY" = "Gizlilik Politikası";
 "TEMS_USE" = "Kullanım Şartları";
+"ABOUT_US" = "Hakkımızda";
+"EULA" = "SLA";
 
 // MARK: - Wallpaper Export -
 "EXPORT" = "Dışa Aktar";

@@ -20,14 +20,15 @@ class SettingViewModel: ObservableObject {
                                                                            LanguageModel(id: 2, name: "RATE_US", language: "ic_star_white"),
                                                                            LanguageModel(id: 3, name: "PRIVECY_POLICY", language: "ic_lock"),
                                                                            LanguageModel(id: 4, name: "TEMS_USE", language: "ic_terms"),
-                                                                           LanguageModel(id: 5, name: "About Us", language: "ic_terms"),
-                                                                           LanguageModel(id: 6, name: "EULA", language: "ic_terms")])]
+                                                                           LanguageModel(id: 5, name: "ABOUT_US", language: "ic_info_white"),
+                                                                           LanguageModel(id: 6, name: "EULA", language: "ic_eula")])]
     
     
     func onSelect(_ id: Int){
         switch id {
         case 0:
             self.isShowLanguage = true
+            logAnalyticAction(title: "", status: AnalyticEvent.Setting)
         case 1:
             self.shareApp()
         case 2:

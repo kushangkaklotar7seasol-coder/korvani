@@ -36,10 +36,12 @@ struct HomeScreen: View {
                                     viewModel.selectedBunch = item
                                     viewModel.isShowCategoryScreen = true
                                     adVm.registerTap()
+                                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                                 }, onMovie: { movie in
                                     viewModel.selectedMovieId = movie.id
                                     viewModel.isSelectedMovie = movie.title != nil ? true : false
                                     viewModel.navigationItem.movieDetail = true
+                                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                                     adVm.registerTap()
                                 })
                             }
@@ -56,6 +58,7 @@ struct HomeScreen: View {
                                 Button {
                                     adVm.registerTap()
                                     viewModel.navigationItem.celebrity = true
+                                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                                 } label: {
                                     Text(Strings.viewAll)
                                         .foregroundColor(.mediumOrangeColour)
@@ -73,6 +76,7 @@ struct HomeScreen: View {
                                                     adVm.registerTap()
                                                     viewModel.navigationItem.celebrityDetail = true
                                                     viewModel.celebritySelectedId = array[index].id
+                                                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                                                 }
                                         }
                                     }
@@ -121,6 +125,7 @@ struct HomeScreen: View {
                             Button {
                                 adVm.registerTap()
                                 viewModel.navigationItem.wallpaper = true
+                                logAnalyticAction(title: "", status: AnalyticEvent.Home)
                             } label: {
                                 Home.HdWallpaperView()
                             }
@@ -204,6 +209,7 @@ class Home {
                 } else {
                     Button {
                         viewModel.navigationItem.search = true
+                        logAnalyticAction(title: "", status: AnalyticEvent.Home)
                     } label: {
                         Image("ic_search")
                             .resizable()
@@ -272,6 +278,7 @@ class Home {
                 Button {
                     adVm.registerTap()
                     viewModel.navigationItem.unitConverter = true
+                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                 } label: {
                     ZStack(alignment: .leading) {
                         LinearGradient(colors: [.litePurpleColour, .purpleColour], startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -302,6 +309,7 @@ class Home {
                 Button {
                     adVm.registerTap()
                     viewModel.navigationItem.translater = true
+                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                 } label: {
                     ZStack(alignment: .leading) {
                         LinearGradient(colors: [.lightGreenColour, .greenColour], startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -468,6 +476,7 @@ struct PagerViewIOS17: View {
                                     viewModel.selectedMovieId = movie.id
                                     viewModel.navigationItem.movieDetail = true
                                     viewModel.isSelectedMovie = true
+                                    logAnalyticAction(title: "", status: AnalyticEvent.Home)
                                     adVm.registerTap()
                                 }
                             }
@@ -556,6 +565,7 @@ struct PagerViewIOS17: View {
                                         viewModel.selectedMovieId = movie.id
                                         viewModel.navigationItem.movieDetail = true
                                         viewModel.isSelectedMovie = true
+                                        logAnalyticAction(title: "", status: AnalyticEvent.Home)
                                         adVm.registerTap()
                                     }
                                 }

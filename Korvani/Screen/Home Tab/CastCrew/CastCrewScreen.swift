@@ -47,6 +47,7 @@ struct CastCrewScreen: View {
                                     selectedCelebrityId = cast[index].id
                                     isShowCastDetails = true
                                     adVm.registerTap()
+                                    logAnalyticAction(title: "", status: AnalyticEvent.CastCrew)
                                 }
                             }
                         }
@@ -71,6 +72,7 @@ struct CastCrewScreen: View {
                                     selectedCelebrityId = crew[index].id
                                     isShowCastDetails = true
                                     adVm.registerTap()
+                                    logAnalyticAction(title: "", status: AnalyticEvent.CastCrew)
                                 }
                             }
                         }
@@ -79,22 +81,6 @@ struct CastCrewScreen: View {
                         .id(refreshID)
                     }
                 }
-                // ૩. જો Cast અને Crew બંને ખાલી હોય તો નો ડેટા લેબલ બતાવશે
-//                else {
-//                    VStack(spacing: 12) {
-//                        Spacer()
-//                        Image(systemName: "person.slash")
-//                            .font(.system(size: 40))
-//                            .foregroundColor(.gray)
-//                        
-//                        Text("No Cast or Crew Available")
-//                            .font(.system(size: 16, weight: .medium))
-//                            .foregroundColor(.gray)
-//                        Spacer()
-//                    }
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                }
-                
             }
         }
         .defaultPage()
