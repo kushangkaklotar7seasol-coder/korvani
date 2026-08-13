@@ -53,20 +53,29 @@ struct WallpaperScreen: View {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.displayWallpaper.indices, id: \.self) { index in
                             ZStack {
-                                KFImage.url(URL(string: viewModel.displayWallpaper[index].src.medium))
-                                    .resizable()
-                                    .scaledToFill()
+                                Button {
+                                    print("WALLPAPER CLICKED = \(viewModel.displayWallpaper[index])")
+                                    viewModel.selectedWallpaper = viewModel.displayWallpaper[index]
+                                    adVm.registerTap()
+                                    viewModel.isShowDownload = true
+                                    logAnalyticAction(title: "", status: AnalyticEvent.wallpaper)
+                                } label: {
+                                    ZStack {
+                                        KFImage.url(URL(string: viewModel.displayWallpaper[index].src.medium))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: cardWidth, height: cardWidth * 1.4)
+                                            .clipped()
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                                .contentShape(Rectangle())
                             }
                             .frame(width: cardWidth , height: cardWidth*1.4)
                             .background(.grayColour.opacity(0.5))
                             .cornerRadius(10)
                             .onAppear() {
                                 self.loadMoreIfNeeded(currentItem: index)
-                            }
-                            .onTapGesture {
-                                viewModel.selectedWallpaper = viewModel.displayWallpaper[index]
-                                viewModel.isShowDownload = true
-                                adVm.registerTap()
                             }
                         }
                     }
@@ -80,7 +89,7 @@ struct WallpaperScreen: View {
             WallpaperExportScreen(viewModel: WallpaperExportViewModel(wallpaper: viewModel.selectedWallpaper))
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()

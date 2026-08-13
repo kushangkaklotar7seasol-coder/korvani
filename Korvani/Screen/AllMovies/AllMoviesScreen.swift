@@ -42,6 +42,7 @@ struct AllMoviesScreen: View {
                                         selectedMovie = mediaItem[index]
                                         isShowmovieDetail = true
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.AllMovies)
                                     }
                             }
                         }
@@ -62,7 +63,7 @@ struct AllMoviesScreen: View {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: selectedMovie?.id ?? 0, isMovie: selectedMovie?.title != nil ? true : false))
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
             refreshID = UUID()

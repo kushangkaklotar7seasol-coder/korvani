@@ -45,6 +45,7 @@ struct LanguageScreen: View {
                         if self.isShowBackButton {
                             self.dismiss()
                             adVm.registerTap()
+                            logAnalyticAction(title: "", status: AnalyticEvent.languageScreen)
                         } else {
                             viewModel.isOnBording = true
                         }

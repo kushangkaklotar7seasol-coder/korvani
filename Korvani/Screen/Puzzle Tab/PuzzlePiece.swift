@@ -112,7 +112,7 @@ struct PuzzleView: View {
             }
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = false
+            // SwipeBackManager.shared.isEnabled = false
             UISlider.appearance().setThumbImage(UIImage(), for: .normal)
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in

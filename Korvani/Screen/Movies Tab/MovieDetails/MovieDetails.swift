@@ -222,6 +222,7 @@ struct MovieDetails: View {
                             viewModel.isCastSelected = viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast
                             self.viewModel.isShowAllCast = true
                             adVm.registerTap()
+                            logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                         })
                         
                         if viewModel.castItems[viewModel.selectedCastOption] == Strings.topCast{
@@ -287,6 +288,7 @@ struct MovieDetails: View {
                                 logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                             }
                             adVm.registerTap()
+                            logAnalyticAction(title: "", status: AnalyticEvent.MovieDetail)
                         })
                         
                         if viewModel.mediaItems[viewModel.selectedMediaOption] == Strings.poster {
@@ -402,7 +404,7 @@ struct MovieDetails: View {
             PosterDetailScreen(viewModel: PosterDetailsViewModel(images: viewModel.movieImage?.posters ?? []), position: viewModel.posterIndex)
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .defaultPage()
         .navigationDestination(isPresented: $viewModel.isShowAllCast, destination: {

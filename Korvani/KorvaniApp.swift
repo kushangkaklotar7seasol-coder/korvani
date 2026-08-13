@@ -167,15 +167,81 @@ extension Bundle {
     }
 }
 
-extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
-    
-    override open func viewDidLoad() {
+//extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
+//    
+//    override open func viewDidLoad() {
+//        super.viewDidLoad()
+//        interactivePopGestureRecognizer?.delegate = self
+//    }
+//    
+//    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        guard SwipeBackManager.shared.isEnabled else { return false }
+//        return viewControllers.count > 1
+//    }
+//}
+
+extension View {
+    func swipeBackEnabled(_ enabled: Bool) -> some View {
+        self.modifier(SwipeBackControl(isEnabled: enabled))
+    }
+}
+
+struct SwipeBackControl: ViewModifier {
+    let isEnabled: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                ApplicationState.shared.swipeEnabled = isEnabled
+            }
+            .onChange(of: isEnabled) { _, newValue in
+                ApplicationState.shared.swipeEnabled = newValue
+            }
+            .onDisappear {
+                ApplicationState.shared.swipeEnabled = true
+            }
+    }
+}
+
+import Foundation
+import SwiftUI
+import Combine
+
+@MainActor
+final class ApplicationState: ObservableObject {
+    var swipeEnabled: Bool = true
+
+    static let shared = ApplicationState()
+//    @Published var introCompleted: Bool {
+//        didSet {
+//            AppStorageService.shared.set(introCompleted, forKey: .introCompleted)
+//        }
+//    }
+//
+//    @Published var languageConfigured: Bool {
+//        didSet {
+//            AppStorageService.shared.set(languageConfigured, forKey: .langCompleted)
+//        }
+//    }
+
+    @Published var isDisplayingSplash: Bool = true
+
+//    init() {
+//        self.introCompleted = AppStorageService.shared.bool(forKey: .introCompleted)
+//        self.languageConfigured = AppStorageService.shared.bool(forKey: .langCompleted)
+//    }
+}
+
+// MARK: - Interactive Pop Gesture Enabler
+extension UINavigationController: UIGestureRecognizerDelegate {
+
+    open override func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-    
+
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard SwipeBackManager.shared.isEnabled else { return false }
-        return viewControllers.count > 1
+        // Swipe allowed only if enabled AND more than 1 screen in stack
+        return ApplicationState.shared.swipeEnabled && viewControllers.count > 1
     }
 }

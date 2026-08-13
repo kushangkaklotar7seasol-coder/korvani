@@ -91,7 +91,7 @@ struct OnBoding: View {
             refreshID = UUID()
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = false
+            // SwipeBackManager.shared.isEnabled = false
         }
     }
 }
@@ -216,7 +216,7 @@ class OnBording {
             .ignoresSafeArea()
             
             .onAppear {
-                SwipeBackManager.shared.isEnabled = false
+                // SwipeBackManager.shared.isEnabled = false
             }
             .id(refreshID)
             .onReceive(

@@ -85,7 +85,7 @@ struct PosterScreen: View {
             PosterDetailScreen(viewModel: PosterDetailsViewModel(images: viewModel.images), position: viewModel.posterIndex)
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             refreshID = UUID()

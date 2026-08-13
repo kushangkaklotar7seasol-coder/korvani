@@ -49,6 +49,7 @@ struct WallpaperExportScreen: View {
                             .frame(width: 40, height: 40, alignment: .center)
                     }
                     .frame(width: 50, height: 50, alignment: .center)
+                    .contentShape(Rectangle())
 //                    .background(.red)
                     
                     Spacer()
@@ -62,6 +63,7 @@ struct WallpaperExportScreen: View {
                     }
                 }
                 .padding(.horizontal, 20)
+                .zIndex(1)
                 
                 Spacer()
                 
@@ -69,8 +71,10 @@ struct WallpaperExportScreen: View {
                     KFImage.url(URL(string: isiPad ? viewModel.wallpaper?.src.large ?? "" : viewModel.wallpaper?.src.medium ?? ""))
                         .resizable()
                         .scaledToFill()
+                        .frame(maxWidth: imagewidth, maxHeight: imageHeight)
                         .clipped()
                 }
+                .allowsHitTesting(false)
                 .id(refreshID)
                 .frame(maxWidth: imagewidth, maxHeight: imageHeight)
                 .background(.grayColour.opacity(0.5))
@@ -98,44 +102,9 @@ struct WallpaperExportScreen: View {
                 .padding(.horizontal, 20)
                 .id(refreshID)
             }
-            
-//            VStack {
-//                if viewModel.downloadStatus == 1 {
-//                    Text(Strings.downloading)
-//                        .padding()
-//                        .font(.system(size: 18, weight: .bold))
-//                        .background(.blackColour.opacity(0.5))
-//                        .cornerRadius(10)
-//                        .transition(.asymmetric(
-//                                        insertion: .scale(scale: 0.7).combined(with: .opacity),
-//                                        removal: .opacity
-//                                    ))
-//                }
-                
-//                if viewModel.downloadStatus == 2 {
-//                    VStack(spacing: 0) {
-//                        Text(Strings.downloadSuccess)
-//                            .font(.system(size: 18, weight: .bold))
-//                        
-//                        Text(Strings.checkPhotosApp)
-//                    }
-//                    .padding()
-//                    .background(.greenColour.opacity(0.7))
-//                    .cornerRadius(10)
-//                    .transition(.asymmetric(
-//                                insertion: .scale(scale: 0.7).combined(with: .opacity),
-//                                removal: .move(edge: .top).combined(with: .opacity)
-//                            ))
-//                }
-//            }
-//            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.downloadStatus)
         }
         .defaultPage()
-//        .edgesIgnoringSafeArea(.all)
         .background(.red)
-        .onAppear() {
-            SwipeBackManager.shared.isEnabled = true
-        }
         .alert(Strings.downloadSuccess, isPresented: $viewModel.showAlert) {
             Button(Strings.ok) { }
         } message: {

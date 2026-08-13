@@ -191,6 +191,7 @@ class PremiumViewModel: NSObject, ObservableObject, SKProductsRequestDelegate, S
                     UserdefaultManager.shared.savePro(true)
                     self.isLoading = false
                     self.onPurchaseSuccess?()
+                    NotificationCenter.default.post(name: .addRemoveFromDiscover, object: nil)
                     
                 case .restored:
                     queue.finishTransaction(transaction)
@@ -200,6 +201,7 @@ class PremiumViewModel: NSObject, ObservableObject, SKProductsRequestDelegate, S
                     self.isRestoring = false
                     self.showAlertMsg(message: "Your premium access has been successfully restored!")
                     self.onRestoreSuccess?()
+                    NotificationCenter.default.post(name: .addRemoveFromDiscover, object: nil)
                     
                 case .failed:
                     queue.finishTransaction(transaction)

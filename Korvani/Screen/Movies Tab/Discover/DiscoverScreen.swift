@@ -11,6 +11,7 @@ struct DiscoverScreen: View {
     @StateObject var viewModel = DiscoverViewModel()
     @EnvironmentObject var localization: LocalizationManager
     @EnvironmentObject var adVm: AdCountViewModel
+    @State var refrestOnPremium = UUID()
     
     var body: some View {
         ZStack {
@@ -66,6 +67,7 @@ struct DiscoverScreen: View {
                         .padding(.vertical, 24)
                     }
                     .id(localization.selectedLanguage)
+                    .id(refrestOnPremium)
                     .opacity(viewModel.selectedIndex == 0 ? 1 : 0)
                     .allowsHitTesting(viewModel.selectedIndex == 0)
                     
@@ -98,6 +100,7 @@ struct DiscoverScreen: View {
                         .padding(.vertical, 24)
                     }
                     .id(localization.selectedLanguage)
+                    .id(refrestOnPremium)
                     .opacity(viewModel.selectedIndex == 1 ? 1 : 0)
                     .allowsHitTesting(viewModel.selectedIndex == 1)
                 }
@@ -158,12 +161,19 @@ struct DiscoverScreen: View {
         .navigationDestination(isPresented: $viewModel.isShowmovieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
+        .onReceive(NotificationCenter.default.publisher(for: .addRemoveFromDiscover)) { notification in
+            self.refrestOnPremium = UUID()
+        }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = false
+            // SwipeBackManager.shared.isEnabled = false
         }
     }
 }
 
 #Preview {
     DiscoverScreen()
+}
+
+extension Notification.Name {
+    static let addRemoveFromDiscover = Notification.Name("PREMIUM_ADD_REMOVE")
 }

@@ -12,6 +12,7 @@ struct SearchScreen: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState var isTextFieldFocused: Bool
     @State private var refreshID = UUID()
+    @EnvironmentObject var adVm: AdCountViewModel
     
     var columns: [GridItem] {
             let count = isiPad ? (Device.isiPadLandscape ? 5 : 4) : 2
@@ -94,6 +95,8 @@ struct SearchScreen: View {
                                                         Utility.closeKeyboard()
                                                         viewModel.selectedMovie = array[index]
                                                         viewModel.isShowmovieDetail = true
+                                                        adVm.registerTap()
+                                                        logAnalyticAction(title: "", status: AnalyticEvent.searchScreen)
                                                     }
                                                     .onAppear() {
                                                         self.loadMoreIfNeeded(currentItem: index)
@@ -110,6 +113,8 @@ struct SearchScreen: View {
                                                         Utility.closeKeyboard()
                                                         viewModel.selectedMovie = array[index]
                                                         viewModel.isShowmovieDetail = true
+                                                        adVm.registerTap()
+                                                        logAnalyticAction(title: "", status: AnalyticEvent.searchScreen)
                                                     }
                                                     .onAppear() {
                                                         self.loadMoreIfNeeded(currentItem: index)
@@ -247,7 +252,7 @@ struct SearchScreen: View {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
 //        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
 //            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {

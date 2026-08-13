@@ -149,7 +149,7 @@ struct PremiumScreen: View {
                         .foregroundColor(.whiteColour)
                         .scaledToFit()
                         .frame(width: 32, height: 32)
-                        .padding(12)
+                        .padding(7)
                         .background(.whiteColour.opacity(0.2))
                         .cornerRadius(32)
                         .overlay {
@@ -164,7 +164,8 @@ struct PremiumScreen: View {
                     viewModel.restore()
                 } label: {
                     Text("Restore")
-                        .padding()
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
                         .font(.system(size: 14, weight: .medium))
                         .background(.whiteColour.opacity(0.2))
                         .cornerRadius(8)
@@ -193,9 +194,6 @@ struct PremiumScreen: View {
         }
         .onDisappear {
             sholdShowAppOpenAd = true
-            if !isPro && AppConfig.proCloseInter && !isFromIntro {
-                addViewModel.registerTap()
-            }
         }
         .task {
 //            logAnalyticAction(title: "", status: AnalyticEvent.Premium)

@@ -99,7 +99,7 @@ struct UnitConverterScreen: View {
             isTextFieldFocused = false
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
     }
 }

@@ -77,8 +77,11 @@ struct SettingScreen: View {
         .fullScreenCover(isPresented: $viewModel.isShowPremium) {
             PremiumScreen()
         }
+        .navigationDestination(isPresented: $viewModel.isShowAboutUs) {
+            AboutUsScreen()
+        }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = false
+            // SwipeBackManager.shared.isEnabled = false
         }
     }
 }

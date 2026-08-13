@@ -86,7 +86,7 @@ struct PosterDetailScreen: View {
             DispatchQueue.main.async {
                 scrollPosition = position
                 currentIndex = position ?? 0
-                SwipeBackManager.shared.isEnabled = true
+                // SwipeBackManager.shared.isEnabled = true
             }
         }
     }

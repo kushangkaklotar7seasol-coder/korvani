@@ -165,6 +165,9 @@ struct HomeScreen: View {
         .navigationDestination(isPresented: $viewModel.navigationItem.search) {
             SearchScreen()
         }
+        .fullScreenCover(isPresented: $viewModel.isShowPremium) {
+            PremiumScreen()
+        }
         .navigationDestination(isPresented: $viewModel.navigationItem.movieDetail) {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId, isMovie: viewModel.isSelectedMovie))
         }
@@ -175,7 +178,7 @@ struct HomeScreen: View {
             refreshID = UUID()
         }
         .onAppear() {
-            SwipeBackManager.shared.isEnabled = false
+            // SwipeBackManager.shared.isEnabled = false
         }
     }
 }
@@ -201,6 +204,14 @@ class Home {
                 }
                 
                 Spacer()
+                
+                Button {
+                    viewModel.isShowPremium = true
+                } label: {
+                    Image("ic_premium_logo")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                }
                 
                 if viewModel.isLoading {
                     ProgressView()

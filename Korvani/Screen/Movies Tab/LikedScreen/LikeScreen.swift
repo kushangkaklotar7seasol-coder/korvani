@@ -62,6 +62,7 @@ struct LikeScreen: View {
                                             viewModel.selectedMovie = viewModel.movies[index]
                                             viewModel.isShowmovieDetail = true
                                             adVm.registerTap()
+                                            logAnalyticAction(title: "", status: AnalyticEvent.likeScreen)
                                         }
                                     }
                                 }
@@ -88,6 +89,7 @@ struct LikeScreen: View {
                                             viewModel.selectedMovie = viewModel.series[index]
                                             viewModel.isShowmovieDetail = true
                                             adVm.registerTap()
+                                            logAnalyticAction(title: "", status: AnalyticEvent.likeScreen)
                                         }
                                     }
                                 }
@@ -145,7 +147,7 @@ struct LikeScreen: View {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovie?.id ?? 0, isMovie: viewModel.selectedMovie?.title != nil ? true : false))
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(
             NotificationCenter.default.publisher(

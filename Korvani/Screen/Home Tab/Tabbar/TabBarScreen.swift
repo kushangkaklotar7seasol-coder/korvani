@@ -66,6 +66,7 @@ struct TabBarScreen: View {
             CustomTabBar(selectedTab: $selectedTab, loadedTabs: $loadedTabs)
                 .background(Color.tabbarBackgroundColour)
         }
+        .swipeBackEnabled(false)
         .background(Color.blackColour)
         .ignoresSafeArea(.keyboard)
         .navigationBarHidden(true)
@@ -153,4 +154,31 @@ struct CustomTabBar: View {
 
 #Preview {
     TabBarScreen()
+}
+
+extension UIViewController {
+    
+    func findNavigationController() -> UINavigationController? {
+        
+        if let nav = self as? UINavigationController {
+            return nav
+        }
+        
+        for child in children {
+            if let nav = child.findNavigationController() {
+                return nav
+            }
+        }
+        
+        return navigationController
+    }
+}
+
+final class SwipeBackDisabler: NSObject, UIGestureRecognizerDelegate {
+    
+    static let shared = SwipeBackDisabler()
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
 }

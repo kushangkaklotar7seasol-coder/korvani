@@ -38,7 +38,7 @@ struct Splash: View {
             await subscriptionManager.checkSubscriptionAtLaunch()
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = false
+            // SwipeBackManager.shared.isEnabled = false
             self.webservice_getJSON_api(completion: {
                 Task {
                     await handleFlow()

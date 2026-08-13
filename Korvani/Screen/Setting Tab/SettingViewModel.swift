@@ -12,15 +12,16 @@ import UIKit
 class SettingViewModel: ObservableObject {
     @Published var isShowLanguage = false
     @Published var isShowPremium = false
+    @Published var isShowAboutUs = false
     var settingItem: [SettingSection] = [SettingSection(id: 0, name: "PREFERENCES",
                                                                    items: [LanguageModel(id: 0, name: "LANGUAGE", language: "ic_global")]),
                                          
                                          SettingSection(id: 1, name: "SUPPORT_INFO",
-                                                                   items: [LanguageModel(id: 1, name: "SHARE_APP", language: "ic_share_white"),
+                                                                   items: [LanguageModel(id: 5, name: "ABOUT_US", language: "ic_info_white"),
+                                                                           LanguageModel(id: 1, name: "SHARE_APP", language: "ic_share_white"),
                                                                            LanguageModel(id: 2, name: "RATE_US", language: "ic_star_white"),
                                                                            LanguageModel(id: 3, name: "PRIVECY_POLICY", language: "ic_lock"),
                                                                            LanguageModel(id: 4, name: "TEMS_USE", language: "ic_terms"),
-                                                                           LanguageModel(id: 5, name: "ABOUT_US", language: "ic_info_white"),
                                                                            LanguageModel(id: 6, name: "EULA", language: "ic_eula")])]
     
     
@@ -37,6 +38,11 @@ class SettingViewModel: ObservableObject {
             self.openURL(AppInfo.privacyPolicy)
         case 4:
             self.openURL(AppInfo.termsOfUse)
+        case 5:
+            self.isShowAboutUs = true
+            logAnalyticAction(title: "", status: AnalyticEvent.Setting)
+        case 6:
+            self.openURL(AppInfo.eula)
         default: break;
         }
     }

@@ -131,7 +131,7 @@ struct TranslateScreen: View {
             viewModel.translateText()
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {

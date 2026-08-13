@@ -17,6 +17,13 @@ enum AnalyticEvent: String {
     case CastDetail
     case Poster
     case CastCrew
+    case AllMovies
+    case wallpaper
+    case celibrityScreen
+    case searchScreen
+    case categoryList
+    case likeScreen
+    case languageScreen
 }
 
 func logAnalyticView(title: String, Screen: String) {

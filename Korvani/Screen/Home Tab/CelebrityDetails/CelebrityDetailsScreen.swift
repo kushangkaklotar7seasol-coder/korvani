@@ -91,6 +91,7 @@ struct CelebrityDetailsScreen: View {
                                                 viewModel.selectedMovie = viewModel.movies[item]
                                                 viewModel.isShowmovieDetail = true
                                                 adVm.registerTap()
+                                                logAnalyticAction(title: "", status: AnalyticEvent.CastDetail)
                                             }
                                     }
                                 }
@@ -132,7 +133,7 @@ struct CelebrityDetailsScreen: View {
             AllMoviesScreen(header: viewModel.celebrityDetail?.name ?? "", mediaItem: viewModel.movies)
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
     }
     
@@ -326,6 +327,7 @@ class CelebrityDetails {
                         Button {
                             adVm.registerTap()
                             viewModel.isViewAllSheet = true
+                            logAnalyticAction(title: "", status: AnalyticEvent.CastDetail)
                         } label: {
                             Text(Strings.viewAll)
                                 .foregroundColor(.mediumOrangeColour)

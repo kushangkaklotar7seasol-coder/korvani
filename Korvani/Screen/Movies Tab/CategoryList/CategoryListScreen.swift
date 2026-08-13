@@ -43,6 +43,7 @@ struct CategoryListScreen: View {
                                     viewModel.isMovieselected = viewModel.mediaItem[index].title != nil ? true : false
                                     viewModel.isShowmovieDetail = true
                                     adVm.registerTap()
+                                    logAnalyticAction(title: "", status: AnalyticEvent.categoryList)
                                 }
                                 .onAppear() {
                                     self.loadMoreIfNeeded(currentItem: index)
@@ -59,7 +60,7 @@ struct CategoryListScreen: View {
             MovieDetails(viewModel: MovieDetailViewModel(movieId: viewModel.selectedMovieId, isMovie: viewModel.isMovieselected))
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {_ in
             refreshID = UUID()

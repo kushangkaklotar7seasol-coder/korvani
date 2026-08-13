@@ -42,6 +42,7 @@ struct CelebrityScreen: View {
                                         viewModel.isShowCelebrityDetail = true
                                         viewModel.celebritySelectedId = array[person].id
                                         adVm.registerTap()
+                                        logAnalyticAction(title: "", status: AnalyticEvent.celibrityScreen)
                                     }
                                     .onAppear() {
                                         loadMoreIfNeeded(currentItem: person)
@@ -64,7 +65,7 @@ struct CelebrityScreen: View {
             CelebrityDetailsScreen(viewModel: CelebrityDetailsViewModel(celebrityId: viewModel.celebritySelectedId))
         }
         .onAppear {
-            SwipeBackManager.shared.isEnabled = true
+            // SwipeBackManager.shared.isEnabled = true
         }
         .onReceive(
             NotificationCenter.default.publisher(
