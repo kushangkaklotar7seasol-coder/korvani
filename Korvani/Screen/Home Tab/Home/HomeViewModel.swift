@@ -35,7 +35,8 @@ class HomeViewModel : ObservableObject {
     }
     
     func onApper(){
-        locationManager.checkLocationAuthorization()
+//        locationManager.checkLocationAuthorization()
+        print("Apper value")
     }
     
     func openAppSettings() {

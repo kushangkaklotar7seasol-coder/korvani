@@ -256,7 +256,7 @@ class Home {
                         Text(Date.now, format: .dateTime.weekday(.wide).month(.wide).day())
                             .font(.system(size: 14, weight: .regular))
                         
-                        Text(locationManager.addressString)
+                        Text("locationManager.addressString")
                             .font(.system(size: 14, weight: .semibold))
                             .lineLimit(1)
                     }

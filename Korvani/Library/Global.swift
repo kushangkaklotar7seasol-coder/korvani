@@ -65,7 +65,6 @@ var hasMultiplePlans: Bool {
 }
 
 // MARK: - Supporting class
-let locationManager = LocationManager()
 
 let database = SQLiteManager.shared
 

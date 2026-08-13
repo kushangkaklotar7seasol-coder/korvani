@@ -7,7 +7,6 @@
 
 import Foundation
 import Alamofire
-import CoreLocation
 
 class WeatherService {
     
@@ -15,8 +14,8 @@ class WeatherService {
     
     func weatherAPI(parameters: [String: Any] = [:], success: @escaping (Int, WeatherForecastResponse) -> (), failure: @escaping (String) -> ()) {
         
-        let latitude = locationManager.manager.location?.coordinate.latitude ?? 0.0
-        let long = locationManager.manager.location?.coordinate.longitude ?? 0.0
+        let latitude = 0.0
+        let long =  0.0
         
         let weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(long)&appid=\(weatherAPIKey)&units=metric"
         
