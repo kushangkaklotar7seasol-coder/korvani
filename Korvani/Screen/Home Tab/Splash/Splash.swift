@@ -9,6 +9,7 @@ import SwiftUI
 import AWSCore
 //import AWSCore
 import StoreKit
+import Lottie
 
 struct Splash: View {
     @StateObject var viewModel = SplashViewModel()
@@ -16,14 +17,28 @@ struct Splash: View {
     
     var body: some View {
         ZStack {
-            VStack {
+//            VStack {
                 Image("ic_app_name")
-                    .frame(width: 196)
+                    .frame(width: 160, height: 72)
                 
-                Text(Strings.splashSubtitle)
-                    .foregroundColor(.grayColour)
+//                Text(Strings.splashSubtitle)
+//                    .foregroundColor(.grayColour)
+//            }
+            
+            VStack {
+                Spacer()
+                
+                LottieView(animation: .named("loading_lottie"))
+                    .looping()
+                    .resizable()
+                    .frame(width: 100, height: 100)
             }
+            .padding(.vertical, 30)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(colors: [.pinkColour, .cyanColour, .lightSkyBlueColour], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
         .navigationDestination(isPresented: $viewModel.navigation.OnBoding) {
             OnBoding()
         }
@@ -193,13 +208,22 @@ struct SplashConetentView: View {
     
     var body: some View {
         ZStack {
+            Image("ic_app_name")
+                .frame(width: 160, height: 72)
+            
             VStack {
-                Image("ic_app_name")
-                    .frame(width: 196)
+                Spacer()
                 
-                Text(Strings.splashSubtitle)
-                    .foregroundColor(.grayColour)
+                LottieView(animation: .named("loading_lottie"))
+                    .looping()
+                    .resizable()
+                    .frame(width: 100, height: 100)
             }
+            .padding(.vertical, 30)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(colors: [.pinkColour, .cyanColour, .lightSkyBlueColour], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
     }
 }

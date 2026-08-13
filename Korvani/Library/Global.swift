@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-let appName = "Korvani"
+let appName = "Pikcube"
 
 let screenSize: CGRect = UIScreen.main.bounds
 let isiPad = UIDevice.current.userInterfaceIdiom == .pad
@@ -22,6 +22,7 @@ var screenHeight: CGFloat {
 }
 
 let isAppInTestMode = true
+var isIsShowPremiumScreen = true
 
 let puzzleImageUrl = "https://raw.githubusercontent.com/kushangkaklotar7seasol-coder/korvani/refs/heads/main/Images/"
 let imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_face"

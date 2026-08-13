@@ -147,14 +147,14 @@ struct PremiumScreen: View {
                         .resizable()
                         .renderingMode(.template)
                         .foregroundColor(.whiteColour)
-                        .scaledToFit()
-                        .frame(width: 32, height: 32)
-                        .padding(7)
-                        .background(.whiteColour.opacity(0.2))
+                        .scaledToFill()
+                        .frame(width: 21, height: 21)
+                        .padding(2)
+                        .background(.whiteColour.opacity(0.1))
                         .cornerRadius(32)
                         .overlay {
                             RoundedRectangle(cornerRadius: 32)
-                                .strokeBorder(.whiteColour.opacity(0.5))
+                                .strokeBorder(.whiteColour.opacity(0.2))
                         }
                 }
                 
@@ -165,13 +165,13 @@ struct PremiumScreen: View {
                 } label: {
                     Text("Restore")
                         .padding(.horizontal)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 8)
                         .font(.system(size: 14, weight: .medium))
-                        .background(.whiteColour.opacity(0.2))
+                        .background(.whiteColour.opacity(0.1))
                         .cornerRadius(8)
                         .overlay {
                             RoundedRectangle(cornerRadius: 8)
-                                .strokeBorder(.whiteColour.opacity(0.5))
+                                .strokeBorder(.whiteColour.opacity(0.2))
                         }
                 }
             }
